@@ -52,9 +52,10 @@ export function mountLibrary() {
     tabs.forEach(tab => {const selected = tab.dataset.libraryKind === kind; tab.setAttribute('aria-selected', String(selected)); tab.tabIndex = selected ? 0 : -1;});
     $('library-panel').setAttribute('aria-labelledby', `library-${kind}`);
     $('starred-sort').hidden = kind !== 'dictionary';
+    $('library-sort').value = kind === 'snippet' && library.sort === 'starred' ? '' : library.sort;
     $('add-entry').textContent = kind === 'dictionary' ? 'Add word' : 'Add snippet';
     $('library-help').textContent = kind === 'dictionary' ? 'Keep preferred spellings and replace recurring mistakes after recognition. These rules do not train your browser’s speech service.' : 'Speak a phrase to insert saved text. Expansions preserve their casing and line breaks. Choose a distinctive phrase.';
-    const entries = library.list(kind, $('library-search').value, $('library-sort').value);
+    const entries = library.list(kind, $('library-search').value);
     const list = $('entry-list'); list.replaceChildren();
     $('library-empty').hidden = entries.length > 0;
     $('library-empty').textContent = library.entries.some(entry => entry.kind === kind) ? 'No matching entries. Try another search.' : `No ${kind === 'dictionary' ? 'words' : 'snippets'} yet. Add your first one to try it.`;
@@ -81,7 +82,6 @@ export function mountLibrary() {
   tabs.forEach((tab,index) => {
     const select = target => {
       kind = target.dataset.libraryKind;
-      if (kind === 'snippet' && $('library-sort').value === 'starred') $('library-sort').value = 'newest';
       resetForm(); render(); target.focus();
     };
     tab.addEventListener('click', () => select(tab));
@@ -106,7 +106,9 @@ export function mountLibrary() {
     if (event.key === 'Escape') {event.preventDefault(); resetForm();}
   });
   $('library-search').addEventListener('input', render);
-  $('library-sort').addEventListener('change', render);
+  $('library-sort').addEventListener('change', () => {
+    if (!act(() => library.setSort($('library-sort').value))) render();
+  });
   $('remember-library').addEventListener('change', () => {
     act(() => {library.setRemember($('remember-library').checked); say(library.remember ? 'This library will stay in this browser.' : 'Saved copy removed. Current entries remain available until you close this page.');});
     $('remember-library').checked = library.remember;

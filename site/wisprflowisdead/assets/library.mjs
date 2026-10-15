@@ -1,6 +1,7 @@
 import {cleanText} from './text.mjs';
 
 export const LIBRARY_KEY = 'wisprflowisdead.library.v1';
+const sorts = ['newest', 'oldest', 'alphabetical', 'starred'];
 const key = text => text.trim().replace(/\s+/g, ' ').normalize('NFC').toLowerCase();
 const standalone = text => key(text).replace(/[^\p{L}\p{N}]/gu, '');
 const escaped = text => text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -20,13 +21,13 @@ function validate(entry) {
 export class Library {
   constructor({storage, id = () => crypto.randomUUID(), now = Date.now} = {}) {
     Object.assign(this, {storage, id, now});
-    this.entries = []; this.remember = false; this.corrupt = false; this.saved = null;
+    this.entries = []; this.sort = 'newest'; this.remember = false; this.corrupt = false; this.saved = null;
   }
   load() {
     let saved;
     try {saved = this.storage?.getItem(LIBRARY_KEY) ?? null;}
     catch {throw Error('Browser storage cannot be read. You can keep working in this page without saving.');}
-    if (saved === null) {this.entries = []; this.saved = null; this.remember = false; this.corrupt = false; return;}
+    if (saved === null) {this.entries = []; this.sort = 'newest'; this.saved = null; this.remember = false; this.corrupt = false; return;}
     try {
       if (saved.length > 5_000_000) throw Error('Too large');
       const data = JSON.parse(saved);
@@ -38,17 +39,18 @@ export class Library {
         ids.add(entry.id); triggers.add(key(valid.trigger));
         return {...valid, id:entry.id, updatedAt:entry.updatedAt};
       });
-      this.entries = entries; this.remember = true; this.saved = saved; this.corrupt = false;
+      this.entries = entries; this.sort = sorts.includes(data.sort) ? data.sort : 'newest';
+      this.remember = true; this.saved = saved; this.corrupt = false;
     } catch {
       this.corrupt = true;
       throw Error('The saved library could not be read. It has not been overwritten. Clear the library to start again, or keep working without saving.');
     }
   }
-  persist(entries) {
+  persist(entries, sort = this.sort) {
     if (!this.storage) throw Error('Browser storage is unavailable. Keep the library in this page for now.');
     if (this.corrupt) throw Error('Clear the unreadable saved library before enabling storage.');
     if (this.storage.getItem(LIBRARY_KEY) !== this.saved) throw Error('The library changed in another tab. Reload its latest entries before saving.');
-    const data = JSON.stringify({version:1, entries});
+    const data = JSON.stringify({version:1, entries, sort});
     try { this.storage.setItem(LIBRARY_KEY, data); }
     catch { throw Error('The library could not be saved. Check browser storage permissions or available space. Your previous entries are unchanged.'); }
     this.saved = data;
@@ -63,6 +65,12 @@ export class Library {
     this.remember = remember;
   }
   commit(entries) { if (this.remember) this.persist(entries); this.entries = entries; }
+  setSort(sort) {
+    if (!sorts.includes(sort)) throw Error('Choose an available sort order.');
+    if (sort === this.sort) return;
+    if (this.remember) this.persist(this.entries, sort);
+    this.sort = sort;
+  }
   save(entry, expectedUpdate) {
     const valid = validate(entry), current = this.entries.find(item => item.id === entry.id);
     if (entry.id && !current) throw Error('This entry no longer exists. Cancel editing and add it again.');
@@ -76,9 +84,9 @@ export class Library {
   remove(id) { this.commit(this.entries.filter(entry => entry.id !== id)); }
   clear() {
     // Only this feature's key is removed; unrelated IsDead app data is untouched.
-    this.setRemember(false); this.entries = [];
+    this.setRemember(false); this.entries = []; this.sort = 'newest';
   }
-  list(kind, query = '', sort = 'newest') {
+  list(kind, query = '', sort = this.sort) {
     const search = key(query);
     return this.entries.filter(item => item.kind === kind && key(item.trigger+' '+item.value).includes(search)).sort((a,b) => {
       if (sort === 'starred' && a.starred !== b.starred) return Number(b.starred)-Number(a.starred);
