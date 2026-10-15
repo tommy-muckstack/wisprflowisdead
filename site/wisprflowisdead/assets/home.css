@@ -26,8 +26,8 @@
 }
 /* Mobile uses flowing feature panels instead of the desktop pinned presentation. */
 @media(max-width:600px){
-  .home-page .banner{height:37px}
-  .home-page .nav{width:calc(100% - 42px);max-width:420px;height:54px;margin-top:13px;padding:0 6px 0 14px;border-radius:10px}
+  .home-page .banner{height:37px;min-height:37px}
+  body.home-page .nav{width:calc(100% - 42px);max-width:420px;height:54px;margin-top:13px;padding:0 6px 0 14px;border-radius:10px}
   .home-page .nav .logo{font-size:17px}
   .home-page .nav>.btn.sm{height:34px;padding:0 10px;font-size:13px;gap:5px}
   .home-page .nav .burger{margin-left:4px;padding:10px 9px}
@@ -78,7 +78,7 @@
   .home-page .tile{padding:32px;border-radius:24px}
   .home-page .tile h3{font-size:32px;line-height:.95;letter-spacing:-.03em}
   .home-page .sect-trust{padding:0 20px 64px;min-height:440px}
-  .home-page .trust{margin:0;padding:32px;gap:24px;border-radius:24px;min-height:376px}
+  .home-page .trust{margin:0;padding:32px;gap:24px;border-radius:24px;min-height:376px;align-items:start;align-content:start}
   .home-page .trust>*{min-width:0}
   .home-page .trust h2{font-size:32px;line-height:.95;letter-spacing:-.03em}
   .home-page .trust p{font-size:14px;line-height:18.2px}
@@ -95,4 +95,12 @@
   .home-page .final h2{padding-top:0;font-size:56px;line-height:.85;letter-spacing:-.03em}
   .home-page .final p{font-size:16px;line-height:20.8px}
   .home-page .final pre{max-width:100%}
+}
+@media(max-width:360px){
+  .home-page .nav .logo{font-size:15px}
+  .home-page .nav>.btn.sm{padding:0 8px;font-size:12px}
+  .home-page .nav>.btn.sm svg{display:none}
+  .home-page .hero{height:617px}
+  .home-page .mobile-ribbon{top:398px}
+  .home-page .mic{top:526px}
 }

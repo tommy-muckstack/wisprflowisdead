@@ -62,6 +62,10 @@ try {
         entry.fullImage = `${target}-home-${width}-full.png`;
         entry.fullCapture = 'After scrolling for lazy content; initial viewport retained separately';
         await page.screenshot({path:path.join(output,entry.fullImage),fullPage:true});
+        // A small review copy is readable through repository APIs with file-size limits.
+        // Shared parity still scores its original, lossless PNGs independently.
+        entry.reviewImage = `${target}-home-${width}-review.jpg`;
+        await page.screenshot({path:path.join(output,entry.reviewImage),fullPage:true,type:'jpeg',quality:70});
       }
       if (item.name === 'pricing') {
         // Keep full-page geometry available through the evidence branch for visual review.

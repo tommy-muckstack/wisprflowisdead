@@ -60,6 +60,16 @@ try {
           'Source-build instructions are clipped by the download section');
       }
       if (width === 390) {
+        await page.setViewportSize({width:320,height:844});
+        await noOverflow(page);
+        const logo = await page.locator('.nav .logo').boundingBox();
+        const cta = await page.locator('.nav > .btn').boundingBox();
+        const toggle = await page.locator('.nav .burger').boundingBox();
+        assert.ok(cta.x >= logo.x + logo.width && toggle.x >= cta.x + cta.width && toggle.x + toggle.width <= 320,
+          'Narrow navigation overlaps or puts its menu outside the viewport');
+        await page.evaluate(() => window.scrollTo({top:0,behavior:'instant'}));
+        await page.screenshot({path:path.join(output,'home-320.png')});
+        await page.setViewportSize({width,height:844});
         const panels = await page.locator('.stage-in').evaluateAll(elements => elements.map(element => {
           const box = element.getBoundingClientRect(); return {top:box.top,bottom:box.bottom};
         }));
