@@ -72,6 +72,19 @@ try {
         entry.fullImage = `${target}-pricing-${width}-full.png`;
         await page.screenshot({path:path.join(output,entry.fullImage),fullPage:true});
       }
+      if (item.name === 'home' || item.name === 'pricing') {
+        // A viewport-sized crop keeps the download artwork reviewable at its rendered scale.
+        const selector = target === 'original' ? '.section_startflowing' : item.name === 'home' ? '.final' : '.pr-cta';
+        const section = page.locator(selector).first();
+        await section.evaluate(element => window.scrollTo({top:element.getBoundingClientRect().top + scrollY,behavior:'instant'}));
+        await page.waitForTimeout(300);
+        entry.downloadImage = `${target}-${item.name}-${width}-download.png`;
+        await page.screenshot({path:path.join(output,entry.downloadImage)});
+        entry.downloadSection = await section.evaluate(element => {
+          const box = element.getBoundingClientRect(), style = getComputedStyle(element);
+          return {x:box.x,y:box.y,width:box.width,height:box.height,backgroundImage:style.backgroundImage,backgroundSize:style.backgroundSize};
+        });
+      }
     } catch (error) {entry.failure = error.message.slice(0,500);}
     results.push(entry); await context.close();
     fs.writeFileSync(path.join(output,'inventory.json'), JSON.stringify(results,null,2));

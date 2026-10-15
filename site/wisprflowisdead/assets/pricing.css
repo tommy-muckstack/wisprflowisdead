@@ -95,7 +95,7 @@
 .fqq{text-align:right;font-size:13px;margin-top:18px;opacity:.85}
 .fbub{margin-top:10px;background:#F2F2EA;border-radius:8px;padding:12px;font-size:13px;line-height:18px;font-weight:500}
 .fav{display:flex;width:22px;height:22px;border-radius:50%;background:var(--gr);color:var(--bg);align-items:center;justify-content:center;font-size:11px;margin-top:6px}
-.pr-cta{height:788px;border-radius:80px;text-align:center;color:var(--bg);padding-top:268px;position:relative;overflow:hidden;background:radial-gradient(60% 55% at 20% 25%,#C07A3A,transparent 70%),radial-gradient(40% 50% at 78% 70%,#B5532A,transparent 70%),radial-gradient(35% 40% at 40% 20%,#0F3B45,transparent 70%),radial-gradient(40% 40% at 60% 100%,#1E2A5E,transparent 70%),#3a2216}
+.pr-cta{height:788px;border-radius:80px;text-align:center;color:var(--bg);padding-top:268px;position:relative;overflow:hidden;background:#263332 linear-gradient(#10231f70,#151b1866) center/cover;background-image:linear-gradient(#10231f70,#151b1866),url("download-studio-v1.webp")}
 .pr-cta h2{font-size:120px;line-height:102px;letter-spacing:-.03em;max-width:1024px;margin:0 auto}
 .pr-cta .btn{margin-top:60px;height:50px;font-size:15px}
 
@@ -149,5 +149,5 @@
 .fq{display:block;background:none!important;padding:14px 10px;min-height:0;font-size:14px;line-height:18px}
 .fq::after{content:"⌄";float:right}.fq.on::after{transform:rotate(180deg);display:inline-block}
 .fa{display:none;padding:0 10px 12px;font-size:13px;line-height:18px;opacity:.85}.fq.on+.fa{display:block}
-.pr-cta{height:435px;border-radius:40px;padding:64px 20px 0}.pr-cta h2{font-size:56px;line-height:56px}.pr-cta .btn{margin-top:32px}
+.pr-cta{height:auto;min-height:435px;border-radius:40px;padding:104px 20px 64px}.pr-cta h2{font-size:56px;line-height:.85}.pr-cta .btn{margin-top:40px}
 }

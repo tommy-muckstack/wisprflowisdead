@@ -41,3 +41,5 @@ Login raw captures preserve both initial and settled forms. Clone captures recor
 [Run 38794977597](https://github.com/tommy-muckstack/wisprflowisdead/actions/runs/38794977597) passed both auth smokes, including account deletion and session cleanup, and all six anonymous browser groups. Its visual gate still failed; see `docs/PARITY_REPORT.md` for scores and the original-form capture correction.
 
 Cleanup reference: [Firebase Auth REST account deletion](https://firebase.google.com/docs/reference/rest/auth#section-delete-account).
+
+Raw home/pricing captures also include `*-download.png`: an ordinary viewport screenshot scrolled to the download section, with its bounds and background styles recorded in `raw/inventory.json`. These keep artwork and typography reviewable without shrinking a full-page image. They do not replace or alter the shared parity screenshots.
