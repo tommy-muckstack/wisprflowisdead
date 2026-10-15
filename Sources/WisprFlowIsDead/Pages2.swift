@@ -25,24 +25,13 @@ final class AudioPlayback: NSObject, ObservableObject, AVAudioPlayerDelegate {
     }
 }
 
-/// The app mark drawn in code (no image assets): a dark pill with five
-/// sound bars, the last one tipped over.
+/// The project-owned tombstone mark, shared with the website and Dock icon.
 struct AppMark: View {
     var body: some View {
-        GeometryReader { g in
-            let w = g.size.width
-            ZStack {
-                RoundedRectangle(cornerRadius: w * 0.24, style: .continuous).fill(Theme.ink)
-                HStack(alignment: .bottom, spacing: w * 0.04) {
-                    ForEach([0.25, 0.42, 0.33, 0.47], id: \.self) { h in
-                        Capsule().fill(Theme.cream).frame(width: w * 0.064, height: w * h)
-                    }
-                    Capsule().fill(Theme.orange).frame(width: w * 0.27, height: w * 0.064)
-                }
-                .offset(y: w * 0.04)
-            }
-        }
-        .aspectRatio(1, contentMode: .fit)
+        Image(nsImage: BrandAssets.icon)
+            .resizable()
+            .aspectRatio(1, contentMode: .fit)
+            .accessibilityHidden(true)
     }
 }
 

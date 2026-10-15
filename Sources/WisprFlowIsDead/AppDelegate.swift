@@ -74,7 +74,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
     private func setUpStatusItem() {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
-        statusItem.button?.image = NSImage(systemSymbolName: "waveform", accessibilityDescription: "WisprFlowIsDead")
+        statusItem.button?.image = BrandAssets.menuBarIcon()
         let menu = NSMenu()
         menu.addItem(item("Open WisprFlowIsDead", #selector(openHub)))
         menu.addItem(item("Shortcuts…", #selector(openSettings)))

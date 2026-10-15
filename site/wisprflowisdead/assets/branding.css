@@ -1,0 +1,11 @@
+/* User-supplied tombstone identity. Waveforms elsewhere indicate recording activity. */
+.brand-mark{display:inline-block;width:24px;height:24px;object-fit:contain;flex:none;vertical-align:middle}
+.brand{display:inline-flex;align-items:center;gap:6px}
+.auth-pg .brand-mark{width:30px;height:30px}
+.account-brand{display:inline-flex;align-items:center;gap:8px;width:fit-content;font-weight:600;text-decoration:none;color:#034F46}
+.account-brand .brand-mark{width:32px;height:32px}
+.ft-big .footer-mark{position:absolute;left:76px;top:0;width:264px;height:264px;object-fit:contain}
+@media(max-width:600px){
+  .nav .logo .brand-mark{width:20px;height:20px}
+  .ft-big .footer-mark{left:0;top:0;width:100px;height:100px}
+}

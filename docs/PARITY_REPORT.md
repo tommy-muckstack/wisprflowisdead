@@ -37,6 +37,7 @@ Status is `match`, `differs`, or `missing`. `Differs` includes implementations a
 
 | Page / feature | Status | Severity | Evidence / remaining work | Screenshots / score |
 |---|---|---|---|---|
+| Website/native branding and icons | differs | P2 | User-requested tombstone replaces the waveform identity; intentional exception E11, assets inspected, rendered verification pending | N/M |
 | Home: banner, navigation, menus | differs | P1 | Navigation change removes auth-driven crowding, preserves single-line CTA, adds disclosure state/Escape; screenshot verification pending | N/M |
 | Home: hero layout, type, colors, spacing | differs | P1 | `site.css`: manually tuned layout; current original measurement required | N/M |
 | Home: hero art and animation | differs | P2 | Original SVG lettering and CSS wave bars; E1 | N/M |
@@ -140,6 +141,8 @@ These document constraints, not a blanket waiver for unfinished work. Outstandin
 - **E9 — microphone/language support:** browser recognition support and device selection differ by engine. Detect capabilities, expose only working settings, and provide a typed practice fallback. Test real microphone permission and audio on a supported browser.
 - **E10 — organization-only destinations:** merchandise, sales, hiring, affiliates and bounties cannot be fabricated. Proposed exception is a clear project information/support destination or omission, subject to maintainer review.
 
+- **E11 — owner-requested identity:** use the supplied tombstone/X mark in the reference palette instead of any Wispr-style brand icon. This is an explicitly requested difference. Keep functional recording waveforms and third-party provider/OS logos; use a macOS template tint for the menu bar.
+
 ## Changes and verification ledger
 
 ### Account recovery
@@ -180,7 +183,7 @@ Draft PR: [#3](https://github.com/tommy-muckstack/wisprflowisdead/pull/3), stack
 
 ### Login, signup and email recovery
 
-Draft branch: `qa/login-recovery`, stacked on #3.
+Draft PR: [#4](https://github.com/tommy-muckstack/wisprflowisdead/pull/4), stacked on #3.
 
 - Before: duplicate body markup, uncaught SDK/config failures, no retry or pending lock, password fields could be submitted inconsistently, session failure after account creation could trigger a second signup attempt, and return URLs accepted backslashes.
 - After: explicit setup/loading/retry, native email/password validation, email correction, independent reset view, request locks, clear provider/network/error messages, signup-created confirmation with verification-link resend, and session retry without recreating the account. Successful sessions return to the account page or a validated local application route. The in-memory SDK is signed out after the server cookie is established.
@@ -189,6 +192,17 @@ Draft branch: `qa/login-recovery`, stacked on #3.
 - `npm run lint --prefix site`, `npm run build --prefix site`, and `git diff --check`: passed. `npm test --prefix site`: **25 passed**, including ten auth state/redirect/session-exchange regression tests. Firebase methods and fetch responses are mocked; these do not establish real signup, email delivery or Google OAuth success.
 - Shared live smoke was attempted and stopped at the same Chromium Mach-port launch failure before navigation or account creation. Screenshots and scores remain unavailable, **N/M → N/M**. No secrets, Firebase provider settings, API payment behavior or cookie policy are changed.
 - References: [Google button guidelines](https://developers.google.com/identity/branding-guidelines), [Firebase user management](https://firebase.google.com/docs/auth/web/manage-users), [Firebase session cookies](https://firebase.google.com/docs/auth/admin/manage-cookies).
+
+### Tombstone branding
+
+Draft branch: `qa/tombstone-branding`, stacked on #4.
+
+- The owner supplied a tombstone with transparent X and explicitly requested it anywhere a Wispr-style icon would otherwise appear. Built-in imagegen created the green mark and lavender app tile. [Branding provenance and prompts](BRANDING.md) record source, palette, master assets, and packaging.
+- Replaced header identity on home/pricing/login/demo, footer brand marks on home/pricing, and added the mark to account panels. All five pages reference the new 64px favicon and 180px Apple touch icon. The 1024px site icon uses the same app tile.
+- Native Dock icon master, sidebar mark, welcome mark, and menu-bar icon use the tombstone. The resource bundle explicitly includes Branding; the menu bar uses a system template tint. Recording activity waveforms and third-party sign-in/OS icons remain functional symbols.
+- `bash scripts/build-icons.sh`, shell/Swift syntax checks, website lint/build, **25 website tests**, and whitespace checks passed. PNG dimensions and alpha were checked; generated icon previews were inspected. `swift build` **passed** using cached FluidAudio dependencies, with pre-existing Combine/async-lock/resource warnings.
+- macOS `iconutil` rejected both the new ten-size iconset and an identical control built from the previous icon. Escalation did not change the result. Final ICNS/Dock/menu-bar appearance is therefore not verified in this environment; no installed app was modified.
+- Shared live auth smoke was attempted before publication and again failed at Chromium launch before navigation/account creation. Browser screenshots/computed styles and parity remain **N/M → N/M**. The app-icon asset previews are not website screenshots; E11 is the requested identity exception.
 
 ## Next verification gates
 

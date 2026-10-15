@@ -11,6 +11,7 @@ CONFIG="${CONFIG:-debug}"
 BUILD_DIR=".build/$CONFIG"
 APP_DIR=".build/app/$APP_NAME.app"
 
+bash scripts/build-icons.sh
 swift build -c "$CONFIG"
 
 pkill -f "$APP_NAME.app/Contents/MacOS/$APP_NAME" 2>/dev/null || true
