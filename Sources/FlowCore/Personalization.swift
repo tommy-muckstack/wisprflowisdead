@@ -81,7 +81,9 @@ public enum PersonalDictionary {
         let a = original.split(separator: " ").map(String.init)
         let b = edited.split(separator: " ").map(String.init)
         guard a.count == b.count else { return nil }
-        let diffs = zip(a, b).filter { $0 != $1 }
+        let diffs = zip(a, b).filter {
+            $0.trimmingCharacters(in: .punctuationCharacters) != $1.trimmingCharacters(in: .punctuationCharacters)
+        }
         guard diffs.count == 1, let (wrong, right) = diffs.first else { return nil }
         let clean = right.trimmingCharacters(in: .punctuationCharacters)
         let wrongClean = wrong.trimmingCharacters(in: .punctuationCharacters)

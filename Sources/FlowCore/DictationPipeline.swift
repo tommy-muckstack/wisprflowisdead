@@ -18,6 +18,8 @@ public struct DictationPipeline: Sendable {
     public var cleanup: CleanupLevel
     public var snippets: [Snippet]
     public var dictionary: [DictionaryEntry]
+    /// Proper nouns seen around the cursor (context awareness).
+    public var contextTerms: [String] = []
 
     public init(style: WritingStyle, category: AppCategory, cleanup: CleanupLevel,
                 snippets: [Snippet], dictionary: [DictionaryEntry]) {
@@ -42,6 +44,7 @@ public struct DictationPipeline: Sendable {
         let (expanded, fired) = SnippetExpander.expand(text, snippets: snippets)
         let (spelled, used) = PersonalDictionary.apply(expanded, entries: dictionary)
         text = spelled
+        if !contextTerms.isEmpty { text = DictationCleanup.applyVocabulary(text, terms: contextTerms) }
         if cleanup != .none {
             text = ListFormatter.apply(text)
             text = WritingStyler.apply(style, to: text, category: category)

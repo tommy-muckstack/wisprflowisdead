@@ -1,7 +1,7 @@
 import Foundation
 
 public struct Transcript: Codable, Equatable, Identifiable, Sendable {
-    public enum Status: String, Codable, Sendable { case inserted, copied, failed, cancelled }
+    public enum Status: String, Codable, Sendable { case inserted, copied, failed, cancelled, pending }
     public var id: UUID
     public var date: Date
     /// What the speech engine heard.

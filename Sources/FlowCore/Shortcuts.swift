@@ -84,7 +84,7 @@ public struct Shortcut: Hashable, Codable, Sendable {
 }
 
 public enum ShortcutAction: String, CaseIterable, Codable, Sendable, Identifiable {
-    case pushToTalk, handsFree, commandMode, pasteLast, copyLast, cancel, pressEnter
+    case pushToTalk, handsFree, commandMode, pasteLast, copyLast, cancel, pressEnter, openScratchpad, runTransform
     public var id: String { rawValue }
 
     public var title: String {
@@ -96,6 +96,8 @@ public enum ShortcutAction: String, CaseIterable, Codable, Sendable, Identifiabl
         case .copyLast: return "Copy last transcript"
         case .cancel: return "Cancel"
         case .pressEnter: return "Press Enter"
+        case .openScratchpad: return "Open Scratchpad"
+        case .runTransform: return "Transform selection"
         }
     }
 
@@ -104,7 +106,7 @@ public enum ShortcutAction: String, CaseIterable, Codable, Sendable, Identifiabl
     public var requiresBinding: Bool {
         switch self {
         case .pushToTalk, .commandMode, .pasteLast, .copyLast, .cancel: return true
-        case .handsFree, .pressEnter: return false
+        case .handsFree, .pressEnter, .openScratchpad, .runTransform: return false
         }
     }
 }
@@ -136,12 +138,22 @@ public struct ShortcutSet: Codable, Equatable, Sendable {
 
     public init(bindings: [ShortcutAction: [Shortcut]]) { self.bindings = bindings }
 
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        var b = try c.decode([ShortcutAction: [Shortcut]].self, forKey: .bindings)
+        // Actions added in later versions get their defaults.
+        for (action, list) in ShortcutSet.defaults().bindings where b[action] == nil { b[action] = list }
+        bindings = b
+    }
+
     public static func defaults(hasFnKey: Bool = true) -> ShortcutSet {
         var b: [ShortcutAction: [Shortcut]] = [
             .pasteLast: [Shortcut(.command, .control, .character("v"))],
             .copyLast: [Shortcut(.command, .control, .character("c"))],
             .cancel: [Shortcut(.escape)],
             .pressEnter: [],
+            .openScratchpad: [Shortcut(.option, .character("s"))],
+            .runTransform: [Shortcut(.command, .control, .character("t"))],
         ]
         if hasFnKey {
             b[.pushToTalk] = [Shortcut(.fn)]
