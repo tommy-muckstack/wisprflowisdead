@@ -4,12 +4,12 @@
 .pricing-page .nav .links a.cur{color:#1A1A1A;font-weight:600}
 .pr-top{position:relative;max-width:1440px;margin:0 auto;text-align:center;padding:120px 100px 0;overflow-x:clip}
 .pr-top::before{content:"";position:absolute;left:50%;top:90px;width:1000px;height:1000px;margin-left:-240px;border-radius:50%;border:100px solid #F4F4E2;z-index:-1;pointer-events:none}
-.pr-top h1{font-size:96px;line-height:91.2px;letter-spacing:-.03em}
+.pr-top h1{font-size:96px;line-height:91.2px;letter-spacing:-.05em}
 .pr-top .sub{font-size:20px;font-weight:500;line-height:26px;max-width:768px;margin:33px auto 0}
-.ptabs{display:inline-flex;margin-top:40px;height:49px;width:257px;padding:4px;border:2px solid var(--bei);border-radius:14px;background:var(--bg);gap:4px;align-items:center}
-.ptabs .pt{flex:none;height:33px;display:flex;align-items:center;justify-content:center;gap:6px;border-radius:8px;font-size:12px;font-weight:600;padding:0 12px;cursor:pointer;white-space:nowrap}
-.ptabs .pt.on{background:var(--li)}.ptabs .pt span{font-size:10px;font-weight:500}
-.pgrid{display:grid;grid-template-columns:repeat(4,298px);gap:16px;justify-content:center;margin-top:79px;text-align:left}
+.ptabs{display:inline-flex;margin-top:40px;padding:4px;border:2px solid var(--bei);border-radius:14px;background:var(--bg);align-items:center}
+.ptabs .pt{flex:none;display:flex;align-items:center;justify-content:center;gap:6px;border-radius:8px;font-size:16px;font-weight:600;line-height:1.3;padding:8px 12px;cursor:pointer;white-space:nowrap}
+.ptabs .pt.on{background:var(--li)}.ptabs .pt span{font-size:14px;font-weight:500}
+.pgrid{display:grid;grid-template-columns:repeat(4,298px);gap:16px;justify-content:center;margin-top:83px;text-align:left}
 .pcw{position:relative}
 .pcard2{height:608px;border:2px solid #1A1A1A;border-radius:32px;background:var(--bg);padding:32px 30px 0;display:flex;flex-direction:column}
 .pcard2.lt{border-color:var(--bei)}
@@ -37,6 +37,7 @@
 .avail h2{font-size:48px;line-height:1.05;letter-spacing:-.02em}
 .avail .am{position:absolute;left:480px;top:99px;font-size:14px;line-height:18px;width:340px;font-weight:500}
 .avail .am p{margin:0 0 18px}.avail .am b{font-weight:500}
+.reference-note+.avail{margin-top:106px}
 .aart{position:absolute;right:48px;top:76px;width:280px;height:170px}
 .pr-top{padding-bottom:116px}
 .pr-cmp{max-width:1440px;margin:0 auto;padding:0 100px 111px;text-align:center}
@@ -101,16 +102,18 @@
 .seeall,.fa,.msm{display:none}
 
 @media (max-width:900px){
-.pr-top{padding:70px 20px 72px;overflow-x:clip}.pr-top h1{font-size:64px;line-height:60px}.pr-top::before{display:none}
-.pr-top .sub{font-size:16px;line-height:22px;margin-top:20px}
-.ptabs{margin-top:78px}
-.pgrid{grid-template-columns:1fr;gap:51px;margin-top:24px}
+.pr-top{padding:70px 20px 72px;overflow-x:clip}.pr-top h1{font-size:48px;line-height:45.6px}.pr-top::before{display:none}
+.pr-top .sub{font-size:18px;line-height:23.4px;margin-top:32px}
+.ptabs{margin-top:56px}.ptabs .pt{font-size:14px}
+.pgrid{grid-template-columns:1fr;gap:51px;margin-top:48px}
 .pcw:nth-child(2){margin-bottom:31px}
 .pcard2{height:auto;padding:58px 32px 0;text-align:center;display:block}
 .pcw:nth-child(1) .pcard2{min-height:286px}.pcw:nth-child(2) .pcard2{min-height:315px}.pcw:nth-child(3) .pcard2{min-height:318px}.pcw:nth-child(4) .pcard2{min-height:291px}
 .eye{margin:0;line-height:18px}
 .ctop{height:auto}
-.price{margin-top:10px}
+.price{margin-top:10px;font-size:48px;line-height:45.6px}
+.pcw:first-child .price small{font-size:inherit}
+.ptag{height:36px;min-width:72px;top:-18px;border-radius:100px;font-size:16px;box-shadow:1.1px 1.1px 1.1px rgb(0 0 0 / .3)}
 .cnote{height:30px;margin:0}
 .tgl{justify-content:center;height:32px;margin:0}
 .pbtn{margin:24px 13px 0;width:auto}
@@ -119,6 +122,7 @@
 .seeall i{font-style:normal;font-size:14px}
 .pitems{display:none;text-align:left;padding-bottom:20px}.pcard2.open .pitems{display:block}.pcard2.open .seeall i{transform:rotate(180deg)}
 .avail{width:auto;height:480px;margin:87px 0 0;display:block;padding:32px;overflow:hidden}.avail .al{padding:0}.avail h2{font-size:30px;line-height:30.5px}
+.reference-note+.avail{margin-top:30px}
 .avail .am{position:static;margin-top:32px;width:auto;font-size:14px}.avail .am p{margin:0 0 18px}.aart{position:absolute;left:50%;margin-left:-100px;right:auto;top:auto;bottom:20px;width:200px;height:130px}
 .pr-cmp{padding:0 20px 73px}.pr-cmp>h2{font-size:40px;line-height:40px}
 .mega{margin:56px 0 0;overflow:visible}

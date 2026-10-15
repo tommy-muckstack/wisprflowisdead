@@ -23,6 +23,11 @@ try {
       entry.links = await page.locator('nav a,header a,footer a').evaluateAll(links => links.map(link => ({text:link.textContent.trim(),href:link.href,visible:!!(link.getBoundingClientRect().width && link.getBoundingClientRect().height)})));
       entry.image = `${target}-${item.name}-${width}.png`;
       await page.screenshot({path:path.join(output,entry.image)});
+      if (item.name === 'pricing') {
+        // Keep full-page geometry available through the evidence branch for visual review.
+        entry.fullImage = `${target}-pricing-${width}-full.png`;
+        await page.screenshot({path:path.join(output,entry.fullImage),fullPage:true});
+      }
     } catch (error) {entry.failure = error.message.slice(0,500);}
     results.push(entry); await context.close();
     fs.writeFileSync(path.join(output,'inventory.json'), JSON.stringify(results,null,2));

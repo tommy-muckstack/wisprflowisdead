@@ -10,7 +10,7 @@ const results = [];
 const browser = await chromium.launch();
 
 async function check(name, width, route, task) {
-  const context = await browser.newContext({viewport:{width,height:width === 390 ? 844 : 900},locale:'en-US'});
+  const context = await browser.newContext({viewport:{width,height:width === 390 ? 844 : 900},isMobile:width === 390,hasTouch:width === 390,locale:'en-US'});
   const page = await context.newPage(); page.setDefaultTimeout(10000);
   const errors = []; page.on('pageerror', error => errors.push(error.message));
   const result = {name,width,passed:false,errors};
@@ -65,7 +65,6 @@ try {
       }
     });
     await check('pricing',width,'/pricing',async page => {
-      await noOverflow(page);
       await page.locator('[data-billing="monthly"]').click();
       assert.deepEqual(await page.locator('[data-price="pro"]').allTextContents(),['$15','$15']);
       assert.deepEqual(await page.locator('[data-price="growth"]').allTextContents(),['$33','$33']);
@@ -84,10 +83,17 @@ try {
         await second.click(); assert.equal(await second.getAttribute('aria-expanded'),'false');
         const cards = page.locator('.seeall'); assert.equal(await cards.count(),4);
         await cards.nth(0).click(); assert.equal(await page.locator('#plan-features-0').isVisible(),true);
+        const comparison = page.locator('.table-scroll');
+        await comparison.evaluate(element => {element.scrollLeft = element.scrollWidth;});
+        const region = await comparison.boundingBox();
+        const enterprise = await page.locator('.topwrap .th').last().boundingBox();
+        assert.ok(enterprise.x >= region.x && enterprise.x + enterprise.width <= region.x + region.width,
+          'Enterprise comparison cannot be reached in the mobile scroll region');
       } else {
         assert.equal(await second.getAttribute('aria-selected'),'true');
         assert.equal(await page.locator('#faq-answer').getAttribute('aria-labelledby'),await second.getAttribute('id'));
       }
+      await noOverflow(page);
     });
     await check('demo',width,'/demo',async page => {
       await page.getByRole('button',{name:'Skip setup',exact:true}).click();

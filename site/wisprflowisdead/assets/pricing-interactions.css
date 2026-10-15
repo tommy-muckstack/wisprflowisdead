@@ -13,7 +13,7 @@
 .pricing-page .tgl input:disabled{cursor:default}
 .pricing-page .pcard2{height:auto;min-height:608px;padding-bottom:24px}
 .pricing-page .cmpnote{display:block}
-.table-scroll{overflow:auto;max-width:100%;padding:4px}
+.table-scroll{position:relative;overflow:auto;max-width:100%}
 .reference-table{min-width:1240px}
 .pricing-page .roi-card{height:auto;min-height:347px}
 .pricing-page .pr-roi{height:auto;min-height:804px;padding-bottom:64px}
@@ -42,15 +42,15 @@
   .pricing-page .roi-in,.pricing-page .faq-in{width:100%}
 }
 @media(max-width:900px){
-  .pricing-page .pcard2{min-height:0}
-  .pricing-page .reference-table{min-width:780px}
-  .pricing-page .topwrap{grid-template-columns:200px repeat(4,145px);height:auto;min-height:151px;padding:16px 0}
-  .pricing-page .tsh{display:block;font-size:26px;line-height:1.1}
+  .pricing-page .pcard2{min-height:0;padding-bottom:0;border-radius:24px}
+  /* Three plans fit the viewport; the fourth remains reachable in the same scroll region. */
+  .pricing-page .reference-table{min-width:0;width:calc(100% * 4 / 3)}
+  .pricing-page .topwrap{grid-template-columns:repeat(4,minmax(0,1fr));padding:16px 8px}
+  .pricing-page .tsh{display:none}
   .pricing-page .th:nth-child(5),.pricing-page .tc:nth-child(5){display:flex}
-  .pricing-page .tr{grid-template-columns:200px repeat(4,145px);min-height:0!important}
-  .pricing-page .tl{grid-column:auto;font-size:14px;padding:16px}
-  .pricing-page .tc{font-size:13px;padding:16px 8px}
-  .pricing-page .th .tp{font-size:26px}
+  .pricing-page .tr{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .pricing-page .tl{position:sticky;left:0;width:75%;grid-column:1/-1}
+  .pricing-page .tgh{position:sticky;left:0;width:75%}
   .pricing-page .faq2{height:auto;overflow:visible}
   .pricing-page .fql{height:auto;overflow:visible;padding:16px 12px}
   .pricing-page .fq{min-height:44px}
