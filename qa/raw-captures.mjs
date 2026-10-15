@@ -98,6 +98,27 @@ try {
           return {x:box.x,y:box.y,width:box.width,height:box.height,backgroundImage:style.backgroundImage,backgroundSize:style.backgroundSize};
         });
       }
+      if (item.name === 'home') {
+        const selector = target === 'original' ? '.section_nt-faqs' : '.faq';
+        await page.locator(selector).first().evaluate(element => window.scrollTo({top:element.getBoundingClientRect().top + scrollY,behavior:'instant'}));
+        await page.waitForTimeout(300);
+        entry.faqImage = `${target}-home-${width}-faq.png`;
+        await page.screenshot({path:path.join(output,entry.faqImage)});
+        if (target === 'original' || target === 'candidate') {
+          const languageQuestion = target === 'original'
+            ? page.getByText('Does Flow work in other languages?',{exact:true}).first()
+            : page.locator('#home-question-2');
+          await languageQuestion.click();
+          await page.waitForTimeout(300);
+          entry.faqExpandedImage = `${target}-home-${width}-faq-language.png`;
+          await page.screenshot({path:path.join(output,entry.faqExpandedImage)});
+          entry.faqControls = await page.locator(selector).first().evaluate(section =>
+            [...section.querySelectorAll('button,[role=button],[role=tab],h3')].filter(element => element.getBoundingClientRect().height).map(element => {
+              const box = element.getBoundingClientRect(), style = getComputedStyle(element);
+              return {tag:element.tagName,text:element.textContent.trim().slice(0,120),role:element.getAttribute('role'),expanded:element.getAttribute('aria-expanded'),selected:element.getAttribute('aria-selected'),x:box.x,y:box.y,width:box.width,height:box.height,fontSize:style.fontSize,lineHeight:style.lineHeight,padding:style.padding};
+            }));
+        }
+      }
     } catch (error) {entry.failure = error.message.slice(0,500);}
     results.push(entry); await context.close();
     fs.writeFileSync(path.join(output,'inventory.json'), JSON.stringify(results,null,2));

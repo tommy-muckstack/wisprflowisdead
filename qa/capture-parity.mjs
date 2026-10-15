@@ -43,7 +43,9 @@ const candidate = report('candidate');
 let behavior;
 try {behavior = JSON.parse(fs.readFileSync(path.join(output,'behavior/report.json'),'utf8'));}
 catch {errors.push({stage:'browser interactions',message:'Missing browser behavior report'});}
-const behaviorPassed = behavior?.results?.length === 6 && behavior.results.every(result => result.passed);
+const expectedBehavior = [1440,390].flatMap(width => ['home-faq-no-js','navigation','pricing','demo'].map(name => ({name,width})));
+const behaviorPassed = behavior?.results?.length === expectedBehavior.length && expectedBehavior.every(expected =>
+  behavior.results.some(result => result.name === expected.name && result.width === expected.width && result.passed));
 if (behavior && !behaviorPassed) errors.push({stage:'browser interactions',message:'One or more browser flows failed'});
 const authExpected = process.env.RUN_AUTH_SMOKE === 'true';
 const auth = {};
