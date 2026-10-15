@@ -25,6 +25,7 @@ try {
       const response = await page.goto(entry.url, {waitUntil:'load',timeout:45000});
       entry.status = response?.status() || 0;
       await page.evaluate(() => Promise.race([document.fonts.ready,new Promise(resolve => setTimeout(resolve,5000))]));
+      entry.fontFaces = await page.evaluate(() => [...document.fonts].map(face => ({family:face.family,style:face.style,weight:face.weight,status:face.status})));
       entry.title = await page.title();
       entry.links = await page.locator('nav a,header a,footer a').evaluateAll(links => links.map(link => ({text:link.textContent.trim(),href:link.href,visible:!!(link.getBoundingClientRect().width && link.getBoundingClientRect().height)})));
       entry.image = `${target}-${item.name}-${width}.png`;

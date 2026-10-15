@@ -53,6 +53,10 @@ try {
     },{javaScriptEnabled:false});
     await check('navigation',width,'',async page => {
       await noOverflow(page);
+      await page.evaluate(async () => {
+        const faces = await document.fonts.load('italic 400 48px "IsDead EB Garamond"', 'Speak');
+        if (!faces.some(face => face.style === 'italic' && face.status === 'loaded')) throw Error('The display italic font did not load');
+      });
       const faq = page.locator('.home-faq');
       const faqQuestions = faq.locator('.home-questions button');
       assert.equal(await faqQuestions.count(),11);

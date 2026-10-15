@@ -441,6 +441,14 @@ Draft PR: [#21](https://github.com/tommy-muckstack/wisprflowisdead/pull/21), sta
 - Adds browser checks for initial state, keyboard selection, mobile open/switch/close and no-JavaScript visibility/non-clipping at both widths. The report validator now requires all eight named width/case combinations; its former fixed count of six would incorrectly reject the two new no-JavaScript cases. Raw captures add initial and expanded language-question screenshots on original/candidate. Local lint/build, QA syntax and whitespace checks pass. Required local smoke2 attempts inside/outside the sandbox failed before navigation or account creation.
 - Hosted FAQ verification and attributable scores are pending. The pre-artwork home baseline is 79.1/61.6; #20's first score excluded its missing WebP backgrounds, so its corrected run must establish the immediate baseline before attributing a change to this FAQ PR.
 
+### Display italic typography
+
+Draft PR: pending, stacked on #21.
+
+- The clone's generated font stylesheet declares only normal EB Garamond, although home/pricing headings use italic emphasis. The browser therefore synthesizes the slant. The original inventory lists two loaded EB Garamond faces, but its summary omits their style descriptors. Raw captures now retain each face’s style/weight so the next run can distinguish them. Letter shapes and some line wraps differ despite matching declared size/tracking.
+- Adds the matching OFL-licensed Latin variable italic WOFF2 (47,940 bytes), served locally at weights 400–800 with font-display swap. The existing OFL notice is byte-identical to the source license. [Font provenance](artwork/display-font.md) records the publisher, file hash and ranges. Generated design-token CSS is not edited.
+- Adds a browser assertion that the actual italic face loads, rather than treating a computed italic style as proof. Local lint/build, QA syntax and whitespace checks pass. Required shared smoke2 attempts inside/outside the sandbox failed before browser navigation/account creation. Before/after scores and heading wraps are pending the parent FAQ/artwork measurements; no numerical improvement is claimed.
+
 ### Refreshed public product reference
 
 - Checked the original [Auto Cleanup documentation](https://docs.wisprflow.ai/articles/4283510616-Auto-Cleanup:-control-how-much-Flow-edits-your-dictation), updated October 9. The desktop picker has None, Light (default) and Medium; None preserves raw speech and Medium may rephrase it. The clone has four tone styles but no separate cleanup intensity. Recovering original text after cleanup is available in the clone, but it does not replace an upfront raw-text preference. E7 explains model limits, not this missing control.
