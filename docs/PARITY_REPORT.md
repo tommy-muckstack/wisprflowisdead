@@ -521,13 +521,22 @@ Draft PR: [#26](https://github.com/tommy-muckstack/wisprflowisdead/pull/26), sta
 
 ### Pricing heading and calculator spacing
 
-Draft PR: pending, stacked on #26.
+Draft PR: [#27](https://github.com/tommy-muckstack/wisprflowisdead/pull/27), stacked on #26.
 
 - Reference: original/candidate computed styles from [run 38811855559](https://github.com/tommy-muckstack/wisprflowisdead/tree/qa/parity-evidence-38811855559-1/docs/parity/38811855559-1/styles). Original availability/security headings use 48/45.6 px desktop and 32/30.4 px mobile with -0.03em tracking. Candidate uses 48/50.4 and 30/30.5, and a 300 px desktop security column wraps to three lines instead of two. Original section titles use 75/75 desktop or 40/40 mobile with -0.03em tracking. Candidate ROI/FAQ desktop line height is 78 px.
 - Applies those measured sizes, line heights and tracking; availability gets the reference two-line break at both widths. Its desktop title column grows from 320 to 349 px. Security grows from 300 to 349 px while reducing the gap by the same 49 px, preserving the body column position.
 - Original calculator inputs are 16 px/weight 500 with a 1 px beige border and 12×16 px padding. Candidate inputs are 14 px with no border. The mobile card's 32 px padding was overridden by a later 24 px declaration; restoring 32 px aligns the input's left edge with the reference x=52. Restores the original 893 px mobile section minimum overridden by a desktop-specific selector. Cards/sections still grow for real content and the visible calculation-assumption note. Payment behavior and calculation assumptions are unchanged.
 - Adds focused original/candidate calculator screenshots plus input/heading/table-row ancestor metrics. These will separate remaining table spacing differences from the truthful reference/pricing notices. Existing full-page and behavioral checks remain; scores and rendered results are pending. Baseline pricing is 68.5/59.9.
 - Local lint/build, raw-capture syntax and whitespace checks pass. Required shared smoke2 attempts inside/outside the sandbox fail before browser navigation or account creation; hosted auth verification remains required.
+- Vercel successfully deployed commit `8671a18e2636b11dd5dfd6aa0148b751b388488e` ([preview build](https://vercel.com/muckstack-projects/wisprflowisdead/3FxvNJXfmCXMkGdgBQ4CKzUQtKq1)); the inherited output-directory repair also works for the next feature branch. Native CI passes. The website workflow is still measuring this commit.
+
+### Mobile home FAQ controls
+
+Draft PR: pending, stacked on #27.
+
+- Paired expanded-state screenshots from run 38813442416 show missing expand/collapse chevrons, oversized question text and no selected-answer background in the clone: [original](https://github.com/tommy-muckstack/wisprflowisdead/blob/qa/parity-evidence-38813442416-1/docs/parity/38813442416-1/raw/original-home-390-faq-language.png), [before](https://github.com/tommy-muckstack/wisprflowisdead/blob/qa/parity-evidence-38813442416-1/docs/parity/38813442416-1/raw/candidate-home-390-faq-language.png). Measured original question text is 13/16.9 px, inside a row at x=32/width 326 with 16 px padding and a 24 px icon area. Clone buttons use 14/18.2 px at x=48/width 294 with no icon.
+- Expands the mobile row to the measured inset while preserving its text alignment, uses the 13 px question font, and adds an independently drawn CSS/SVG chevron with a 24 px area and 16 px gap. The chevron rotates from the existing aria-expanded state. Selected question and answer share a continuous background; text answers keep their existing readable size pending measured comparison. Questions remain real buttons and no-JavaScript answers remain visible without inactive toggle icons.
+- Existing browser checks cover all eleven questions, open/switch/close, no-JavaScript answer visibility and overflow. Raw capture now measures the original control after its transition settles, retains more container ancestors and records visible FAQ text styles. Local lint/build, QA syntax and whitespace checks pass; required local smoke2 attempts inside/outside the sandbox fail before navigation or account creation. After screenshots, measurements and score delta are pending. Parent home baseline is 84.1/71.0.
 
 ## Next verification gates
 

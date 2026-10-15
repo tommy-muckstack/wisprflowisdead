@@ -137,15 +137,21 @@ try {
             ? page.getByText('Does Flow work in other languages?',{exact:true}).first()
             : page.locator('#home-question-2');
           await languageQuestion.click();
+          await page.waitForTimeout(300);
           entry.faqSelectedControl = await languageQuestion.evaluate(element => {
             const nodes = []; let current = element;
-            for (let depth = 0; current && depth < 4; depth++, current = current.parentElement) {
+            for (let depth = 0; current && depth < 7; depth++, current = current.parentElement) {
               const box = current.getBoundingClientRect(), style = getComputedStyle(current);
               nodes.push({tag:current.tagName,cls:current.className,x:box.x,y:box.y + scrollY,width:box.width,height:box.height,fontSize:style.fontSize,lineHeight:style.lineHeight,fontWeight:style.fontWeight,padding:style.padding,margin:style.margin,gap:style.gap,background:style.backgroundColor});
             }
             return nodes;
           });
-          await page.waitForTimeout(300);
+          entry.faqTextStyles = await page.locator(selector).first().evaluate(section => [...section.querySelectorAll('*')]
+            .filter(element => element instanceof HTMLElement && !element.children.length && element.textContent.trim() && element.getBoundingClientRect().height && element.getBoundingClientRect().width)
+            .slice(0,100).map(element => {
+              const box = element.getBoundingClientRect(), style = getComputedStyle(element);
+              return {tag:element.tagName,cls:element.className,text:element.textContent.trim().slice(0,120),x:box.x,y:box.y + scrollY,width:box.width,height:box.height,fontSize:style.fontSize,lineHeight:style.lineHeight,fontWeight:style.fontWeight,color:style.color,padding:style.padding,margin:style.margin};
+            }));
           entry.faqExpandedImage = `${target}-home-${width}-faq-language.png`;
           await page.screenshot({path:path.join(output,entry.faqExpandedImage)});
           entry.faqControls = await page.locator(selector).first().evaluate(section =>
