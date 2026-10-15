@@ -232,6 +232,16 @@ try {
       }
     });
     await check('pricing',width,'/pricing',async page => {
+      assert.equal(await page.locator('#comparison-description').isVisible(),true);
+      assert.equal(await page.locator('#comparison-details').isVisible(),true);
+      const comparisonFlow = await page.evaluate(() => ['#comparison-description','.table-scroll','#comparison-details','.secure'].map(selector => {
+        const box = document.querySelector(selector).getBoundingClientRect();
+        return {top:box.top,bottom:box.bottom};
+      }));
+      for (let index = 1; index < comparisonFlow.length; index++) {
+        assert.ok(comparisonFlow[index].top >= comparisonFlow[index - 1].bottom,
+          'Reference notices overlap the table or security card');
+      }
       await page.locator('.pr-faq').scrollIntoViewIfNeeded();
       const scrolledNav = await page.locator('.nav').boundingBox();
       assert.ok(scrolledNav.y >= 0 && scrolledNav.y <= 20,'Pricing navigation disappears while scrolling');
