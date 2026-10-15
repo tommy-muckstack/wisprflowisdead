@@ -1,0 +1,36 @@
+{
+  "app": "wisprflowisdead",
+  "orig": "https://wisprflow.ai",
+  "clone": "http://localhost:3300",
+  "viewports": [
+    "1440x900",
+    "390x844"
+  ],
+  "pages": [
+    {
+      "name": "home",
+      "orig": "/",
+      "clone": "/wisprflowisdead",
+      "full": true
+    },
+    {
+      "name": "pricing",
+      "orig": "/pricing",
+      "clone": "/wisprflowisdead/pricing",
+      "full": true
+    },
+    {
+      "name": "login",
+      "orig": "/get-started",
+      "clone": "/wisprflowisdead/login",
+      "actions": [
+        {
+          "wait": 26000
+        }
+      ]
+    }
+  ],
+  "block": [
+    "usercentrics"
+  ]
+}
