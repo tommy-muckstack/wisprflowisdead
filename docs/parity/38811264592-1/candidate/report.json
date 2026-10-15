@@ -1,0 +1,128 @@
+{
+  "app": "wisprflowisdead",
+  "stamp": "2026-10-15T21:46:02.923Z",
+  "orig": "https://wisprflow.ai",
+  "clone": "http://127.0.0.1:3300",
+  "results": [
+    {
+      "page": "home",
+      "viewport": "1440x900",
+      "full": true,
+      "origStatus": 200,
+      "cloneStatus": 200,
+      "origSize": [
+        1440,
+        17984
+      ],
+      "cloneSize": [
+        1440,
+        17982
+      ],
+      "diffPct": 13.33,
+      "coarseSimilarity": 96.2,
+      "score": 80.2,
+      "contentDiffPct": 28.3,
+      "hOverflowClone": false
+    },
+    {
+      "page": "home",
+      "viewport": "390x844",
+      "full": true,
+      "origStatus": 200,
+      "cloneStatus": 200,
+      "origSize": [
+        390,
+        12648
+      ],
+      "cloneSize": [
+        390,
+        12741
+      ],
+      "diffPct": 33.7,
+      "coarseSimilarity": 88.8,
+      "score": 66.2,
+      "contentDiffPct": 45.6,
+      "hOverflowClone": false
+    },
+    {
+      "page": "pricing",
+      "viewport": "1440x900",
+      "full": true,
+      "origStatus": 200,
+      "cloneStatus": 200,
+      "origSize": [
+        1440,
+        9196
+      ],
+      "cloneSize": [
+        1440,
+        9237
+      ],
+      "diffPct": 17.5,
+      "coarseSimilarity": 96,
+      "score": 68.5,
+      "contentDiffPct": 46,
+      "hOverflowClone": false
+    },
+    {
+      "page": "pricing",
+      "viewport": "390x844",
+      "full": true,
+      "origStatus": 200,
+      "cloneStatus": 200,
+      "origSize": [
+        390,
+        11193
+      ],
+      "cloneSize": [
+        390,
+        11331
+      ],
+      "diffPct": 25.69,
+      "coarseSimilarity": 92.1,
+      "score": 59.9,
+      "contentDiffPct": 56.9,
+      "hOverflowClone": false
+    },
+    {
+      "page": "login",
+      "viewport": "1440x900",
+      "full": false,
+      "origStatus": 200,
+      "cloneStatus": 200,
+      "origSize": [
+        1440,
+        900
+      ],
+      "cloneSize": [
+        1440,
+        900
+      ],
+      "diffPct": 2.61,
+      "coarseSimilarity": 99.3,
+      "score": 93.6,
+      "contentDiffPct": 9.4,
+      "hOverflowClone": false
+    },
+    {
+      "page": "login",
+      "viewport": "390x844",
+      "full": false,
+      "origStatus": 200,
+      "cloneStatus": 200,
+      "origSize": [
+        390,
+        844
+      ],
+      "cloneSize": [
+        390,
+        844
+      ],
+      "diffPct": 6.44,
+      "coarseSimilarity": 98.3,
+      "score": 91.9,
+      "contentDiffPct": 11.5,
+      "hOverflowClone": false
+    }
+  ]
+}
