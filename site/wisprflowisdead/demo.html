@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Try dictation · WisprFlowIsDead</title>
+  <meta name="description" content="Try free browser dictation with punctuation, filler cleanup and writing styles. No account required.">
+  <link rel="icon" href="/wisprflowisdead/assets/favicon.png">
+  <link rel="stylesheet" href="/wisprflowisdead/assets/isdead-wisprflow.css">
+  <link rel="stylesheet" href="/wisprflowisdead/assets/demo.css">
+  <script type="module" src="/wisprflowisdead/assets/demo.mjs"></script>
+</head>
+<body>
+<a class="skip" href="#workspace">Skip to dictation</a>
+<header class="demo-header">
+  <a class="brand" href="/wisprflowisdead" aria-label="WisprFlowIsDead home"><span class="brand-wave" aria-hidden="true">▂▅▇▃▂</span> FlowIsDead</a>
+  <nav aria-label="Demo navigation"><a href="/wisprflowisdead/app">Account</a><a class="button" href="/wisprflowisdead#download">Get the Mac app</a></nav>
+</header>
+<main>
+  <div class="intro"><p class="eyebrow">WisprFlowIsDead · Web demo</p><h1>Let your words <em>flow.</em></h1><p>Speak a thought. Get writing you can edit, copy, and use.</p></div>
+  <div class="modes" role="tablist" aria-label="Writing context">
+    <button role="tab" id="tab-prompt" aria-selected="true" aria-controls="workspace" data-mode="prompt">Write a prompt</button>
+    <button role="tab" id="tab-message" aria-selected="false" aria-controls="workspace" data-mode="message" tabindex="-1">Message a friend</button>
+    <button role="tab" id="tab-list" aria-selected="false" aria-controls="workspace" data-mode="list" tabindex="-1">Make a list</button>
+    <button role="tab" id="tab-email" aria-selected="false" aria-controls="workspace" data-mode="email" tabindex="-1">Draft an email</button>
+  </div>
+  <section class="workspace" id="workspace" role="tabpanel" aria-labelledby="tab-prompt" tabindex="0">
+    <div class="workspace-heading"><div><h2 id="context-title">Give your next idea some detail.</h2><p id="context-hint">Describe what you want to create, the audience, and the details that matter.</p></div><span class="free">Free · No word cap</span></div>
+    <fieldset id="options" class="options"><legend class="sr-only">Dictation options</legend>
+      <label>Language<select id="language"><option value="en-US">English (US)</option><option value="en-GB">English (UK)</option><option value="es-ES">Español</option><option value="fr-FR">Français</option><option value="de-DE">Deutsch</option><option value="pt-BR">Português</option><option value="hi-IN">हिन्दी</option><option value="ja-JP">日本語</option></select></label>
+      <label>Writing style<select id="style"><option value="formal">Formal.</option><option value="casual">Casual</option><option value="very-casual">very casual</option><option value="excited">Excited!</option></select></label>
+    </fieldset>
+    <label class="sr-only" for="editor">Your writing</label>
+    <textarea id="editor" rows="7" placeholder="Click Start dictating, or write here…" spellcheck="true"></textarea>
+    <div class="editor-actions"><span id="word-count">0 words</span><div><button id="undo" type="button" disabled>Undo cleanup</button><button id="copy" type="button" disabled>Copy text</button><button id="clear" type="button" disabled>Clear</button></div></div>
+    <div class="dictation-controls">
+      <button id="record" class="flow-bar" type="button" aria-pressed="false" aria-describedby="speech-privacy shortcut"><span class="activity" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span id="record-label">Start dictating</span></button>
+      <button id="cancel" type="button" hidden>Cancel</button>
+    </div>
+    <p id="state" role="status" aria-live="polite">Ready when you are.</p>
+    <p id="shortcut" class="hint">Ctrl + Alt + Space to start or stop · Esc to cancel. Shortcuts work while this page is focused.</p>
+    <div id="draft" class="draft" hidden><span class="eyebrow">Your words</span><p id="live-transcript"></p><button id="recover" type="button" hidden>Recover draft</button></div>
+    <p id="speech-privacy" class="privacy">Your browser may send audio to its speech service. This page does not save audio or transcripts. Cleanup runs here in your browser.</p>
+    <p class="hint" id="language-hint">Filler cleanup and writing styles currently support English. Other languages keep the recognized text.</p>
+  </section>
+  <details class="practice"><summary>Practice without a microphone</summary><p>Type your own spoken draft. Try “um”, “new paragraph”, “new bullet”, or “question mark”. This uses the same local cleanup as dictation.</p><label for="practice-input">Spoken draft</label><textarea id="practice-input" rows="3" placeholder="um can we review the outline tomorrow question mark"></textarea><button id="practice-submit" class="button" type="button">Clean up text</button></details>
+  <noscript><p class="workspace">Enable JavaScript to use dictation and text cleanup. You can still <a href="/wisprflowisdead#download">get the Mac app</a>.</p></noscript>
+</main>
+<footer><a href="/wisprflowisdead">WisprFlowIsDead</a> · Free and open source. Not affiliated with Wispr AI or Wispr Flow. <a href="https://github.com/tommy-muckstack/wisprflowisdead">Source code</a></footer>
+</body>
+</html>

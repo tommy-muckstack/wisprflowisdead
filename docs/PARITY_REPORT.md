@@ -9,7 +9,7 @@ Scope: marketing website, shared Firebase account flow, and a browser dictation 
 
 - Read the repository README, website README, existing product spec, upstream contributing guide, and shared parity/smoke scripts. No repository AGENTS.md or .env.example exists at the baseline.
 - Git cloning failed with DNS errors even with escalation. Retrieved 78 files through the GitHub connector and verified each Git blob SHA against the pinned tree. Two native-only TTF files were not retrieved; all website files and fonts are present. The local import commit is not an upstream commit and must not be pushed as the PR base.
-- `site/` is the Vercel project root; functions are in `site/api/`. Only home, pricing, login, and app HTML routes exist. There are no website lint/build/test scripts at baseline.
+- `site/` is the Vercel project root; functions are in `site/api/`. At baseline only home, pricing, login, and app HTML routes exist; the browser dictation change adds `/demo`. There are no website lint/build/test scripts at baseline.
 - Public text/navigation inspected on [home](https://wisprflow.ai), [pricing](https://wisprflow.ai/pricing), [get started](https://wisprflow.ai/get-started), and the [help center](https://docs.wisprflow.ai). This is source/text evidence, not a rendered-browser comparison. Responsive nav menus, hover states, and current computed styles remain unobserved.
 - No reference captures at `/workspace/isdead-shots/parity/wisprflowisdead/`. The local in-app browser execution tool is unavailable. Standalone Playwright Chromium fails at launch with macOS `bootstrap_check_in ... MachPortRendezvousServer` permission errors, including escalated attempts.
 - The user subsequently supplied a paired desktop screenshot (`image (10).png`, original left, clone right) and prioritized the navigation bar. It is useful reference evidence, but its two panels do not establish equal viewport widths or a measured parity score. Installed Google Chrome was also attempted through Playwright and exited before navigation.
@@ -64,18 +64,18 @@ Status is `match`, `differs`, or `missing`. `Differs` includes implementations a
 | Account identity/loading | differs | P1 | Account recovery change adds loading, retry and 401-only redirect; five source-level tests pass; browser pending | N/M |
 | Account sign-out | differs | P1 | Account recovery change checks DELETE success, blocks duplicates and retains failed state; live smoke blocked | N/M |
 | Home/pricing account access | differs | P2 | Navigation change moves account access to footer/mobile menu; sign-out uses account page recovery flow | N/M |
-| Browser dictation demo | missing | P0 | `app.html` is a download/account handoff, no recognizer | N/M |
-| Idle/listening/transcribing/polishing/result | missing | P0 | Native FlowBar has analogous states; browser state machine absent | N/M |
-| Filler removal/punctuation/formatting | missing | P0 | Native FlowCore only; browser implementation absent | N/M |
-| Tone/style options | missing | P1 | Marketing preview only; no browser product settings | N/M |
+| Browser dictation demo | differs | P0 | `/demo` uses Web Speech with typed fallback; live microphone/browser validation pending, E7/E9 | N/M |
+| Idle/listening/transcribing/polishing/result | differs | P0 | State machine includes permission, cancellation, recovery and timeout states; unit-tested, browser pending | N/M |
+| Filler removal/punctuation/formatting | differs | P0 | Conservative local English rules, spoken punctuation/paragraphs/bullets; E7 | N/M |
+| Tone/style options | differs | P1 | Four deterministic English styles in demo; no model rewriting, E7 | N/M |
 | Personal dictionary | missing | P1 | Native implementation only; browser CRUD/replacement absent | N/M |
 | Snippets | missing | P1 | Native implementation only; browser CRUD/expansion absent | N/M |
 | Command mode | missing | P1 | Native model implementation; browser free equivalent needed, E7 | N/M |
 | History/copy/delete/recovery | missing | P1 | Native implementation only; browser storage/privacy design needed | N/M |
-| Settings: hotkey/language/microphone | missing | P1 | No browser settings; E8/E9 constrain parity | N/M |
-| Settings: privacy/storage | missing | P1 | No browser settings; recognition-provider disclosure needed | N/M |
+| Settings: hotkey/language/microphone | differs | P1 | Demo language selector and focused-page shortcut; customization/device settings pending, E8/E9 | N/M |
+| Settings: privacy/storage | differs | P1 | Demo discloses browser speech service and keeps drafts in memory only; preferences pending | N/M |
 | Browser onboarding | missing | P1 | Permission/practice/language/style onboarding absent | N/M |
-| Microphone denied/unavailable/no speech | missing | P0 | No browser recorder or permission/error UX | N/M |
+| Microphone denied/unavailable/no speech | differs | P0 | Recoverable messages and timeouts tested with injected recognizer; real permissions/audio pending | N/M |
 | Keyboard/focus/reduced motion | differs | P1 | Nav and tabs incomplete, no explicit reduced-motion treatment found | N/M |
 | Branded 404 | missing | P2 | No 404 page or site-level route | N/M |
 
@@ -90,7 +90,7 @@ Observed public destinations, deduplicated, as of the audit date. A hash link to
 | `/get-started` (download/get app) | `/login`, `#download` — differs | Email account and native source-build handoff differ |
 | `/pricing` | `/pricing` — differs | E5; visual comparison pending |
 | `/privacy` | `#privacy` — missing page | Security summary only |
-| `/demo` | missing | Browser demo absent |
+| `/demo` | `/demo` — differs | Browser dictation draft; rendered/audio comparison pending |
 | `/why-flow` | missing | Needs original, evidence-backed comparison |
 | `/microphones` | missing | Needs accurate browser/native microphone help |
 | `https://store.wisprflow.ai/` | missing | E10: no merchandise store or inventory |
@@ -135,7 +135,7 @@ These document constraints, not a blanket waiver for unfinished work. Outstandin
 - **E4 — privacy UI:** do not add a nonfunctional consent banner for visual similarity. First verify cookies, SDK traffic and storage, then provide controls the clone actually needs.
 - **E5 — pricing/payment:** preserve the existing free clone and all payment behavior. Original paid-plan labels may be comparative only; do not create checkout, trial, billing or fake enterprise services.
 - **E6 — providers:** existing Firebase email/password and Google must work. Apple, Microsoft and SAML require provider/tenant configuration; no credentials/configuration changes are authorized in this task. Disabled/clear unavailable states are preferable to misleading buttons. Exact provider parity needs a maintainer decision.
-- **E7 — transcription/polish:** Web Speech and deterministic cleanup are the planned free browser alternative, not equivalent to Wispr models. Accuracy, correction semantics and unrestricted AI rewriting must be documented honestly. Browser recognition may use the browser vendor's server; never describe it as guaranteed local/offline.
+- **E7 — transcription/polish:** Web Speech and deterministic cleanup are the implemented free browser alternative, not equivalent to Wispr models. Accuracy, correction semantics and unrestricted AI rewriting must be documented honestly. Browser recognition may use the browser vendor's server; never describe it as guaranteed local/offline.
 - **E8 — operating-system integration:** browser shortcuts work while the page is focused, cannot reproduce global Fn hooks or insert into arbitrary desktop apps. Keep native app handoff available.
 - **E9 — microphone/language support:** browser recognition support and device selection differ by engine. Detect capabilities, expose only working settings, and provide a typed practice fallback. Test real microphone permission and audio on a supported browser.
 - **E10 — organization-only destinations:** merchandise, sales, hiring, affiliates and bounties cannot be fabricated. Proposed exception is a clear project information/support destination or omission, subject to maintainer review.
@@ -164,6 +164,19 @@ Draft PR: [#2](https://github.com/tommy-muckstack/wisprflowisdead/pull/2), stack
 - At compact widths the product links move into the disclosure menu. The menu now works throughout 601–900px, exposes `aria-expanded`/`aria-controls`, closes on Escape, outside click, link selection, focus leaving the nav, or breakpoint change, and includes visible keyboard focus.
 - Source syntax and whitespace checks passed. Real-browser sizing, focus behavior, screenshots and parity delta remain **unverified, N/M → N/M**. This change should remain a draft until those checks can run.
 - The shared live auth smoke was attempted again for this PR and stopped at browser launch before navigation. No test account was created. Lint/build were also attempted again; both scripts remain absent.
+
+### Browser dictation foundation
+
+Draft PR: pending publication, stacked on #2.
+
+- Before: browser account page offered a native download only. No browser transcription or cleanup flow existed.
+- After: public `/demo` offers four writing contexts, editable/copyable output, language/style choices, and a speech state machine covering idle, permission request, listening, transcribing, polishing, result, cancellation, and recoverable error. The account page and marketing footers link to it.
+- Web Speech is capability-checked and starts only on user interaction. Permission/network/device/language/no-speech errors, permission/stop timeouts, cancellation, page hiding, and late callbacks are handled. Partial text can be recovered into typed practice; it is never silently presented as a final transcript.
+- Local English cleanup removes conservative fillers/repetitions and supports spoken punctuation, paragraph and bullet commands. URL/email/code literals remain intact. Four styles change capitalization/end punctuation only; they do not reproduce model rewriting. Other languages retain recognized text. E7–E9 apply.
+- Drafts remain in page memory. No audio recording, transcript storage, service credentials, paid service, or new account requirement is introduced. The page discloses that browser speech services may send audio off device. Dictionary, snippets, history and persistent settings remain separate unfinished work.
+- `npm run lint --prefix site` and `npm run build --prefix site`: passed. New dependency-free scripts parse JavaScript (including inline scripts) and check local asset paths. The site is deployed as source, with no bundler; these checks do not claim HTML/CSS visual or semantic validation.
+- `npm test --prefix site`: **15 passed**, including the five account tests and ten speech/cleanup tests. Recognition events are injected, not real audio or browser permission tests.
+- Shared live auth smoke was attempted before publication and failed at Chromium launch before navigation. No account was created. Screenshots and scores remain unavailable, **N/M → N/M**. This change stays a draft until live auth, browser, microphone and paired viewport checks pass.
 
 ## Next verification gates
 
