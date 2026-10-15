@@ -73,7 +73,7 @@ Status is `match`, `differs`, or `missing`. `Differs` includes implementations a
 | Tone/style options | differs | P1 | Four deterministic English styles in demo; no model rewriting, E7 | N/M |
 | Personal dictionary | differs | P1 | Browser word/correction CRUD, search/sort/star and literal replacement implemented; recognition bias/learning and visual checks pending | N/M |
 | Snippets | differs | P1 | Browser CRUD and case-preserving plain-text expansion implemented; rich text/import/sync and rendered checks pending | N/M |
-| Command mode | missing | P1 | Native model implementation; browser free equivalent needed, E7 | N/M |
+| Command mode | differs | P1 | Browser selection/whole-draft voice or typed commands, undo and instruction history implemented; finite local commands, native/model behavior remains E7/E8/E9 | N/M |
 | History/copy/delete/recovery | differs | P1 | Browser text history, original/result restore, search/copy/delete, retention and storage recovery drafted; audio replay/retry unavailable, live checks pending | N/M |
 | Settings: hotkey/language/microphone | differs | P1 | Settings dialog adds language/style persistence, custom focused-page shortcut, hold/toggle activation and bounded microphone level check; native device picker/global shortcuts remain E8/E9 | N/M |
 | Settings: privacy/storage | differs | P1 | Library saving is opt-in; history offers page-only, 24-hour, until-deleted and disabled modes; browser/account isolation and real retention checks pending | N/M |
@@ -273,7 +273,7 @@ Draft PR: [#10](https://github.com/tommy-muckstack/wisprflowisdead/pull/10), sta
 
 ### Browser onboarding
 
-Draft branch: `qa/browser-onboarding`, stacked on #10.
+Draft PR: [#11](https://github.com/tommy-muckstack/wisprflowisdead/pull/11), stacked on #10.
 
 - Before: new visitors went directly into a demo with no setup guidance or connection between permission, language/shortcut settings and practice.
 - After: an optional four-step guide covers browser speech privacy, microphone input, preferences and practice. Microphone testing opens the real Settings check; only detected input level marks that step complete. Practice completion comes from a successful dictation or typed cleanup with nonempty original/result text. There is no seeded recording or fabricated result.
@@ -283,6 +283,20 @@ Draft branch: `qa/browser-onboarding`, stacked on #10.
 - Website lint/build, whitespace and source integration checks pass. **70 tests pass**, including six setup progression/skip/persistence tests. The checks do not establish real permission prompts, audio levels, screen-reader flow or screenshot parity.
 - Shared smoke2 with cleanup was attempted and stopped at the Chromium launch error before navigation/account creation. Launch Services also could not start the isolated Chrome fallback. Screenshots, computed styles and scores remain **N/M → N/M**; this change remains a draft.
 - Reference: [original first-dictation setup](https://docs.wisprflow.ai/articles/3152211871-setup-guide). Native permission/account steps are recorded as differences rather than simulated in the browser.
+
+### Browser command mode
+
+Draft branch: `qa/browser-commands`, stacked on #11.
+
+- Before: every spoken input was inserted as dictation; there was no instruction mode or selection-based edit. Browser command mode was missing.
+- After: an explicit, off-by-default mode reuses recording, hold/toggle shortcuts and typed input for six local commands: uppercase, lowercase, bullet list, numbered list, trim spacing and cleanup. A selected passage is captured before recognition; no selection targets the whole editor. Empty targets are rejected before requesting the microphone. A visible hint states the replacement scope.
+- Commands use a finite English phrase list. Unsupported/ambiguous instructions, empty results and size limits show an error and preserve the draft. Lists use existing nonempty lines; numeric values and surrounding text remain intact. Case changes intentionally include links/code and are labeled accordingly. Cleanup follows the chosen language/style and existing literal protections, without snippet expansion.
+- Replacement adds no dictation boundary spaces, including within a word. The changed passage stays selected; Undo edit restores the complete pre-command draft. Error recovery returns spoken instructions to the command field rather than typed dictation. Cancellation, processing locks and stale recognition events reuse the existing lifecycle. Command success does not falsely complete the onboarding dictation step.
+- Command history records the original selected passage, result and instruction under the same retention setting. Search includes instructions; original/result restore and deletion remain available. Existing dictation history stays readable. History is still browser-profile data, not account-linked.
+- Remaining differences: no arbitrary AI rewrite, reply drafting, translation, external search/app generation, native global/multiple shortcut bindings or native notice/Hub layout. Commands are free and do not reproduce paid-plan gating (E5/E7/E8/E9). Real speech, selection persistence across focus changes, mobile layout and assistive-technology behavior still need browser checks.
+- Website lint/build and whitespace checks pass. **78 tests pass**, including seven command tests and one command-history regression test. These cover partial-word/Unicode replacement, undo snapshots, numeric list items, language/literal safeguards, invalid/oversized instructions, lifecycle errors/retry/cancellation and history reload. They do not establish rendered interaction parity.
+- Shared smoke2 with cleanup was attempted again; Chromium failed at `bootstrap_check_in ... MachPortRendezvousServer` before navigation/account creation. No test account exists to delete. The parity CLI was also attempted against live at both requested widths and stopped on missing `playwright` dependency. Screenshots, computed styles and score change remain **N/M → N/M**; this change remains a draft.
+- Reference: [original command mode](https://docs.wisprflow.ai/articles/4816967992-how-to-use-command-mode), checked 2026-10-15. Original cloud-model behavior and plan access are recorded as differences, without initiating a trial.
 
 ## Next verification gates
 

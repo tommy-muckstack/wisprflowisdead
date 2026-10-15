@@ -36,7 +36,7 @@ export function mountHistory({restore}) {
       const item = node('li');
       const date = node('time', new Date(entry.createdAt).toLocaleString());
       date.dateTime = new Date(entry.createdAt).toISOString();
-      const meta = node('p', `${entry.source === 'practice' ? 'Typed practice' : 'Dictation'} · ${entry.language} · `, 'history-meta');
+      const meta = node('p', `${({practice:'Typed practice',dictation:'Dictation',command:'Command'})[entry.source]} · ${entry.language} · `, 'history-meta');
       meta.append(date);
       const preview = node('p', entry.text.length > 240 ? entry.text.slice(0, 240) + '…' : entry.text, 'history-preview');
       const details = node('details'), summary = node('summary', 'View result and original');
@@ -46,7 +46,8 @@ export function mountHistory({restore}) {
       details.addEventListener('toggle', () => {
         if (details.open) expanded.add(entry.id); else expanded.delete(entry.id);
         if (details.open && !full.childNodes.length) {
-          full.append(node('h3', 'Result'), node('pre', entry.text), node('h3', 'Original words'), node('pre', entry.raw));
+          if (entry.source === 'command') full.append(node('h3', 'Command'), node('pre', entry.instruction));
+          full.append(node('h3', 'Result'), node('pre', entry.text), node('h3', entry.source === 'command' ? 'Original passage' : 'Original words'), node('pre', entry.raw));
         }
       });
       details.open = expanded.has(entry.id);

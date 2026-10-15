@@ -1,4 +1,5 @@
 import {cleanText} from './text.mjs';
+import {CommandError} from './commands.mjs';
 
 export const speechErrors = {
   'not-allowed': 'Microphone access was denied. Allow the microphone in your browser’s site settings, then try again.',
@@ -19,6 +20,7 @@ export class Dictation {
   }
   get busy() { return ['requesting', 'listening', 'transcribing', 'polishing'].includes(this.state); }
   emit(state, message = '') {
+    if (this.options?.action === 'command') message = message.replace(/typed practice/g, 'the typed command field');
     this.state = state; this.message = message;
     this.onChange({state, message, raw:this.raw, interim:this.interim, result:this.result});
   }
@@ -99,19 +101,21 @@ export class Dictation {
       if (generation !== this.generation) return;
       this.result = result;
       this.emit(result ? 'result' : 'error', result ? '' : 'There was no text left after cleanup. Try a longer sentence.');
-    } catch { if (generation === this.generation) this.fail('Cleanup failed. Your original words are available below.'); }
+    } catch (error) {
+      if (generation === this.generation) this.fail(error instanceof CommandError ? error.message : 'Cleanup failed. Your original words are available below.');
+    }
   }
   async practice(text, options = {}) {
     if (this.busy) return false;
-    this.raw = String(text).trim(); this.interim = this.result = '';
-    if (!this.raw) { this.emit('error', 'Type something to clean up first.'); return false; }
     this.options = {...options};
+    this.raw = String(text).trim(); this.interim = this.result = '';
+    if (!this.raw) { this.emit('error', options.action === 'command' ? 'Say or type a command first.' : 'Type something to clean up first.'); return false; }
     await this.finish(++this.generation);
     return true;
   }
   cancel() {
     ++this.generation; this.detach();
     this.raw = this.interim = this.result = '';
-    this.emit('idle', 'Dictation cancelled.');
+    this.emit('idle', this.options?.action === 'command' ? 'Command cancelled. Your draft is unchanged.' : 'Dictation cancelled.');
   }
 }

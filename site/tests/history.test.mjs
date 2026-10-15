@@ -108,3 +108,15 @@ test('invalid results and capacity limits do not silently drop earlier transcrip
   assert.throws(() => history.add(result('overflow')), /200 results/);
   assert.equal(history.list().length, 200);
 });
+
+test('command history retains the original passage, result and instruction across reload', () => {
+  const {history, make} = setup();
+  history.add(result());
+  const command = history.add({...result('• First\n• Second'), raw:'First\nSecond', source:'command', instruction:'bullet list'});
+  history.setMode('forever'); const next = make(); next.load();
+  assert.equal(next.list().length, 2);
+  assert.deepEqual(next.list('bullet list'), [command]);
+  assert.equal(next.list('bullet list')[0].raw, 'First\nSecond');
+  for (const instruction of [undefined, '', 'a'.repeat(1001)]) assert.throws(() => next.add({...result(), source:'command', instruction}));
+  assert.equal(next.list().length, 2);
+});

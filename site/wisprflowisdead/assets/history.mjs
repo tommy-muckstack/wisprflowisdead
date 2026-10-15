@@ -6,7 +6,8 @@ const contexts = ['prompt', 'message', 'list', 'email'];
 function validate(entry) {
   if (!entry || typeof entry.id !== 'string' || !entry.id || entry.id.length > 100
     || !Number.isSafeInteger(entry.createdAt) || entry.createdAt < 0 || entry.createdAt > 8640000000000000
-    || !contexts.includes(entry.context) || !['dictation','practice'].includes(entry.source)
+    || !contexts.includes(entry.context) || !['dictation','practice','command'].includes(entry.source)
+    || (entry.source === 'command' && (typeof entry.instruction !== 'string' || !entry.instruction.trim() || entry.instruction.length > 1000))
     || typeof entry.language !== 'string' || entry.language.length > 40
     || !['formal','casual','very-casual','excited'].includes(entry.style)
     || typeof entry.raw !== 'string' || !entry.raw.trim() || entry.raw.length > 200000
@@ -14,7 +15,8 @@ function validate(entry) {
     throw Error('This result cannot be added to history. Keep a copy in your editor.');
   }
   return {id:entry.id, createdAt:entry.createdAt, context:entry.context, source:entry.source,
-    language:entry.language, style:entry.style, raw:entry.raw, text:entry.text};
+    language:entry.language, style:entry.style, raw:entry.raw, text:entry.text,
+    ...(entry.source === 'command' ? {instruction:entry.instruction} : {})};
 }
 
 export class History {
@@ -105,7 +107,7 @@ export class History {
   }
   list(query = '') {
     const term = query.trim().toLocaleLowerCase();
-    return this.visible().filter(entry => !term || (entry.text + '\n' + entry.raw).toLocaleLowerCase().includes(term))
+    return this.visible().filter(entry => !term || (entry.text + '\n' + entry.raw + '\n' + (entry.instruction || '')).toLocaleLowerCase().includes(term))
       .slice().sort((a, b) => b.createdAt - a.createdAt);
   }
 }

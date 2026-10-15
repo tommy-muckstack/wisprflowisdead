@@ -49,7 +49,14 @@
     <p id="preferences-notice" class="hint" role="status" hidden></p>
     <label class="sr-only" for="editor">Your writing</label>
     <textarea id="editor" rows="7" placeholder="Click Start dictating, or write here…" spellcheck="true"></textarea>
-    <div class="editor-actions"><span id="word-count">0 words</span><div><button id="undo" type="button" disabled>Undo cleanup</button><button id="copy" type="button" disabled>Copy text</button><button id="clear" type="button" disabled>Clear</button></div></div>
+    <div class="editor-actions"><span id="word-count">0 words</span><div><button id="undo" type="button" disabled>Undo edit</button><button id="copy" type="button" disabled>Copy text</button><button id="clear" type="button" disabled>Clear</button></div></div>
+    <button id="command-mode" class="command-toggle" type="button" aria-pressed="false" aria-controls="command-panel">Command mode</button>
+    <div id="command-panel" class="command-panel" hidden>
+      <p id="command-target">No selection: command will replace all text in this editor.</p>
+      <p id="command-help">Say or type: <strong>uppercase</strong>, <strong>lowercase</strong>, <strong>bullet list</strong>, <strong>numbered list</strong>, <strong>trim spacing</strong>, or <strong>clean up text</strong>. Lists use one item per existing line. Cleanup uses your language and writing style.</p>
+      <p>These English commands run locally. Open-ended rewriting, translation and web search are not supported. Case commands change every letter, including links and code.</p>
+      <form id="command-form"><label for="command-input">Command without a microphone</label><div><input id="command-input" maxlength="1000" autocomplete="off" placeholder="For example: bullet list" aria-describedby="command-target command-help"><button id="command-submit" class="button" type="submit">Run command</button></div></form>
+    </div>
     <div class="dictation-controls">
       <button id="record" class="flow-bar" type="button" aria-pressed="false" aria-describedby="speech-privacy shortcut"><span class="activity" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span id="record-label">Start dictating</span></button>
       <button id="cancel" type="button" hidden>Cancel</button>
@@ -95,7 +102,7 @@
   </section>
   <section class="history" id="recent-activity" aria-labelledby="history-heading">
     <h2 id="history-heading">Recent activity</h2>
-    <p>Review completed dictations and typed practice. Restore the result or your original words to the editor.</p>
+    <p>Review completed dictations, typed practice and commands. Restore the result or original text to the editor. Command entries keep the selected passage and instruction.</p>
     <label>Keep history<select id="history-mode" aria-describedby="history-storage-hint"><option value="session">Only in this page</option><option value="day">Save for 24 hours</option><option value="forever">Save until I delete it</option><option value="off">Never keep history</option></select></label>
     <p id="history-storage-hint">Results stay in this page until you close or reload it. Nothing is saved to browser storage.</p>
     <p>This history belongs to the browser profile, not an account. Signing out does not delete it. Use Clear history here. No audio or cloud copy is kept by this demo.</p>

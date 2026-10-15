@@ -39,6 +39,14 @@ textarea[readonly]{background:#F5F4F0}
 .editor-actions>div{display:flex;flex-wrap:wrap;gap:4px}
 .editor-actions button,#cancel,#recover{border:0;background:transparent;border-radius:6px;padding:10px;min-height:44px}
 .editor-actions button:hover:not(:disabled),#cancel:hover,#recover:hover{background:#E4E4D0}
+.command-toggle{min-height:44px;border:1px solid #cecec0;border-radius:99px;background:transparent;padding:9px 16px;font-size:14px}
+.command-toggle[aria-pressed=true]{background:#034F46;border-color:#034F46;color:#FFFFEB}
+.command-panel{margin-top:12px;padding:16px;border:1px solid #cecec0;border-radius:12px;background:#F5F4F0;font-size:14px}
+.command-panel p{margin:0 0 12px}
+.command-panel label{display:block;font-weight:600;margin-bottom:6px}
+.command-panel form>div{display:flex;flex-wrap:wrap;gap:8px}
+.command-panel input{flex:1 1 180px;min-width:0;width:100%;min-height:44px;background:white;border:1px solid #cecec0;border-radius:8px;padding:9px 12px}
+.command-panel .button{flex:0 0 auto}
 .dictation-controls{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:24px}
 .flow-bar{display:flex;align-items:center;justify-content:center;gap:14px;min-height:52px;min-width:215px;border:0;border-radius:99px;padding:12px 22px;background:#1A1A1A;color:#FFFFEB;box-shadow:0 4px 16px #1A1A1A25}
 .flow-bar:hover{background:#333}

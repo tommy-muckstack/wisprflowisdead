@@ -5,6 +5,7 @@ import {mountHistory} from './history-ui.mjs';
 import {mountSettings} from './settings-ui.mjs';
 import {Shortcut} from './preferences.mjs';
 import {mountOnboarding} from './onboarding-ui.mjs';
+import {captureCommand, transformText, applyCommand} from './commands.mjs';
 
 const $ = id => document.getElementById(id);
 const editor = $('editor');
@@ -18,12 +19,12 @@ const contexts = {
 const drafts = new Map();
 const library = mountLibrary();
 const history = mountHistory({restore:restoreHistory});
-let mode = 'prompt', insertion = null, undoValue = null, applied = false, source = 'dictation';
+let mode = 'prompt', action = 'dictation', insertion = null, undoValue = null, applied = false, source = 'dictation';
 const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const states = {idle:'Ready when you are.', requesting:'Allow microphone access in your browser to begin.', listening:'Listening…', transcribing:'Transcribing…', polishing:'Polishing…', result:'Ready to use. Review your text, then copy it.'};
 const machine = new Dictation({
   createRecognition: Recognition && window.isSecureContext ? () => new Recognition() : null,
-  polish: polishWithLibrary,
+  polish: (text, options) => options.action === 'command' ? transformText(text, options) : polishWithLibrary(text, options),
   onChange: render
 });
 let onboarding;
@@ -32,19 +33,28 @@ const settings = mountSettings({onMicrophoneLevel:value => onboarding?.microphon
 }});
 const keyboard = new Shortcut({preferences:() => settings.preferences.value, start:startRecording, stop:() => machine.stop(), toggle:record,
   allowed:() => !settings.open && !settings.microphone.busy});
-onboarding = mountOnboarding({settings, start:startRecording, canDictate:() => Boolean(machine.createRecognition)});
+onboarding = mountOnboarding({settings, start:() => {setAction('dictation'); return startRecording();}, canDictate:() => Boolean(machine.createRecognition)});
 
-function options() { return {language:$('language').value, style:$('style').value, entries:library.entries.map(entry => ({...entry}))}; }
+function options(nextAction = action) { return {action:nextAction, target:insertion?.target, language:$('language').value, style:$('style').value, entries:library.entries.map(entry => ({...entry}))}; }
 function counts() {
   const words = editor.value.trim().split(/\s+/).filter(Boolean).length;
   $('word-count').textContent = `${words} ${words === 1 ? 'word' : 'words'}`;
   $('copy').disabled = $('clear').disabled = machine.busy || !editor.value.trim();
   $('undo').disabled = machine.busy || undoValue === null;
+  $('command-target').textContent = editor.selectionStart !== editor.selectionEnd
+    ? `Command will replace the selected ${editor.selectionEnd - editor.selectionStart} characters.`
+    : 'No selection: command will replace all text in this editor.';
 }
 function captureInsertion(replace = false) {
+  if (action === 'command' && !replace) {
+    try {insertion = captureCommand(editor.value, editor.selectionStart, editor.selectionEnd);}
+    catch (error) {$('state').dataset.state = 'error'; $('state').textContent = error.message; return false;}
+    source = 'command'; applied = false; return true;
+  }
   source = replace ? 'practice' : 'dictation';
   insertion = {text:editor.value, start:replace ? 0 : editor.selectionStart, end:replace ? editor.value.length : editor.selectionEnd};
   applied = false;
+  return true;
 }
 function insert(text) {
   const before = insertion.text.slice(0, insertion.start), after = insertion.text.slice(insertion.end);
@@ -57,36 +67,44 @@ function render(snapshot) {
   history.setBusy(busy);
   settings.setBusy(busy);
   onboarding.setBusy(busy);
-  onboarding.result(snapshot);
+  if (machine.options?.action !== 'command') onboarding.result(snapshot);
   if (!busy) keyboard.reset();
   $('options').disabled = busy;
   tabs.forEach(tab => {tab.disabled = busy;});
   editor.readOnly = busy;
   $('practice-submit').disabled = busy;
+  $('command-mode').disabled = busy;
+  $('command-submit').disabled = busy;
+  $('command-input').disabled = busy;
   $('cancel').hidden = !busy;
-  $('record').disabled = ['requesting','transcribing','polishing'].includes(snapshot.state) || !machine.createRecognition;
+  $('record').disabled = settings.microphone.busy || ['requesting','transcribing','polishing'].includes(snapshot.state) || !machine.createRecognition;
   $('record').dataset.state = snapshot.state;
   $('record').setAttribute('aria-pressed', String(snapshot.state === 'listening'));
-  $('record-label').textContent = ({requesting:'Waiting for microphone…',listening:'Stop dictating',transcribing:'Transcribing…',polishing:'Polishing…'})[snapshot.state] || 'Start dictating';
+  const commanding = action === 'command';
+  $('record-label').textContent = ({requesting:'Waiting for microphone…',listening:commanding ? 'Run command' : 'Stop dictating',transcribing:'Transcribing…',polishing:commanding ? 'Applying command…' : 'Polishing…'})[snapshot.state] || (commanding ? 'Speak a command' : 'Start dictating');
   $('state').dataset.state = snapshot.state;
-  $('state').textContent = snapshot.message || states[snapshot.state];
+  $('state').textContent = snapshot.message || (commanding && ({idle:'Select text, then speak or type a supported command.',listening:'Listening for your command…',polishing:'Applying command…',result:'Command applied. Review the change or choose Undo edit.'})[snapshot.state]) || states[snapshot.state];
   $('draft').hidden = !snapshot.raw && !snapshot.interim;
   $('live-transcript').textContent = [snapshot.raw, snapshot.interim].filter(Boolean).join(' ');
   $('recover').hidden = snapshot.state !== 'error' || (!snapshot.raw && !snapshot.interim);
   if (snapshot.state === 'result' && !applied && insertion) {
-    undoValue = insert(snapshot.raw);
-    editor.value = insert(snapshot.result);
+    const command = machine.options.action === 'command';
+    const edited = command ? applyCommand(insertion, snapshot.result) : null;
+    undoValue = command ? insertion.text : insert(snapshot.raw);
+    editor.value = command ? edited.value : insert(snapshot.result);
     applied = true;
     drafts.set(mode, editor.value);
-    history.record({raw:snapshot.raw, text:snapshot.result, context:mode, source, language:machine.options.language, style:machine.options.style});
+    history.record({raw:command ? insertion.target : snapshot.raw, text:snapshot.result, instruction:command ? snapshot.raw : undefined,
+      context:mode, source, language:machine.options.language, style:machine.options.style});
     editor.focus();
-    editor.setSelectionRange(editor.value.length, editor.value.length);
+    editor.setSelectionRange(edited?.start ?? editor.value.length, edited?.end ?? editor.value.length);
   }
   counts();
 }
 function startRecording() {
   if (machine.busy || settings.microphone.busy) return false;
-  captureInsertion(); return machine.start(options());
+  if (!captureInsertion()) return false;
+  return machine.start(options());
 }
 function record() {
   if (machine.state === 'listening') return machine.stop();
@@ -95,9 +113,29 @@ function record() {
 $('record').addEventListener('click', record);
 $('cancel').addEventListener('click', () => machine.cancel());
 $('practice-submit').addEventListener('click', () => {
-  captureInsertion(true); void machine.practice($('practice-input').value, options());
+  if (machine.busy || settings.microphone.busy) return;
+  setAction('dictation'); captureInsertion(true); void machine.practice($('practice-input').value, options());
 });
+function setAction(next) {
+  if (machine.busy) return;
+  action = next;
+  $('command-mode').setAttribute('aria-pressed', String(action === 'command'));
+  $('command-panel').hidden = action !== 'command';
+  machine.cancel();
+  $('state').textContent = action === 'command' ? 'Select text, then speak or type a supported command.' : states.idle;
+}
+$('command-mode').addEventListener('click', () => setAction(action === 'command' ? 'dictation' : 'command'));
+$('command-form').addEventListener('submit', event => {
+  event.preventDefault();
+  if (action !== 'command' || machine.busy || settings.microphone.busy || !captureInsertion()) return;
+  void machine.practice($('command-input').value, options());
+});
+editor.addEventListener('select', counts);
 $('recover').addEventListener('click', () => {
+  if (machine.options?.action === 'command') {
+    $('command-input').value = [machine.raw, machine.interim].filter(Boolean).join(' ');
+    $('command-input').focus(); return;
+  }
   $('practice-input').value = [machine.raw, machine.interim].filter(Boolean).join(' ');
   document.querySelector('.practice').open = true;
   $('practice-input').focus();
