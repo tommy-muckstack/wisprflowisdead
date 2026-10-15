@@ -23,7 +23,7 @@ const safe = value => String(value).replaceAll(password || '\0','[password]').re
   .replace(/([?&]key=)[^&\s"']+/g,'$1[public-key]').slice(0,1500);
 const originalLog = console.log;
 console.log = (...values) => originalLog(...values.map(safe));
-const types = {'.html':'text/html','.css':'text/css','.js':'text/javascript','.mjs':'text/javascript','.png':'image/png','.woff2':'font/woff2','.svg':'image/svg+xml'};
+const types = {'.html':'text/html','.css':'text/css','.js':'text/javascript','.mjs':'text/javascript','.png':'image/png','.webp':'image/webp','.woff2':'font/woff2','.svg':'image/svg+xml'};
 
 globalThis.smokeSetup = async values => {
   ({b:browser,ctx:context,p:page,email,pw:password} = values);

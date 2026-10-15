@@ -6,7 +6,7 @@ import {fileURLToPath} from 'node:url';
 
 const root = await realpath(fileURLToPath(new URL('../site/wisprflowisdead/', import.meta.url)));
 const prefix = '/wisprflowisdead';
-const types = {'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.mjs':'text/javascript; charset=utf-8','.js':'text/javascript; charset=utf-8','.png':'image/png','.svg':'image/svg+xml','.woff2':'font/woff2'};
+const types = {'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.mjs':'text/javascript; charset=utf-8','.js':'text/javascript; charset=utf-8','.png':'image/png','.webp':'image/webp','.svg':'image/svg+xml','.woff2':'font/woff2'};
 const server = createServer(async (req, res) => {
   function send(status, body, type = 'application/json') {
     res.writeHead(status, {'content-type':type, 'cache-control':'no-store'});

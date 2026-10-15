@@ -14,6 +14,12 @@ try {
     const context = await browser.newContext({viewport:{width,height:width === 390 ? 844 : 900},deviceScaleFactor:1,isMobile:width === 390,hasTouch:width === 390,locale:'en-US',timezoneId:'America/New_York'});
     const page = await context.newPage(); const errors = [];
     page.on('pageerror', error => errors.push(error.message));
+    page.on('response', response => {
+      if (target === 'candidate' && response.url().startsWith(origin + '/wisprflowisdead/assets/') && response.status() >= 400) errors.push(`Asset HTTP ${response.status()}: ${response.url()}`);
+    });
+    page.on('requestfailed', request => {
+      if (target === 'candidate' && request.url().startsWith(origin + '/wisprflowisdead/assets/')) errors.push(`Asset request failed: ${request.url()}`);
+    });
     const entry = {target,page:item.name,width,url:origin + (target === 'original' ? item.original : item.clone),errors};
     try {
       const response = await page.goto(entry.url, {waitUntil:'load',timeout:45000});
@@ -77,6 +83,13 @@ try {
         const selector = target === 'original' ? '.section_startflowing' : item.name === 'home' ? '.final' : '.pr-cta';
         const section = page.locator(selector).first();
         await section.evaluate(element => window.scrollTo({top:element.getBoundingClientRect().top + scrollY,behavior:'instant'}));
+        if (target === 'candidate') {
+          await section.evaluate(async element => {
+            const urls = [...getComputedStyle(element).backgroundImage.matchAll(/url\("([^"]+)"\)/g)].map(match => match[1]);
+            if (!urls.length) throw Error('Download background is missing');
+            await Promise.all(urls.map(async url => {const image = new Image(); image.src = url; await image.decode();}));
+          });
+        }
         await page.waitForTimeout(300);
         entry.downloadImage = `${target}-${item.name}-${width}-download.png`;
         await page.screenshot({path:path.join(output,entry.downloadImage)});

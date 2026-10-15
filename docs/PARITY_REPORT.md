@@ -58,10 +58,10 @@ Status is `match`, `differs`, or `missing`. `Differs` includes implementations a
 | Home: mobile layout | differs | P1 | No page overflow; panel reading order/overlap checks pass. Cream feature panels and smaller headings improve layout; photo-backed demos, four-card feature grid and 11-question FAQ still differ | 61.6; run 38802612612 |
 | Home/pricing: footer and links | missing | P1 | Most original destinations absent; complete inventory below | N/M |
 | Cookie/privacy controls | differs | P2 | Footer says no tracking/cookie banner; verify scripts/storage before validating E4 | N/M |
-| Pricing: cards and billing toggle | differs | P1 | Both-width billing/add-on controls pass. Mobile first card position matches within ≈1 px; default add-on and other typography/art differ, E5 | 67.9 / 59.5; run 38792121104 |
+| Pricing: cards and billing toggle | differs | P1 | Both-width initial add-on-off state, annual/monthly prices and card/table synchronization pass. Mobile first card position matches within ≈1 px; typography/art still differ, E5 | 68.0 / 59.3; run 38803236802 |
 | Pricing: compare table | differs | P1 | Table roles and text alternatives; #15 restores stacked mobile labels, contains overflow and verifies all four plans remain reachable; row/section geometry still differs | N/M |
 | Pricing: ROI calculator | differs | P2 | Bounded finite inputs, visible errors and disclosed assumptions; invalid/valid result browser checks pass at both widths; visual comparison remains | N/M |
-| Pricing: FAQ | differs | P2 | Hosted desktop tab/mobile accordion interaction passes. Original mobile starts collapsed; candidate starts with its first answer open; heading/section geometry differs | Hosted behavior/raw pricing captures |
+| Pricing: FAQ | differs | P2 | Hosted desktop tab/mobile accordion interaction and matching initial states pass. Questions heading is restored; title wrapping and section geometry still differ | Hosted behavior/raw pricing captures |
 | Pricing: security card and CTA | differs | P2 | Mac/browser processing distinction and explicit absence of certifications; source/support destinations preserve E3/E5 | N/M |
 | Pricing: mobile card collapse | differs | P2 | Linked controls and no-JS fallback; mobile expansion passes in hosted Chromium; remaining typography/plan details differ | N/M |
 | Login: visual layout | differs | P2 | Initial card/heading/provider-row/CTA placement matches measured reference geometry at both widths; project art, branding, provider availability and full-page footer differ | **93.6 / 91.9**; run 38797508456 |
@@ -420,12 +420,16 @@ Draft PR: [#19](https://github.com/tommy-muckstack/wisprflowisdead/pull/19), sta
 
 ### Download section artwork and mobile typography
 
-Draft PR: pending, stacked on #19.
+Draft PR: [#20](https://github.com/tommy-muckstack/wisprflowisdead/pull/20), stacked on #19.
 
 - Baseline: home **79.1 / 61.6**, pricing **68.0 / 59.3**, login **93.6 / 91.9** in run 38803236802. The raw full-page home/pricing references show distinct photographic download backgrounds: an outdoor landscape on home and an interior on pricing. The clone uses flat radial gradients in both places.
 - Adds two independently generated, decorative photographs with the same broad outdoor/interior subject categories and warm/cool palette. No original photo, customer likeness, trademark or endorsement is reproduced. WebP assets total 97,670 bytes; prompts, generation mode and file paths are recorded in [artwork provenance](artwork/download-backgrounds.md). Dark overlays support the existing cream text.
 - Restores pricing mobile CTA line height to 47.6 px at 56 px font size, its 104 px top inset and 40 px button gap. Keeps phrase pairs together so the three-line composition reads as intended. Its minimum height can grow for larger text. Home's source-build instructions and real download handoff remain available.
 - Adds viewport-sized download-section evidence for original/live/candidate at both widths without changing shared scoring or hiding overlays. Local lint/build, QA syntax and whitespace checks pass. Required shared smoke2 was attempted inside/outside the sandbox; Chromium failed before navigation/account creation. Hosted before/after verification is pending; no score gain is claimed.
+
+- Initial [run 38805705216](https://github.com/tommy-muckstack/wisprflowisdead/actions/runs/38805705216) at `f629d018e8de27d19ffb70db2f60d3a95dbd3726` reports home 78.7/61.6 and pricing 68.2/59.1, but **these are not valid artwork measurements**. Close-up screenshots show flat fallback colors: the QA preview server did not allow `.webp`, returning asset 404s despite valid page responses. The first capture did not treat missing asset responses as errors. Both source WebPs are valid; this is a preview/capture defect.
+- Corrects WebP MIME handling in the anonymous preview and candidate auth routing. Raw captures now fail on missing candidate assets and explicitly await download-background decoding. A local HTTP check verifies both URLs return 200 `image/webp`, byte-identical contents and decodable 1672×941 images. The next hosted run must establish the rendered artwork before any visual gain can be claimed.
+- The initial artwork run passes all six browser groups and both auth smokes, including explicit deletion/session cleanup with no notes/errors. The preceding documentation follow-up run 38805479636 also repeats #19 scores and passes auth/cleanup. All eighteen disposable accounts across nine inspected runs are deleted. Native CI 38805705114 and 38805479751 pass macOS/Linux checks. These functional results do not waive the missing-image capture defect.
 
 ### Refreshed public product reference
 
