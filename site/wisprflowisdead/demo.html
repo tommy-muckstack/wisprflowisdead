@@ -8,6 +8,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/wisprflowisdead/assets/apple-touch-icon.png">
   <link rel="stylesheet" href="/wisprflowisdead/assets/isdead-wisprflow.css">
   <link rel="stylesheet" href="/wisprflowisdead/assets/demo.css">
+  <link rel="stylesheet" href="/wisprflowisdead/assets/library.css">
   <script type="module" src="/wisprflowisdead/assets/demo.mjs"></script>
 <link rel="stylesheet" href="/wisprflowisdead/assets/branding.css">
 </head>
@@ -41,10 +42,42 @@
     <p id="state" role="status" aria-live="polite">Ready when you are.</p>
     <p id="shortcut" class="hint">Ctrl + Alt + Space to start or stop · Esc to cancel. Shortcuts work while this page is focused.</p>
     <div id="draft" class="draft" hidden><span class="eyebrow">Your words</span><p id="live-transcript"></p><button id="recover" type="button" hidden>Recover draft</button></div>
-    <p id="speech-privacy" class="privacy">Your browser may send audio to its speech service. This page does not save audio or transcripts. Cleanup runs here in your browser.</p>
+    <p id="speech-privacy" class="privacy">Your browser may send audio to its speech service. Dictation drafts stay in this page; audio is not saved here. Cleanup runs in your browser. Library entries follow your storage choice below.</p>
     <p class="hint" id="language-hint">Filler cleanup and writing styles currently support English. Other languages keep the recognized text.</p>
   </section>
   <details class="practice"><summary>Practice without a microphone</summary><p>Type your own spoken draft. Try “um”, “new paragraph”, “new bullet”, or “question mark”. This uses the same local cleanup as dictation.</p><label for="practice-input">Spoken draft</label><textarea id="practice-input" rows="3" placeholder="um can we review the outline tomorrow question mark"></textarea><button id="practice-submit" class="button" type="button">Clean up text</button></details>
+  <section class="library" aria-labelledby="library-heading">
+    <h2 id="library-heading">Your words, your way.</h2>
+    <p>Keep names spelled right and turn a short phrase into text you use often.</p>
+    <div class="library-tabs" role="tablist" aria-label="Personal library">
+      <button type="button" role="tab" id="library-dictionary" data-library-kind="dictionary" aria-controls="library-panel" aria-selected="true">Dictionary</button>
+      <button type="button" role="tab" id="library-snippet" data-library-kind="snippet" aria-controls="library-panel" aria-selected="false" tabindex="-1">Snippets</button>
+    </div>
+    <div id="library-panel" role="tabpanel" aria-labelledby="library-dictionary">
+      <p id="library-help" class="library-help"></p>
+      <div class="library-tools">
+        <label>Search your library<input id="library-search" type="search" autocomplete="off"></label>
+        <label>Sort by<select id="library-sort"><option value="newest">Newest first</option><option value="oldest">Oldest first</option><option value="alphabetical">A–Z</option><option value="starred" id="starred-sort">Starred first</option></select></label>
+        <button id="add-entry" type="button">Add word</button>
+      </div>
+      <p id="library-empty">No words yet. Add your first one to try it.</p>
+      <ul id="entry-list" aria-label="Library entries"></ul>
+      <form id="entry-form" hidden>
+        <h3 id="entry-heading">Add word</h3>
+        <label><span id="primary-label">Preferred spelling</span><input id="primary" required maxlength="60" autocomplete="off"></label>
+        <label id="correction-row" class="check"><input id="correction" type="checkbox">Correct a misspelling</label>
+        <label id="wrong-row" hidden>Heard spelling<input id="wrong" maxlength="60" autocomplete="off" disabled></label>
+        <div id="expansion-row" hidden><label>Text to insert<textarea id="expansion" rows="4" maxlength="4000" disabled></textarea></label><span id="expansion-count">0 / 4,000 characters</span></div>
+        <div class="form-actions"><button id="save-entry" class="button" type="submit">Add word</button><button id="cancel-entry" type="button">Cancel</button></div>
+      </form>
+    </div>
+    <div class="library-storage">
+      <label class="check"><input id="remember-library" type="checkbox" aria-describedby="library-storage">Keep this library after closing the page</label>
+      <p id="library-storage">Entries last until you close or reload this page.</p>
+      <button id="reload-library" type="button">Reload saved library</button> <button id="clear-library" type="button">Clear library</button>
+    </div>
+    <p id="library-status" role="status" aria-live="polite"></p>
+  </section>
   <noscript><p class="workspace">Enable JavaScript to use dictation and text cleanup. You can still <a href="/wisprflowisdead#download">get the Mac app</a>.</p></noscript>
 </main>
 <footer><a href="/wisprflowisdead">WisprFlowIsDead</a> · Free and open source. Not affiliated with Wispr AI or Wispr Flow. <a href="https://github.com/tommy-muckstack/wisprflowisdead">Source code</a></footer>

@@ -1,4 +1,6 @@
 import {Dictation} from './dictation.mjs';
+import {polishWithLibrary} from './library.mjs';
+import {mountLibrary} from './library-ui.mjs';
 
 const $ = id => document.getElementById(id);
 const editor = $('editor');
@@ -10,15 +12,17 @@ const contexts = {
   email: ['Start with what you mean.', 'Dictate a greeting, your message, and a sign-off. Say “new paragraph” to separate them.']
 };
 const drafts = new Map();
+const library = mountLibrary();
 let mode = 'prompt', insertion = null, undoValue = null, applied = false;
 const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const states = {idle:'Ready when you are.', requesting:'Allow microphone access in your browser to begin.', listening:'Listening…', transcribing:'Transcribing…', polishing:'Polishing…', result:'Ready to use. Review your text, then copy it.'};
 const machine = new Dictation({
   createRecognition: Recognition && window.isSecureContext ? () => new Recognition() : null,
+  polish: polishWithLibrary,
   onChange: render
 });
 
-function options() { return {language:$('language').value, style:$('style').value}; }
+function options() { return {language:$('language').value, style:$('style').value, entries:library.entries.map(entry => ({...entry}))}; }
 function counts() {
   const words = editor.value.trim().split(/\s+/).filter(Boolean).length;
   $('word-count').textContent = `${words} ${words === 1 ? 'word' : 'words'}`;

@@ -1,0 +1,14 @@
+.library{margin:36px 0 0;border:1px solid #E4E4D0;border-radius:24px;padding:28px;background:#FFFDF9}
+.library h2{font:400 34px/1.1 var(--ids-font-display);margin:0 0 10px}.library h3{font:400 26px/1.15 var(--ids-font-display);margin:0 0 16px}
+.library>p,.library-help{font-size:14px;color:#66665e}.library button{min-height:44px;cursor:pointer;border:1px solid #d6d6c8;border-radius:8px;background:transparent;padding:8px 12px}
+.library-tabs{display:flex;gap:6px;margin:22px 0}.library-tabs [aria-selected=true]{background:#1A1A1A;color:#FFFFEB;border-color:#1A1A1A}
+.library-tools{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:20px}.library-tools label:first-child{flex:1;min-width:180px}
+.library label{font-size:13px;font-weight:600;display:grid;gap:6px}.library input:not([type=checkbox]),.library select{width:100%;min-height:44px;border:1px solid #d6d6c8;background:#fff;border-radius:8px;padding:9px 12px}
+.library .check{display:flex;align-items:center;gap:9px;min-height:44px}.library .check input{width:18px;height:18px;accent-color:#034F46}
+#entry-list{list-style:none;padding:0;margin:0}#entry-list li{display:flex;align-items:center;justify-content:space-between;gap:16px;border-top:1px solid #E4E4D0;padding:16px 0}
+#entry-list li>div:first-child{min-width:0;flex:1}#entry-list strong,#entry-list p{overflow-wrap:anywhere}#entry-list p{white-space:pre-wrap;color:#66665e;margin:5px 0;font-size:14px}
+.entry-actions{display:flex;gap:6px;flex-wrap:wrap}.entry-actions button{font-size:12px}.entry-actions [aria-pressed=true]{background:#F0D7FF}
+#entry-form{margin-top:20px;background:#F5F4F0;border-radius:14px;padding:20px}#entry-form>label,#entry-form>div{margin-bottom:14px}#entry-form textarea{min-height:130px}#entry-form .form-actions{display:flex;gap:10px;margin-bottom:0}
+#expansion-count{display:block;text-align:right;font-size:12px;margin-top:5px;color:#66665e}.library-storage{margin-top:24px;padding-top:18px;border-top:1px solid #E4E4D0}.library-storage p{font-size:12px;color:#66665e;max-width:650px}
+#library-status{font-size:14px;min-height:24px;margin:16px 0 0}#library-status.error{color:#7F1C34}
+@media(max-width:600px){.library{padding:20px 16px;border-radius:18px}#entry-list li{align-items:flex-start;flex-direction:column;gap:8px}.library-tools>label{flex:1}.library-tools>button{width:100%}#entry-form{padding:16px}}

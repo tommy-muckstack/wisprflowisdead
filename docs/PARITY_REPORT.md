@@ -69,15 +69,15 @@ Status is `match`, `differs`, or `missing`. `Differs` includes implementations a
 | Idle/listening/transcribing/polishing/result | differs | P0 | State machine includes permission, cancellation, recovery and timeout states; unit-tested, browser pending | N/M |
 | Filler removal/punctuation/formatting | differs | P0 | Conservative local English rules, spoken punctuation/paragraphs/bullets; E7 | N/M |
 | Tone/style options | differs | P1 | Four deterministic English styles in demo; no model rewriting, E7 | N/M |
-| Personal dictionary | missing | P1 | Native implementation only; browser CRUD/replacement absent | N/M |
-| Snippets | missing | P1 | Native implementation only; browser CRUD/expansion absent | N/M |
+| Personal dictionary | differs | P1 | Browser word/correction CRUD, search/sort/star and literal replacement implemented; recognition bias/learning and visual checks pending | N/M |
+| Snippets | differs | P1 | Browser CRUD and case-preserving plain-text expansion implemented; rich text/import/sync and rendered checks pending | N/M |
 | Command mode | missing | P1 | Native model implementation; browser free equivalent needed, E7 | N/M |
 | History/copy/delete/recovery | missing | P1 | Native implementation only; browser storage/privacy design needed | N/M |
 | Settings: hotkey/language/microphone | differs | P1 | Demo language selector and focused-page shortcut; customization/device settings pending, E8/E9 | N/M |
-| Settings: privacy/storage | differs | P1 | Demo discloses browser speech service and keeps drafts in memory only; preferences pending | N/M |
+| Settings: privacy/storage | differs | P1 | Demo discloses speech-service processing; drafts stay in memory, library storage is opt-in with clear/reload controls; history preferences pending | N/M |
 | Browser onboarding | missing | P1 | Permission/practice/language/style onboarding absent | N/M |
 | Microphone denied/unavailable/no speech | differs | P0 | Recoverable messages and timeouts tested with injected recognizer; real permissions/audio pending | N/M |
-| Keyboard/focus/reduced motion | differs | P1 | Nav and tabs incomplete, no explicit reduced-motion treatment found | N/M |
+| Keyboard/focus/reduced motion | differs | P1 | Nav/demo tab keyboard and focus behavior drafted; demo/auth reduced-motion rules exist; sitewide manual accessibility verification pending | N/M |
 | Branded 404 | missing | P2 | No 404 page or site-level route | N/M |
 
 ## Original navigation/footer inventory
@@ -195,7 +195,7 @@ Draft PR: [#4](https://github.com/tommy-muckstack/wisprflowisdead/pull/4), stack
 
 ### Tombstone branding
 
-Draft branch: `qa/tombstone-branding`, stacked on #4.
+Draft PR: [#5](https://github.com/tommy-muckstack/wisprflowisdead/pull/5), stacked on #4.
 
 - The owner supplied a tombstone with transparent X and explicitly requested it anywhere a Wispr-style icon would otherwise appear. Built-in imagegen created the green mark and lavender app tile. [Branding provenance and prompts](BRANDING.md) record source, palette, master assets, and packaging.
 - Replaced header identity on home/pricing/login/demo, footer brand marks on home/pricing, and added the mark to account panels. All five pages reference the new 64px favicon and 180px Apple touch icon. The 1024px site icon uses the same app tile.
@@ -203,6 +203,19 @@ Draft branch: `qa/tombstone-branding`, stacked on #4.
 - `bash scripts/build-icons.sh`, shell/Swift syntax checks, website lint/build, **25 website tests**, and whitespace checks passed. PNG dimensions and alpha were checked; generated icon previews were inspected. `swift build` **passed** using cached FluidAudio dependencies, with pre-existing Combine/async-lock/resource warnings.
 - macOS `iconutil` rejected both the new ten-size iconset and an identical control built from the previous icon. Escalation did not change the result. Final ICNS/Dock/menu-bar appearance is therefore not verified in this environment; no installed app was modified.
 - Shared live auth smoke was attempted before publication and again failed at Chromium launch before navigation/account creation. Browser screenshots/computed styles and parity remain **N/M → N/M**. The app-icon asset previews are not website screenshots; E11 is the requested identity exception.
+
+### Personal dictionary and snippets
+
+Draft branch: `qa/browser-library`, stacked on #5.
+
+- Before: personal words and snippets existed only in the native app. Browser dictation could not apply or manage them.
+- After: the demo offers personal word/correction and snippet CRUD, search, alphabetical/newest/oldest sorting, dictionary stars, native form validation, plain-text expansion counts, keyboard tabs, save/cancel, delete confirmation and visible empty/error states. Duplicate phrases are rejected across both lists.
+- Recognition and typed practice use the same library snapshot. Longest whole-phrase matches win; expansion is nonrecursive and literal. Saved casing/line breaks and angle-bracket text survive cleanup. URLs, email, inline code and contractions are protected. Snippets spoken alone return their saved text exactly.
+- Entries are page-only by default. Explicit opt-in saves to the single `wisprflowisdead.library.v1` localStorage key. Clear/delete failures are surfaced; failed writes preserve previous data. Cross-tab conflicts prompt reloading instead of silently overwriting, and unreadable saved data is preserved until explicitly cleared. The UI explains that saved data is available to everyone using that browser profile.
+- Limits and remaining differences: post-recognition replacements cannot train or bias the browser service; automatic learning is not implemented. The browser library is personal, local, plain-text and capped at 1,000 entries; it has no account/team sync, rich-text paste, import, or bulk selection. These gaps remain `differs`; they are not silently counted as a match. Free browser replacements are covered by E7/E9.
+- Website lint/build and whitespace checks pass. **35 tests pass**, including ten library validation/storage/matching tests. A source integration check confirms demo/library DOM IDs resolve without duplicates. Neither check establishes rendered controls, actual localStorage behavior in all engines, microphone results, or focus behavior.
+- The shared smoke2 implementation was attempted with a cleanup wrapper for its own throwaway account. Chromium failed at the same Mach-port launch step before navigation or account creation; cleanup was not needed. Screenshots, computed styles and scores remain **N/M → N/M**.
+- References: [dictionary behavior](https://docs.wisprflow.ai/articles/4052411709-teach-flow-your-words-with-the-dictionary), [snippets](https://docs.wisprflow.ai/articles/5784437944-create-and-use-snippets), [library management](https://docs.wisprflow.ai/articles/9639977157-view-shared-dictionary-words-and-snippets-in-the-admin-portal). These supplied behavior evidence, not screenshots or proprietary implementation.
 
 ## Next verification gates
 
