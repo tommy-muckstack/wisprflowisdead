@@ -1,0 +1,42 @@
+// swift-tools-version: 5.9
+import PackageDescription
+
+// FlowCore is pure Foundation, so its tests also run on Linux CI.
+// FlowVoice and the app are macOS only (AVFoundation, AppKit, FluidAudio).
+var targets: [Target] = [
+    .target(name: "FlowCore", path: "Sources/FlowCore"),
+    .testTarget(name: "FlowCoreTests", dependencies: ["FlowCore"], path: "Tests/FlowCoreTests"),
+]
+var dependencies: [Package.Dependency] = []
+var products: [Product] = [.library(name: "FlowCore", targets: ["FlowCore"])]
+
+#if os(macOS)
+dependencies.append(.package(url: "https://github.com/FluidInference/FluidAudio.git", exact: "0.15.1"))
+targets += [
+    .target(name: "AudioEngineSafety", path: "Sources/AudioEngineSafety"),
+    .target(
+        name: "FlowVoice",
+        dependencies: [
+            "FlowCore", "AudioEngineSafety",
+            .product(name: "FluidAudio", package: "FluidAudio"),
+        ],
+        path: "Sources/FlowVoice"
+    ),
+    .executableTarget(
+        name: "WisprFlowIsDead",
+        dependencies: ["FlowCore", "FlowVoice"],
+        path: "Sources/WisprFlowIsDead",
+        resources: [.copy("Resources/Fonts")]
+    ),
+]
+products.append(.executable(name: "WisprFlowIsDead", targets: ["WisprFlowIsDead"]))
+#endif
+
+let package = Package(
+    name: "WisprFlowIsDead",
+    // 14.2 matches MyMan, whose audio pipeline is vendored here.
+    platforms: [.macOS("14.2")],
+    products: products,
+    dependencies: dependencies,
+    targets: targets
+)
