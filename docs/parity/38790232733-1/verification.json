@@ -1,0 +1,16 @@
+{
+  "measuredAt": "2026-10-15T19:05:58.771Z",
+  "commit": "65df97c67f066f926818d446e5f6c0a402103c6e",
+  "toolsCommit": "3020a26628341fa65dbf5759b9b69cffc913d2aa",
+  "originalImagesReused": true,
+  "measured": true,
+  "passed": false,
+  "behaviorPassed": false,
+  "errors": [
+    {
+      "stage": "browser interactions",
+      "message": "One or more browser flows failed"
+    }
+  ],
+  "note": "Live production is compared with the entire PR stack, not attributed to this single PR. Candidate preview supports anonymous rendering only; no authentication pass is implied. Shared parity hides animation/cookie overlays; the raw directory captures unmodified viewports and navigation/footer links. Scores still require visual review of the captured pages."
+}

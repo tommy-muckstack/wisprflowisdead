@@ -1,0 +1,41 @@
+{
+  "results": [
+    {
+      "name": "navigation",
+      "width": 1440,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "name": "pricing",
+      "width": 1440,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "name": "demo",
+      "width": 1440,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "name": "navigation",
+      "width": 390,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "name": "pricing",
+      "width": 390,
+      "passed": false,
+      "errors": [],
+      "failure": "Horizontal overflow: 732 > 390"
+    },
+    {
+      "name": "demo",
+      "width": 390,
+      "passed": true,
+      "errors": []
+    }
+  ]
+}
