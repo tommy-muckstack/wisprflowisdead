@@ -6,7 +6,7 @@ const tools = path.resolve(process.env.PARITY_TOOLS_DIR || 'parity-tools');
 const {chromium} = createRequire(path.join(tools, 'scripts/package.json'))('playwright');
 const output = path.resolve('qa-artifacts/raw'); fs.mkdirSync(output, {recursive:true});
 const targets = {original:'https://wisprflow.ai',live:'https://yourappisdead.com',candidate:'http://127.0.0.1:3300'};
-const pages = [{name:'home',original:'/',clone:'/wisprflowisdead'}, {name:'pricing',original:'/pricing',clone:'/wisprflowisdead/pricing'}, {name:'login',original:'/get-started',clone:'/wisprflowisdead/login'}];
+const pages = [{name:'home',original:'/',clone:'/wisprflowisdead'}, {name:'pricing',original:'/pricing',clone:'/wisprflowisdead/pricing'}, {name:'login',original:'/get-started',clone:'/wisprflowisdead/login'}, {name:'support',original:'/support',referenceOnly:true}];
 const results = [];
 function ancestorStyles(element) {
   const nodes = [];
@@ -19,6 +19,7 @@ function ancestorStyles(element) {
 const browser = await chromium.launch();
 try {
   for (const [target, origin] of Object.entries(targets)) for (const item of pages) for (const width of [1440,390]) {
+    if (item.referenceOnly && target !== 'original') continue;
     const context = await browser.newContext({viewport:{width,height:width === 390 ? 844 : 900},deviceScaleFactor:1,isMobile:width === 390,hasTouch:width === 390,locale:'en-US',timezoneId:'America/New_York'});
     const page = await context.newPage(); const errors = [];
     page.on('pageerror', error => errors.push(error.message));
@@ -38,6 +39,18 @@ try {
       entry.links = await page.locator('nav a,header a,footer a').evaluateAll(links => links.map(link => ({text:link.textContent.trim(),href:link.href,visible:!!(link.getBoundingClientRect().width && link.getBoundingClientRect().height)})));
       entry.image = `${target}-${item.name}-${width}.png`;
       await page.screenshot({path:path.join(output,entry.image)});
+      if (item.name === 'support') {
+        entry.fullImage = `${target}-support-${width}-full.png`;
+        await page.screenshot({path:path.join(output,entry.fullImage),fullPage:true});
+        entry.reviewImage = `${target}-support-${width}-review.jpg`;
+        await page.screenshot({path:path.join(output,entry.reviewImage),fullPage:true,type:'jpeg',quality:70});
+        const main = await page.locator('main').count() ? page.locator('main').first() : page.locator('body');
+        entry.supportStyles = await main.evaluate(main => [...main.querySelectorAll('*')]
+          .filter(element => element instanceof HTMLElement && element.getBoundingClientRect().height && element.getBoundingClientRect().width).slice(0,250).map(element => {
+            const box = element.getBoundingClientRect(), style = getComputedStyle(element);
+            return {tag:element.tagName,cls:element.className,text:element.children.length ? '' : element.textContent.trim().slice(0,160),x:box.x,y:box.y + scrollY,width:box.width,height:box.height,fontFamily:style.fontFamily,fontSize:style.fontSize,lineHeight:style.lineHeight,fontWeight:style.fontWeight,letterSpacing:style.letterSpacing,color:style.color,background:style.backgroundColor,padding:style.padding,margin:style.margin,gap:style.gap,radius:style.borderRadius,display:style.display};
+          }));
+      }
       if (item.name === 'login') {
         entry.initialImage = entry.image;
         if (target === 'original') {

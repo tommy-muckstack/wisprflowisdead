@@ -40,6 +40,11 @@ for (const [target, origin] of Object.entries(targets)) for (const page of pages
   run('extract-styles.mjs', [origin + (target === 'original' ? page.original : page.clone),'--vp',viewport,'--out',path.join(directory,`${page.name}-${viewport.split('x')[0]}.json`)], `${target} ${page.name} ${viewport} styles`);
 }
 const candidate = report('candidate');
+// Measure missing-page references before implementing their clone destinations.
+for (const viewport of viewports) {
+  const directory = path.join(output, 'styles', 'original');
+  run('extract-styles.mjs', [targets.original + '/support','--vp',viewport,'--out',path.join(directory,`support-${viewport.split('x')[0]}.json`)], `original support ${viewport} styles`);
+}
 let behavior;
 try {behavior = JSON.parse(fs.readFileSync(path.join(output,'behavior/report.json'),'utf8'));}
 catch {errors.push({stage:'browser interactions',message:'Missing browser behavior report'});}
