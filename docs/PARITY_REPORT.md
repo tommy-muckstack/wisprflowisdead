@@ -167,7 +167,7 @@ Draft PR: [#2](https://github.com/tommy-muckstack/wisprflowisdead/pull/2), stack
 
 ### Browser dictation foundation
 
-Draft PR: pending publication, stacked on #2.
+Draft PR: [#3](https://github.com/tommy-muckstack/wisprflowisdead/pull/3), stacked on #2.
 
 - Before: browser account page offered a native download only. No browser transcription or cleanup flow existed.
 - After: public `/demo` offers four writing contexts, editable/copyable output, language/style choices, and a speech state machine covering idle, permission request, listening, transcribing, polishing, result, cancellation, and recoverable error. The account page and marketing footers link to it.
