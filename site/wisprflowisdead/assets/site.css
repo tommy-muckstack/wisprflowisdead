@@ -58,9 +58,9 @@ em{font-style:italic}
 /* trust card */
 .trust{background:#E4E4D0;border-radius:40px;max-width:1264px;margin:0 auto 0;height:300px;display:grid;grid-template-columns:1fr 1.1fr;align-items:center;padding:0 60px;gap:40px}
 .trust h2{font-size:52px;line-height:1;letter-spacing:-.02em}.trust p{font-size:15px;line-height:1.4;margin:0}.rings{display:flex;gap:18px;justify-content:flex-end}.rings span{width:96px;height:96px;border-radius:50%;border:2px dashed #1A1A1A;display:grid;place-items:center;text-align:center;font-size:12px;font-weight:600;line-height:1.15}
-.sect-trust{padding:80px 0 80px}
+.sect-trust{padding:54px 0;margin-top:-135px;position:relative;z-index:2}
 /* black testimonial-style */
-.proof{background:#1A1A1A;color:#FFFFEB;border-radius:80px 80px 0 0;padding:120px 0 140px;text-align:center;min-height:2400px}
+.proof{background:#1A1A1A;color:#FFFFEB;border-radius:80px 80px 0 0;padding:120px 0 140px;text-align:center;min-height:4712px}
 .proof h2{font-size:72px;line-height:1;letter-spacing:-.03em;margin-top:22px}
 .pcard{display:grid;grid-template-columns:1.3fr 1fr;max-width:960px;margin:90px auto 0;border-radius:32px;background:#F0D7FF;color:#1A1A1A;text-align:left;overflow:hidden}
 .pcard .t{padding:44px}.pcard .t q{display:block;font-family:var(--ids-font-display),serif;font-size:38px;line-height:1.05;quotes:none}.pcard .t small{display:block;margin-top:26px;font-weight:600}
@@ -160,4 +160,28 @@ em{font-style:italic}
 .card-a input{font-size:16px;height:54px}.go{margin-top:4px}
 .auth-pg .char{display:block;width:158px;height:170px;right:-35px;top:-82px}
 .trusted{font-size:16px;margin-top:30px}.trusted .tl{gap:26px;font-size:16px;margin-top:16px}
+}
+@media (min-width:901px){.ft.home .ft-in{height:1184px}}
+@media (max-width:600px){
+body:not(.auth-pg):not(.pricing-page) .banner{height:36px}
+body:not(.auth-pg) .nav{margin-top:4px;height:62px}
+.hero{height:595px}
+.hero .eyebrow{margin-top:57px;line-height:18px;font-size:12px}
+.hero h1{font-size:44px;line-height:47px;margin-top:26px;letter-spacing:-.02em}
+.hero h1 em{margin-top:0}
+.hero p{font-size:18px;line-height:24px;max-width:340px;margin-top:19px}
+.hero .btn{margin-top:23px}
+.hero .avail{margin-top:23px;font-size:13px;line-height:18px}
+.ribbon{top:440px;height:110px}.ribbon svg{height:110px}
+.mic{top:496px}.theyre{top:455px;font-size:13px}
+}
+@media (max-width:600px){
+.strip{margin-top:0;min-height:255px}
+.pin{height:2995px}
+.lang{min-height:2083px}
+.sect-trust{margin-top:0;min-height:440px;padding:0}
+.proof{min-height:3202px}
+.faq{min-height:1012px}
+.final{height:529px;overflow:hidden}
+.ft-in{min-height:1572px}
 }
