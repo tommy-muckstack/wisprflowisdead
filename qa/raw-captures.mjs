@@ -118,7 +118,7 @@ try {
             entry.pricingRowStyles[label] = visible;
           }
           const rows = page.locator(target === 'original' ? '.pricing-row' : '.tr');
-          await rows.first().evaluate(element => window.scrollTo({top:element.getBoundingClientRect().top + scrollY - 200,behavior:'instant'}));
+          await rows.filter({hasText:'Add words to dictionary'}).first().evaluate(element => window.scrollTo({top:element.getBoundingClientRect().top + scrollY - 200,behavior:'instant'}));
           await page.waitForTimeout(300);
           entry.comparisonImage = `${target}-pricing-${width}-comparison.png`;
           await page.screenshot({path:path.join(output,entry.comparisonImage)});

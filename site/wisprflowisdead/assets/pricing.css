@@ -50,11 +50,12 @@
 .th a{font-size:14px;font-weight:600;border-bottom:0}.th a i{font-style:normal}
 .tgs{margin-top:49px}
 .tg{margin-bottom:48px}.tg:last-child{margin-bottom:0}
-.tgh{display:flex;align-items:flex-end;padding:0 0 12px 52px;font-size:13px;font-weight:600;border-bottom:1px solid var(--bei)}
+.tgh{display:flex;align-items:center;padding:16px 24px 16px 16px;font-size:16px;line-height:1.3;font-weight:600;border-bottom:1px solid var(--bei)}
 .tgh b{font-weight:600}
 .tr{display:grid;grid-template-columns:minmax(0,1.5fr) repeat(4,minmax(0,1fr));align-items:center;border-bottom:1px solid var(--bei);font-size:14px;font-weight:500;line-height:18px;padding:0}
 .tl{padding:16px 24px 16px 16px;font-size:16px;line-height:1.3;color:rgba(26,26,26,.7);display:flex;align-items:center;align-self:stretch}
-.tc{padding:0 12px;display:flex;gap:6px;align-items:center;justify-content:center;text-align:center;font-size:12px}
+.tc{padding:24px 24px 24px 12px;display:flex;gap:6px;align-items:center;align-self:stretch;justify-content:center;text-align:center;font-size:16px;line-height:1.3}
+.tc .ck{width:16px;height:16px;flex:none}
 .tc .no{opacity:.45}.tc .en{font-size:13px;opacity:.75}
 .cmpnote{font-size:13px;line-height:18px;opacity:.75;margin:20px 0 0 52px;max-width:760px}
 .secure{position:relative;margin:0;height:426px;border-radius:32px;background:var(--bei);padding:64px 48px;text-align:left;display:grid;grid-template-columns:349px 1fr;gap:45px}
@@ -132,9 +133,9 @@
 .th .tp{font-size:32px;line-height:30px;margin-top:8px;display:flex;align-items:center;gap:6px}.th .tp small{font-size:12px;line-height:13px;width:34px;white-space:normal;text-align:left}.th a{font-size:12px;margin-top:6px}
 .tgs{min-width:0;margin-top:24px}
 .tgh{padding:0 0 0 16px;height:55px!important;font-size:16px;align-items:center}
-.tr{min-width:0;grid-template-columns:repeat(3,minmax(0,1fr));padding:0;min-height:var(--mh)!important;align-items:stretch}
+.tr{min-width:0;grid-template-columns:repeat(3,minmax(0,1fr));padding:0;align-items:stretch}
 .tl{grid-column:1/-1;padding:16px 0 16px 16px;font-size:16px;font-weight:600;line-height:1.3;border-bottom:1px solid var(--bei)}
-.tc{font-size:16px;line-height:16px;padding:16px;font-weight:500}.tc:nth-child(5){display:none}
+.tc{padding:16px;font-weight:500}.tc:nth-child(5){display:none}
 .tg{margin-bottom:48px}.tg:last-child{margin-bottom:0}
 .cmpnote{display:none}
 .secure{display:block;height:auto;min-height:572px;padding:32px;margin-top:0;border-radius:24px}.secure h2{font-size:32px;line-height:.95}.secure .sm{width:auto;margin-top:32px}.secure .sm p{max-width:none;font-size:14px;line-height:18px}
