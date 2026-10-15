@@ -4,6 +4,7 @@ import {mountLibrary} from './library-ui.mjs';
 import {mountHistory} from './history-ui.mjs';
 import {mountSettings} from './settings-ui.mjs';
 import {Shortcut} from './preferences.mjs';
+import {mountOnboarding} from './onboarding-ui.mjs';
 
 const $ = id => document.getElementById(id);
 const editor = $('editor');
@@ -25,11 +26,13 @@ const machine = new Dictation({
   polish: polishWithLibrary,
   onChange: render
 });
-const settings = mountSettings({onMicrophoneBusy:busy => {
+let onboarding;
+const settings = mountSettings({onMicrophoneLevel:value => onboarding?.microphoneLevel(value), onMicrophoneBusy:busy => {
   $('record').disabled = busy || ['requesting','transcribing','polishing'].includes(machine.state) || !machine.createRecognition;
 }});
 const keyboard = new Shortcut({preferences:() => settings.preferences.value, start:startRecording, stop:() => machine.stop(), toggle:record,
   allowed:() => !settings.open && !settings.microphone.busy});
+onboarding = mountOnboarding({settings, start:startRecording, canDictate:() => Boolean(machine.createRecognition)});
 
 function options() { return {language:$('language').value, style:$('style').value, entries:library.entries.map(entry => ({...entry}))}; }
 function counts() {
@@ -53,6 +56,8 @@ function render(snapshot) {
   const busy = machine.busy;
   history.setBusy(busy);
   settings.setBusy(busy);
+  onboarding.setBusy(busy);
+  onboarding.result(snapshot);
   if (!busy) keyboard.reset();
   $('options').disabled = busy;
   tabs.forEach(tab => {tab.disabled = busy;});

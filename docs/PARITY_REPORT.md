@@ -14,6 +14,7 @@ Scope: marketing website, shared Firebase account flow, and a browser dictation 
 - No reference captures at `/workspace/isdead-shots/parity/wisprflowisdead/`. The local in-app browser execution tool is unavailable. Standalone Playwright Chromium fails at launch with macOS `bootstrap_check_in ... MachPortRendezvousServer` permission errors, including escalated attempts.
 - The user subsequently supplied a paired desktop screenshot (`image (10).png`, original left, clone right) and prioritized the navigation bar. It is useful reference evidence, but its two panels do not establish equal viewport widths or a measured parity score. Installed Google Chrome was also attempted through Playwright and exited before navigation.
 - Cached Playwright Firefox and WebKit were also attempted against the local server with escalation. Both abort before navigation (`SIGABRT` / `Abort trap: 6`). The local HTTP server responds, but no installed engine has produced a website screenshot.
+- A separate Chrome QA instance was attempted through macOS Launch Services, using a fresh temporary profile and localhost-only debugging for Playwright CDP attachment. Application-name lookup failed; opening the known bundle path returned `kLSNoExecutableErr` (missing executable). No personal browser profile was used and no browser session was established.
 - `npm install` for both website and parity tooling fails with `ENOTFOUND registry.npmjs.org`. Website APIs cannot be exercised without dependencies/configuration. No environment values or secrets were read, changed, or committed.
 - A static preview was started at `http://127.0.0.1:3300/wisprflowisdead/` after socket-binding approval. This Python fallback serves `.html` paths; it does not emulate Vercel clean URLs or functions.
 - `scripts/parity.mjs --config parity/wispr.json --clone https://yourappisdead.com --viewports 1440x900,390x844` was attempted: missing package dependency prevents capture. `templates/smoke2.mjs https://yourappisdead.com/wisprflowisdead wispr-account` was attempted: browser launch fails before navigation. No accounts were created, so there are none to delete.
@@ -76,7 +77,7 @@ Status is `match`, `differs`, or `missing`. `Differs` includes implementations a
 | History/copy/delete/recovery | differs | P1 | Browser text history, original/result restore, search/copy/delete, retention and storage recovery drafted; audio replay/retry unavailable, live checks pending | N/M |
 | Settings: hotkey/language/microphone | differs | P1 | Settings dialog adds language/style persistence, custom focused-page shortcut, hold/toggle activation and bounded microphone level check; native device picker/global shortcuts remain E8/E9 | N/M |
 | Settings: privacy/storage | differs | P1 | Library saving is opt-in; history offers page-only, 24-hour, until-deleted and disabled modes; browser/account isolation and real retention checks pending | N/M |
-| Browser onboarding | missing | P1 | Permission/practice/language/style onboarding absent | N/M |
+| Browser onboarding | differs | P1 | Four-step guide connects privacy, measured microphone input, preferences and actual practice; skip/reopen and completion recovery implemented; native layout and live checks pending | N/M |
 | Microphone denied/unavailable/no speech | differs | P0 | Recoverable messages and timeouts tested with injected recognizer; real permissions/audio pending | N/M |
 | Keyboard/focus/reduced motion | differs | P1 | Nav/demo tab keyboard and focus behavior drafted; demo/auth reduced-motion rules exist; sitewide manual accessibility verification pending | N/M |
 | Branded 404 | missing | P2 | No 404 page or site-level route | N/M |
@@ -259,7 +260,7 @@ Draft PR: [#9](https://github.com/tommy-muckstack/wisprflowisdead/pull/9), stack
 
 ### Browser settings and microphone check
 
-Draft branch: `qa/browser-settings`, stacked on #9.
+Draft PR: [#10](https://github.com/tommy-muckstack/wisprflowisdead/pull/10), stacked on #9.
 
 - Before: only inline language/style controls and a fixed Ctrl+Alt+Space toggle were available. There was no microphone check, shortcut customization or settings persistence.
 - After: a native modal dialog offers synchronized language/style controls, one custom Ctrl+Alt+(optional Shift)+letter/number/Space shortcut, keyboard enable/disable, and hold-to-talk or press-to-toggle activation. Key release stops a held dictation even after modifier release; repeats, composing text and AltGraph do not trigger recording. Closing/cancelling/hiding the page releases active checks. Browser timer/frame callbacks use wrappers so they do not receive a controller object as their host receiver.
@@ -269,6 +270,19 @@ Draft branch: `qa/browser-settings`, stacked on #9.
 - Website lint/build, whitespace and source integration checks pass. **64 tests pass**, including eight preference/shortcut tests and seven microphone lifecycle tests. Audio streams, permissions and levels are injected in those tests; no real microphone or browser interaction pass is claimed.
 - Shared smoke2 with cleanup was attempted again and failed at Chromium launch before navigation/account creation. The in-app Node REPL/browser execution tool is still unavailable. Screenshots, computed styles and scores remain **N/M → N/M**; this change is a draft.
 - References: [original shortcut controls](https://docs.wisprflow.ai/articles/2612050838-Supported-%26-Unsupported-Keyboard-Hotkey-Shortcuts), [original microphone controls](https://docs.wisprflow.ai/articles/8884408990-connect-and-set-up-external-audio-devices), [getUserMedia](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia), [SpeechRecognition input](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition/start).
+
+### Browser onboarding
+
+Draft branch: `qa/browser-onboarding`, stacked on #10.
+
+- Before: new visitors went directly into a demo with no setup guidance or connection between permission, language/shortcut settings and practice.
+- After: an optional four-step guide covers browser speech privacy, microphone input, preferences and practice. Microphone testing opens the real Settings check; only detected input level marks that step complete. Practice completion comes from a successful dictation or typed cleanup with nonempty original/result text. There is no seeded recording or fabricated result.
+- Back/continue, individual skip, skip-all and reopening are available. Skipped steps are labeled separately from completed checks. Unsupported microphone/speech capabilities direct users to skipping or typed practice. Recording locks guide navigation; explicit navigation moves focus to the step heading, and practice actions focus the actual editor/controls. Reopening an already-visible guide preserves its current progress.
+- Finishing/skipping remembers only `{version, status}` under `wisprflowisdead.onboarding.v1`, so the guide does not repeatedly interrupt returning visitors. It stores no profile, audio or transcript data. A failed write finishes this visit while visibly explaining that the choice could not be remembered. Corrupt/unknown saved flags remain intact until an explicit completion action. Setup can always be reopened from the header.
+- Remaining differences: this is an inline browser guide, not an OS installer or native first-run window. It does not request desktop Accessibility/keyboard-extension permissions, perform original-account onboarding, or collect unused profile/work questions. Native global shortcuts, automatic language detection and device selection remain E8/E9. Browser focus, responsive layout and actual microphone onboarding still need hands-on comparison.
+- Website lint/build, whitespace and source integration checks pass. **70 tests pass**, including six setup progression/skip/persistence tests. The checks do not establish real permission prompts, audio levels, screen-reader flow or screenshot parity.
+- Shared smoke2 with cleanup was attempted and stopped at the Chromium launch error before navigation/account creation. Launch Services also could not start the isolated Chrome fallback. Screenshots, computed styles and scores remain **N/M → N/M**; this change remains a draft.
+- Reference: [original first-dictation setup](https://docs.wisprflow.ai/articles/3152211871-setup-guide). Native permission/account steps are recorded as differences rather than simulated in the browser.
 
 ## Next verification gates
 

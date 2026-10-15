@@ -1,7 +1,7 @@
 import {Preferences, PREFERENCES_KEY, shortcutLabel} from './preferences.mjs';
 import {MicrophoneCheck} from './microphone.mjs';
 
-export function mountSettings({onMicrophoneBusy}) {
+export function mountSettings({onMicrophoneBusy, onMicrophoneLevel = () => {}}) {
   const $ = id => document.getElementById(id);
   const dialog = $('settings-dialog');
   let storage, busy = false, capturing = false;
@@ -19,13 +19,15 @@ export function mountSettings({onMicrophoneBusy}) {
     getUserMedia: window.isSecureContext && navigator.mediaDevices?.getUserMedia ? options => navigator.mediaDevices.getUserMedia(options) : null,
     createContext: Audio ? () => new Audio() : null,
     onChange({state, message}) {
+      const stopWasFocused = document.activeElement === $('microphone-stop');
       $('microphone-status').textContent = message;
       $('microphone-start').disabled = busy || microphone.busy;
       $('microphone-stop').hidden = !microphone.busy;
       $('microphone-start').textContent = state === 'requesting' ? 'Waiting for microphone…' : 'Test microphone';
+      if (stopWasFocused && !microphone.busy && dialog.open) $('microphone-start').focus();
       onMicrophoneBusy(microphone.busy);
     },
-    onLevel: value => {$('microphone-level').value = value;}
+    onLevel: value => {$('microphone-level').value = value; onMicrophoneLevel(value);}
   });
   function render() {
     const value = preferences.value;
@@ -72,7 +74,12 @@ export function mountSettings({onMicrophoneBusy}) {
   $('remember-settings').addEventListener('change', () => act(() => preferences.setRemember($('remember-settings').checked), 'Storage preference updated.'));
   $('settings-reload').addEventListener('click', () => act(() => preferences.load(), 'Saved settings reloaded.'));
   $('settings-reset').addEventListener('click', () => act(() => preferences.reset(), 'Default settings restored. Saved settings removed; history and library are unchanged.'));
-  $('open-settings').addEventListener('click', () => {if (!busy) {dialog.showModal(); $('preferences-notice').hidden = true;}});
+  function openTo(id = 'settings-close') {
+    if (busy) return false;
+    if (!dialog.open) dialog.showModal();
+    $('preferences-notice').hidden = true; $(id).focus(); return true;
+  }
+  $('open-settings').addEventListener('click', () => openTo());
   $('settings-close').addEventListener('click', () => dialog.close());
   dialog.addEventListener('close', () => {stopCapture(); if (microphone.busy) microphone.stop();});
   $('microphone-start').addEventListener('click', () => {if (!busy) void microphone.start();});
@@ -84,7 +91,7 @@ export function mountSettings({onMicrophoneBusy}) {
   });
   act(() => preferences.load());
   return {
-    preferences, microphone,
+    preferences, microphone, openTo,
     get open() {return dialog.open;},
     setBusy(value) {
       busy = value;

@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="/wisprflowisdead/assets/library.css">
   <link rel="stylesheet" href="/wisprflowisdead/assets/history.css">
   <link rel="stylesheet" href="/wisprflowisdead/assets/settings.css">
+  <link rel="stylesheet" href="/wisprflowisdead/assets/onboarding.css">
   <script type="module" src="/wisprflowisdead/assets/demo.mjs"></script>
 <link rel="stylesheet" href="/wisprflowisdead/assets/branding.css">
 </head>
@@ -18,10 +19,21 @@
 <a class="skip" href="#workspace">Skip to dictation</a>
 <header class="demo-header">
   <a class="brand" href="/wisprflowisdead" aria-label="WisprFlowIsDead home"><img class="brand-mark" src="/wisprflowisdead/assets/tombstone.png" width="24" height="24" alt=""> FlowIsDead</a>
-  <nav aria-label="Demo navigation"><button id="open-settings" type="button" aria-haspopup="dialog" aria-controls="settings-dialog" disabled>Settings</button><a href="/wisprflowisdead/app">Account</a><a class="button" href="/wisprflowisdead#download">Get the Mac app</a></nav>
+  <nav aria-label="Demo navigation"><button id="open-setup" type="button" aria-controls="setup-guide" disabled>Setup</button><button id="open-settings" type="button" aria-haspopup="dialog" aria-controls="settings-dialog" disabled>Settings</button><a href="/wisprflowisdead/app">Account</a><a class="button" href="/wisprflowisdead#download">Get the Mac app</a></nav>
 </header>
 <main>
   <div class="intro"><p class="eyebrow">WisprFlowIsDead · Web demo</p><h1>Let your words <em>flow.</em></h1><p>Speak a thought. Get writing you can edit, copy, and use.</p></div>
+  <section class="setup-guide" id="setup-guide" aria-labelledby="setup-heading" hidden>
+    <div class="setup-top"><span id="setup-progress">Step 1 of 4</span><button id="setup-skip" type="button">Skip setup</button></div>
+    <ol aria-label="Setup steps"><li data-setup-step="privacy">1. Privacy <small></small></li><li data-setup-step="microphone">2. Microphone <small></small></li><li data-setup-step="preferences">3. Preferences <small></small></li><li data-setup-step="practice">4. Practice <small></small></li></ol>
+    <h2 id="setup-heading" tabindex="-1">Before you speak</h2>
+    <div id="setup-privacy"><p>Browser dictation may send audio to your browser provider’s speech service. Local cleanup runs here, and this demo does not keep an audio recording.</p><p>History stays in this page by default. Review the history and library controls below before choosing to save text. No account or payment is required.</p></div>
+    <div id="setup-microphone" hidden><p>Test your browser’s default input. The check shows sound levels locally and stops after 20 seconds. Choose Done in Settings to return here.</p><button id="setup-test-mic" type="button">Test microphone</button><p id="setup-mic-result" role="status"></p></div>
+    <div id="setup-preferences" hidden><p>Choose your dictation language, writing style and keyboard shortcut. Use the Mac app for system-wide shortcuts; browser shortcuts work while this page is focused.</p><button id="setup-settings" type="button">Choose preferences</button><p>You can continue with the current settings and change them later.</p></div>
+    <div id="setup-practice" hidden><p>Say a short thought, then use Stop dictating to finish. Or type your own draft in microphone-free practice and choose Clean up text.</p><div class="setup-actions"><button id="setup-dictate" type="button">Start a dictation</button><button id="setup-type" type="button">Use typed practice</button></div><p id="setup-practice-result" role="status"></p></div>
+    <div class="setup-actions"><button id="setup-back" type="button" hidden>Back</button><button id="setup-next" type="button">Continue</button><button id="setup-skip-step" type="button" hidden>Skip step</button></div>
+  </section>
+  <p id="setup-notice" role="status" hidden></p>
   <div class="modes" role="tablist" aria-label="Writing context">
     <button role="tab" id="tab-prompt" aria-selected="true" aria-controls="workspace" data-mode="prompt">Write a prompt</button>
     <button role="tab" id="tab-message" aria-selected="false" aria-controls="workspace" data-mode="message" tabindex="-1">Message a friend</button>
