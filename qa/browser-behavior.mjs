@@ -9,8 +9,8 @@ const output = path.resolve('qa-artifacts/behavior'); fs.mkdirSync(output,{recur
 const results = [];
 const browser = await chromium.launch();
 
-async function check(name, width, route, task) {
-  const context = await browser.newContext({viewport:{width,height:width === 390 ? 844 : 900},isMobile:width === 390,hasTouch:width === 390,locale:'en-US'});
+async function check(name, width, route, task, options = {}) {
+  const context = await browser.newContext({viewport:{width,height:width === 390 ? 844 : 900},isMobile:width === 390,hasTouch:width === 390,locale:'en-US',...options});
   const page = await context.newPage(); page.setDefaultTimeout(10000);
   const errors = []; page.on('pageerror', error => errors.push(error.message));
   const result = {name,width,passed:false,errors};
@@ -43,8 +43,36 @@ async function confirm(page, text, action) {
 }
 try {
   for (const width of [1440,390]) {
+    await check('home-faq-no-js',width,'',async page => {
+      assert.equal(await page.locator('.home-answer:visible').count(),11);
+      assert.equal(await page.locator('.home-questions button:disabled').count(),11);
+      const faq = await page.locator('.home-faq').boundingBox();
+      const last = await page.locator('.home-answer').last().boundingBox();
+      assert.ok(last.y + last.height <= faq.y + faq.height,'No-JavaScript answers are clipped');
+      await noOverflow(page);
+    },{javaScriptEnabled:false});
     await check('navigation',width,'',async page => {
       await noOverflow(page);
+      const faq = page.locator('.home-faq');
+      const faqQuestions = faq.locator('.home-questions button');
+      assert.equal(await faqQuestions.count(),11);
+      if (width === 390) {
+        assert.equal(await faq.locator('[aria-expanded="true"]').count(),0);
+        await faqQuestions.nth(1).click();
+        assert.equal(await faqQuestions.nth(1).getAttribute('aria-expanded'),'true');
+        assert.equal(await faq.locator('#home-answer-1').isVisible(),true);
+        await faqQuestions.nth(2).click();
+        assert.equal(await faq.locator('#home-answer-1').isVisible(),false);
+        await faqQuestions.nth(2).click();
+        assert.equal(await faq.locator('.home-answer:visible').count(),0);
+      } else {
+        assert.equal(await faqQuestions.first().getAttribute('aria-selected'),'true');
+        await faqQuestions.first().focus(); await page.keyboard.press('End');
+        assert.equal(await faqQuestions.last().getAttribute('aria-selected'),'true');
+        assert.equal(await faq.locator('#home-faq-panel').getAttribute('aria-labelledby'),'home-question-10');
+        await page.keyboard.press('Home');
+        assert.equal(await faqQuestions.first().getAttribute('aria-selected'),'true');
+      }
       const formal = page.getByRole('tab',{name:'Formal',exact:true});
       await formal.click(); await page.keyboard.press('ArrowRight');
       assert.equal(await page.getByRole('tab',{name:'Casual',exact:true}).getAttribute('aria-selected'),'true');
