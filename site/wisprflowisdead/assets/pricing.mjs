@@ -1,6 +1,6 @@
 // Public reference rates checked at wisprflow.ai/pricing on 2026-10-15.
 // This is a comparison only; it does not create a subscription or checkout.
-export function referencePrices(period, notetaker = true) {
+export function referencePrices(period, notetaker = false) {
   if (!['annual', 'monthly'].includes(period)) throw new Error('Unknown billing period.');
   return period === 'annual'
     ? {pro:12, growth:notetaker ? 26 : 18}

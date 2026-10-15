@@ -3,10 +3,10 @@ import assert from 'node:assert/strict';
 import {referencePrices, estimateTimeValue} from '../wisprflowisdead/assets/pricing.mjs';
 
 test('reference billing and Notetaker choices select the published price combinations', () => {
-  assert.deepEqual(referencePrices('annual'), {pro:12, growth:26});
-  assert.deepEqual(referencePrices('annual', false), {pro:12, growth:18});
-  assert.deepEqual(referencePrices('monthly'), {pro:15, growth:33});
-  assert.deepEqual(referencePrices('monthly', false), {pro:15, growth:23});
+  assert.deepEqual(referencePrices('annual'), {pro:12, growth:18});
+  assert.deepEqual(referencePrices('annual', true), {pro:12, growth:26});
+  assert.deepEqual(referencePrices('monthly'), {pro:15, growth:23});
+  assert.deepEqual(referencePrices('monthly', true), {pro:15, growth:33});
   assert.throws(() => referencePrices('weekly'));
 });
 

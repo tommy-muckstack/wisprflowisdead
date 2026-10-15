@@ -51,10 +51,14 @@
   .pricing-page .tr{grid-template-columns:repeat(4,minmax(0,1fr))}
   .pricing-page .tl{position:sticky;left:0;width:75%;grid-column:1/-1}
   .pricing-page .tgh{position:sticky;left:0;width:75%}
-  .pricing-page .faq2{height:auto;overflow:visible}
-  .pricing-page .fql{height:auto;overflow:visible;padding:16px 12px}
-  .pricing-page .fq{min-height:44px}
-  .pricing-page .fa{padding:0 10px 18px;font-size:14px;line-height:1.5}
+  .pricing-page .pr-faq{min-height:962px;padding:64px 20px}
+  .pricing-page .pr-faq::before{font-size:14px;line-height:18.2px;letter-spacing:.08em;margin-bottom:24px}
+  .pricing-page .pr-faq h2{letter-spacing:-.03em}
+  .pricing-page .faq2{height:auto;overflow:visible;margin-top:48px}
+  .pricing-page .fql{height:auto;min-height:704px;overflow:visible;padding:20px 28px;border-radius:24px}
+  .pricing-page .fql h3{display:block;padding:0;margin:0 0 24px;font-size:20px;line-height:.95}
+  .pricing-page .fq{min-height:50px;padding:16px 0;line-height:18.2px}
+  .pricing-page .fa{padding:0 0 18px;font-size:14px;line-height:1.5}
   .pricing-page .roi-card{padding:24px}
   .pricing-page .roi-res{padding:20px}
   .pricing-page .secure{height:auto}

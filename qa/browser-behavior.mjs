@@ -95,11 +95,25 @@ try {
       }
     });
     await check('pricing',width,'/pricing',async page => {
+      const addon = page.locator('#notetaker-addon');
+      assert.equal(await addon.isChecked(),false);
+      assert.deepEqual(await page.locator('[data-price="pro"]').allTextContents(),['$12','$12']);
+      assert.deepEqual(await page.locator('[data-price="growth"]').allTextContents(),['$18','$18']);
+      if (width === 390) {
+        assert.equal(await page.locator('.fq[aria-expanded="true"]').count(),0);
+        assert.equal(await page.locator('.fa:visible').count(),0);
+      } else {
+        assert.equal(await page.locator('.fq').first().getAttribute('aria-selected'),'true');
+      }
       await page.locator('[data-billing="monthly"]').click();
       assert.deepEqual(await page.locator('[data-price="pro"]').allTextContents(),['$15','$15']);
-      assert.deepEqual(await page.locator('[data-price="growth"]').allTextContents(),['$33','$33']);
-      await page.locator('#notetaker-addon').uncheck();
       assert.deepEqual(await page.locator('[data-price="growth"]').allTextContents(),['$23','$23']);
+      await addon.check();
+      assert.deepEqual(await page.locator('[data-price="growth"]').allTextContents(),['$33','$33']);
+      await page.locator('[data-billing="annual"]').click();
+      assert.deepEqual(await page.locator('[data-price="growth"]').allTextContents(),['$26','$26']);
+      await addon.uncheck();
+      assert.deepEqual(await page.locator('[data-price="growth"]').allTextContents(),['$18','$18']);
       await page.locator('#roiH').fill('');
       assert.equal(await page.locator('#roiH').getAttribute('aria-invalid'),'true');
       assert.equal(await page.locator('#roiS').textContent(),'—');

@@ -44,7 +44,7 @@ disclosures.forEach((button, index) => {
 
 const questions = [...document.querySelectorAll('.fq')];
 const answers = questions.map((_, i) => $('answer-' + i));
-let selectedQuestion = 0;
+let selectedQuestion = compact.matches ? -1 : 0;
 function showQuestion(index, toggle = false) {
   selectedQuestion = compact.matches && toggle && selectedQuestion === index ? -1 : index;
   updateFAQ();
