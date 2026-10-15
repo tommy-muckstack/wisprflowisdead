@@ -10,7 +10,9 @@
 .home-page:not(.home-enhanced) .tabs{display:none}
 .home-page:not(.home-enhanced) .bubble+.bubble{margin-top:12px}
 .mobile-ribbon,.mobile-how-it-works{display:none}
-.home-page .final{background:#263332 linear-gradient(#10231f70,#151b1899) center/cover;background-image:linear-gradient(#10231f70,#151b1899),url("download-outdoors-v1.webp")}
+.home-page .final{margin:0;height:auto;min-height:864px;padding:268px 20px 64px;background:#263332 linear-gradient(#10231f70,#151b1899) center/cover;background-image:linear-gradient(#10231f70,#151b1899),url("download-outdoors-v1.webp")}
+.home-page .final h2{max-width:1024px;margin:0 auto;padding-top:0;font-size:120px;line-height:.85;letter-spacing:-.03em}
+.home-page .final .btn{background:#F0D7FF}
 /* Without JavaScript, every feature remains visible in document order. */
 .home-page:not(.home-enhanced) .pin{height:auto;margin-top:0}
 .home-page:not(.home-enhanced) .stage{position:static;height:auto;min-height:0;overflow:visible}
