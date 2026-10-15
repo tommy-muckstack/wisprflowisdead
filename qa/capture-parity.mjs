@@ -36,17 +36,22 @@ for (const [target, origin] of Object.entries(targets)) for (const page of pages
   run('extract-styles.mjs', [origin + (target === 'original' ? page.original : page.clone),'--vp',viewport,'--out',path.join(directory,`${page.name}-${viewport.split('x')[0]}.json`)], `${target} ${page.name} ${viewport} styles`);
 }
 const candidate = report('candidate');
+let behavior;
+try {behavior = JSON.parse(fs.readFileSync(path.join(output,'behavior/report.json'),'utf8'));}
+catch {errors.push({stage:'browser interactions',message:'Missing browser behavior report'});}
+const behaviorPassed = behavior?.results?.length === 6 && behavior.results.every(result => result.passed);
+if (behavior && !behaviorPassed) errors.push({stage:'browser interactions',message:'One or more browser flows failed'});
 const valid = data => data?.results?.length === 6 && data.results.every(row => row.origStatus === 200 && row.cloneStatus === 200 && Number.isFinite(row.score));
 const measured = valid(live) && valid(candidate);
 const passed = measured && candidate.results.every(row => row.score >= 90 && !row.hOverflowClone) && errors.length === 0;
 const summary = {
   measuredAt:new Date().toISOString(), commit:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),
   toolsCommit:execFileSync('git',['-C',tools,'rev-parse','HEAD'],{encoding:'utf8'}).trim(),
-  originalImagesReused:reuse, measured, passed, errors,
+  originalImagesReused:reuse, measured, passed, behaviorPassed, errors,
   note:'Live production is compared with the entire PR stack, not attributed to this single PR. Candidate preview supports anonymous rendering only; no authentication pass is implied. Shared parity hides animation/cookie overlays; the raw directory captures unmodified viewports and navigation/footer links. Scores still require visual review of the captured pages.'
 };
 fs.writeFileSync(path.join(output,'verification.json'), JSON.stringify(summary,null,2));
-const lines = ['# Website parity evidence', '', summary.note, '', `Valid measurements: ${measured}. Candidate meets all six 90+ targets without overflow: ${passed}.`, '', '| Page | Viewport | Live | Candidate | Change |','|---|---|---:|---:|---:|'];
+const lines = ['# Website parity evidence', '', summary.note, '', `HTTP-valid measurements: ${measured}. Browser flows passed: ${Boolean(behaviorPassed)}. All verification gates passed: ${passed}.`, '', '| Page | Viewport | Live | Candidate | Change |','|---|---|---:|---:|---:|'];
 for (const row of candidate?.results || []) {
   const before = live?.results?.find(item => item.page === row.page && item.viewport === row.viewport);
   lines.push(`| ${row.page} | ${row.viewport} | ${before?.score ?? 'N/M'} | ${row.score} | ${before ? (row.score-before.score).toFixed(1) : 'N/M'} |`);

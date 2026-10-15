@@ -3,7 +3,7 @@
 Audit date: 2026-10-15. Upstream baseline: `71e3e684ff333da4732ad92da5347d446e9feec7`.
 Scope: marketing website, shared Firebase account flow, and a browser dictation experience. The native Swift app is a separate, existing implementation.
 
-**Not complete. No visual parity score or live authentication pass has been established in this audit.**
+**Not complete. Hosted Chromium has measured page scores, all below 90. Screenshot inspection and live authentication verification remain outstanding.**
 
 ## Evidence and environment
 
@@ -19,24 +19,25 @@ Scope: marketing website, shared Firebase account flow, and a browser dictation 
 - A static preview was started at `http://127.0.0.1:3300/wisprflowisdead/` after socket-binding approval. This Python fallback serves `.html` paths; it does not emulate Vercel clean URLs or functions.
 - `scripts/parity.mjs --config parity/wispr.json --clone https://yourappisdead.com --viewports 1440x900,390x844` was attempted: missing package dependency prevents capture. `templates/smoke2.mjs https://yourappisdead.com/wisprflowisdead wispr-account` was attempted: browser launch fails before navigation. No accounts were created, so there are none to delete.
 - An original desktop installation already exists. It was not launched or inspected, and no existing personal account was used. Original email signup, onboarding and free-plan eligibility still need hands-on checks; no SSO, paid trial or payment was used.
-- GitHub-hosted macOS/Linux runners are available. Native CI has now verified all 43 tests plus complete app/icon assembly after restoring an executable bit. A separate Ubuntu Playwright workflow is being added to obtain website captures independently of local browser failures; no hosted website measurements are claimed until its artifacts are inspected.
+- GitHub-hosted macOS/Linux runners are available. Native CI has verified all 43 tests plus complete app/icon assembly after restoring an executable bit. [Website run 38788448067](https://github.com/tommy-muckstack/wisprflowisdead/actions/runs/38788448067) completed Chromium captures, computed styles and scores. All twelve parity page loads returned 200; the workflow correctly failed the 90+ score/overflow gate. Its [92-file artifact](https://github.com/tommy-muckstack/wisprflowisdead/actions/runs/38788448067/artifacts/11999281233) is available until 2026-10-29.
+- The GitHub connector downloaded that artifact to a reusable file reference, but direct local download still fails DNS even with escalation. A separate evidence-archive branch is being added for access through the GitHub connection. Scores below are from the actual run logs; the images still require inspection before visual conclusions beyond measured geometry are claimed.
 
 ## Score ledger
 
-`N/M` means not measured. User-provided approximate scores are historical context only, not measurements from this audit. Every row needs paired before/after captures and computed-style JSON at the stated viewport before a visual match can be claimed. Screenshots are currently unavailable for every row below.
+`N/M` means not measured. User-provided approximate scores are historical context only. The first hosted measurements below compare production with the entire PR stack at `b68249428dbc218844f4798534e46da403a4d6e4`, using shared tools at `3020a26628341fa65dbf5759b9b69cffc913d2aa`. They do not attribute a change to an individual PR. Original screenshots were reused for the candidate comparison. Scores and HTTP status are established; screenshot/style inspection and per-feature review are still required.
 
 | Page | Viewport | Historical context | Before | After | Screenshots |
 |---|---|---|---|---|---|
-| Home | 1440 × 900 | — | N/M | N/M | Blocked: browser/dependencies |
-| Home | 390 × 844 | approximately 62, supplied in task | N/M | N/M | Blocked: browser/dependencies |
-| Pricing | 1440 × 900 | approximately 76, supplied in task | N/M | N/M | Blocked: browser/dependencies |
-| Pricing | 390 × 844 | — | N/M | N/M | Blocked: browser/dependencies |
-| Login | 1440 × 900 | — | N/M | N/M | Blocked: browser/dependencies |
-| Login | 390 × 844 | — | N/M | N/M | Blocked: browser/dependencies |
+| Home | 1440 × 900 | — | 79.1 | 79.0 | Run 38788448067: `live/`, `candidate/home-1440-side.png` |
+| Home | 390 × 844 | approximately 62, supplied in task | 61.9 | 56.9 | Run 38788448067: `live/`, `candidate/home-390-side.png` |
+| Pricing | 1440 × 900 | approximately 76, supplied in task | 75.0 | 57.0 | Run 38788448067: `live/`, `candidate/pricing-1440-side.png` |
+| Pricing | 390 × 844 | — | 75.1 | 59.3 | Run 38788448067: `live/`, `candidate/pricing-390-side.png`; candidate overflows to 732 px |
+| Login | 1440 × 900 | — | 79.0 | 78.1 | Run 38788448067: `live/`, `candidate/login-1440-side.png` |
+| Login | 390 × 844 | — | 78.5 | 67.5 | Run 38788448067: `live/`, `candidate/login-390-side.png` |
 
 ## Feature matrix
 
-Status is `match`, `differs`, or `missing`. `Differs` includes implementations awaiting comparison; it does not mean that a fix was visually verified. Severity: P0 blocks the requested core experience; P1 breaks an important flow; P2 is a noticeable presentation/accessibility gap. The evidence column names source files or tests; **all screenshot/score entries remain N/M** until capture is restored.
+Status is `match`, `differs`, or `missing`. `Differs` includes implementations awaiting comparison; it does not mean that a fix was visually verified. Severity: P0 blocks the requested core experience; P1 breaks an important flow; P2 is a noticeable presentation/accessibility gap. The evidence column names source files or tests. Feature-specific screenshot/score entries remain N/M; the page-level captures above do not prove every feature or state.
 
 | Page / feature | Status | Severity | Evidence / remaining work | Screenshots / score |
 |---|---|---|---|---|
@@ -310,13 +311,14 @@ Draft PR: [#13](https://github.com/tommy-muckstack/wisprflowisdead/pull/13), sta
 
 ### Hosted website verification
 
-Draft branch: `qa/hosted-browser-verification`, stacked on #13.
+Draft PR: [#14](https://github.com/tommy-muckstack/wisprflowisdead/pull/14), stacked on #13.
 
 - Before: the parity CLI and browser checks could not run in this Mac environment; the repository CI only built/tested the native application.
 - After: a separate Ubuntu workflow installs the pinned shared parity toolchain/Chromium, checks the site, and captures original, live deployment and PR-head candidate home/pricing/login at both required widths. Shared parity scores and computed styles are uploaded with raw viewport captures and a navigation/footer inventory. The workflow records source/tool commits and reuses valid original screenshots for the candidate comparison.
 - The candidate server is read-only and serves only public website files plus the fixed public config endpoint. It forwards no cookies/auth headers and has no repository/deployment secrets. Session GET returns 401; writes return 405. This is an anonymous visual preview and explicitly cannot prove authentication or Vercel function behavior.
 - The gate fails on capture errors, non-200 parity pages, scores below 90 or horizontal overflow. Artifacts upload even after failed measurements. Raw images retain cookie/animation states hidden by the shared script, so the score is not treated as evidence for those states. Visual/interaction review remains required even if scores pass.
-- Local website lint/build and 78 tests pass; QA scripts parse and whitespace checks pass. Shared smoke2 remains blocked locally before navigation/account creation. Hosted screenshots, computed styles and score deltas remain N/M until the first run is inspected. Full instructions and evidence limits are in `qa/README.md`.
+- Local website lint/build and 78 tests pass; QA scripts parse and whitespace checks pass. Shared smoke2 remains blocked locally before navigation/account creation. The first hosted run completed actual captures/styles and exposed lower scores across the stack, plus a 732 px-wide candidate pricing page at the 390 px viewport. Those regressions require correction, not a threshold waiver.
+- The next workflow revision adds real browser interaction checks for mobile navigation, pricing and typed demo/library/command/history/settings flows. It also archives public viewport screenshots and JSON reports on a separate `qa/parity-evidence-<run>-<attempt>` branch. Only the archive job has repository write permission; it never updates main or the PR branch and does not run on fork PRs. Browser checks are still pending execution; no auth/audio pass is implied. Full instructions and evidence limits are in `qa/README.md`.
 
 ## Next verification gates
 
