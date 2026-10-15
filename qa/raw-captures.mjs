@@ -117,6 +117,15 @@ try {
             for (const match of matches) if (await match.isVisible()) visible.push(await match.evaluate(ancestorStyles));
             entry.pricingRowStyles[label] = visible;
           }
+          const rows = page.locator(target === 'original' ? '.pricing-row' : '.tr');
+          await rows.first().evaluate(element => window.scrollTo({top:element.getBoundingClientRect().top + scrollY - 200,behavior:'instant'}));
+          await page.waitForTimeout(300);
+          entry.comparisonImage = `${target}-pricing-${width}-comparison.png`;
+          await page.screenshot({path:path.join(output,entry.comparisonImage)});
+          entry.pricingCellStyles = await rows.evaluateAll(rows => rows.slice(0,3).map(row => [...row.children].map(cell => {
+            const box = cell.getBoundingClientRect(), style = getComputedStyle(cell);
+            return {text:cell.textContent.trim().slice(0,160),x:box.x,y:box.y + scrollY,width:box.width,height:box.height,fontSize:style.fontSize,lineHeight:style.lineHeight,fontWeight:style.fontWeight,color:style.color,padding:style.padding};
+          })));
         }
       }
       if (item.name === 'home' || item.name === 'pricing') {
