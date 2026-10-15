@@ -23,6 +23,20 @@ try {
       entry.links = await page.locator('nav a,header a,footer a').evaluateAll(links => links.map(link => ({text:link.textContent.trim(),href:link.href,visible:!!(link.getBoundingClientRect().width && link.getBoundingClientRect().height)})));
       entry.image = `${target}-${item.name}-${width}.png`;
       await page.screenshot({path:path.join(output,entry.image)});
+      if (item.name === 'login') {
+        entry.initialImage = entry.image;
+        // The clone's SDK setup has a 25-second bound; capture the resulting ready/error state.
+        await page.waitForFunction(() => {
+          const controls = [...document.querySelectorAll('button,input[type=submit]')];
+          return controls.some(button => button.getBoundingClientRect().height && !button.disabled &&
+            /^(Continue|Retry sign-in setup)$/.test((button.textContent || button.value).trim()));
+        },null,{timeout:30000});
+        entry.loginReady = await page.locator('button,input[type=submit]').evaluateAll(buttons => buttons.some(button =>
+          button.getBoundingClientRect().height && !button.disabled && (button.textContent || button.value).trim() === 'Continue'));
+        entry.image = `${target}-login-${width}-settled.png`;
+        await page.screenshot({path:path.join(output,entry.image)});
+        if (!entry.loginReady) entry.failure = 'Login setup settled in an error state';
+      }
       if (item.name === 'pricing') {
         // Keep full-page geometry available through the evidence branch for visual review.
         entry.fullImage = `${target}-pricing-${width}-full.png`;

@@ -6,11 +6,15 @@ import {execFileSync} from 'node:child_process';
 const tools = path.resolve(process.env.PARITY_TOOLS_DIR || 'parity-tools');
 const output = path.resolve('qa-artifacts');
 const errors = [];
-const config = path.join(tools, 'parity/wispr.json');
+const config = path.join(output, 'capture-config.json');
 const pages = [{name:'home',original:'/',clone:'/wisprflowisdead'}, {name:'pricing',original:'/pricing',clone:'/wisprflowisdead/pricing'}, {name:'login',original:'/get-started',clone:'/wisprflowisdead/login'}];
 const viewports = ['1440x900','390x844'];
 const targets = {original:'https://wisprflow.ai',live:'https://yourappisdead.com',candidate:'http://127.0.0.1:3300'};
 fs.mkdirSync(output, {recursive:true});
+const captureConfig = JSON.parse(fs.readFileSync(path.join(tools,'parity/wispr.json'),'utf8'));
+// Keep the shared scoring implementation; wait past the documented login setup bound on both sites.
+for (const page of captureConfig.pages) if (page.name === 'login') page.actions = [...(page.actions || []),{wait:26000}];
+fs.writeFileSync(config,JSON.stringify(captureConfig,null,2));
 try {execFileSync(process.execPath, ['qa/raw-captures.mjs'], {stdio:'inherit',timeout:600000});}
 catch (error) {errors.push({stage:'raw viewport captures',status:error.status ?? null,message:error.code || 'Command failed'});}
 function run(script, args, stage) {
@@ -41,17 +45,25 @@ try {behavior = JSON.parse(fs.readFileSync(path.join(output,'behavior/report.jso
 catch {errors.push({stage:'browser interactions',message:'Missing browser behavior report'});}
 const behaviorPassed = behavior?.results?.length === 6 && behavior.results.every(result => result.passed);
 if (behavior && !behaviorPassed) errors.push({stage:'browser interactions',message:'One or more browser flows failed'});
+const authExpected = process.env.RUN_AUTH_SMOKE === 'true';
+const auth = {};
+if (authExpected) for (const target of ['live','candidate']) {
+  try {auth[target] = JSON.parse(fs.readFileSync(path.join(output,'auth',`${target}.json`),'utf8'));}
+  catch {errors.push({stage:`${target} auth smoke`,message:'Missing auth report'});}
+  if (auth[target] && !auth[target].passed) errors.push({stage:`${target} auth smoke`,message:'Auth flow or account cleanup failed'});
+}
 const valid = data => data?.results?.length === 6 && data.results.every(row => row.origStatus === 200 && row.cloneStatus === 200 && Number.isFinite(row.score));
 const measured = valid(live) && valid(candidate);
 const passed = measured && candidate.results.every(row => row.score >= 90 && !row.hOverflowClone) && errors.length === 0;
 const summary = {
   measuredAt:new Date().toISOString(), commit:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),
   toolsCommit:execFileSync('git',['-C',tools,'rev-parse','HEAD'],{encoding:'utf8'}).trim(),
-  originalImagesReused:reuse, measured, passed, behaviorPassed, errors,
-  note:'Live production is compared with the entire PR stack, not attributed to this single PR. Candidate preview supports anonymous rendering only; no authentication pass is implied. Shared parity hides animation/cookie overlays; the raw directory captures unmodified viewports and navigation/footer links. Scores still require visual review of the captured pages.'
+  originalImagesReused:reuse, measured, passed, behaviorPassed, authExpected,
+  authPassed:authExpected && auth.live?.passed === true && auth.candidate?.passed === true, errors,
+  note:'Live production is compared with the entire PR stack, not attributed to this single PR. Candidate layout preview is anonymous; separate auth reports exercise the deployed API with live/candidate frontend files. Login scoring now waits 26 seconds on both sites, so earlier loading-state scores are not directly comparable. Shared parity hides animation/cookie overlays; raw captures preserve initial and settled login states. Scores still require visual review.'
 };
 fs.writeFileSync(path.join(output,'verification.json'), JSON.stringify(summary,null,2));
-const lines = ['# Website parity evidence', '', summary.note, '', `HTTP-valid measurements: ${measured}. Browser flows passed: ${Boolean(behaviorPassed)}. All verification gates passed: ${passed}.`, '', '| Page | Viewport | Live | Candidate | Change |','|---|---|---:|---:|---:|'];
+const lines = ['# Website parity evidence', '', summary.note, '', `HTTP-valid measurements: ${measured}. Browser flows passed: ${Boolean(behaviorPassed)}. Auth smoke required/passed: ${authExpected}/${summary.authPassed}. All verification gates passed: ${passed}.`, '', '| Page | Viewport | Live | Candidate | Change |','|---|---|---:|---:|---:|'];
 for (const row of candidate?.results || []) {
   const before = live?.results?.find(item => item.page === row.page && item.viewport === row.viewport);
   lines.push(`| ${row.page} | ${row.viewport} | ${before?.score ?? 'N/M'} | ${row.score} | ${before ? (row.score-before.score).toFixed(1) : 'N/M'} |`);

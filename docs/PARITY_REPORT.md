@@ -335,6 +335,18 @@ Draft PR: [#15](https://github.com/tommy-muckstack/wisprflowisdead/pull/15), sta
 - [Native CI 38792121357](https://github.com/tommy-muckstack/wisprflowisdead/actions/runs/38792121357) also passed macOS build/test/app assembly and Linux tests.
 - Additional audit observation: the earlier raw candidate login screenshot shows its initial loading state. Login's ready/error states need explicit captures; its page score is not proof of a ready authentication form.
 
+### Hosted authentication verification
+
+Draft change, stacked on #15; actual hosted auth outcomes pending.
+
+- Before: the working hosted browser job checked anonymous pages and typed product flows only. Local smoke2 could not launch a browser, so no signup/session/sign-out pass was established. The raw candidate login capture showed initial SDK loading.
+- Adds execution of the pinned shared smoke2 flow against the live frontend and PR frontend. For the latter, Playwright replaces public HTML/assets on the deployed origin while leaving all Firebase/session requests live. No API, payment, deployment-secret or provider configuration changes are made. Each flow uses its own generated throwaway credentials, never a personal session or original-site SSO.
+- Strengthens the smoke's cookie-presence result with matching server identity and Secure/HttpOnly/SameSite cookie checks after signup/login, then a 401 and absent cookie after each UI sign-out. Account screenshots at both widths mask the throwaway identity. Passwords, tokens and cookie/storage state are kept out of artifacts.
+- Cleanup is attempted after success or failure before closing the browser, with three attempts and explicit email/UID ownership checks before deletion. The gate requires deletion and session cleanup to succeed. Active workflow runs are no longer cancelled automatically by a newer commit, allowing cleanup to finish. Runner loss/manual cancellation remains a cleanup limitation; failures require follow-up and are never treated as success.
+- The shared template fingerprint and generated module syntax are checked before browser execution. The example.com test mailbox cannot receive email; verification/reset delivery and original email-code signup remain untested. Candidate frontend/live backend checks also do not prove candidate Vercel routing or response headers.
+- Local lint/build and all **78 website tests pass**. The pinned shared template blob matches the configured upstream commit; hook guards/generated-module syntax and QA syntax/whitespace checks pass. Running the new smoke wrapper inside and outside the sandbox still fails at browser launch before navigation; cleanup records `not-started` and no account was created. Hosted execution remains pending.
+- Raw login evidence now captures initial and ready/error states. Shared scoring waits 26 seconds for login on both sites and archives the scored login PNGs and exact config. This protocol change means earlier login scores are not directly comparable; no new score or authentication pass is claimed until the hosted run is inspected.
+
 ## Next verification gates
 
 1. Run and inspect the hosted browser workflow; download artifacts and validate that captures show the intended pages. Restore interactive/local browser access for the flows the read-only capture cannot verify. Supply environment through the existing deployment workflow, never a committed .env file.

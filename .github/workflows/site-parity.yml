@@ -12,12 +12,15 @@ permissions:
 
 concurrency:
   group: website-parity-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
+  # Let an active throwaway-account smoke finish its cleanup before the next run starts.
+  cancel-in-progress: false
 
 jobs:
   browser-evidence:
     runs-on: ubuntu-24.04
-    timeout-minutes: 25
+    timeout-minutes: 35
+    env:
+      RUN_AUTH_SMOKE: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -54,6 +57,14 @@ jobs:
       - name: Verify navigation, pricing and demo interactions
         continue-on-error: true
         run: node qa/browser-behavior.mjs
+      - name: Live signup, sign-out, login, sign-out and account cleanup
+        if: env.RUN_AUTH_SMOKE == 'true'
+        continue-on-error: true
+        run: node qa/auth-smoke.mjs live
+      - name: Candidate frontend with live auth and account cleanup
+        if: env.RUN_AUTH_SMOKE == 'true'
+        continue-on-error: true
+        run: node qa/auth-smoke.mjs candidate
       - name: Capture live and candidate parity with computed styles
         run: node qa/capture-parity.mjs
       - name: Publish measurement summary
@@ -90,16 +101,19 @@ jobs:
         run: |
           evidence="docs/parity/$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
           mkdir -p "$evidence"
-          for folder in raw styles behavior; do
+          for folder in raw styles behavior auth; do
             if [ -d "$PARITY_ARTIFACT/$folder" ]; then cp -R "$PARITY_ARTIFACT/$folder" "$evidence/"; fi
           done
-          for report in SUMMARY.md verification.json; do
+          for report in SUMMARY.md verification.json capture-config.json; do
             if [ -f "$PARITY_ARTIFACT/$report" ]; then cp "$PARITY_ARTIFACT/$report" "$evidence/"; fi
           done
           for target in live candidate; do
             mkdir -p "$evidence/$target"
             for report in report.json report.md; do
               if [ -f "$PARITY_ARTIFACT/$target/$report" ]; then cp "$PARITY_ARTIFACT/$target/$report" "$evidence/$target/"; fi
+            done
+            for image in "$PARITY_ARTIFACT/$target"/login-*.png; do
+              if [ -f "$image" ]; then cp "$image" "$evidence/$target/"; fi
             done
           done
           git config user.name 'github-actions[bot]'
