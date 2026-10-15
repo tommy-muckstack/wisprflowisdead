@@ -49,6 +49,8 @@ try {
       const faq = await page.locator('.home-faq').boundingBox();
       const last = await page.locator('.home-answer').last().boundingBox();
       assert.ok(last.y + last.height <= faq.y + faq.height,'No-JavaScript answers are clipped');
+      assert.equal(await page.locator('.feature-story').count(),4);
+      assert.equal(await page.locator('.feature-art').evaluateAll(elements => elements.every(element => getComputedStyle(element).opacity === '1')),true);
       await noOverflow(page);
     },{javaScriptEnabled:false});
     await check('navigation',width,'',async page => {
@@ -83,12 +85,35 @@ try {
         assert.equal(await faqQuestions.first().getAttribute('aria-selected'),'true');
       }
       const formal = page.getByRole('tab',{name:'Formal',exact:true});
+      const stories = page.locator('.feature-story');
+      assert.equal(await stories.count(),4);
+      if (width === 1440) {
+        await stories.nth(1).locator('.feature-copy').evaluate(element => element.scrollIntoView({block:'center',behavior:'instant'}));
+        await page.waitForFunction(() => document.querySelectorAll('.feature-story')[1].classList.contains('active'));
+        const art = await stories.nth(1).locator('.feature-art').boundingBox();
+        assert.ok(art.y >= 0 && art.y + art.height <= 900,'Sticky feature art is outside the viewport');
+        await stories.last().locator('.feature-copy').evaluate(element => element.scrollIntoView({block:'center',behavior:'instant'}));
+        await page.waitForFunction(() => document.querySelectorAll('.feature-story')[3].classList.contains('active'));
+      } else {
+        const boxes = await stories.evaluateAll(elements => elements.map(element => {
+          const art = element.querySelector('.feature-art').getBoundingClientRect();
+          const copy = element.querySelector('.feature-copy').getBoundingClientRect();
+          return {artBottom:art.bottom,copyTop:copy.top};
+        }));
+        assert.ok(boxes.every(box => box.copyTop >= box.artBottom),'Mobile feature captions overlap their artwork');
+      }
       await formal.click(); await page.keyboard.press('ArrowRight');
       assert.equal(await page.getByRole('tab',{name:'Casual',exact:true}).getAttribute('aria-selected'),'true');
       assert.equal(await page.locator('#tone-casual').isVisible(),true);
       assert.equal(await page.locator('#tone-formal').isVisible(),false);
       await page.keyboard.press('Home');
       assert.equal(await formal.getAttribute('aria-selected'),'true');
+      await page.screenshot({path:path.join(output,`feature-styles-${width}.png`)});
+      await page.emulateMedia({reducedMotion:'reduce'});
+      assert.equal(await page.locator('.feature-art').evaluateAll(elements => elements.every(element => {
+        const style = getComputedStyle(element); return style.opacity === '1' && style.position !== 'sticky';
+      })),true,'Reduced motion hides or pins feature content');
+      await page.emulateMedia({reducedMotion:'no-preference'});
       if (await page.locator('#build').isVisible()) {
         await page.locator('#build').scrollIntoViewIfNeeded();
         const instructions = await page.locator('#build pre').boundingBox();

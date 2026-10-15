@@ -10,7 +10,9 @@
 <script src="/wisprflowisdead/assets/navigation.js" defer></script>
 <link rel="stylesheet" href="/wisprflowisdead/assets/branding.css">
 <link rel="stylesheet" href="/wisprflowisdead/assets/home.css">
+<link rel="stylesheet" href="/wisprflowisdead/assets/home-features.css">
 <script src="/wisprflowisdead/assets/home.js" defer></script>
+<script src="/wisprflowisdead/assets/home-features.js" defer></script>
 <script src="/wisprflowisdead/assets/home-faq.js" defer></script>
 </head><body class="home-page">
 <a class="skip-link" href="#features">Skip to features</a>
@@ -53,17 +55,34 @@
 </div></section>
 
 <section class="lang" id="lab"><div class="eyebrow">WisprFlowIsDead makes it easy</div>
-  <h2>Built around <em>how you work,</em> not how we think you should.</h2>
-  <div class="bento">
-    <div class="tile"><h3>Styles per app</h3><p>Casual in chat, formal in email, exact in code. Tone follows the app you’re in.</p>
-      <div class="tabs" role="tablist" aria-label="Writing style preview"><button type="button" id="style-formal" role="tab" aria-controls="tone-formal" aria-selected="true" class="on">Formal</button><button type="button" id="style-casual" role="tab" aria-controls="tone-casual" aria-selected="false" tabindex="-1">Casual</button><button type="button" id="style-very-casual" role="tab" aria-controls="tone-very-casual" aria-selected="false" tabindex="-1">Very casual</button></div>
-      <div class="bubble" id="tone-formal" role="tabpanel" aria-labelledby="style-formal" tabindex="0">Hello, are you free for lunch tomorrow? Noon works well for me.</div>
-      <div class="bubble" id="tone-casual" role="tabpanel" aria-labelledby="style-casual" tabindex="0">Hey, are you free for lunch tomorrow? Let’s do 12 if that works.</div>
-      <div class="bubble" id="tone-very-casual" role="tabpanel" aria-labelledby="style-very-casual" tabindex="0">hey free for lunch tomorrow? 12 work?</div></div>
-    <div class="tile lav"><h3>Your words, spelled right</h3><p>A personal dictionary and snippets learn names, jargon and phrases. Fix a word once and it sticks.</p>
-      <div class="lang-card"><div>Add a new word</div><div>Maya · Priya · Dmitri</div><div>Correct a misspelling</div></div></div>
-    <div class="tile wide dk" style="background:#1A1A1A"><h3>Choose how <em>you dictate</em></h3><p style="color:#d9d9c8">The Mac app offers local speech engines with different language support. Apple and Qwen3 currently use English. In the web demo, language availability depends on your browser’s speech service.</p>
-      <div class="chips" style="justify-content:flex-start;margin-top:36px"><span>Parakeet</span><span>Apple Speech · macOS 26</span><span>Qwen3 · macOS 15+</span><span>Browser speech</span></div></div>
+  <h2>Built around <em>how <span>you work,</span></em> not how we think you should.</h2>
+  <div class="feature-stories">
+    <article class="feature-story active" style="--feature-row:1" aria-labelledby="feature-language-title">
+      <div class="feature-art language-art" aria-hidden="true">
+        <svg viewBox="0 0 400 300"><defs><path id="feature-speech-path" d="M-30 190 C65 20 200 265 310 105 S465 160 430 220"/></defs><text><textPath href="#feature-speech-path">Hola, podemos revisar el borrador mañana. Bonjour, pouvons-nous revoir le texte demain ?</textPath></text></svg>
+        <span class="language-pill"><b>Language:</b> Español <span>ES</span></span>
+      </div>
+      <div class="feature-copy"><h3 id="feature-language-title">Choose your language</h3><p>Choose a language before you speak. Availability depends on the Mac speech engine or your browser’s speech service.</p></div>
+    </article>
+    <article class="feature-story" style="--feature-row:2" aria-labelledby="feature-dictionary-title">
+      <div class="feature-art dictionary-art" aria-hidden="true"><div class="word-cloud"><span>NumPy</span><span>macOS</span><span>MuckStack</span></div><span class="dictionary-add">Add your word</span></div>
+      <div class="feature-copy"><h3 id="feature-dictionary-title">Your words, spelled right</h3><p>Add names and specialist terms to your personal dictionary. Save a correction once and reuse it in future dictation.</p></div>
+    </article>
+    <article class="feature-story" style="--feature-row:3" aria-labelledby="feature-snippets-title">
+      <div class="feature-art snippet-art" aria-hidden="true"><span class="snippet-trigger">my reply <span>↵</span></span><div class="snippet-paper"><span>Quick reply</span><p>Thanks for the update.<br>I’ll read it today and send my notes.</p></div></div>
+      <div class="feature-copy"><h3 id="feature-snippets-title">Save your everyday phrases</h3><p>Save text you use often as a snippet, then say its short trigger. Your saved words and line breaks stay intact.</p></div>
+    </article>
+    <article class="feature-story" style="--feature-row:4" aria-labelledby="feature-style-title">
+      <div class="feature-art style-art">
+        <div class="style-preview">
+          <div class="tabs" role="tablist" aria-label="Writing style preview"><button type="button" id="style-formal" role="tab" aria-controls="tone-formal" aria-selected="true" class="on">Formal</button><button type="button" id="style-casual" role="tab" aria-controls="tone-casual" aria-selected="false" tabindex="-1">Casual</button><button type="button" id="style-very-casual" role="tab" aria-controls="tone-very-casual" aria-selected="false" tabindex="-1">Very casual</button></div>
+          <div class="bubble" id="tone-formal" role="tabpanel" aria-labelledby="style-formal" tabindex="0">Hello, are you free for lunch tomorrow? Noon works well for me.</div>
+          <div class="bubble" id="tone-casual" role="tabpanel" aria-labelledby="style-casual" tabindex="0">Hello, are you free for lunch tomorrow? Noon works well for me</div>
+          <div class="bubble" id="tone-very-casual" role="tabpanel" aria-labelledby="style-very-casual" tabindex="0">hello, are you free for lunch tomorrow? noon works well for me</div>
+        </div>
+      </div>
+      <div class="feature-copy"><h3 id="feature-style-title">Make it sound like you</h3><p>Set styles by app category on Mac, or choose a style for your browser draft. Browser styles adjust casing and punctuation.</p></div>
+    </article>
   </div></section>
 
 <section class="sect-trust" id="privacy"><div class="trust"><h2>Your voice <em>stays yours.</em></h2>
