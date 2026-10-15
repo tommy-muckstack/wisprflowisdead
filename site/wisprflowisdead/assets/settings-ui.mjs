@@ -11,7 +11,7 @@ export function mountSettings({onMicrophoneBusy, onMicrophoneLevel = () => {}}) 
     $('settings-status').textContent = $('preferences-notice').textContent = message;
     $('preferences-notice').hidden = dialog.open || !message;
   };
-  for (const id of ['language','style']) {
+  for (const id of ['language','style','cleanup']) {
     $('settings-' + id).replaceChildren(...[...$(id).children].map(option => option.cloneNode(true)));
   }
   const Audio = window.AudioContext || window.webkitAudioContext;
@@ -31,8 +31,15 @@ export function mountSettings({onMicrophoneBusy, onMicrophoneLevel = () => {}}) 
   });
   function render() {
     const value = preferences.value;
-    for (const id of ['language','style']) {$(id).value = $('settings-' + id).value = value[id];}
-    $('style').disabled = $('settings-style').disabled = !value.language.startsWith('en');
+    for (const id of ['language','style','cleanup']) {$(id).value = $('settings-' + id).value = value[id];}
+    $('style').disabled = $('settings-style').disabled = !value.language.startsWith('en') || value.cleanup === 'none';
+    $('cleanup-hint').textContent = value.cleanup === 'none'
+      ? 'None keeps the transcript as received, including fillers and spoken punctuation. Writing styles, dictionary corrections and snippets are skipped.'
+      : value.cleanup === 'medium'
+        ? 'Medium applies Light cleanup and shortens three common English phrases, such as “in order to” to “to”. It does not rewrite whole sentences.'
+        : 'Light removes common English fillers and repeated words, adds punctuation and applies your writing style. This is the default.';
+    $('settings-cleanup-hint').textContent = $('cleanup-hint').textContent;
+    $('practice-submit').textContent = value.cleanup === 'none' ? 'Use raw text' : 'Clean up text';
     $('shortcut-enabled').checked = value.enabled;
     $('shortcut-activation').value = value.activation;
     $('shortcut-capture').value = shortcutLabel(value);
@@ -49,7 +56,7 @@ export function mountSettings({onMicrophoneBusy, onMicrophoneLevel = () => {}}) 
     catch (error) {say(error.message);}
     render();
   }
-  for (const id of ['language','style']) {
+  for (const id of ['language','style','cleanup']) {
     for (const control of [$(id), $('settings-' + id)]) {
       control.addEventListener('change', () => act(() => preferences.update({[id]:control.value}), 'Settings updated.'));
     }

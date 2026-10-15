@@ -1,8 +1,11 @@
 export const PREFERENCES_KEY = 'wisprflowisdead.preferences.v1';
-export const defaults = Object.freeze({language:'en-US', style:'formal', shortcut:'Space', shift:false, enabled:true, activation:'toggle'});
+export const defaults = Object.freeze({language:'en-US', style:'formal', cleanup:'light', shortcut:'Space', shift:false, enabled:true, activation:'toggle'});
 const languages = ['en-US','en-GB','es-ES','fr-FR','de-DE','pt-BR','hi-IN','ja-JP'];
 export function validatePreferences(value) {
+  // Existing version-1 settings predate cleanup levels; retain their behavior.
+  if (value && value.cleanup === undefined) value = {...value, cleanup:defaults.cleanup};
   if (!value || !languages.includes(value.language) || !['formal','casual','very-casual','excited'].includes(value.style)
+    || !['none','light','medium'].includes(value.cleanup)
     || typeof value.shortcut !== 'string' || !/^(Space|Key[A-Z]|Digit[0-9])$/.test(value.shortcut)
     || typeof value.shift !== 'boolean' || typeof value.enabled !== 'boolean' || !['toggle','hold'].includes(value.activation)) {
     throw Error('These settings are not supported. Reset settings to use the defaults.');

@@ -89,6 +89,7 @@ export class Library {
 }
 
 export function polishWithLibrary(input, {entries = [], ...options} = {}) {
+  if (options.cleanup === 'none') return String(input);
   let text = String(input).trim();
   if (!text) return '';
   const rules = [...entries].sort((a,b) => b.trigger.length-a.trigger.length);

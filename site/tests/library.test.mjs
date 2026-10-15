@@ -9,6 +9,13 @@ function setup() {
 }
 const word = (trigger, value = trigger) => ({kind:'dictionary',trigger,value});
 const snippet = (trigger, value) => ({kind:'snippet',trigger,value});
+test('None skips dictionary and exact snippets; Medium preserves saved literal text', () => {
+  const entries = [word('open aye','OpenAI'), snippet('my phrase','In order to Keep THIS')];
+  assert.equal(polishWithLibrary('um open aye question mark',{entries,cleanup:'none'}),'um open aye question mark');
+  assert.equal(polishWithLibrary('my phrase',{entries,cleanup:'none'}),'my phrase');
+  assert.equal(polishWithLibrary('my phrase',{entries,cleanup:'medium'}),'In order to Keep THIS');
+  assert.equal(polishWithLibrary('in order to use my phrase',{entries,cleanup:'medium'}),'To use In order to Keep THIS');
+});
 test('page-only library creates, edits and removes without writing browser storage', () => {
   const {library,data} = setup(); const entry = library.save(word('wisper','Wispr'));
   const edit = library.save({...entry,value:'WisprFlowIsDead'},entry.updatedAt);

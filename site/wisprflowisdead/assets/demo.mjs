@@ -35,7 +35,7 @@ const keyboard = new Shortcut({preferences:() => settings.preferences.value, sta
   allowed:() => !settings.open && !settings.microphone.busy});
 onboarding = mountOnboarding({settings, start:() => {setAction('dictation'); return startRecording();}, canDictate:() => Boolean(machine.createRecognition)});
 
-function options(nextAction = action) { return {action:nextAction, target:insertion?.target, language:$('language').value, style:$('style').value, entries:library.entries.map(entry => ({...entry}))}; }
+function options(nextAction = action) { return {action:nextAction, target:insertion?.target, language:$('language').value, style:$('style').value, cleanup:$('cleanup').value, entries:library.entries.map(entry => ({...entry}))}; }
 function counts() {
   const words = editor.value.trim().split(/\s+/).filter(Boolean).length;
   $('word-count').textContent = `${words} ${words === 1 ? 'word' : 'words'}`;

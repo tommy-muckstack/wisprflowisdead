@@ -79,7 +79,7 @@ Status is `match`, `differs`, or `missing`. `Differs` includes implementations a
 | Idle/listening/transcribing/polishing/result | differs | P0 | State machine includes permission, cancellation, recovery and timeout states; unit-tested, browser pending | N/M |
 | Filler removal/punctuation/formatting | differs | P0 | Conservative local English rules, spoken punctuation/paragraphs/bullets; E7 | N/M |
 | Tone/style options | differs | P1 | Four deterministic English styles in demo; no model rewriting, E7 | N/M |
-| Auto Cleanup intensity | missing | P1 | Original's October 9 docs offer None/Light/Medium; the browser demo always applies local cleanup. Add a raw-text choice and document limits of model rewriting, E7 | Public docs; browser state comparison pending |
+| Auto Cleanup intensity | differs | P1 | None/Light/Medium controls added to browser options/settings; raw output bypasses all local edits, Light remains the default, Medium has three disclosed phrase substitutions. Model rewriting remains E7; hosted UI verification pending | Public docs, cleanup/preferences/library tests; screenshot and score N/M |
 | Personal dictionary | differs | P1 | Hosted creation, literal correction, opt-in save and reload pass. Search/sort/star/edit/delete need rendered coverage; recognition bias/learning remains E7 | Hosted demo behavior at both widths |
 | Snippets | differs | P1 | Hosted creation and multiline case-preserving expansion pass. Other CRUD states, rich text/import/sync and original layout remain unverified | Hosted demo behavior at both widths |
 | Library selection and keyboard search | missing | P2 | Original supports row/range selection, bulk actions and search shortcuts. Clone has per-entry actions only; sort preference is not persisted and resets Starred first when switching to Snippets | Public docs/source audit; rendered comparison pending |
@@ -463,7 +463,7 @@ Draft PR: [#22](https://github.com/tommy-muckstack/wisprflowisdead/pull/22), sta
 
 ### Navigation during scrolling
 
-Draft PR: pending, stacked on #22.
+Draft PR: [#23](https://github.com/tommy-muckstack/wisprflowisdead/pull/23), stacked on #22.
 
 - Before: original [desktop FAQ](https://github.com/tommy-muckstack/wisprflowisdead/blob/qa/parity-evidence-38808321677-1/docs/parity/38808321677-1/raw/original-home-1440-faq.png) and [mobile FAQ](https://github.com/tommy-muckstack/wisprflowisdead/blob/qa/parity-evidence-38808321677-1/docs/parity/38808321677-1/raw/original-home-390-faq.png) show navigation remaining at the viewport top. The candidate equivalents have no navigation in view. This behavior difference was hidden by initial-viewport comparisons.
 - Makes the shared home/pricing bar sticky at 16 px desktop and 8 px mobile while preserving initial document flow. Section anchors reserve room below it. The mobile menu scrolls within short viewports so its final account link remains reachable.
@@ -474,7 +474,16 @@ Draft PR: pending, stacked on #22.
 
 ### Refreshed public product reference
 
-- Checked the original [Auto Cleanup documentation](https://docs.wisprflow.ai/articles/4283510616-Auto-Cleanup:-control-how-much-Flow-edits-your-dictation), updated October 9. The desktop picker has None, Light (default) and Medium; None preserves raw speech and Medium may rephrase it. The clone has four tone styles but no separate cleanup intensity. Recovering original text after cleanup is available in the clone, but it does not replace an upfront raw-text preference. E7 explains model limits, not this missing control.
+- Checked the original [Auto Cleanup documentation](https://docs.wisprflow.ai/articles/4283510616-Auto-Cleanup:-control-how-much-Flow-edits-your-dictation), updated October 9. The desktop picker has None, Light (default) and Medium; None preserves raw speech and Medium may rephrase it. The browser implementation below addresses the missing upfront control; recovering original text remains available separately. E7 still covers the model difference.
+
+### Browser Auto Cleanup levels
+
+Draft PR: pending, stacked on #23.
+
+- Before: the browser always removes fillers/formats text; its four styles do not offer raw output. After: Auto Cleanup appears in dictation options and Settings with None, Light (default) and Medium. Choices apply to the next dictation and typed practice. None preserves the transcript and skips style, dictionary and snippet transformations; the UI explicitly describes this. Light retains the existing conservative cleanup. Medium additionally replaces “in order to” → “to”, “at this point in time” → “now” and “due to the fact that” → “because”, outside protected URLs/email/code/library text. Non-English output stays unchanged except existing opt-in library substitutions for Light/Medium.
+- This is a free deterministic approximation, not the original model's grammar correction or open-ended rephrasing (E7). The original's native Style-card layout and real microphone behavior remain unverified. None cannot undo punctuation or normalization already supplied by a browser speech service. Existing original-text recovery and undo remain available.
+- Settings stay page-only unless remembering is enabled. Existing version-1 saved preferences acquire Light in memory without an immediate storage write; language/style/shortcut choices survive. The style control is disabled under None and retains its chosen value for later use. A raw result does not claim a polishing state.
+- Local lint/build and all **82 tests pass**, including raw filler-only output, library bypass, protected literals, non-English handling, saved-setting migration and invalid levels. Added hosted checks cover opt-in persistence, settings synchronization, None/Light/Medium outputs, undo and both-width screenshots. The required shared smoke2 attempts inside/outside the sandbox fail before browser navigation or account creation. Hosted checks, screenshots and the score delta remain pending; no model or visual equivalence is claimed.
 - Checked the October 13 [desktop library guide](https://docs.wisprflow.ai/articles/9639977157-view-shared-dictionary-words-and-snippets-in-the-admin-portal). Clone sorting already uses modification dates and searches both trigger and replacement text. Missing differences include row/range selection, bulk actions, search shortcuts and persistent shared sort preference. Switching to Snippets currently resets Starred first to Newest rather than retaining the ordering with no selected sort option. Team synchronization remains a separate unavailable feature; local selection/search are implementable without a paid service.
 - Revisited the original [public web demo](https://wisprflow.ai/demo): its four contexts are prompts, messages, lists and email, with a hold-Control interaction. The clone has corresponding writing contexts but uses its configurable focused-page Ctrl+Alt shortcut. This text inspection does not verify its microphone states or establish visual parity; original/clone demo screenshots and real audio remain outstanding.
 

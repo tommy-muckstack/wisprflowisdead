@@ -1,5 +1,6 @@
 // Conservative, local cleanup. This does not reproduce a language model.
-export function cleanText(input, {style = 'formal', language = 'en-US'} = {}) {
+export function cleanText(input, {style = 'formal', language = 'en-US', cleanup = 'light'} = {}) {
+  if (cleanup === 'none') return String(input);
   let text = String(input).replace(/\r\n?/g, '\n').trim();
   if (!text) return '';
   if (!language.startsWith('en')) return text;
@@ -8,6 +9,12 @@ export function cleanText(input, {style = 'formal', language = 'en-US'} = {}) {
     literals.push(value); return `\uE000${literals.length - 1}\uE001`;
   });
   const restore = value => value.replace(/\uE000(\d+)\uE001/g, (_, index) => literals[Number(index)]);
+  if (cleanup === 'medium') {
+    // A small, disclosed local substitute for model-based rewriting.
+    text = text.replace(/\bin order to\b/gi, 'to')
+      .replace(/\bat this point in time\b/gi, 'now')
+      .replace(/\bdue to the fact that\b/gi, 'because');
+  }
   text = text
     .replace(/\b(?:um+|uh+|erm+)\b[,.!?;]?\s*/gi, '')
     .replace(/\b(the|a|an|i|we|you|and|to|my)(?:\s+\1)+\b/gi, '$1')

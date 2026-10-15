@@ -17,6 +17,17 @@ test('settings are page-only until explicitly remembered and restore after reloa
   assert.equal(next.remember, true); next.setRemember(false); assert.equal(data.size, 0);
   assert.equal(next.value.language, 'fr-FR');
 });
+test('older settings default to Light without overwriting storage, and cleanup levels persist on opt-in', () => {
+  const {preferences:p, data, storage} = setup();
+  const {cleanup, ...oldValue} = {...defaults, language:'en-GB', style:'casual'};
+  const oldSaved = JSON.stringify({version:1,value:oldValue}); data.set(PREFERENCES_KEY,oldSaved);
+  p.load(); assert.equal(p.value.cleanup,'light'); assert.equal(p.value.style,'casual');
+  assert.equal(data.get(PREFERENCES_KEY),oldSaved);
+  p.update({cleanup:'none'}); const next = new Preferences(storage); next.load();
+  assert.equal(next.value.cleanup,'none');
+  next.setRemember(false); next.update({cleanup:'medium'}); assert.equal(data.size,0);
+  next.reset(); assert.equal(next.value.cleanup,'light');
+});
 test('failed saves/deletes preserve active settings and the saved copy', () => {
   const {preferences:p, data, fail} = setup(); p.setRemember(true); const saved = data.get(PREFERENCES_KEY);
   fail('write'); assert.throws(() => p.update({language:'ja-JP'}));
@@ -35,7 +46,7 @@ test('known cross-tab changes require reload before another saved update', () =>
   p.load(); assert.equal(p.value.shortcut, 'KeyD'); p.update({style:'casual'});
 });
 test('only supported preference values and shortcuts are accepted', () => {
-  for (const patch of [{language:'unknown'}, {style:'unknown'}, {shortcut:'Escape'}, {shortcut:'Control'}, {shift:1}, {enabled:null}, {activation:'always'}]) {
+  for (const patch of [{language:'unknown'}, {style:'unknown'}, {cleanup:'high'}, {cleanup:null}, {shortcut:'Escape'}, {shortcut:'Control'}, {shift:1}, {enabled:null}, {activation:'always'}]) {
     assert.throws(() => validatePreferences({...defaults, ...patch}));
   }
   assert.deepEqual(validatePreferences({...defaults, unrelated:'ignored'}), defaults);

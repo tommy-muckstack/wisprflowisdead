@@ -45,7 +45,9 @@
     <fieldset id="options" class="options"><legend class="sr-only">Dictation options</legend>
       <label>Language<select id="language"><option value="en-US">English (US)</option><option value="en-GB">English (UK)</option><option value="es-ES">Español</option><option value="fr-FR">Français</option><option value="de-DE">Deutsch</option><option value="pt-BR">Português</option><option value="hi-IN">हिन्दी</option><option value="ja-JP">日本語</option></select></label>
       <label>Writing style<select id="style"><option value="formal">Formal.</option><option value="casual">Casual</option><option value="very-casual">very casual</option><option value="excited">Excited!</option></select></label>
+      <label>Auto Cleanup<select id="cleanup" aria-describedby="cleanup-hint"><option value="none">None</option><option value="light" selected>Light</option><option value="medium">Medium</option></select></label>
     </fieldset>
+    <p id="cleanup-hint" class="hint">Light removes common English fillers and repeated words, adds punctuation and applies your writing style. This is the default.</p>
     <p id="preferences-notice" class="hint" role="status" hidden></p>
     <label class="sr-only" for="editor">Your writing</label>
     <textarea id="editor" rows="7" placeholder="Click Start dictating, or write here…" spellcheck="true"></textarea>
@@ -53,7 +55,7 @@
     <button id="command-mode" class="command-toggle" type="button" aria-pressed="false" aria-controls="command-panel">Command mode</button>
     <div id="command-panel" class="command-panel" hidden>
       <p id="command-target">No selection: command will replace all text in this editor.</p>
-      <p id="command-help">Say or type: <strong>uppercase</strong>, <strong>lowercase</strong>, <strong>bullet list</strong>, <strong>numbered list</strong>, <strong>trim spacing</strong>, or <strong>clean up text</strong>. Lists use one item per existing line. Cleanup uses your language and writing style.</p>
+      <p id="command-help">Say or type: <strong>uppercase</strong>, <strong>lowercase</strong>, <strong>bullet list</strong>, <strong>numbered list</strong>, <strong>trim spacing</strong>, or <strong>clean up text</strong>. Lists use one item per existing line. Cleanup uses your current level, language and writing style.</p>
       <p>These English commands run locally. Open-ended rewriting, translation and web search are not supported. Case commands change every letter, including links and code.</p>
       <form id="command-form"><label for="command-input">Command without a microphone</label><div><input id="command-input" maxlength="1000" autocomplete="off" placeholder="For example: bullet list" aria-describedby="command-target command-help"><button id="command-submit" class="button" type="submit">Run command</button></div></form>
     </div>
@@ -120,6 +122,8 @@
     <h3>Language and writing</h3>
     <label>Dictation language<select id="settings-language"></select></label>
     <label>Writing style<select id="settings-style"></select></label>
+    <label>Auto Cleanup<select id="settings-cleanup" aria-describedby="settings-cleanup-hint"></select></label>
+    <p id="settings-cleanup-hint"></p>
     <p>Language availability depends on your browser’s speech service. Cleanup and styles support English; other languages retain the recognized text.</p>
     <h3>Keyboard shortcut</h3>
     <label class="check"><input id="shortcut-enabled" type="checkbox" checked>Enable dictation shortcut</label>

@@ -74,6 +74,24 @@ test('empty input and filler-only input produce useful empty states', async () =
   const {machine} = setup(); await machine.practice('  '); assert.equal(machine.state,'error');
   await machine.practice('um uh'); assert.equal(machine.state,'error'); assert.equal(machine.result,'');
 });
+test('None preserves filler-only speech, spoken formatting and casing without polishing', async () => {
+  const {machine, changes} = setup();
+  const raw = 'um NEW paragraph the the draft question mark';
+  await machine.practice(raw, {cleanup:'none', style:'excited'});
+  assert.equal(machine.result, raw);
+  assert.equal(changes.some(change => change.state === 'polishing'), false);
+  await machine.practice('um uh', {cleanup:'none'});
+  assert.equal(machine.state, 'result'); assert.equal(machine.result, 'um uh');
+  await machine.practice('um uh', {cleanup:'light'});
+  assert.equal(machine.state, 'error');
+});
+test('Light retains phrasing and Medium only applies disclosed shortcuts outside protected literals', () => {
+  const raw = 'um in order to finish due to the fact that we need it at this point in time';
+  assert.equal(cleanText(raw), 'In order to finish due to the fact that we need it at this point in time.');
+  assert.equal(cleanText(raw, {cleanup:'medium'}), 'To finish because we need it now.');
+  assert.equal(cleanText('keep `in order to` and https://example.com/in-order-to', {cleanup:'medium'}), 'Keep `in order to` and https://example.com/in-order-to');
+  assert.equal(cleanText('in order to finir', {cleanup:'medium', language:'fr-FR'}), 'in order to finir');
+});
 test('cleanup is conservative with meaningful words, punctuation and non-English text', () => {
   assert.equal(cleanText('I like this and you know the answer'), 'I like this and you know the answer.');
   assert.equal(cleanText('I had had enough'), 'I had had enough.');

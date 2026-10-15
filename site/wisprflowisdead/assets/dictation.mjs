@@ -95,7 +95,8 @@ export class Dictation {
     try { this.recognition.stop(); } catch { this.fail('Could not finish this recording. Recover the draft below or try again.'); }
   }
   async finish(generation) {
-    this.emit('polishing');
+    if (this.options?.cleanup === 'none' && this.options.action !== 'command') this.emit('transcribing', 'Keeping original transcript…');
+    else this.emit('polishing');
     try {
       const result = await this.polish(this.raw, this.options);
       if (generation !== this.generation) return;
