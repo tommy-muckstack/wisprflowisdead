@@ -6,7 +6,7 @@ const tools = path.resolve(process.env.PARITY_TOOLS_DIR || 'parity-tools');
 const {chromium} = createRequire(path.join(tools, 'scripts/package.json'))('playwright');
 const output = path.resolve('qa-artifacts/raw'); fs.mkdirSync(output, {recursive:true});
 const targets = {original:'https://wisprflow.ai',live:'https://yourappisdead.com',candidate:'http://127.0.0.1:3300'};
-const pages = [{name:'home',original:'/',clone:'/wisprflowisdead'}, {name:'pricing',original:'/pricing',clone:'/wisprflowisdead/pricing'}, {name:'login',original:'/get-started',clone:'/wisprflowisdead/login'}, {name:'support',original:'/support',referenceOnly:true}];
+const pages = [{name:'home',original:'/',clone:'/wisprflowisdead'}, {name:'pricing',original:'/pricing',clone:'/wisprflowisdead/pricing'}, {name:'login',original:'/get-started',clone:'/wisprflowisdead/login'}, {name:'support',original:'/support',clone:'/wisprflowisdead/support',skipLive:true}];
 const results = [];
 function ancestorStyles(element) {
   const nodes = [];
@@ -19,7 +19,7 @@ function ancestorStyles(element) {
 const browser = await chromium.launch();
 try {
   for (const [target, origin] of Object.entries(targets)) for (const item of pages) for (const width of [1440,390]) {
-    if (item.referenceOnly && target !== 'original') continue;
+    if (item.skipLive && target === 'live') continue;
     const context = await browser.newContext({viewport:{width,height:width === 390 ? 844 : 900},deviceScaleFactor:1,isMobile:width === 390,hasTouch:width === 390,locale:'en-US',timezoneId:'America/New_York'});
     const page = await context.newPage(); const errors = [];
     page.on('pageerror', error => errors.push(error.message));

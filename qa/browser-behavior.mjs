@@ -43,6 +43,60 @@ async function confirm(page, text, action) {
 }
 try {
   for (const width of [1440,390]) {
+    await check('support-no-js',width,'/support',async page => {
+      const guides = page.locator('.support-guide-answers details');
+      assert.equal(await guides.count(),5);
+      await page.locator('.support-guide-grid a').first().click();
+      const summary = guides.first().locator('summary');
+      await summary.focus(); await page.keyboard.press('Enter');
+      assert.equal(await guides.first().evaluate(element => element.open),false);
+      await summary.focus(); await page.keyboard.press('Enter');
+      assert.equal(await guides.first().evaluate(element => element.open),true);
+      assert.equal(await guides.first().getByRole('link',{name:'Open the demo',exact:true}).isVisible(),true);
+      await noOverflow(page);
+    },{javaScriptEnabled:false});
+    await check('support',width,'/support',async page => {
+      const cards = page.locator('.support-guide-grid a');
+      assert.equal(await cards.count(),5);
+      for (const card of await cards.all()) {
+        const id = await card.getAttribute('href');
+        await card.click();
+        const guide = page.locator(id);
+        assert.equal(await guide.evaluate(element => element.open),true);
+        assert.equal(await guide.locator('summary').evaluate(element => element === document.activeElement),true);
+        const box = await guide.boundingBox();
+        const nav = await page.locator('.nav').boundingBox();
+        assert.ok(box.y >= nav.y + nav.height,'Guide is obscured by sticky navigation');
+      }
+      await page.locator('#guide-privacy summary').click();
+      await cards.last().click();
+      assert.equal(await page.locator('#guide-privacy').evaluate(element => element.open),true,
+        'Following the current hash does not reopen a closed guide');
+      await page.goto(base + '/support#guide-account',{waitUntil:'load'});
+      assert.equal(await page.locator('#guide-account').evaluate(element => element.open),true);
+      assert.equal(await page.locator('#guide-account summary').evaluate(element => element === document.activeElement),true);
+      await page.screenshot({path:path.join(output,`support-account-guide-${width}.png`)});
+      await noOverflow(page);
+      if (width === 390) {
+        await page.setViewportSize({width:320,height:844});
+        await noOverflow(page);
+        const logo = await page.locator('.nav .logo').boundingBox();
+        const cta = await page.locator('.nav > .btn').boundingBox();
+        const menu = await page.locator('.nav .burger').boundingBox();
+        assert.ok(cta.x >= logo.x + logo.width && menu.x >= cta.x + cta.width && menu.x + menu.width <= 320,
+          'Support navigation overlaps at 320 px');
+        await page.locator('.nav .burger').click();
+        assert.equal(await page.locator('#main-links').isVisible(),true);
+        await page.keyboard.press('Escape');
+        assert.equal(await page.locator('.nav .burger').getAttribute('aria-expanded'),'false');
+        await page.setViewportSize({width,height:844});
+      }
+      await page.goto(base,{waitUntil:'load'});
+      await page.locator('footer').getByRole('link',{name:'Help',exact:true}).click();
+      await page.waitForURL(base + '/support');
+      assert.equal(await page.getByRole('heading',{level:1}).textContent(),'Project Support');
+      await noOverflow(page);
+    });
     await check('home-faq-no-js',width,'',async page => {
       assert.equal(await page.locator('.home-answer:visible').count(),11);
       assert.equal(await page.locator('.home-questions button:disabled').count(),11);

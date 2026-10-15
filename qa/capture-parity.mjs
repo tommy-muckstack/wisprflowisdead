@@ -40,15 +40,23 @@ for (const [target, origin] of Object.entries(targets)) for (const page of pages
   run('extract-styles.mjs', [origin + (target === 'original' ? page.original : page.clone),'--vp',viewport,'--out',path.join(directory,`${page.name}-${viewport.split('x')[0]}.json`)], `${target} ${page.name} ${viewport} styles`);
 }
 const candidate = report('candidate');
-// Measure missing-page references before implementing their clone destinations.
-for (const viewport of viewports) {
-  const directory = path.join(output, 'styles', 'original');
-  run('extract-styles.mjs', [targets.original + '/support','--vp',viewport,'--out',path.join(directory,`support-${viewport.split('x')[0]}.json`)], `original support ${viewport} styles`);
+// Support is new on this branch, so production has no comparable destination yet.
+const supportConfig = path.join(output,'support-config.json');
+fs.writeFileSync(supportConfig,JSON.stringify({...captureConfig,pages:[{name:'support',orig:'/support',clone:'/wisprflowisdead/support',full:true}]},null,2));
+run('parity.mjs',['--config',supportConfig,'--clone',targets.candidate,'--out',path.join(output,'support')],'support parity');
+const support = report('support');
+if (support?.results?.length !== 2 || support.results.some(row => row.origStatus !== 200 || row.cloneStatus !== 200 || !Number.isFinite(row.score) || row.hOverflowClone)) {
+  errors.push({stage:'support parity',message:'Support measurements are missing, invalid or overflowing'});
+}
+for (const target of ['original','candidate']) for (const viewport of viewports) {
+  const directory = path.join(output, 'styles', target);
+  const route = target === 'original' ? '/support' : '/wisprflowisdead/support';
+  run('extract-styles.mjs', [targets[target] + route,'--vp',viewport,'--out',path.join(directory,`support-${viewport.split('x')[0]}.json`)], `${target} support ${viewport} styles`);
 }
 let behavior;
 try {behavior = JSON.parse(fs.readFileSync(path.join(output,'behavior/report.json'),'utf8'));}
 catch {errors.push({stage:'browser interactions',message:'Missing browser behavior report'});}
-const expectedBehavior = [1440,390].flatMap(width => ['home-faq-no-js','navigation','pricing','demo'].map(name => ({name,width})));
+const expectedBehavior = [1440,390].flatMap(width => ['support-no-js','support','home-faq-no-js','navigation','pricing','demo'].map(name => ({name,width})));
 const behaviorPassed = behavior?.results?.length === expectedBehavior.length && expectedBehavior.every(expected =>
   behavior.results.some(result => result.name === expected.name && result.width === expected.width && result.passed));
 if (behavior && !behaviorPassed) errors.push({stage:'browser interactions',message:'One or more browser flows failed'});
@@ -75,6 +83,7 @@ for (const row of candidate?.results || []) {
   const before = live?.results?.find(item => item.page === row.page && item.viewport === row.viewport);
   lines.push(`| ${row.page} | ${row.viewport} | ${before?.score ?? 'N/M'} | ${row.score} | ${before ? (row.score-before.score).toFixed(1) : 'N/M'} |`);
 }
+for (const row of support?.results || []) lines.push(`| support | ${row.viewport} | N/M (missing route) | ${row.score} | N/M |`);
 if (errors.length) lines.push('', 'Capture errors: ' + errors.map(item => item.stage).join(', '));
 fs.writeFileSync(path.join(output,'SUMMARY.md'), lines.join('\n') + '\n');
 console.log(lines.join('\n'));
