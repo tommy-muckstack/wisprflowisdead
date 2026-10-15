@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Your account · WisprFlowIsDead</title>
+<link rel="icon" href="/wisprflowisdead/assets/favicon.png">
+<link rel="stylesheet" href="/wisprflowisdead/assets/isdead-wisprflow.css"><link rel="stylesheet" href="/wisprflowisdead/assets/site.css">
+<style>
+.acct{min-height:100vh;display:grid;place-items:center;padding:24px}
+.acct .box{width:min(440px,100%);background:#fff;border-radius:24px;padding:36px;box-shadow:0 20px 60px rgba(26,26,26,.1);display:grid;gap:14px}
+.acct h1{margin:0;font-family:"EB Garamond",Georgia,serif;font-weight:500;font-size:40px;line-height:1.05}
+.acct p{margin:0;color:#555}
+.acct .btn{display:inline-flex;justify-content:center;align-items:center;height:48px;border-radius:999px;border:0;font:inherit;font-size:16px;cursor:pointer;text-decoration:none}
+.acct .primary{background:#1A1A1A;color:#fff}.acct .ghost{background:#fff;color:#1A1A1A;border:1px solid #1A1A1A}
+</style>
+</head><body>
+<main class="acct"><div class="box" id="box" hidden>
+  <h1>You're signed in</h1>
+  <p id="who"></p>
+  <p>One yourappisdead.com account works across every IsDead app. WisprFlowIsDead itself runs on your Mac and doesn't need an account.</p>
+  <a class="btn primary" href="/wisprflowisdead#download">Get the Mac app</a>
+  <button class="btn ghost" id="out" type="button">Sign out</button>
+</div></main>
+<script>
+(async () => {
+  const r = await fetch("/wisprflowisdead/api/session", { credentials: "same-origin" }).catch(() => null);
+  if (!r || !r.ok) { location.replace("/wisprflowisdead/login?next=/wisprflowisdead/app"); return; }
+  const me = await r.json();
+  document.getElementById("who").textContent = me.email ? "Signed in as " + me.email + "." : "";
+  document.getElementById("box").hidden = false;
+  document.getElementById("out").onclick = async () => {
+    await fetch("/wisprflowisdead/api/session", { method: "DELETE", credentials: "same-origin" }).catch(() => {});
+    location.href = "/wisprflowisdead";
+  };
+})();
+</script>
+</body></html>

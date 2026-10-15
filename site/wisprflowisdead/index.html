@@ -102,4 +102,9 @@ addEventListener("scroll",f,{passive:true});f();
 const tones=["Hello, are you free for lunch tomorrow? Noon works well for me.","Hey, are you free for lunch tomorrow? Let’s do 12 if that works.","hey free for lunch tomorrow? 12 work?"];
 document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tabs button").forEach(x=>x.classList.remove("on"));b.classList.add("on");document.getElementById("tone").textContent=tones[+b.dataset.t]});})();
 </script>
+<script>
+fetch("/wisprflowisdead/api/session",{credentials:"same-origin"}).then(r=>r.ok?r.json():null).then(me=>{if(!me)return;
+document.querySelectorAll('a[href="/wisprflowisdead/login"]').forEach(a=>{a.textContent="Account";a.href="/wisprflowisdead/app"});
+const l=document.querySelector(".nav .links");if(l){const o=document.createElement("a");o.href="#";o.textContent="Sign out";o.onclick=async e=>{e.preventDefault();await fetch("/wisprflowisdead/api/session",{method:"DELETE",credentials:"same-origin"});location.reload()};l.appendChild(o)}}).catch(()=>{});
+</script>
 </body></html>
