@@ -377,6 +377,17 @@ Draft PR: [#17](https://github.com/tommy-muckstack/wisprflowisdead/pull/17), sta
 - This does not establish complete auth parity: original email-code signup, delivery/reset links, OAuth, unavailable providers and later-state visual comparison remain outstanding. Whole-page login heights are 982/968 vs original 1096/1095; the score covers only the initial viewport. Footer customer marks are deliberately replaced with truthful compatibility text, and project art/identity differ under E1/E2/E11. Initial Continue validation also still differs as recorded above.
 - [Native CI 38797508560](https://github.com/tommy-muckstack/wisprflowisdead/actions/runs/38797508560) passes macOS build/test/app assembly and Linux tests.
 
+### Mobile home geometry and readable feature panels
+
+Draft change, stacked on #17; hosted verification pending.
+
+- Before: home scores **79.0 desktop / 56.9 mobile** in run 38797508456. [Original mobile](https://github.com/tommy-muckstack/wisprflowisdead/blob/qa/parity-evidence-38797508456-1/docs/parity/38797508456-1/raw/original-home-390.png) and [candidate mobile](https://github.com/tommy-muckstack/wisprflowisdead/blob/qa/parity-evidence-38797508456-1/docs/parity/38797508456-1/raw/candidate-home-390.png) show the taller, higher navigation, compressed ribbon text and oversized microphone. Computed styles also show a green feature region continuing through sections that are cream on the original.
+- Restores the measured 37 px banner, 54 px mobile navigation at y=50, 48/45.6 px hero heading, 94×50 px microphone and 40 px strip corners. Keeps the requested tombstone/FlowIsDead identity and Mac-specific action. The mobile ribbon is independently drawn SVG with undistorted lettering, a black result ribbon and a muted draft loop; it does not reuse original art.
+- Mobile feature panels now flow in reading order: draft comparison, natural speech, editing, app compatibility. Only the first panel remains green. A cream introduction and panel artwork above captions follow the reference structure. Heading sizes, feature-grid spacing, security-card sizing and FAQ heading follow measured mobile styles. Factual product cards and own artwork remain E1/E2/E3; no original customer claims, unsupported speed claim or certification is added.
+- The download section grows to include source-build instructions instead of clipping them below a fixed 529 px box. Its source-build state necessarily includes more content than the original download CTA; no binary availability is invented.
+- Raw captures now retain full home pages after scrolling for lazy content, in addition to the initial viewport. No overlays are suppressed in those captures. Browser checks add keyboard style-tab selection, mobile panel overlap/reading order and visible source-build instructions. A full-page image still does not verify every scroll-animation state.
+- Local lint/build and all **78 tests pass**; QA syntax and whitespace checks pass. Required shared smoke2 was attempted inside and outside the sandbox and failed before browser navigation/account creation. Hosted before/after scores, screenshots, auth cleanup and interaction results remain pending; no parity gain is claimed yet.
+
 ## Next verification gates
 
 1. Run and inspect the hosted browser workflow; download artifacts and validate that captures show the intended pages. Restore interactive/local browser access for the flows the read-only capture cannot verify. Supply environment through the existing deployment workflow, never a committed .env file.

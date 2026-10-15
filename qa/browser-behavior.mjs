@@ -45,7 +45,27 @@ try {
   for (const width of [1440,390]) {
     await check('navigation',width,'',async page => {
       await noOverflow(page);
+      const formal = page.getByRole('tab',{name:'Formal',exact:true});
+      await formal.click(); await page.keyboard.press('ArrowRight');
+      assert.equal(await page.getByRole('tab',{name:'Casual',exact:true}).getAttribute('aria-selected'),'true');
+      assert.equal(await page.locator('#tone-casual').isVisible(),true);
+      assert.equal(await page.locator('#tone-formal').isVisible(),false);
+      await page.keyboard.press('Home');
+      assert.equal(await formal.getAttribute('aria-selected'),'true');
+      if (await page.locator('#build').isVisible()) {
+        await page.locator('#build').scrollIntoViewIfNeeded();
+        const instructions = await page.locator('#build pre').boundingBox();
+        const download = await page.locator('#download').boundingBox();
+        assert.ok(instructions.y >= download.y && instructions.y + instructions.height <= download.y + download.height,
+          'Source-build instructions are clipped by the download section');
+      }
       if (width === 390) {
+        const panels = await page.locator('.stage-in').evaluateAll(elements => elements.map(element => {
+          const box = element.getBoundingClientRect(); return {top:box.top,bottom:box.bottom};
+        }));
+        for (let index = 1; index < panels.length; index++) {
+          assert.ok(panels[index].top >= panels[index - 1].bottom,'Mobile feature panels overlap or differ from reading order');
+        }
         const menu = page.locator('.nav .burger');
         await menu.click();
         assert.equal(await menu.getAttribute('aria-expanded'),'true');

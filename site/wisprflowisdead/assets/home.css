@@ -9,6 +9,7 @@
 .home-page .bubble{overflow-wrap:anywhere}
 .home-page:not(.home-enhanced) .tabs{display:none}
 .home-page:not(.home-enhanced) .bubble+.bubble{margin-top:12px}
+.mobile-ribbon,.mobile-how-it-works{display:none}
 /* Without JavaScript, every feature remains visible in document order. */
 .home-page:not(.home-enhanced) .pin{height:auto;margin-top:0}
 .home-page:not(.home-enhanced) .stage{position:static;height:auto;min-height:0;overflow:visible}
@@ -22,4 +23,76 @@
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .home-page *,.home-page *::before,.home-page *::after{animation:none!important;transition:none!important}
+}
+/* Mobile uses flowing feature panels instead of the desktop pinned presentation. */
+@media(max-width:600px){
+  .home-page .banner{height:37px}
+  .home-page .nav{width:calc(100% - 42px);max-width:420px;height:54px;margin-top:13px;padding:0 6px 0 14px;border-radius:10px}
+  .home-page .nav .logo{font-size:17px}
+  .home-page .nav>.btn.sm{height:34px;padding:0 10px;font-size:13px;gap:5px}
+  .home-page .nav .burger{margin-left:4px;padding:10px 9px}
+  .home-page .hero{height:593px;padding:0 20px}
+  .home-page .hero .eyebrow{margin-top:56px;font-size:14px;line-height:18.2px;letter-spacing:.08em}
+  .home-page .hero h1{font-size:48px;line-height:.95;letter-spacing:-.03em;margin-top:24px}
+  .home-page .hero p{max-width:350px;margin-top:24px;font-size:18px;line-height:24px}
+  .home-page .hero .btn{height:52px;margin-top:26px;padding:0 22px;font-size:16px}
+  .home-page .hero .avail{font-size:14px;line-height:18.2px;margin-top:24px}
+  .home-page .hero .ring,.home-page .hero .ribbon,.home-page .hero .theyre{display:none}
+  .home-page .mobile-ribbon{display:block;position:absolute;width:590px;height:190px;max-width:none;left:50%;top:374px;transform:translateX(-50%);font-family:var(--ids-font-sans),sans-serif;font-weight:600;pointer-events:none}
+  .home-page .mobile-ribbon .draft{fill:#1A1A1A;opacity:.25}
+  .home-page .mobile-ribbon .result{fill:#FFFFEB}
+  .home-page .mic{top:502px;width:94px;height:50px;gap:3px}
+  .home-page .mic i{width:3px}
+  .home-page .strip{height:255px;min-height:255px;margin:0 0 -80px;padding:48px 0 80px;border-radius:40px 40px 0 0}
+  .home-page .strip .eyebrow{font-size:14px;line-height:18.2px;letter-spacing:.08em}
+  .home-page .logos{margin-top:32px;height:29px;gap:28px}
+  .home-page .stage{display:flex;flex-direction:column;background:#FFFFEB;color:#1A1A1A;border-radius:0;padding-bottom:88px}
+  .home-page .stage-in{display:flex;flex-direction:column;align-items:center;padding:0 20px;min-height:620px}
+  .home-page .stage-in[data-s="0"]{order:0;min-height:652px;padding:56px 20px 32px;background:#034F46;color:#FFFFEB;border-radius:0 0 40px 40px}
+  .home-page .stage-in[data-s="0"] h2{font-size:48px;line-height:.95;letter-spacing:-.03em}
+  .home-page .stage p.lede{font-size:16px;line-height:20.8px;margin:16px auto 0;max-width:350px}
+  .home-page .vs{display:grid;grid-template-columns:100px minmax(0,1fr);gap:8px;width:100%;height:356px;margin-top:28px}
+  .home-page .vs .kb,.home-page .vs .fl{min-width:0;min-height:0;padding:24px 10px;border-radius:24px}
+  .home-page .vs .kb b,.home-page .vs .fl b{font-size:13px}
+  .home-page .vs .kb h3,.home-page .vs .fl h3{font-size:28px;line-height:1}
+  .home-page .vs svg.rb{width:800px;max-width:none;left:50%;transform:translateX(-50%)}
+  .home-page .mobile-how-it-works{display:flex;order:1;flex-direction:column;gap:24px;margin-top:64px;padding:0 20px 48px;text-align:center}
+  .home-page .mobile-how-it-works .eyebrow{font-size:14px;line-height:18.2px;letter-spacing:.08em;color:#5b5b53}
+  .home-page .mobile-how-it-works h2{font-size:40px;line-height:.95;letter-spacing:-.03em}
+  .home-page .stage-in[data-s="2"]{order:2}
+  .home-page .stage-in[data-s="3"]{order:3;margin-top:64px}
+  .home-page .stage-in[data-s="1"]{order:4;margin-top:64px}
+  .home-page .stage-in:not([data-s="0"]) h2{order:1;font-size:32px;line-height:.95;letter-spacing:-.03em;margin-top:34px}
+  .home-page .stage-in:not([data-s="0"]) .lede{order:2}
+  .home-page .stage-in .edit,.home-page .stage-in .chips{order:0;width:100%;min-height:480px;margin:0;padding:24px;background:#E4E4D0;border-radius:24px}
+  .home-page .stage-in .edit{display:flex;flex-direction:column;justify-content:center;gap:16px}
+  .home-page .stage-in .edit div{padding:22px;font-size:16px;line-height:1.4;border-radius:16px}
+  .home-page .stage-in .edit .a{background:#FFFFEB;color:#5b5b53}
+  .home-page .stage-in .edit .b{background:#F0D7FF}
+  .home-page .stage-in .chips{align-content:center;gap:12px;background:#F0D7FF}
+  .home-page .stage-in .chips span{border:1px solid #1A1A1A33;background:#FFFFEB;padding:12px 18px;font-size:16px}
+  .home-page .lang{padding:0 20px 80px;min-height:2083px}
+  .home-page .lang>.eyebrow{font-size:14px;line-height:18.2px;letter-spacing:.08em}
+  .home-page .lang h2{font-size:40px;line-height:1;letter-spacing:-.03em;margin-top:17px}
+  .home-page .bento{padding:0;margin-top:48px;gap:16px}
+  .home-page .tile{padding:32px;border-radius:24px}
+  .home-page .tile h3{font-size:32px;line-height:.95;letter-spacing:-.03em}
+  .home-page .sect-trust{padding:0 20px 64px;min-height:440px}
+  .home-page .trust{margin:0;padding:32px;gap:24px;border-radius:24px;min-height:376px}
+  .home-page .trust>*{min-width:0}
+  .home-page .trust h2{font-size:32px;line-height:.95;letter-spacing:-.03em}
+  .home-page .trust p{font-size:14px;line-height:18.2px}
+  .home-page .rings{gap:12px}
+  .home-page .rings span{width:80px;height:80px;flex:1;min-width:0}
+  .home-page .proof{min-height:3146px;padding:64px 0 80px;border-radius:0 0 40px 40px}
+  .home-page .proof>.eyebrow{font-size:14px;line-height:18.2px;letter-spacing:.08em}
+  .home-page .proof h2{font-size:40px;line-height:1;letter-spacing:-.03em;margin:24px 20px 0}
+  .home-page .faq{padding:64px 20px;min-height:1012px}
+  .home-page .faq>.eyebrow{font-size:14px;line-height:18.2px;letter-spacing:.08em}
+  .home-page .faq h2{font-size:40px;line-height:1;letter-spacing:-.03em;margin-top:16px}
+  /* Source-build instructions must remain reachable when no release URL exists. */
+  .home-page .final{height:auto;min-height:529px;padding:104px 20px 48px}
+  .home-page .final h2{padding-top:0;font-size:56px;line-height:.85;letter-spacing:-.03em}
+  .home-page .final p{font-size:16px;line-height:20.8px}
+  .home-page .final pre{max-width:100%}
 }

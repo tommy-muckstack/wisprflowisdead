@@ -50,6 +50,19 @@ try {
         entry.image = `${target}-login-${width}-settled.png`;
         await page.screenshot({path:path.join(output,entry.image)});
       }
+      if (item.name === 'home') {
+        // Scroll normally to load lazy artwork and observe scroll-driven states; never hide overlays.
+        const height = await page.evaluate(() => document.documentElement.scrollHeight);
+        for (let y = 0; y < height; y += 700) {
+          await page.evaluate(y => window.scrollTo({top:y,behavior:'instant'}),y);
+          await page.waitForTimeout(120);
+        }
+        await page.evaluate(() => window.scrollTo({top:0,behavior:'instant'}));
+        await page.waitForTimeout(500);
+        entry.fullImage = `${target}-home-${width}-full.png`;
+        entry.fullCapture = 'After scrolling for lazy content; initial viewport retained separately';
+        await page.screenshot({path:path.join(output,entry.fullImage),fullPage:true});
+      }
       if (item.name === 'pricing') {
         // Keep full-page geometry available through the evidence branch for visual review.
         entry.fullImage = `${target}-pricing-${width}-full.png`;
