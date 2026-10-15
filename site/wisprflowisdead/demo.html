@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="/wisprflowisdead/assets/isdead-wisprflow.css">
   <link rel="stylesheet" href="/wisprflowisdead/assets/demo.css">
   <link rel="stylesheet" href="/wisprflowisdead/assets/library.css">
+  <link rel="stylesheet" href="/wisprflowisdead/assets/history.css">
   <script type="module" src="/wisprflowisdead/assets/demo.mjs"></script>
 <link rel="stylesheet" href="/wisprflowisdead/assets/branding.css">
 </head>
@@ -42,7 +43,7 @@
     <p id="state" role="status" aria-live="polite">Ready when you are.</p>
     <p id="shortcut" class="hint">Ctrl + Alt + Space to start or stop · Esc to cancel. Shortcuts work while this page is focused.</p>
     <div id="draft" class="draft" hidden><span class="eyebrow">Your words</span><p id="live-transcript"></p><button id="recover" type="button" hidden>Recover draft</button></div>
-    <p id="speech-privacy" class="privacy">Your browser may send audio to its speech service. Dictation drafts stay in this page; audio is not saved here. Cleanup runs in your browser. Library entries follow your storage choice below.</p>
+    <p id="speech-privacy" class="privacy">Your browser may send audio to its speech service. Audio is not saved here. Cleanup runs in your browser. History and library entries follow your storage choices below; saving is off by default.</p>
     <p class="hint" id="language-hint">Filler cleanup and writing styles currently support English. Other languages keep the recognized text.</p>
   </section>
   <details class="practice"><summary>Practice without a microphone</summary><p>Type your own spoken draft. Try “um”, “new paragraph”, “new bullet”, or “question mark”. This uses the same local cleanup as dictation.</p><label for="practice-input">Spoken draft</label><textarea id="practice-input" rows="3" placeholder="um can we review the outline tomorrow question mark"></textarea><button id="practice-submit" class="button" type="button">Clean up text</button></details>
@@ -77,6 +78,18 @@
       <button id="reload-library" type="button">Reload saved library</button> <button id="clear-library" type="button">Clear library</button>
     </div>
     <p id="library-status" role="status" aria-live="polite"></p>
+  </section>
+  <section class="history" id="recent-activity" aria-labelledby="history-heading">
+    <h2 id="history-heading">Recent activity</h2>
+    <p>Review completed dictations and typed practice. Restore the result or your original words to the editor.</p>
+    <label>Keep history<select id="history-mode" aria-describedby="history-storage-hint"><option value="session">Only in this page</option><option value="day">Save for 24 hours</option><option value="forever">Save until I delete it</option><option value="off">Never keep history</option></select></label>
+    <p id="history-storage-hint">Results stay in this page until you close or reload it. Nothing is saved to browser storage.</p>
+    <p>This history belongs to the browser profile, not an account. Signing out does not delete it. Use Clear history here. No audio or cloud copy is kept by this demo.</p>
+    <div class="history-tools"><label>Search history<input id="history-search" type="search" autocomplete="off"></label><button id="history-reload" type="button">Reload saved history</button><button id="history-clear" type="button">Clear history</button></div>
+    <p id="history-count">0 results</p><p id="history-empty">No results yet. Dictate or use typed practice to begin.</p>
+    <ul id="history-list" aria-label="Dictation history"></ul>
+    <button id="history-retry" type="button" hidden>Retry saving latest result</button>
+    <p id="history-status" role="status" aria-live="polite"></p>
   </section>
   <noscript><p class="workspace">Enable JavaScript to use dictation and text cleanup. You can still <a href="/wisprflowisdead#download">get the Mac app</a>.</p></noscript>
 </main>

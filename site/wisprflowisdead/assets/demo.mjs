@@ -1,6 +1,7 @@
 import {Dictation} from './dictation.mjs';
 import {polishWithLibrary} from './library.mjs';
 import {mountLibrary} from './library-ui.mjs';
+import {mountHistory} from './history-ui.mjs';
 
 const $ = id => document.getElementById(id);
 const editor = $('editor');
@@ -13,7 +14,8 @@ const contexts = {
 };
 const drafts = new Map();
 const library = mountLibrary();
-let mode = 'prompt', insertion = null, undoValue = null, applied = false;
+const history = mountHistory({restore:restoreHistory});
+let mode = 'prompt', insertion = null, undoValue = null, applied = false, source = 'dictation';
 const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const states = {idle:'Ready when you are.', requesting:'Allow microphone access in your browser to begin.', listening:'Listening…', transcribing:'Transcribing…', polishing:'Polishing…', result:'Ready to use. Review your text, then copy it.'};
 const machine = new Dictation({
@@ -30,6 +32,7 @@ function counts() {
   $('undo').disabled = machine.busy || undoValue === null;
 }
 function captureInsertion(replace = false) {
+  source = replace ? 'practice' : 'dictation';
   insertion = {text:editor.value, start:replace ? 0 : editor.selectionStart, end:replace ? editor.value.length : editor.selectionEnd};
   applied = false;
 }
@@ -41,6 +44,7 @@ function insert(text) {
 }
 function render(snapshot) {
   const busy = machine.busy;
+  history.setBusy(busy);
   $('options').disabled = busy;
   tabs.forEach(tab => {tab.disabled = busy;});
   editor.readOnly = busy;
@@ -60,6 +64,7 @@ function render(snapshot) {
     editor.value = insert(snapshot.result);
     applied = true;
     drafts.set(mode, editor.value);
+    history.record({raw:snapshot.raw, text:snapshot.result, context:mode, source, language:machine.options.language, style:machine.options.style});
     editor.focus();
     editor.setSelectionRange(editor.value.length, editor.value.length);
   }
@@ -100,6 +105,15 @@ function selectMode(tab) {
   [$('context-title').textContent, $('context-hint').textContent] = contexts[mode];
   editor.value = drafts.get(mode) || '';
   machine.cancel();
+}
+function restoreHistory(entry, text) {
+  if (machine.busy) return;
+  const previous = entry.context === mode ? editor.value : drafts.get(entry.context) || '';
+  if (previous.trim() && previous !== text && !confirm('Replace the draft in this writing context with the history result?')) return;
+  selectMode(tabs.find(tab => tab.dataset.mode === entry.context));
+  editor.value = text; undoValue = null; drafts.set(mode, text); counts();
+  editor.focus(); editor.setSelectionRange(text.length, text.length);
+  $('state').textContent = 'History restored to the editor. Review it before copying.';
 }
 tabs.forEach((tab,index) => {
   tab.addEventListener('click', () => selectMode(tab));

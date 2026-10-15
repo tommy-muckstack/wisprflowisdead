@@ -73,9 +73,9 @@ Status is `match`, `differs`, or `missing`. `Differs` includes implementations a
 | Personal dictionary | differs | P1 | Browser word/correction CRUD, search/sort/star and literal replacement implemented; recognition bias/learning and visual checks pending | N/M |
 | Snippets | differs | P1 | Browser CRUD and case-preserving plain-text expansion implemented; rich text/import/sync and rendered checks pending | N/M |
 | Command mode | missing | P1 | Native model implementation; browser free equivalent needed, E7 | N/M |
-| History/copy/delete/recovery | missing | P1 | Native implementation only; browser storage/privacy design needed | N/M |
+| History/copy/delete/recovery | differs | P1 | Browser text history, original/result restore, search/copy/delete, retention and storage recovery drafted; audio replay/retry unavailable, live checks pending | N/M |
 | Settings: hotkey/language/microphone | differs | P1 | Demo language selector and focused-page shortcut; customization/device settings pending, E8/E9 | N/M |
-| Settings: privacy/storage | differs | P1 | Demo discloses speech-service processing; drafts stay in memory, library storage is opt-in with clear/reload controls; history preferences pending | N/M |
+| Settings: privacy/storage | differs | P1 | Library saving is opt-in; history offers page-only, 24-hour, until-deleted and disabled modes; browser/account isolation and real retention checks pending | N/M |
 | Browser onboarding | missing | P1 | Permission/practice/language/style onboarding absent | N/M |
 | Microphone denied/unavailable/no speech | differs | P0 | Recoverable messages and timeouts tested with injected recognizer; real permissions/audio pending | N/M |
 | Keyboard/focus/reduced motion | differs | P1 | Nav/demo tab keyboard and focus behavior drafted; demo/auth reduced-motion rules exist; sitewide manual accessibility verification pending | N/M |
@@ -232,7 +232,7 @@ Draft PR: [#7](https://github.com/tommy-muckstack/wisprflowisdead/pull/7), stack
 
 ### Pricing interactions and comparison clarity
 
-Draft branch: `qa/pricing-interactions`, stacked on #7.
+Draft PR: [#8](https://github.com/tommy-muckstack/wisprflowisdead/pull/8), stacked on #7.
 
 - Before: $0 cards listed unbuilt team/compliance features, billing selection changed styling only, the Notetaker control was decorative, mobile comparison hid Enterprise, desktop FAQ questions were clipped, and calculator output accepted negative/nonfinite inputs and rounded hours before annualizing.
 - After: introductory/card/table context clearly describes Wispr Flow reference plans, not clone entitlements. Reference rates checked on 2026-10-15 update together in cards and table for annual/monthly billing and the Growth Notetaker option. Clone CTAs still lead to its existing free flow; the mislabeled sales link says project support. No checkout, trial, subscription, API, secret or payment behavior changed (E5).
@@ -242,6 +242,20 @@ Draft branch: `qa/pricing-interactions`, stacked on #7.
 - Website lint/build and whitespace checks pass. **39 tests pass**, including four pricing calculation/reference-rate tests. A source check validates balanced markup, unique IDs, resolved ARIA references and the five-column rows. These are not browser interaction, screen-reader or visual tests.
 - The required shared smoke2 flow was attempted with cleanup and again failed at Chromium launch, before navigation or account creation. Screenshots, computed styles and parity remain **N/M → N/M**. The draft must still pass live auth and paired 1440/390 captures; reference pricing may change and must be rechecked before publication.
 - References: [original pricing](https://wisprflow.ai/pricing), [WAI tabs](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/), [WAI accordions](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/). The source contains apparent differences between card and table free-plan limits; this change labels them as reference content and does not invent clone limits.
+
+### Browser history and retention
+
+Draft branch: `qa/browser-history`, stacked on #8.
+
+- Before: completed browser dictations and typed practice had no history list or recovery after changing drafts.
+- After: Recent activity stores each completed result once, with original words, language/style/context and timestamp. It offers search, copy, full-text inspection, restore-result/restore-original with overwrite confirmation, individual deletion and clear-all. Restoring is disabled during recording/cleanup. Text is rendered literally; no user content is inserted as HTML.
+- Default history exists only in page memory. Explicit choices save text for 24 hours or until deleted, or remember a disabled-history preference with no transcripts. Changing to page-only removes the saved copy. The feature owns only `wisprflowisdead.history.v1`; dictionary/snippet data and unrelated applications are untouched. No audio is recorded or retained by this feature.
+- Expiry is enforced on load, once per minute while open, and on foreground/page restoration. A browser page cannot delete storage while closed; the UI discloses this. Expired entries stay hidden when physical removal fails, and deletion is retried. Failed writes/deletes do not report success; the current result stays in the editor, and the latest failed history save can be retried. Known cross-tab changes prevent stale writes and refresh the visible saved history. Unreadable saved data is preserved until explicitly cleared.
+- Bounds: 200 entries, 200,000 characters each for result/original, and a 4,000,000-character saved payload. Reaching a bound shows an error instead of silently dropping earlier results. Browser storage can impose a smaller limit. Preferences requiring storage cannot be saved when the browser blocks it; page-only history remains available.
+- Remaining differences: this public demo's history belongs to a browser profile, not an authenticated account; signing out does not clear it, and the UI states how to clear it. Original account-linked cleanup/sync needs a separate decision/implementation. Audio playback and recognition retry from retained audio are unavailable because Web Speech does not supply a retained recording (E7/E9). Original default storage and precise native Hub layout are not matched.
+- Website lint/build, whitespace and source integration checks pass. **49 tests pass**, including ten history validation/storage/expiry/conflict tests. These validate deterministic logic, not actual browser persistence, privacy permissions, microphone capture or native history parity.
+- Shared live smoke2 with cleanup was attempted and failed at Chromium launch before navigation; no account was created. Website screenshots, computed styles and parity remain **N/M → N/M**. The change remains a draft pending browser, live auth and microphone verification.
+- References: [original history deletion and retention](https://docs.wisprflow.ai/articles/4465314211-delete-transcripts-and-history-in-wispr-flow), [original data-sharing/local-history controls](https://docs.wisprflow.ai/articles/9609615338-private-cloud-sync-and-data-sharing-preferences-in-wispr-flow).
 
 ## Next verification gates
 
