@@ -14,7 +14,11 @@ Preview locally: `npx serve .` from `site/` (APIs need `vercel dev`). Theme: `sc
 
 ## Website checks
 
-From `site/`: `npm run lint`, `npm run build`, `npm test`. The static build/lint check parses JavaScript and verifies referenced local assets; it does not bundle files or claim browser/accessibility correctness. No dependencies are required for these checks. Firebase APIs still require the dependency and environment above. Deployment root and function configuration are unchanged.
+From `site/`: `npm run lint`, `npm run build`, `npm test`. The static build/lint check parses JavaScript and verifies referenced local assets; it does not bundle files or claim browser/accessibility correctness. No dependencies are required for these checks. Firebase APIs still require the dependency and environment above.
+
+Vercel must use **Root Directory `site`** and the **Other** framework preset. `vercel.json` explicitly sets **Output Directory `.`** because the static files already exist in that directory; the validation-only build does not create `public/`. This file-based value overrides a dashboard output-directory setting. Functions remain in `api/`, with the existing `/wisprflowisdead/api/` rewrite. See [Vercel output-directory configuration](https://vercel.com/docs/project-configuration/vercel-json#outputdirectory).
+
+The `qa/parity-evidence-*` branches only archive screenshots and reports, so their automatic Vercel deployments are disabled through `git.deploymentEnabled`. Ordinary feature branches and the production branch retain automatic deployments. See [Vercel Git branch rules](https://vercel.com/docs/project-configuration/git-configuration#git.deploymentenabled). This does not mute deployment-failure notifications or change account preferences.
 
 ## Browser dictation
 
