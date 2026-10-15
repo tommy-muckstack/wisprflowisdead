@@ -97,7 +97,7 @@ struct FlowBarPill: View {
 
     private var size: CGSize {
         switch controller.phase {
-        case .resting: return controller.hovering ? CGSize(width: 230, height: 30) : CGSize(width: 40, height: 9)
+        case .resting: return controller.hovering ? CGSize(width: controller.settings.showScratchpadButton ? 290 : 268, height: 30) : CGSize(width: 40, height: 9)
         case .recording(let handsFree, _): return CGSize(width: handsFree ? 150 : 112, height: 34)
         case .processing: return CGSize(width: 80, height: 34)
         }
@@ -144,11 +144,27 @@ struct FlowBarPill: View {
         case .resting:
             if controller.hovering {
                 let key = controller.settings.shortcuts.shortcuts(for: .pushToTalk).first?.display ?? "fn"
-                Text("Click or hold \(key) to start dictating")
-                    .font(Theme.font(12, .medium))
-                    .foregroundStyle(Theme.cream)
-                    .lineLimit(1)
-                    .transition(.opacity)
+                HStack(spacing: 8) {
+                    Text("Click or hold \(key) to start dictating")
+                        .font(Theme.font(12, .medium))
+                        .foregroundStyle(Theme.cream)
+                        .lineLimit(1)
+                    Menu {
+                        ForEach(controller.settings.transforms) { t in
+                            Button(t.name) { controller.runTransform(t) }
+                        }
+                    } label: {
+                        Image(systemName: "wand.and.stars").font(.system(size: 11)).foregroundStyle(Theme.cream)
+                    }
+                    .menuStyle(.borderlessButton).menuIndicator(.hidden).frame(width: 16)
+                    .help("Transform selected text")
+                    if controller.settings.showScratchpadButton {
+                        Button { controller.toggleScratchpad?() } label: {
+                            Image(systemName: "note.text").font(.system(size: 11)).foregroundStyle(Theme.cream)
+                        }.buttonStyle(.plain).help("Scratchpad")
+                    }
+                }
+                .transition(.opacity)
             }
         case .recording(let handsFree, _):
             HStack(spacing: 8) {

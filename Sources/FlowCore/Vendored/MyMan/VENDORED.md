@@ -10,7 +10,9 @@ FlowCore/Vendored/MyMan (pure Foundation, builds on Linux too):
 - MyManShims.swift: new; stands in for MyMan's Brain (data folder) and People (no registry).
 
 FlowVoice/Vendored/MyMan (macOS only):
-- src/Voice/Transcription.swift, AudioCapture.swift, ModelLoadCoordinator.swift, Paste.swift: unchanged.
+- src/Voice/Transcription.swift, ModelLoadCoordinator.swift, Paste.swift: unchanged.
+- src/Voice/AudioCapture.swift: three additions marked `WisprFlowIsDead patch` (mic picker device, invalidateEngine).
+- src/Meetings/SystemAudioTap.swift: unchanged (Notetaker system audio).
 - Sources/AudioEngineSafety: copy of support/AudioEngineSafety.
 
 To refresh: re-copy these files from a newer MyMan commit, re-apply the one-line

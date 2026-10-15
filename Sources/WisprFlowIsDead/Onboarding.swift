@@ -76,7 +76,7 @@ struct OnboardingView: View {
 
     private var welcome: some View {
         VStack(alignment: .leading, spacing: 14) {
-            Text("Talk. We'll type.").font(Theme.font(36, .bold))
+            Text("Talk. We'll type.").font(Theme.display(36))
             Text("Hold a key, say what you mean, and clean, punctuated text lands wherever your cursor is. Free, open source, and everything runs on this Mac.")
                 .font(Theme.font(16)).foregroundStyle(Theme.muted)
             if let p = controller.modelProgress {
@@ -88,7 +88,7 @@ struct OnboardingView: View {
 
     private var permissions: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("Two permissions").font(Theme.font(28, .bold))
+            Text("Two permissions").font(Theme.display(28))
             permissionRow(title: "Microphone", detail: "So we can hear you. Only while you hold the key.", ok: micOK) {
                 Task { micOK = await VoiceEngine.requestMicrophone() }
             }
@@ -117,7 +117,7 @@ struct OnboardingView: View {
 
     private var micTest: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("Test your microphone").font(Theme.font(28, .bold))
+            Text("Test your microphone").font(Theme.display(28))
             Text("Say something. The bars should move.").foregroundStyle(Theme.muted)
             HStack(alignment: .bottom, spacing: 4) {
                 ForEach(0..<24, id: \.self) { i in
@@ -151,7 +151,7 @@ struct OnboardingView: View {
 
     private var shortcut: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("Your dictation key").font(Theme.font(28, .bold))
+            Text("Your dictation key").font(Theme.display(28))
             Toggle("My keyboard has an fn (🌐) key", isOn: $hasFnKey).toggleStyle(.switch).tint(Theme.ink)
             let set = ShortcutSet.defaults(hasFnKey: hasFnKey)
             Card {
@@ -170,7 +170,7 @@ struct OnboardingView: View {
     private var practice: some View {
         let key = controller.settings.shortcuts.shortcuts(for: .pushToTalk).first?.display ?? "fn"
         return VStack(alignment: .leading, spacing: 16) {
-            Text("Give it a try").font(Theme.font(28, .bold))
+            Text("Give it a try").font(Theme.display(28))
             Text("Hold \(key) and say: “Let's grab lunch on Tuesday, no wait, Wednesday.” Then let go.")
                 .foregroundStyle(Theme.muted)
             Text(practiceText.isEmpty ? "Your words show up here." : practiceText)
@@ -188,7 +188,7 @@ struct OnboardingView: View {
 
     private var style: some View {
         VStack(alignment: .leading, spacing: 14) {
-            Text("How do you write?").font(Theme.font(28, .bold))
+            Text("How do you write?").font(Theme.display(28))
             ForEach(AppCategory.allCases) { c in
                 HStack {
                     Text(c.title).frame(width: 150, alignment: .leading)

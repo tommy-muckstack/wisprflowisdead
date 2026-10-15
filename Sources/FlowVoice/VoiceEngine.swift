@@ -81,6 +81,12 @@ public final class VoiceEngine {
         return parts.filter { !$0.isEmpty }.joined(separator: " ")
     }
 
+    /// Retry / Recover: transcribe a take saved by `WAV.encode`.
+    public func transcribe(fileAt url: URL) async -> String? {
+        guard let data = try? Data(contentsOf: url), let wav = WAV.decode(data) else { return nil }
+        return await transcribe(wav.samples)
+    }
+
     // MARK: Insertion
 
     public static var accessibilityTrusted: Bool { AXIsProcessTrusted() }

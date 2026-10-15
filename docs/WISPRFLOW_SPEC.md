@@ -123,7 +123,7 @@ Ranked list, auto picks highest available; hot-swap mid-dictation; virtual devic
 | focus | #2D62FF | focus ring |
 | border | #1A1A1A at 30% | |
 
-Fonts: Wispr uses EB Garamond (display serif) + Figtree (body). **Clone uses DM Sans everywhere** (bundled, OFL). Radii *(est.)*: cards 12, buttons 8 / pill 999, Flow Bar full-pill. Shadow on bar: 0 4 16 rgba(0,0,0,0.25).
+Fonts: Wispr uses EB Garamond (display serif) + Figtree (body). **Clone uses the same two OFL families** (Figtree text, EB Garamond display), bundled, with tokens from the shared isdead-design `wisprflow` theme. Radii *(est.)*: cards 12, buttons 8 / pill 999, Flow Bar full-pill. Shadow on bar: 0 4 16 rgba(0,0,0,0.25).
 
 ## 11. Platform matrix
 

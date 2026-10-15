@@ -13,6 +13,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     private var statusItem: NSStatusItem!
     private var hubWindow: NSWindow?
     private var onboardingWindow: NSWindow?
+    private var scratchpad: NSPanel?
     private var bag: Set<AnyCancellable> = []
     private var tapRetry: Timer?
 
@@ -33,6 +34,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             .sink { [weak self] _ in self?.bar.refreshVisibility() }
             .store(in: &bag)
 
+        controller.toggleScratchpad = { [weak self] in self?.toggleScratchpad() }
+        controller.refreshMicrophones()
         controller.loadModel()
         VoiceEngine.shared.warmMicrophone()
         startHotkeys()
@@ -75,6 +78,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         let menu = NSMenu()
         menu.addItem(item("Open WisprFlowIsDead", #selector(openHub)))
         menu.addItem(item("Shortcuts…", #selector(openSettings)))
+        menu.addItem(item("Scratchpad", #selector(openScratchpad)))
+        menu.addItem(item("Notetaker", #selector(openNotetaker)))
         menu.addItem(item("Paste last transcript", #selector(pasteLast)))
         menu.addItem(item("Copy last transcript", #selector(copyLast)))
         menu.addItem(.separator())
@@ -90,6 +95,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
     @objc private func openHub() { showHub(page: .home) }
     @objc private func openSettings() { showHub(page: .settings) }
+    @objc private func openScratchpad() { toggleScratchpad() }
+    @objc private func openNotetaker() { showHub(page: .meetings) }
     @objc private func pasteLast() { controller.pasteLast() }
     @objc private func copyLast() { controller.copyLast() }
     @objc private func quit() { NSApp.terminate(nil) }
@@ -135,7 +142,44 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         NSApp.activate(ignoringOtherApps: true)
     }
 
+    /// Floating notepad that stays above other apps (Opt+S by default).
+    func toggleScratchpad() {
+        if let p = scratchpad, p.isVisible { p.orderOut(nil); controller.scratchSink = nil; return }
+        if scratchpad == nil {
+            let p = NSPanel(contentRect: NSRect(x: 0, y: 0, width: 620, height: 420),
+                            styleMask: [.titled, .closable, .resizable, .utilityWindow, .fullSizeContentView],
+                            backing: .buffered, defer: false)
+            p.title = "Scratchpad"
+            p.titlebarAppearsTransparent = true
+            p.isFloatingPanel = true
+            p.level = .floating
+            p.hidesOnDeactivate = false
+            p.isReleasedWhenClosed = false
+            p.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
+            p.contentView = NSHostingView(rootView: ScratchpadView(controller: controller))
+            p.center()
+            p.delegate = self
+            scratchpad = p
+        }
+        scratchpad?.makeKeyAndOrderFront(nil)
+        NSApp.activate(ignoringOtherApps: true)
+    }
+
+    func windowDidBecomeKey(_ notification: Notification) {
+        guard (notification.object as? NSPanel) === scratchpad else { return }
+        controller.scratchSink = { [weak self] text in
+            guard let self else { return }
+            let current = ScratchNote.search(self.controller.notes, query: "").first?.id
+            ScratchpadView.append(text, to: self.controller, noteID: current)
+        }
+    }
+
+    func windowDidResignKey(_ notification: Notification) {
+        if (notification.object as? NSPanel) === scratchpad { controller.scratchSink = nil }
+    }
+
     func windowWillClose(_ notification: Notification) {
+        if (notification.object as? NSPanel) === scratchpad { controller.scratchSink = nil }
         DispatchQueue.main.async { [weak self] in self?.applyDockPolicy() }
     }
 }

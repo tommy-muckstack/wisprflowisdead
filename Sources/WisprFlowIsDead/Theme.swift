@@ -1,40 +1,48 @@
 import AppKit
 import CoreText
 import FlowCore
+import IsDeadDesign
 import SwiftUI
 
-/// Design tokens. Colors follow docs/WISPRFLOW_SPEC.md §10; the font is
-/// DM Sans (OFL), bundled.
+/// Design tokens come from the shared IsDead design system
+/// (`IsDeadTheme.wisprflow`). Fonts match the original's families: Figtree
+/// for text and EB Garamond for display, both OFL and bundled.
 enum Theme {
-    static let cream = Color(hex: 0xFFFFEB)
-    static let creamDark = Color(hex: 0xE4E4D0)
-    static let card = Color(hex: 0xFFFDF9)
-    static let paper = Color(hex: 0xF5F4F0)
-    static let ink = Color(hex: 0x1A1A1A)
-    static let muted = Color(hex: 0x71716E)
-    static let lavender = Color(hex: 0xF0D7FF)
-    static let pink = Color(hex: 0xFFBCF2)
-    static let orange = Color(hex: 0xFF6C4C)
-    static let amber = Color(hex: 0xFFA946)
-    static let forest = Color(hex: 0x034F46)
+    static let t = IsDeadTheme.wisprflow
+    static let cream = t.bg
+    static let creamDark = Color(hex: 0xE4E4D0)   // --ids-color-divider
+    static let card = t.surface
+    static let paper = t.surfaceAlt
+    static let ink = t.text
+    static let muted = t.textMuted
+    static let lavender = t.accentSoft
+    static let pink = t.heroTo
+    static let orange = Color(hex: 0xFF6C4C)      // --ids-color-flare
+    static let amber = Color(hex: 0xFFA946)       // --ids-color-glow
+    static let forest = t.accent
     static let errorBG = Color(hex: 0xF8E4E4)
-    static let errorInk = Color(hex: 0x7F1C34)
+    static let errorInk = t.danger
     static let successBG = Color(hex: 0xCEF5CA)
-    static let successInk = Color(hex: 0x114E0B)
+    static let successInk = t.success
     static let warningBG = Color(hex: 0xFCF8D8)
-    static let focus = Color(hex: 0x2D62FF)
-    static let border = Color(hex: 0x1A1A1A).opacity(0.3)
-    static let hairline = Color(hex: 0x1A1A1A).opacity(0.08)
+    static let focus = t.focus
+    static let border = t.border
+    static let hairline = t.text.opacity(0.08)
 
-    static let cardRadius: CGFloat = 12
-    static let buttonRadius: CGFloat = 8
+    static let cardRadius: CGFloat = t.radiusLg
+    static let buttonRadius: CGFloat = t.radiusSm
 
     static func font(_ size: CGFloat, _ weight: Font.Weight = .regular) -> Font {
-        Font.custom("DM Sans", size: size).weight(weight)
+        Font.custom(t.fontSans, size: size).weight(weight)
+    }
+
+    /// Serif display face for page titles and the hero line.
+    static func display(_ size: CGFloat) -> Font {
+        Font.custom(t.fontDisplay, size: size)
     }
 
     static func registerFonts() {
-        for name in ["DMSans-Variable", "DMSans-Italic-Variable"] {
+        for name in ["Figtree-Variable", "EBGaramond-Variable"] {
             guard let url = Bundle.module.url(forResource: name, withExtension: "ttf", subdirectory: "Fonts")
                 ?? Bundle.module.url(forResource: name, withExtension: "ttf") else { continue }
             CTFontManagerRegisterFontsForURL(url as CFURL, .process, nil)
@@ -60,9 +68,8 @@ struct PillButtonStyle: ButtonStyle {
             .padding(.horizontal, 14).padding(.vertical, 8)
             .background(prominent ? Theme.ink : Theme.card)
             .foregroundStyle(prominent ? Theme.cream : Theme.ink)
-            .clipShape(RoundedRectangle(cornerRadius: Theme.buttonRadius, style: .continuous))
-            .overlay(RoundedRectangle(cornerRadius: Theme.buttonRadius, style: .continuous)
-                .stroke(prominent ? Color.clear : Theme.border, lineWidth: 1))
+            .clipShape(Capsule())
+            .overlay(Capsule().stroke(prominent ? Color.clear : Theme.border, lineWidth: 1))
             .opacity(configuration.isPressed ? 0.75 : 1)
     }
 }

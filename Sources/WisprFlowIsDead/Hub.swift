@@ -4,12 +4,15 @@ import FlowVoice
 import SwiftUI
 
 enum HubPage: String, CaseIterable, Identifiable {
-    case home, insights, dictionary, snippets, style, settings, help
+    case home, meetings, insights, dictionary, snippets, style, transforms, scratchpad, settings, help
     var id: String { rawValue }
-    var title: String { rawValue == "home" ? "Home" : rawValue.capitalized }
+    var title: String { self == .meetings ? "Notetaker" : rawValue.capitalized }
     var icon: String {
         switch self {
         case .home: return "house"
+        case .meetings: return "person.2.wave.2"
+        case .transforms: return "wand.and.stars"
+        case .scratchpad: return "note.text"
         case .insights: return "chart.bar"
         case .dictionary: return "character.book.closed"
         case .snippets: return "text.badge.plus"
@@ -18,7 +21,7 @@ enum HubPage: String, CaseIterable, Identifiable {
         case .help: return "questionmark.circle"
         }
     }
-    static let main: [HubPage] = [.home, .insights, .dictionary, .snippets, .style]
+    static let main: [HubPage] = [.home, .meetings, .insights, .dictionary, .snippets, .style, .transforms, .scratchpad]
 }
 
 final class HubNavigation: ObservableObject {
@@ -46,8 +49,10 @@ struct HubView: View {
 
     private var sidebar: some View {
         VStack(alignment: .leading, spacing: 2) {
-            Text("WisprFlowIsDead")
-                .font(Theme.font(17, .bold))
+            HStack(spacing: 8) {
+                AppMark().frame(width: 22, height: 22)
+                Text("WisprFlowIsDead").font(Theme.display(19))
+            }
                 .padding(.horizontal, 12).padding(.top, 36).padding(.bottom, 18)
             ForEach(HubPage.main) { item(for: $0) }
             Spacer()
@@ -80,6 +85,9 @@ struct HubView: View {
     @ViewBuilder private var page: some View {
         switch nav.page {
         case .home: HomePage(controller: controller)
+        case .meetings: MeetingsPage(controller: controller, recorder: controller.recorder)
+        case .transforms: TransformsPage(controller: controller)
+        case .scratchpad: ScratchpadView(controller: controller)
         case .insights: InsightsPage(controller: controller)
         case .dictionary: DictionaryPage(controller: controller)
         case .snippets: SnippetsPage(controller: controller)
@@ -95,7 +103,7 @@ struct PageTitle: View {
     var subtitle: String?
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text(title).font(Theme.font(28, .bold))
+            Text(title).font(Theme.display(28))
             if let subtitle { Text(subtitle).font(Theme.font(14)).foregroundStyle(Theme.muted) }
         }
         .padding(.bottom, 12)
@@ -106,6 +114,7 @@ struct PageTitle: View {
 
 struct HomePage: View {
     @ObservedObject var controller: DictationController
+    @ObservedObject private var playback = AudioPlayback.shared
     @State private var hovered: UUID?
 
     var body: some View {
@@ -154,8 +163,19 @@ struct HomePage: View {
                 .font(Theme.font(12)).foregroundStyle(Theme.muted)
                 .frame(width: 64, alignment: .leading)
             VStack(alignment: .leading, spacing: 4) {
-                Text(t.displayText).textSelection(.enabled)
-                    .foregroundStyle(t.status == .failed ? Theme.orange : Theme.ink)
+                if t.status == .pending || t.status == .failed {
+                    HStack {
+                        Text(t.status == .pending ? "Interrupted \(Meeting.timestamp(t.durationSeconds)) dictation"
+                                                  : "Retry your \(Meeting.timestamp(t.durationSeconds)) transcript")
+                            .foregroundStyle(Theme.orange)
+                        if controller.audioURL(t) != nil {
+                            Button(t.status == .pending ? "Recover" : "Retry") { controller.retry(t) }
+                                .buttonStyle(PillButtonStyle(prominent: false))
+                        }
+                    }
+                } else {
+                    Text(t.displayText).textSelection(.enabled)
+                }
                 HStack(spacing: 6) {
                     if t.mode == .command { Tag(text: "Command") }
                     if t.showingRaw { Tag(text: "Original") }
@@ -166,10 +186,16 @@ struct HomePage: View {
             Spacer()
             if hovered == t.id {
                 HStack(spacing: 10) {
+                    if let url = controller.audioURL(t) {
+                        Button { playback.toggle(url) } label: {
+                            Image(systemName: playback.playing == url ? "pause.fill" : "play.fill")
+                        }.help("Play audio")
+                    }
                     Button { VoiceEngine.copyToClipboard(t.displayText) } label: { Image(systemName: "doc.on.doc") }
                         .help("Copy")
                     Menu {
                         Button(t.showingRaw ? "Redo AI edit" : "Undo AI edit") { controller.toggleRaw(t) }
+                        if controller.audioURL(t) != nil { Button("Retry transcription") { controller.retry(t) } }
                         Button("Delete", role: .destructive) { controller.delete(t) }
                     } label: { Image(systemName: "ellipsis") }
                         .menuStyle(.borderlessButton).frame(width: 24)
@@ -188,7 +214,7 @@ struct Stat: View {
     var label: String
     var body: some View {
         VStack(alignment: .leading, spacing: 2) {
-            Text(value).font(Theme.font(26, .bold))
+            Text(value).font(Theme.display(26))
             Text(label).font(Theme.font(12)).foregroundStyle(Theme.muted)
         }
         .padding(16)

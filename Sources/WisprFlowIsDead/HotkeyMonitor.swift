@@ -29,7 +29,7 @@ final class HotkeyMonitor {
             (1 << CGEventType.otherMouseDown.rawValue) | (1 << CGEventType.otherMouseUp.rawValue)
         let refcon = Unmanaged.passUnretained(self).toOpaque()
         guard let tap = CGEvent.tapCreate(tap: .cgSessionEventTap, place: .headInsertEventTap,
-                                          options: .listenOnly, eventsOfInterest: mask,
+                                          options: .defaultTap, eventsOfInterest: mask,
                                           callback: { _, type, event, refcon in
             guard let refcon else { return Unmanaged.passUnretained(event) }
             let monitor = Unmanaged<HotkeyMonitor>.fromOpaque(refcon).takeUnretainedValue()
@@ -37,10 +37,10 @@ final class HotkeyMonitor {
             let button = Int(event.getIntegerValueField(.mouseEventButtonNumber))
             let flags = event.flags
             let isRepeat = event.getIntegerValueField(.keyboardEventAutorepeat) != 0
-            MainActor.assumeIsolated {
+            let swallow = MainActor.assumeIsolated {
                 monitor.handle(type: type, keyCode: keyCode, button: button, flags: flags, isRepeat: isRepeat)
             }
-            return Unmanaged.passUnretained(event)
+            return swallow ? nil : Unmanaged.passUnretained(event)
         }, userInfo: refcon) else { return }
         self.tap = tap
         source = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, tap, 0)
@@ -54,16 +54,19 @@ final class HotkeyMonitor {
         tap = nil; source = nil; held = []
     }
 
-    private func handle(type: CGEventType, keyCode: Int, button: Int, flags: CGEventFlags, isRepeat: Bool) {
+    /// Returns true when the event should not reach other apps: Esc while
+    /// dictating, a lone fn used as push to talk (no emoji picker), the
+    /// non-modifier key that completes a Flow shortcut, and bound mouse buttons.
+    private func handle(type: CGEventType, keyCode: Int, button: Int, flags: CGEventFlags, isRepeat: Bool) -> Bool {
         if type == .tapDisabledByTimeout || type == .tapDisabledByUserInput {
             if let tap { CGEvent.tapEnable(tap: tap, enable: true) }
-            return
+            return false
         }
-        if isRepeat { return }
+        if isRepeat { return swallowedKeys.contains(keyCode) }
         var released = false
         switch type {
         case .flagsChanged:
-            guard let key = Self.modifierKey(keyCode) else { return }
+            guard let key = Self.modifierKey(keyCode) else { return false }
             let down: Bool
             switch key {
             case .fn: down = flags.contains(.maskSecondaryFn)
@@ -72,24 +75,51 @@ final class HotkeyMonitor {
             }
             if down { held.insert(key) } else { held.remove(key); released = true }
         case .keyDown:
-            guard let key = Self.key(keyCode) else { return }
+            guard let key = Self.key(keyCode) else { return false }
             held.insert(key)
         case .keyUp:
-            guard let key = Self.key(keyCode) else { return }
+            guard let key = Self.key(keyCode) else { return false }
             held.remove(key); released = true
+            if recorder == nil, swallowedKeys.remove(keyCode) != nil { evaluate(released: true); return true }
         case .otherMouseDown:
             held.insert(.mouse(button + 1))
         case .otherMouseUp:
             held.remove(.mouse(button + 1)); released = true
         default:
-            return
+            return false
         }
         // Fn is reported in flags of every arrow/F-key event too; keep it
         // in sync with the real flag.
         if !flags.contains(.maskSecondaryFn) { held.remove(.fn) }
 
-        if let recorder { recorder(held, released); return }
-        evaluate(released: released)
+        if let recorder { recorder(held, released); return type != .flagsChanged }
+        let wasRecording = controller?.isRecording ?? false
+        let fired = evaluate(released: released)
+        switch type {
+        case .keyDown:
+            if Self.key(keyCode) == .escape, wasRecording { swallowedKeys.insert(keyCode); return true }
+            if fired { swallowedKeys.insert(keyCode); return true }
+            return false
+        case .otherMouseDown, .otherMouseUp:
+            return isBound(.mouse(button + 1))
+        case .flagsChanged:
+            // A lone fn bound to push to talk: keep macOS from showing the
+            // emoji / input-source picker on release.
+            return keyCode == 63 && (fnAlonePushToTalk || (wasRecording && !released))
+        default:
+            return false
+        }
+    }
+
+    private var swallowedKeys: Set<Int> = []
+
+    private var fnAlonePushToTalk: Bool {
+        controller?.settings.shortcuts.shortcuts(for: .pushToTalk).contains { $0.keys == [.fn] } ?? false
+    }
+
+    private func isBound(_ key: ShortcutKey) -> Bool {
+        guard let c = controller else { return false }
+        return c.settings.shortcuts.bindings.values.contains { $0.contains { $0.keys.contains(key) } }
     }
 
     private func matches(_ action: ShortcutAction) -> Bool {
@@ -102,8 +132,10 @@ final class HotkeyMonitor {
         return controller.settings.shortcuts.shortcuts(for: action).contains { $0.keys.isSubset(of: held) }
     }
 
-    private func evaluate(released: Bool) {
-        guard let controller, controller.settings.onboardingComplete || controller.practiceSink != nil else { return }
+    /// Returns true when a shortcut fired.
+    @discardableResult
+    private func evaluate(released: Bool) -> Bool {
+        guard let controller, controller.settings.onboardingComplete || controller.practiceSink != nil else { return false }
         if pttActive && !contains(.pushToTalk) {
             pttActive = false
             controller.pushToTalkUp()
@@ -112,24 +144,27 @@ final class HotkeyMonitor {
             commandActive = false
             controller.pushToTalkUp()
         }
-        guard !released else { return }
-        if matches(.cancel), controller.isRecording { controller.cancelPressed(); return }
-        if matches(.handsFree) { controller.handsFreePressed(); return }
+        guard !released else { return false }
+        if matches(.cancel), controller.isRecording { controller.cancelPressed(); return true }
+        if matches(.handsFree) { controller.handsFreePressed(); return true }
         if matches(.commandMode), !commandActive {
             // Fn+Ctrl starts with Fn, which already began a dictation.
             if pttActive { pttActive = false; controller.cancelPressed() }
             commandActive = true
             controller.pushToTalkDown(command: true)
-            return
+            return true
         }
         if matches(.pushToTalk), !commandActive {
             pttActive = true
             controller.pushToTalkDown()
-            return
+            return true
         }
-        if matches(.pasteLast) { controller.pasteLast(); return }
-        if matches(.copyLast) { controller.copyLast(); return }
-        if matches(.pressEnter) { FlowVoiceBridge.pressEnter() }
+        if matches(.pasteLast) { controller.pasteLast(); return true }
+        if matches(.copyLast) { controller.copyLast(); return true }
+        if matches(.openScratchpad) { controller.toggleScratchpad?(); return true }
+        if matches(.runTransform) { controller.runTransform(nil); return true }
+        if matches(.pressEnter) { FlowVoiceBridge.pressEnter(); return true }
+        return false
     }
 
     // MARK: Key codes (ANSI layout)

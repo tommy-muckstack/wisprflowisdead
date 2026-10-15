@@ -22,11 +22,14 @@ struct SettingsPage: View {
                     .labelsHidden().frame(width: 260)
                     .onChange(of: controller.settings.engine) { _, _ in controller.loadModel() }
                 }
-                row("Microphone", detail: "Uses your system default input.") {
-                    Button("Sound Settings") {
-                        NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:com.apple.Sound-Settings.extension")!)
-                    }.buttonStyle(PillButtonStyle(prominent: false))
+                MicrophoneRankingView(controller: controller)
+                row("Insert text by", detail: nil) {
+                    Picker("", selection: $controller.settings.insertion) {
+                        ForEach(InsertionMethod.allCases, id: \.self) { Text($0.title).tag($0) }
+                    }.labelsHidden().frame(width: 260)
                 }
+                toggle("Use names on screen to spell things right", $controller.settings.contextAwareness)
+                toggle("Add words to my dictionary when I fix a spelling", $controller.settings.autoAddToDictionary)
             }
             section("System") {
                 toggle("Launch at login", $controller.settings.launchAtLogin)
@@ -36,6 +39,7 @@ struct SettingsPage: View {
                 toggle("Show app in Dock", $controller.settings.showInDock)
                 toggle("Show Flow Bar at all times", $controller.settings.showFlowBarAlways)
                 toggle("Sound effects", $controller.settings.soundEffects)
+                toggle("Scratchpad button on the Flow Bar", $controller.settings.showScratchpadButton)
                 row("Flow Bar position", detail: nil) {
                     Picker("", selection: $controller.settings.flowBarDock) {
                         ForEach(FlowBarDock.allCases, id: \.self) { Text($0.rawValue.capitalized).tag($0) }
@@ -55,7 +59,8 @@ struct SettingsPage: View {
                         ForEach(RetentionPolicy.allCases, id: \.self) { Text($0.title).tag($0) }
                     }.labelsHidden().frame(width: 200)
                 }
-                Button("Delete all history") { controller.clearHistory() }
+                toggle("Keep audio for Retry and playback (removed after 14 days)", $controller.settings.keepAudio)
+                Button("Delete all history and audio") { controller.clearHistory() }
                     .buttonStyle(PillButtonStyle(prominent: false))
             }
             section("Permissions") {
@@ -95,6 +100,67 @@ struct SettingsPage: View {
     private func toggle(_ title: String, _ binding: Binding<Bool>) -> some View {
         Toggle(isOn: binding) { Text(title).font(Theme.font(14, .medium)) }
             .toggleStyle(.switch).tint(Theme.ink)
+    }
+}
+
+/// Ranked microphones: the top connected one is used; drag order with the
+/// arrows. Virtual devices sit behind "Show other devices".
+struct MicrophoneRankingView: View {
+    @ObservedObject var controller: DictationController
+    @State private var showVirtual = false
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack {
+                Text("Microphones").font(Theme.font(14, .medium))
+                Spacer()
+                Button("Refresh") { controller.refreshMicrophones() }.buttonStyle(PillButtonStyle(prominent: false))
+            }
+            Text("We use the highest one that's connected.").font(Theme.font(12)).foregroundStyle(Theme.muted)
+            let connected = Set(controller.microphones.map(\.uid))
+            ForEach(Array(controller.settings.microphoneRanking.enumerated()), id: \.element) { i, uid in
+                let mic = controller.microphones.first { $0.uid == uid }
+                HStack {
+                    Text("\(i + 1).").foregroundStyle(Theme.muted).frame(width: 22)
+                    Text(mic?.name ?? "Not connected").foregroundStyle(connected.contains(uid) ? Theme.ink : Theme.muted)
+                    if MicrophoneRanking.choose(ranking: controller.settings.microphoneRanking,
+                                                available: Array(connected)) == uid {
+                        Tag(text: "In use")
+                    }
+                    Spacer()
+                    Button { move(i, -1) } label: { Image(systemName: "chevron.up") }.buttonStyle(.plain).disabled(i == 0)
+                    Button { move(i, 1) } label: { Image(systemName: "chevron.down") }.buttonStyle(.plain)
+                        .disabled(i == controller.settings.microphoneRanking.count - 1)
+                    if !connected.contains(uid) {
+                        Button { controller.settings.microphoneRanking.remove(at: i) } label: { Image(systemName: "xmark") }
+                            .buttonStyle(.plain)
+                    }
+                }
+                .font(Theme.font(13))
+            }
+            DisclosureGroup("Show other devices", isExpanded: $showVirtual) {
+                ForEach(controller.microphones.filter(\.isVirtual)) { mic in
+                    HStack {
+                        Text(mic.name).font(Theme.font(13))
+                        Spacer()
+                        if !controller.settings.microphoneRanking.contains(mic.uid) {
+                            Button("Add") { controller.settings.microphoneRanking.append(mic.uid) }
+                                .buttonStyle(PillButtonStyle(prominent: false))
+                        }
+                    }
+                }
+            }
+            .font(Theme.font(12))
+        }
+        .onAppear { controller.refreshMicrophones() }
+    }
+
+    private func move(_ i: Int, _ d: Int) {
+        var r = controller.settings.microphoneRanking
+        let j = i + d
+        guard r.indices.contains(j) else { return }
+        r.swapAt(i, j)
+        controller.settings.microphoneRanking = r
     }
 }
 

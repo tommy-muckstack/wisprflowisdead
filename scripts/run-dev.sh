@@ -21,6 +21,13 @@ for b in "$BUILD_DIR"/*.bundle; do [ -d "$b" ] && cp -R "$b" "$APP_DIR/Contents/
 while IFS= read -r slice; do
     for fw in "$slice"/*.framework; do [ -d "$fw" ] && cp -R "$fw" "$APP_DIR/Contents/Frameworks/"; done
 done < <(find .build/artifacts -type d -name "macos-arm64_x86_64" 2>/dev/null)
+# App icon: original art in assets/AppIcon-1024.png -> .icns
+ICONSET="$(mktemp -d)/AppIcon.iconset"; mkdir -p "$ICONSET"
+for sz in 16 32 128 256 512; do
+    sips -z $sz $sz assets/AppIcon-1024.png --out "$ICONSET/icon_${sz}x${sz}.png" >/dev/null
+    sips -z $((sz*2)) $((sz*2)) assets/AppIcon-1024.png --out "$ICONSET/icon_${sz}x${sz}@2x.png" >/dev/null
+done
+iconutil -c icns "$ICONSET" -o "$APP_DIR/Contents/Resources/AppIcon.icns"
 install_name_tool -add_rpath "@executable_path/../Frameworks" "$APP_DIR/Contents/MacOS/$APP_NAME" 2>/dev/null || true
 
 cat > "$APP_DIR/Contents/Info.plist" <<PLIST
@@ -36,6 +43,9 @@ cat > "$APP_DIR/Contents/Info.plist" <<PLIST
     <key>CFBundlePackageType</key><string>APPL</string>
     <key>LSMinimumSystemVersion</key><string>14.2</string>
     <key>LSUIElement</key><true/>
+    <key>CFBundleIconFile</key><string>AppIcon</string>
+    <key>NSAudioCaptureUsageDescription</key>
+    <string>Notetaker records what other people say in your calls, on this Mac only, when you start a recording.</string>
     <key>NSMicrophoneUsageDescription</key>
     <string>WisprFlowIsDead listens only while you hold your dictation shortcut, and transcribes on this Mac.</string>
     <key>NSAppleEventsUsageDescription</key>

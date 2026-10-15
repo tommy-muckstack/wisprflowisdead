@@ -86,6 +86,18 @@ final class AudioCapture: @unchecked Sendable {
     /// Pre-build the engine so the first hotkey press is instant. Never on
     /// the caller's thread: voice-processing setup alone blocks 100ms+, and
     /// at launch it once blocked for 3s (MYMAN-2).
+    /// WisprFlowIsDead patch: input device chosen in the mic picker; nil
+    /// means the system default. Call `invalidateEngine()` after changing it.
+    static var preferredInputDevice: AudioDeviceID?
+
+    /// WisprFlowIsDead patch: rebuild the engine on the next take.
+    func invalidateEngine() {
+        Self.engineQueue.async { [self] in
+            lock.lock(); let idle = buffers.isEmpty; lock.unlock()
+            if idle { discardEngine() }
+        }
+    }
+
     func warm() {
         Self.engineQueue.async { [self] in
             do { try prepare() }
@@ -100,6 +112,8 @@ final class AudioCapture: @unchecked Sendable {
         defer { prepareLock.unlock() }
         guard engine == nil else { return }
         var eng = AVAudioEngine()
+        // WisprFlowIsDead patch: honor the mic picker.
+        if let device = Self.preferredInputDevice { try? eng.inputNode.auAudioUnit.setDeviceID(device) }
         // Voice processing (AGC + noise suppression) lifts whispers for the
         // dictation model. Best-effort — plain capture if hardware refuses.
         let wantVP = desiredVoiceProcessing()

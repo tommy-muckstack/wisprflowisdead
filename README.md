@@ -45,4 +45,4 @@ Grant Microphone and Accessibility when asked. Accessibility lets the app type i
 
 ## License
 
-Apache-2.0. See `LICENSE` and `NOTICE`. DM Sans is under the SIL Open Font License (`Sources/WisprFlowIsDead/Resources/Fonts/OFL.txt`).
+Apache-2.0. See `LICENSE` and `NOTICE`. Figtree and EB Garamond are under the SIL Open Font License (`Sources/WisprFlowIsDead/Resources/Fonts/OFL-*.txt`). Theme tokens come from the shared IsDead design system (`scripts/sync-design.sh`).
