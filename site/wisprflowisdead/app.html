@@ -7,30 +7,31 @@
 <style>
 .acct{min-height:100vh;display:grid;place-items:center;padding:24px}
 .acct .box{width:min(440px,100%);background:#fff;border-radius:24px;padding:36px;box-shadow:0 20px 60px rgba(26,26,26,.1);display:grid;gap:14px}
+.acct .box[hidden],.acct [hidden]{display:none}
+.acct .btn:disabled{opacity:.6;cursor:wait}
+.acct :focus-visible{outline:3px solid #034F46;outline-offset:4px}
 .acct h1{margin:0;font-family:"EB Garamond",Georgia,serif;font-weight:500;font-size:40px;line-height:1.05}
 .acct p{margin:0;color:#555}
 .acct .btn{display:inline-flex;justify-content:center;align-items:center;height:48px;border-radius:999px;border:0;font:inherit;font-size:16px;cursor:pointer;text-decoration:none}
 .acct .primary{background:#1A1A1A;color:#fff}.acct .ghost{background:#fff;color:#1A1A1A;border:1px solid #1A1A1A}
 </style>
 </head><body>
-<main class="acct"><div class="box" id="box" hidden>
-  <h1>You're signed in</h1>
+<main class="acct">
+<section class="box" id="loading" aria-labelledby="loading-title" aria-busy="true">
+  <h1 id="loading-title">Your account</h1>
+  <p id="load-status" role="status">Checking your session…</p>
+  <button class="btn primary" id="retry" type="button" hidden>Try again</button>
+  <a href="/wisprflowisdead">Back to home</a>
+  <noscript>JavaScript is needed to check your account. Enable it and reload this page.</noscript>
+</section>
+<section class="box" id="box" aria-labelledby="account-title" hidden>
+  <h1 id="account-title">You're signed in</h1>
   <p id="who"></p>
   <p>One yourappisdead.com account works across every IsDead app. WisprFlowIsDead itself runs on your Mac and doesn't need an account.</p>
   <a class="btn primary" href="/wisprflowisdead#download">Get the Mac app</a>
   <button class="btn ghost" id="out" type="button">Sign out</button>
-</div></main>
-<script>
-(async () => {
-  const r = await fetch("/wisprflowisdead/api/session", { credentials: "same-origin" }).catch(() => null);
-  if (!r || !r.ok) { location.replace("/wisprflowisdead/login?next=/wisprflowisdead/app"); return; }
-  const me = await r.json();
-  document.getElementById("who").textContent = me.email ? "Signed in as " + me.email + "." : "";
-  document.getElementById("box").hidden = false;
-  document.getElementById("out").onclick = async () => {
-    await fetch("/wisprflowisdead/api/session", { method: "DELETE", credentials: "same-origin" }).catch(() => {});
-    location.href = "/wisprflowisdead";
-  };
-})();
-</script>
+  <p id="signout-status" role="status"></p>
+  <a href="/wisprflowisdead">Back to home</a>
+</section></main>
+<script src="/wisprflowisdead/assets/account.js" defer></script>
 </body></html>
