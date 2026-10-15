@@ -156,11 +156,14 @@ Draft PR: [#1](https://github.com/tommy-muckstack/wisprflowisdead/pull/1).
 
 ### Navigation proportions and behavior
 
+Draft PR: [#2](https://github.com/tommy-muckstack/wisprflowisdead/pull/2), stacked on #1.
+
 - Reference: user-provided desktop pair, original on the left. Visible differences: longer clone wordmark crowds the product switcher, injected Account/Sign out crowds the links, and the download CTA wraps.
 - Use the compact, independent `FlowIsDead` label with the full `WisprFlowIsDead home` accessible name and existing project waveform. Keep the 912px navigation container and existing colors/type scale; do not copy the original wordmark.
 - Home and pricing share non-shrinking logo/product/CTA sizing and a one-line download label. Desktop primary links remain Business, Pricing, Lab. Account access remains in the footer and the mobile menu; sign-out stays on the account page.
 - At compact widths the product links move into the disclosure menu. The menu now works throughout 601–900px, exposes `aria-expanded`/`aria-controls`, closes on Escape, outside click, link selection, focus leaving the nav, or breakpoint change, and includes visible keyboard focus.
 - Source syntax and whitespace checks passed. Real-browser sizing, focus behavior, screenshots and parity delta remain **unverified, N/M → N/M**. This change should remain a draft until those checks can run.
+- The shared live auth smoke was attempted again for this PR and stopped at browser launch before navigation. No test account was created. Lint/build were also attempted again; both scripts remain absent.
 
 ## Next verification gates
 
