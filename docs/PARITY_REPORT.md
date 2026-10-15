@@ -286,7 +286,7 @@ Draft PR: [#11](https://github.com/tommy-muckstack/wisprflowisdead/pull/11), sta
 
 ### Browser command mode
 
-Draft branch: `qa/browser-commands`, stacked on #11.
+Draft PR: [#12](https://github.com/tommy-muckstack/wisprflowisdead/pull/12), stacked on #11.
 
 - Before: every spoken input was inserted as dictation; there was no instruction mode or selection-based edit. Browser command mode was missing.
 - After: an explicit, off-by-default mode reuses recording, hold/toggle shortcuts and typed input for six local commands: uppercase, lowercase, bullet list, numbered list, trim spacing and cleanup. A selected passage is captured before recognition; no selection targets the whole editor. Empty targets are rejected before requesting the microphone. A visible hint states the replacement scope.
@@ -297,6 +297,15 @@ Draft branch: `qa/browser-commands`, stacked on #11.
 - Website lint/build and whitespace checks pass. **78 tests pass**, including seven command tests and one command-history regression test. These cover partial-word/Unicode replacement, undo snapshots, numeric list items, language/literal safeguards, invalid/oversized instructions, lifecycle errors/retry/cancellation and history reload. They do not establish rendered interaction parity.
 - Shared smoke2 with cleanup was attempted again; Chromium failed at `bootstrap_check_in ... MachPortRendezvousServer` before navigation/account creation. No test account exists to delete. The parity CLI was also attempted against live at both requested widths and stopped on missing `playwright` dependency. Screenshots, computed styles and score change remain **N/M → N/M**; this change remains a draft.
 - Reference: [original command mode](https://docs.wisprflow.ai/articles/4816967992-how-to-use-command-mode), checked 2026-10-15. Original cloud-model behavior and plan access are recorded as differences, without initiating a trial.
+
+### App bundle entry point
+
+Draft branch: `qa/restore-bundle-script-mode`, stacked on #12.
+
+- GitHub Actions provides an independent working macOS/Linux environment. [CI run 38786413225](https://github.com/tommy-muckstack/wisprflowisdead/actions/runs/38786413225) built Swift and passed all 43 native tests, but failed before app assembly because `scripts/run-dev.sh` was not executable.
+- The original tree records this script as `100755`; the branding PR's remote file update accidentally recorded `100644`. This change restores the executable bit without changing the script contents. The original executable mode of `scripts/sync-design.sh` remains intact remotely; `build-icons.sh` is intentionally invoked through Bash.
+- A fresh native CI run is required to verify icon conversion and app assembly after this correction. Local iconutil/browser launch failures are not proof of failures on GitHub-hosted runners. Native tests are not a substitute for Dock/menu-bar visual inspection or website screenshots.
+- Website lint/build and all 78 tests pass before the PR. Shared smoke2 remains blocked locally before browser navigation/account creation; no account was created. Visual scores and screenshots for this change remain N/M.
 
 ## Next verification gates
 
