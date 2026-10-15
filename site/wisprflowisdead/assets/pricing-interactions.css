@@ -59,7 +59,8 @@
   .pricing-page .fql h3{display:block;padding:0;margin:0 0 24px;font-size:20px;line-height:.95}
   .pricing-page .fq{min-height:50px;padding:16px 0;line-height:18.2px}
   .pricing-page .fa{padding:0 0 18px;font-size:14px;line-height:1.5}
-  .pricing-page .roi-card{padding:24px}
+  .pricing-page .pr-roi{min-height:893px}
+  .pricing-page .roi-card{padding:32px}
   .pricing-page .roi-res{padding:20px}
   .pricing-page .secure{height:auto}
 }

@@ -8,6 +8,14 @@ const output = path.resolve('qa-artifacts/raw'); fs.mkdirSync(output, {recursive
 const targets = {original:'https://wisprflow.ai',live:'https://yourappisdead.com',candidate:'http://127.0.0.1:3300'};
 const pages = [{name:'home',original:'/',clone:'/wisprflowisdead'}, {name:'pricing',original:'/pricing',clone:'/wisprflowisdead/pricing'}, {name:'login',original:'/get-started',clone:'/wisprflowisdead/login'}];
 const results = [];
+function ancestorStyles(element) {
+  const nodes = [];
+  for (let depth = 0; element && depth < 5; depth++, element = element.parentElement) {
+    const box = element.getBoundingClientRect(), style = getComputedStyle(element);
+    nodes.push({tag:element.tagName,cls:element.className,x:box.x,y:box.y + scrollY,width:box.width,height:box.height,fontSize:style.fontSize,lineHeight:style.lineHeight,fontWeight:style.fontWeight,letterSpacing:style.letterSpacing,padding:style.padding,margin:style.margin,gap:style.gap,border:style.border,borderRadius:style.borderRadius,background:style.backgroundColor});
+  }
+  return nodes;
+}
 const browser = await chromium.launch();
 try {
   for (const [target, origin] of Object.entries(targets)) for (const item of pages) for (const width of [1440,390]) {
@@ -78,6 +86,25 @@ try {
         // Keep full-page geometry available through the evidence branch for visual review.
         entry.fullImage = `${target}-pricing-${width}-full.png`;
         await page.screenshot({path:path.join(output,entry.fullImage),fullPage:true});
+        if (target !== 'live') {
+          const calculator = page.locator(target === 'original' ? '.section_pricing-calc' : '.pr-roi');
+          await calculator.evaluate(element => window.scrollTo({top:element.getBoundingClientRect().top + scrollY,behavior:'instant'}));
+          await page.waitForTimeout(300);
+          entry.calculatorImage = `${target}-pricing-${width}-calculator.png`;
+          await page.screenshot({path:path.join(output,entry.calculatorImage)});
+          entry.calculatorInputStyles = await calculator.locator('input').first().evaluate(ancestorStyles);
+          entry.pricingHeadingStyles = {};
+          for (const [name, text] of [['availability',/^Available where/],['security',/^Security and privacy/]]) {
+            entry.pricingHeadingStyles[name] = await page.getByRole('heading',{name:text}).first().evaluate(ancestorStyles);
+          }
+          entry.pricingRowStyles = {};
+          for (const label of ['Add words to dictionary','Word limit','Models never trained on your data','Free IT admin seats']) {
+            const matches = await page.getByText(label,{exact:true}).all();
+            const visible = [];
+            for (const match of matches) if (await match.isVisible()) visible.push(await match.evaluate(ancestorStyles));
+            entry.pricingRowStyles[label] = visible;
+          }
+        }
       }
       if (item.name === 'home' || item.name === 'pricing') {
         // A viewport-sized crop keeps the download artwork reviewable at its rendered scale.
