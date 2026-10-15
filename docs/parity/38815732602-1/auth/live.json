@@ -1,0 +1,60 @@
+{
+  "mode": "live",
+  "sessionChecks": [
+    {
+      "stage": "signup",
+      "status": 200,
+      "passed": true,
+      "identityMatches": true,
+      "cookieFlags": true
+    },
+    {
+      "stage": "logout1",
+      "status": 401,
+      "passed": true,
+      "identityMatches": false,
+      "cookieFlags": false
+    },
+    {
+      "stage": "login",
+      "status": 200,
+      "passed": true,
+      "identityMatches": true,
+      "cookieFlags": true
+    },
+    {
+      "stage": "logout2",
+      "status": 401,
+      "passed": true,
+      "identityMatches": false,
+      "cookieFlags": false
+    },
+    {
+      "stage": "cleanup",
+      "status": 401,
+      "passed": true,
+      "identityMatches": false,
+      "cookieFlags": false
+    }
+  ],
+  "screenshots": [
+    "live-account-signup-1440.png",
+    "live-account-signup-390.png",
+    "live-account-login-1440.png",
+    "live-account-login-390.png"
+  ],
+  "accountObserved": true,
+  "cleanup": {
+    "account": "deleted",
+    "session": "cleared"
+  },
+  "flow": {
+    "signup": true,
+    "logout1": true,
+    "login": true,
+    "logout2": true,
+    "notes": [],
+    "errors": []
+  },
+  "passed": true
+}

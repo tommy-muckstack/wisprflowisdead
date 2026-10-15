@@ -1,0 +1,3649 @@
+{
+ "title": "Pricing · WisprFlowIsDead",
+ "pageH": 11166,
+ "bodyBg": "rgb(255, 255, 235)",
+ "bodyFont": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+ "fontFaces": [
+  "IsDead Figtree 100 900 loaded",
+  "IsDead EB Garamond 100 900 loaded"
+ ],
+ "fonts": [
+  [
+   "IsDead Figtree 500",
+   92
+  ],
+  [
+   "IsDead Figtree 600",
+   71
+  ],
+  [
+   "IsDead EB Garamond 400",
+   27
+  ],
+  [
+   "IsDead Figtree 400",
+   26
+  ],
+  [
+   "IsDead Figtree 700",
+   3
+  ],
+  [
+   "IsDead EB Garamond 700",
+   2
+  ],
+  [
+   "IsDead Figtree 900",
+   1
+  ]
+ ],
+ "typeScale": [
+  [
+   "16px/16px ls normal",
+   47
+  ],
+  [
+   "16px/21px ls normal",
+   29
+  ],
+  [
+   "14px/18px ls normal",
+   17
+  ],
+  [
+   "12px/15.6px ls normal",
+   16
+  ],
+  [
+   "14px/18.2px ls normal",
+   14
+  ],
+  [
+   "16px/20.8px ls normal",
+   14
+  ],
+  [
+   "14px/22px ls normal",
+   13
+  ],
+  [
+   "18px/23.4px ls normal",
+   10
+  ],
+  [
+   "40px/40px ls -0.8px",
+   7
+  ],
+  [
+   "13px/16.9px ls normal",
+   6
+  ],
+  [
+   "12px/15.6px ls 1.68px",
+   6
+  ],
+  [
+   "14px/18px ls 0.28px",
+   4
+  ],
+  [
+   "40px/48px ls normal",
+   4
+  ],
+  [
+   "30px/30.5px ls -0.6px",
+   4
+  ]
+ ],
+ "textColors": [
+  [
+   "rgb(26, 26, 26)",
+   183
+  ],
+  [
+   "rgb(255, 255, 235)",
+   30
+  ],
+  [
+   "rgb(59, 59, 57)",
+   8
+  ],
+  [
+   "rgb(119, 119, 119)",
+   1
+  ]
+ ],
+ "backgrounds": [
+  [
+   "rgb(255, 255, 235)",
+   16
+  ],
+  [
+   "rgb(26, 26, 26)",
+   9
+  ],
+  [
+   "rgb(240, 215, 255)",
+   6
+  ],
+  [
+   "rgb(228, 228, 208)",
+   5
+  ],
+  [
+   "rgb(3, 79, 70)",
+   4
+  ],
+  [
+   "rgb(214, 214, 194)",
+   4
+  ],
+  [
+   "rgb(255, 108, 76)",
+   2
+  ],
+  [
+   "rgb(255, 159, 67)",
+   2
+  ],
+  [
+   "rgba(255, 255, 235, 0.9)",
+   1
+  ],
+  [
+   "rgb(127, 28, 52)",
+   1
+  ],
+  [
+   "rgb(6, 54, 47)",
+   1
+  ],
+  [
+   "rgb(30, 95, 84)",
+   1
+  ],
+  [
+   "rgb(58, 34, 22)",
+   1
+  ],
+  [
+   "radial-gradient(60% 55% at 20% 25%, rgb(192, 122, 58), rgba(0, 0, 0, 0) 70%), radial-gradient(40% 50% at 78% 70%, rgb(181, 83, 42), rgba(0, 0, 0, 0) 70%), radia",
+   1
+  ]
+ ],
+ "borders": [
+  [
+   "2px solid rgb(26, 26, 26)",
+   12
+  ],
+  [
+   "2px solid rgb(255, 255, 235)",
+   8
+  ],
+  [
+   "2px solid rgb(228, 228, 208)",
+   3
+  ],
+  [
+   "1px solid rgb(228, 228, 208)",
+   1
+  ]
+ ],
+ "radii": [
+  [
+   "8px",
+   12
+  ],
+  [
+   "6px",
+   11
+  ],
+  [
+   "2px",
+   10
+  ],
+  [
+   "50%",
+   8
+  ],
+  [
+   "12px",
+   6
+  ],
+  [
+   "14px",
+   5
+  ],
+  [
+   "32px",
+   5
+  ],
+  [
+   "24px",
+   3
+  ],
+  [
+   "16px",
+   3
+  ],
+  [
+   "40px",
+   2
+  ],
+  [
+   "10px",
+   2
+  ],
+  [
+   "9px",
+   1
+  ],
+  [
+   "15px",
+   1
+  ]
+ ],
+ "shadows": [],
+ "sections": [
+  {
+   "tag": "nav",
+   "cls": "nav",
+   "box": {
+    "x": 16,
+    "y": 4,
+    "w": 358,
+    "h": 62
+   },
+   "style": {
+    "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+    "fontSize": "16px",
+    "fontWeight": "400",
+    "lineHeight": "20.8px",
+    "letterSpacing": "normal",
+    "color": "rgb(26, 26, 26)",
+    "backgroundColor": "rgba(255, 255, 235, 0.9)",
+    "backgroundImage": "none",
+    "borderRadius": "12px",
+    "border": "1px solid rgb(228, 228, 208)",
+    "boxShadow": "none",
+    "padding": "0px 10px 0px 16px",
+    "margin": "4px 16px 0px",
+    "textAlign": "start",
+    "display": "flex",
+    "gap": "normal",
+    "maxWidth": "calc(100% - 32px)"
+   },
+   "kids": [
+    {
+     "tag": "a",
+     "cls": "logo",
+     "box": {
+      "x": 33,
+      "y": 24,
+      "w": 164,
+      "h": 22
+     },
+     "style": {
+      "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+      "fontSize": "17px",
+      "fontWeight": "700",
+      "lineHeight": "22.1px",
+      "letterSpacing": "-0.17px",
+      "color": "rgb(26, 26, 26)",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "backgroundImage": "none",
+      "borderRadius": "0px",
+      "border": "0px none rgb(26, 26, 26)",
+      "boxShadow": "none",
+      "padding": "0px",
+      "margin": "0px",
+      "textAlign": "start",
+      "display": "flex",
+      "gap": "8px",
+      "maxWidth": "none"
+     },
+     "kids": [
+      {
+       "tag": "svg",
+       "cls": "[object SVGAnimatedString]",
+       "box": {
+        "x": 33,
+        "y": 24,
+        "w": 24,
+        "h": 22
+       },
+       "style": {
+        "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+        "fontSize": "17px",
+        "fontWeight": "700",
+        "lineHeight": "22.1px",
+        "letterSpacing": "-0.17px",
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderRadius": "0px",
+        "border": "0px none rgb(26, 26, 26)",
+        "boxShadow": "none",
+        "padding": "0px",
+        "margin": "0px",
+        "textAlign": "start",
+        "display": "block",
+        "gap": "normal",
+        "maxWidth": "none"
+       }
+      },
+      {
+       "tag": "span",
+       "cls": "",
+       "text": "WisprFlowIsDead",
+       "box": {
+        "x": 65,
+        "y": 24,
+        "w": 132,
+        "h": 22
+       },
+       "style": {
+        "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+        "fontSize": "17px",
+        "fontWeight": "700",
+        "lineHeight": "22.1px",
+        "letterSpacing": "-0.17px",
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderRadius": "0px",
+        "border": "0px none rgb(26, 26, 26)",
+        "boxShadow": "none",
+        "padding": "0px",
+        "margin": "0px",
+        "textAlign": "start",
+        "display": "block",
+        "gap": "normal",
+        "maxWidth": "none"
+       }
+      }
+     ]
+    },
+    {
+     "tag": "button",
+     "cls": "burger",
+     "box": {
+      "x": 332,
+      "y": 15,
+      "w": 31,
+      "h": 40
+     },
+     "style": {
+      "fontFamily": "Arial",
+      "fontSize": "13.3333px",
+      "fontWeight": "400",
+      "lineHeight": "normal",
+      "letterSpacing": "normal",
+      "color": "rgb(0, 0, 0)",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "backgroundImage": "none",
+      "borderRadius": "0px",
+      "border": "0px none rgb(0, 0, 0)",
+      "boxShadow": "none",
+      "padding": "6px",
+      "margin": "0px 0px 0px 8px",
+      "textAlign": "center",
+      "display": "flex",
+      "gap": "6px",
+      "maxWidth": "none"
+     },
+     "kids": []
+    },
+    {
+     "tag": "a",
+     "cls": "btn sm",
+     "box": {
+      "x": 197,
+      "y": 17,
+      "w": 127,
+      "h": 36
+     },
+     "style": {
+      "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+      "fontSize": "14px",
+      "fontWeight": "600",
+      "lineHeight": "18.2px",
+      "letterSpacing": "normal",
+      "color": "rgb(26, 26, 26)",
+      "backgroundColor": "rgb(240, 215, 255)",
+      "backgroundImage": "none",
+      "borderRadius": "8px",
+      "border": "2px solid rgb(26, 26, 26)",
+      "boxShadow": "none",
+      "padding": "0px 12px",
+      "margin": "0px",
+      "textAlign": "start",
+      "display": "flex",
+      "gap": "8px",
+      "maxWidth": "none"
+     },
+     "kids": [
+      {
+       "tag": "svg",
+       "cls": "[object SVGAnimatedString]",
+       "box": {
+        "x": 211,
+        "y": 26,
+        "w": 16,
+        "h": 18
+       },
+       "style": {
+        "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "600",
+        "lineHeight": "18.2px",
+        "letterSpacing": "normal",
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderRadius": "0px",
+        "border": "0px none rgb(26, 26, 26)",
+        "boxShadow": "none",
+        "padding": "0px",
+        "margin": "0px",
+        "textAlign": "start",
+        "display": "block",
+        "gap": "normal",
+        "maxWidth": "none"
+       }
+      },
+      {
+       "tag": "span",
+       "cls": "",
+       "box": {
+        "x": 235,
+        "y": 26,
+        "w": 75,
+        "h": 18
+       },
+       "style": {
+        "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "600",
+        "lineHeight": "18.2px",
+        "letterSpacing": "normal",
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderRadius": "0px",
+        "border": "0px none rgb(26, 26, 26)",
+        "boxShadow": "none",
+        "padding": "0px",
+        "margin": "0px",
+        "textAlign": "start",
+        "display": "block",
+        "gap": "normal",
+        "maxWidth": "none"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "tag": "section",
+   "cls": "pr-top",
+   "box": {
+    "x": 0,
+    "y": 66,
+    "w": 390,
+    "h": 2402
+   },
+   "style": {
+    "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+    "fontSize": "16px",
+    "fontWeight": "400",
+    "lineHeight": "20.8px",
+    "letterSpacing": "normal",
+    "color": "rgb(26, 26, 26)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "backgroundImage": "none",
+    "borderRadius": "0px",
+    "border": "0px none rgb(26, 26, 26)",
+    "boxShadow": "none",
+    "padding": "70px 20px 72px",
+    "margin": "0px",
+    "textAlign": "center",
+    "display": "block",
+    "gap": "normal",
+    "maxWidth": "1440px"
+   },
+   "kids": [
+    {
+     "tag": "h1",
+     "cls": "",
+     "text": "Pricing",
+     "box": {
+      "x": 20,
+      "y": 136,
+      "w": 350,
+      "h": 60
+     },
+     "style": {
+      "fontFamily": "\"IsDead EB Garamond\", \"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, \"EB Garamond\", serif",
+      "fontSize": "64px",
+      "fontWeight": "400",
+      "lineHeight": "60px",
+      "letterSpacing": "-1.92px",
+      "color": "rgb(26, 26, 26)",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "backgroundImage": "none",
+      "borderRadius": "0px",
+      "border": "0px none rgb(26, 26, 26)",
+      "boxShadow": "none",
+      "padding": "0px",
+      "margin": "0px",
+      "textAlign": "center",
+      "display": "block",
+      "gap": "normal",
+      "maxWidth": "none"
+     },
+     "kids": []
+    },
+    {
+     "tag": "p",
+     "cls": "sub",
+     "text": "Free on Mac, with dictation and Notetaker included. The plans below show how Wispr Flow pa",
+     "box": {
+      "x": 20,
+      "y": 216,
+      "w": 350,
+      "h": 66
+     },
+     "style": {
+      "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+      "fontSize": "16px",
+      "fontWeight": "500",
+      "lineHeight": "22px",
+      "letterSpacing": "normal",
+      "color": "rgb(26, 26, 26)",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "backgroundImage": "none",
+      "borderRadius": "0px",
+      "border": "0px none rgb(26, 26, 26)",
+      "boxShadow": "none",
+      "padding": "0px",
+      "margin": "20px 0px 0px",
+      "textAlign": "center",
+      "display": "block",
+      "gap": "normal",
+      "maxWidth": "768px"
+     },
+     "kids": []
+    },
+    {
+     "tag": "div",
+     "cls": "ptabs",
+     "box": {
+      "x": 67,
+      "y": 360,
+      "w": 257,
+      "h": 49
+     },
+     "style": {
+      "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "lineHeight": "20.8px",
+      "letterSpacing": "normal",
+      "color": "rgb(26, 26, 26)",
+      "backgroundColor": "rgb(255, 255, 235)",
+      "backgroundImage": "none",
+      "borderRadius": "14px",
+      "border": "2px solid rgb(228, 228, 208)",
+      "boxShadow": "none",
+      "padding": "4px",
+      "margin": "78px 0px 0px",
+      "textAlign": "center",
+      "display": "inline-flex",
+      "gap": "4px",
+      "maxWidth": "none"
+     },
+     "kids": [
+      {
+       "tag": "a",
+       "cls": "pt",
+       "text": "Monthly",
+       "box": {
+        "x": 73,
+        "y": 368,
+        "w": 70,
+        "h": 33
+       },
+       "style": {
+        "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "600",
+        "lineHeight": "15.6px",
+        "letterSpacing": "normal",
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderRadius": "8px",
+        "border": "0px none rgb(26, 26, 26)",
+        "boxShadow": "none",
+        "padding": "0px 12px",
+        "margin": "0px",
+        "textAlign": "center",
+        "display": "flex",
+        "gap": "6px",
+        "maxWidth": "none"
+       }
+      },
+      {
+       "tag": "a",
+       "cls": "pt on",
+       "box": {
+        "x": 147,
+        "y": 368,
+        "w": 130,
+        "h": 33
+       },
+       "style": {
+        "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "600",
+        "lineHeight": "15.6px",
+        "letterSpacing": "normal",
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgb(240, 215, 255)",
+        "backgroundImage": "none",
+        "borderRadius": "8px",
+        "border": "0px none rgb(26, 26, 26)",
+        "boxShadow": "none",
+        "padding": "0px 12px",
+        "margin": "0px",
+        "textAlign": "center",
+        "display": "flex",
+        "gap": "6px",
+        "maxWidth": "none"
+       }
+      }
+     ]
+    },
+    {
+     "tag": "div",
+     "cls": "pgrid",
+     "box": {
+      "x": 20,
+      "y": 433,
+      "w": 350,
+      "h": 1396
+     },
+     "style": {
+      "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "lineHeight": "20.8px",
+      "letterSpacing": "normal",
+      "color": "rgb(26, 26, 26)",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "backgroundImage": "none",
+      "borderRadius": "0px",
+      "border": "0px none rgb(26, 26, 26)",
+      "boxShadow": "none",
+      "padding": "0px",
+      "margin": "24px 0px 0px",
+      "textAlign": "left",
+      "display": "grid",
+      "gap": "51px",
+      "maxWidth": "none"
+     },
+     "kids": [
+      {
+       "tag": "div",
+       "cls": "pcw",
+       "box": {
+        "x": 20,
+        "y": 433,
+        "w": 350,
+        "h": 286
+       },
+       "style": {
+        "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "20.8px",
+        "letterSpacing": "normal",
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderRadius": "0px",
+        "border": "0px none rgb(26, 26, 26)",
+        "boxShadow": "none",
+        "padding": "0px",
+        "margin": "0px",
+        "textAlign": "left",
+        "display": "block",
+        "gap": "normal",
+        "maxWidth": "none"
+       }
+      },
+      {
+       "tag": "div",
+       "cls": "pcw",
+       "box": {
+        "x": 20,
+        "y": 770,
+        "w": 350,
+        "h": 316
+       },
+       "style": {
+        "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "20.8px",
+        "letterSpacing": "normal",
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderRadius": "0px",
+        "border": "0px none rgb(26, 26, 26)",
+        "boxShadow": "none",
+        "padding": "0px",
+        "margin": "0px 0px 31px",
+        "textAlign": "left",
+        "display": "block",
+        "gap": "normal",
+        "maxWidth": "none"
+       }
+      },
+      {
+       "tag": "div",
+       "cls": "pcw",
+       "box": {
+        "x": 20,
+        "y": 1168,
+        "w": 350,
+        "h": 318
+       },
+       "style": {
+        "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "20.8px",
+        "letterSpacing": "normal",
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderRadius": "0px",
+        "border": "0px none rgb(26, 26, 26)",
+        "boxShadow": "none",
+        "padding": "0px",
+        "margin": "0px",
+        "textAlign": "left",
+        "display": "block",
+        "gap": "normal",
+        "maxWidth": "none"
+       }
+      },
+      {
+       "tag": "div",
+       "cls": "pcw",
+       "box": {
+        "x": 20,
+        "y": 1538,
+        "w": 350,
+        "h": 291
+       },
+       "style": {
+        "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "20.8px",
+        "letterSpacing": "normal",
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderRadius": "0px",
+        "border": "0px none rgb(26, 26, 26)",
+        "boxShadow": "none",
+        "padding": "0px",
+        "margin": "0px",
+        "textAlign": "left",
+        "display": "block",
+        "gap": "normal",
+        "maxWidth": "none"
+       }
+      }
+     ]
+    },
+    {
+     "tag": "div",
+     "cls": "avail",
+     "box": {
+      "x": 20,
+      "y": 1916,
+      "w": 350,
+      "h": 480
+     },
+     "style": {
+      "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "lineHeight": "20.8px",
+      "letterSpacing": "normal",
+      "color": "rgb(26, 26, 26)",
+      "backgroundColor": "rgb(228, 228, 208)",
+      "backgroundImage": "none",
+      "borderRadius": "32px",
+      "border": "0px none rgb(26, 26, 26)",
+      "boxShadow": "none",
+      "padding": "32px",
+      "margin": "87px 0px 0px",
+      "textAlign": "left",
+      "display": "block",
+      "gap": "normal",
+      "maxWidth": "none"
+     },
+     "kids": [
+      {
+       "tag": "div",
+       "cls": "al",
+       "box": {
+        "x": 52,
+        "y": 1948,
+        "w": 286,
+        "h": 31
+       },
+       "style": {
+        "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "20.8px",
+        "letterSpacing": "normal",
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderRadius": "0px",
+        "border": "0px none rgb(26, 26, 26)",
+        "boxShadow": "none",
+        "padding": "0px",
+        "margin": "0px",
+        "textAlign": "left",
+        "display": "block",
+        "gap": "normal",
+        "maxWidth": "none"
+       }
+      },
+      {
+       "tag": "div",
+       "cls": "am",
+       "box": {
+        "x": 52,
+        "y": 2010,
+        "w": 286,
+        "h": 126
+       },
+       "style": {
+        "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "18px",
+        "letterSpacing": "normal",
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderRadius": "0px",
+        "border": "0px none rgb(26, 26, 26)",
+        "boxShadow": "none",
+        "padding": "0px",
+        "margin": "32px 0px 0px",
+        "textAlign": "left",
+        "display": "block",
+        "gap": "normal",
+        "maxWidth": "none"
+       }
+      },
+      {
+       "tag": "svg",
+       "cls": "[object SVGAnimatedString]",
+       "box": {
+        "x": 95,
+        "y": 2246,
+        "w": 200,
+        "h": 130
+       },
+       "style": {
+        "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "20.8px",
+        "letterSpacing": "normal",
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderRadius": "0px",
+        "border": "0px none rgb(26, 26, 26)",
+        "boxShadow": "none",
+        "padding": "0px",
+        "margin": "0px 0px 0px -100px",
+        "textAlign": "left",
+        "display": "block",
+        "gap": "normal",
+        "maxWidth": "none"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "tag": "section",
+   "cls": "pr-cmp",
+   "box": {
+    "x": 0,
+    "y": 2468,
+    "w": 390,
+    "h": 4685
+   },
+   "style": {
+    "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+    "fontSize": "16px",
+    "fontWeight": "400",
+    "lineHeight": "20.8px",
+    "letterSpacing": "normal",
+    "color": "rgb(26, 26, 26)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "backgroundImage": "none",
+    "borderRadius": "0px",
+    "border": "0px none rgb(26, 26, 26)",
+    "boxShadow": "none",
+    "padding": "0px 20px 73px",
+    "margin": "0px",
+    "textAlign": "center",
+    "display": "block",
+    "gap": "normal",
+    "maxWidth": "1440px"
+   },
+   "kids": [
+    {
+     "tag": "h2",
+     "cls": "",
+     "box": {
+      "x": 20,
+      "y": 2468,
+      "w": 350,
+      "h": 80
+     },
+     "style": {
+      "fontFamily": "\"IsDead EB Garamond\", \"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, \"EB Garamond\", serif",
+      "fontSize": "40px",
+      "fontWeight": "400",
+      "lineHeight": "40px",
+      "letterSpacing": "-0.8px",
+      "color": "rgb(26, 26, 26)",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "backgroundImage": "none",
+      "borderRadius": "0px",
+      "border": "0px none rgb(26, 26, 26)",
+      "boxShadow": "none",
+      "padding": "0px",
+      "margin": "0px",
+      "textAlign": "center",
+      "display": "block",
+      "gap": "normal",
+      "maxWidth": "none"
+     },
+     "kids": [
+      {
+       "tag": "em",
+       "cls": "",
+       "text": "pricing",
+       "box": {
+        "x": 217,
+        "y": 2462,
+        "w": 102,
+        "h": 52
+       },
+       "style": {
+        "fontFamily": "\"IsDead EB Garamond\", \"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, \"EB Garamond\", serif",
+        "fontSize": "40px",
+        "fontWeight": "400",
+        "lineHeight": "40px",
+        "letterSpacing": "-0.8px",
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderRadius": "0px",
+        "border": "0px none rgb(26, 26, 26)",
+        "boxShadow": "none",
+        "padding": "0px",
+        "margin": "0px",
+        "textAlign": "center",
+        "display": "inline",
+        "gap": "normal",
+        "maxWidth": "none"
+       }
+      },
+      {
+       "tag": "em",
+       "cls": "",
+       "text": "& features.",
+       "box": {
+        "x": 116,
+        "y": 2502,
+        "w": 158,
+        "h": 52
+       },
+       "style": {
+        "fontFamily": "\"IsDead EB Garamond\", \"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, \"EB Garamond\", serif",
+        "fontSize": "40px",
+        "fontWeight": "400",
+        "lineHeight": "40px",
+        "letterSpacing": "-0.8px",
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderRadius": "0px",
+        "border": "0px none rgb(26, 26, 26)",
+        "boxShadow": "none",
+        "padding": "0px",
+        "margin": "0px",
+        "textAlign": "center",
+        "display": "inline",
+        "gap": "normal",
+        "maxWidth": "none"
+       }
+      }
+     ]
+    },
+    {
+     "tag": "div",
+     "cls": "mega",
+     "box": {
+      "x": 20,
+      "y": 2604,
+      "w": 350,
+      "h": 3832
+     },
+     "style": {
+      "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "lineHeight": "20.8px",
+      "letterSpacing": "normal",
+      "color": "rgb(26, 26, 26)",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "backgroundImage": "none",
+      "borderRadius": "0px",
+      "border": "0px none rgb(26, 26, 26)",
+      "boxShadow": "none",
+      "padding": "0px",
+      "margin": "56px 0px 0px",
+      "textAlign": "left",
+      "display": "block",
+      "gap": "normal",
+      "maxWidth": "none"
+     },
+     "kids": [
+      {
+       "tag": "div",
+       "cls": "topwrap",
+       "box": {
+        "x": 20,
+        "y": 2604,
+        "w": 350,
+        "h": 151
+       },
+       "style": {
+        "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "20.8px",
+        "letterSpacing": "normal",
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgb(255, 255, 235)",
+        "backgroundImage": "none",
+        "borderRadius": "12px",
+        "border": "2px solid rgb(228, 228, 208)",
+        "boxShadow": "none",
+        "padding": "16px 8px",
+        "margin": "0px",
+        "textAlign": "left",
+        "display": "grid",
+        "gap": "0px",
+        "maxWidth": "none"
+       }
+      },
+      {
+       "tag": "div",
+       "cls": "tgs",
+       "box": {
+        "x": 20,
+        "y": 2779,
+        "w": 350,
+        "h": 3657
+       },
+       "style": {
+        "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "20.8px",
+        "letterSpacing": "normal",
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderRadius": "0px",
+        "border": "0px none rgb(26, 26, 26)",
+        "boxShadow": "none",
+        "padding": "0px",
+        "margin": "24px 0px 0px",
+        "textAlign": "left",
+        "display": "block",
+        "gap": "normal",
+        "maxWidth": "none"
+       }
+      }
+     ]
+    },
+    {
+     "tag": "div",
+     "cls": "secure",
+     "box": {
+      "x": 20,
+      "y": 6508,
+      "w": 350,
+      "h": 572
+     },
+     "style": {
+      "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "lineHeight": "20.8px",
+      "letterSpacing": "normal",
+      "color": "rgb(26, 26, 26)",
+      "backgroundColor": "rgb(228, 228, 208)",
+      "backgroundImage": "none",
+      "borderRadius": "24px",
+      "border": "0px none rgb(26, 26, 26)",
+      "boxShadow": "none",
+      "padding": "32px",
+      "margin": "72px 0px 0px",
+      "textAlign": "left",
+      "display": "block",
+      "gap": "94px",
+      "maxWidth": "none"
+     },
+     "kids": [
+      {
+       "tag": "div",
+       "cls": "sl",
+       "box": {
+        "x": 52,
+        "y": 6540,
+        "w": 286,
+        "h": 61
+       },
+       "style": {
+        "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "20.8px",
+        "letterSpacing": "normal",
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderRadius": "0px",
+        "border": "0px none rgb(26, 26, 26)",
+        "boxShadow": "none",
+        "padding": "0px",
+        "margin": "0px",
+        "textAlign": "left",
+        "display": "block",
+        "gap": "normal",
+        "maxWidth": "none"
+       }
+      },
+      {
+       "tag": "div",
+       "cls": "sm",
+       "box": {
+        "x": 52,
+        "y": 6633,
+        "w": 286,
+        "h": 273
+       },
+       "style": {
+        "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "20.8px",
+        "letterSpacing": "normal",
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderRadius": "0px",
+        "border": "0px none rgb(26, 26, 26)",
+        "boxShadow": "none",
+        "padding": "0px",
+        "margin": "32px 0px 0px",
+        "textAlign": "left",
+        "display": "block",
+        "gap": "normal",
+        "maxWidth": "none"
+       }
+      },
+      {
+       "tag": "div",
+       "cls": "seals",
+       "box": {
+        "x": 52,
+        "y": 6921,
+        "w": 286,
+        "h": 86
+       },
+       "style": {
+        "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "20.8px",
+        "letterSpacing": "normal",
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderRadius": "0px",
+        "border": "0px none rgb(26, 26, 26)",
+        "boxShadow": "none",
+        "padding": "0px",
+        "margin": "16px 0px 0px",
+        "textAlign": "left",
+        "display": "flex",
+        "gap": "10px",
+        "maxWidth": "none"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "tag": "section",
+   "cls": "pr-used",
+   "box": {
+    "x": 0,
+    "y": 7153,
+    "w": 390,
+    "h": 151
+   },
+   "style": {
+    "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+    "fontSize": "16px",
+    "fontWeight": "400",
+    "lineHeight": "20.8px",
+    "letterSpacing": "normal",
+    "color": "rgb(59, 59, 57)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "backgroundImage": "none",
+    "borderRadius": "0px",
+    "border": "0px none rgb(59, 59, 57)",
+    "boxShadow": "none",
+    "padding": "0px",
+    "margin": "0px",
+    "textAlign": "center",
+    "display": "block",
+    "gap": "normal",
+    "maxWidth": "none"
+   },
+   "kids": [
+    {
+     "tag": "div",
+     "cls": "eyebrow",
+     "text": "Works in every app you use",
+     "box": {
+      "x": 0,
+      "y": 7153,
+      "w": 390,
+      "h": 50
+     },
+     "style": {
+      "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+      "fontSize": "11px",
+      "fontWeight": "500",
+      "lineHeight": "50px",
+      "letterSpacing": "1.54px",
+      "color": "rgb(59, 59, 57)",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "backgroundImage": "none",
+      "borderRadius": "0px",
+      "border": "0px none rgb(59, 59, 57)",
+      "boxShadow": "none",
+      "padding": "0px",
+      "margin": "0px",
+      "textAlign": "center",
+      "display": "block",
+      "gap": "normal",
+      "maxWidth": "none"
+     },
+     "kids": []
+    },
+    {
+     "tag": "div",
+     "cls": "ulogos",
+     "box": {
+      "x": 0,
+      "y": 7203,
+      "w": 390,
+      "h": 29
+     },
+     "style": {
+      "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+      "fontSize": "18px",
+      "fontWeight": "700",
+      "lineHeight": "23.4px",
+      "letterSpacing": "normal",
+      "color": "rgb(26, 26, 26)",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "backgroundImage": "none",
+      "borderRadius": "0px",
+      "border": "0px none rgb(26, 26, 26)",
+      "boxShadow": "none",
+      "padding": "0px 20px",
+      "margin": "0px",
+      "textAlign": "center",
+      "display": "flex",
+      "gap": "24px",
+      "maxWidth": "none"
+     },
+     "kids": [
+      {
+       "tag": "span",
+       "cls": "f4",
+       "text": "Mail",
+       "box": {
+        "x": 20,
+        "y": 7205,
+        "w": 33,
+        "h": 23
+       },
+       "style": {
+        "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+        "fontSize": "18px",
+        "fontWeight": "600",
+        "lineHeight": "23.4px",
+        "letterSpacing": "normal",
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderRadius": "0px",
+        "border": "0px none rgb(26, 26, 26)",
+        "boxShadow": "none",
+        "padding": "0px",
+        "margin": "0px",
+        "textAlign": "center",
+        "display": "block",
+        "gap": "normal",
+        "maxWidth": "none"
+       }
+      },
+      {
+       "tag": "span",
+       "cls": "f3",
+       "text": "Slack",
+       "box": {
+        "x": 77,
+        "y": 7205,
+        "w": 45,
+        "h": 23
+       },
+       "style": {
+        "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+        "fontSize": "18px",
+        "fontWeight": "700",
+        "lineHeight": "23.4px",
+        "letterSpacing": "normal",
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderRadius": "0px",
+        "border": "0px none rgb(26, 26, 26)",
+        "boxShadow": "none",
+        "padding": "0px",
+        "margin": "0px",
+        "textAlign": "center",
+        "display": "block",
+        "gap": "normal",
+        "maxWidth": "none"
+       }
+      },
+      {
+       "tag": "span",
+       "cls": "f1",
+       "text": "Notes",
+       "box": {
+        "x": 146,
+        "y": 7205,
+        "w": 45,
+        "h": 23
+       },
+       "style": {
+        "fontFamily": "\"IsDead EB Garamond\", \"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, serif",
+        "fontSize": "18px",
+        "fontWeight": "700",
+        "lineHeight": "23.4px",
+        "letterSpacing": "normal",
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderRadius": "0px",
+        "border": "0px none rgb(26, 26, 26)",
+        "boxShadow": "none",
+        "padding": "0px",
+        "margin": "0px",
+        "textAlign": "center",
+        "display": "block",
+        "gap": "normal",
+        "maxWidth": "none"
+       }
+      },
+      {
+       "tag": "span",
+       "cls": "f2",
+       "text": "MESSAGES",
+       "box": {
+        "x": 215,
+        "y": 7207,
+        "w": 103,
+        "h": 20
+       },
+       "style": {
+        "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+        "fontSize": "15px",
+        "fontWeight": "500",
+        "lineHeight": "19.5px",
+        "letterSpacing": "3px",
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderRadius": "0px",
+        "border": "0px none rgb(26, 26, 26)",
+        "boxShadow": "none",
+        "padding": "0px",
+        "margin": "0px",
+        "textAlign": "center",
+        "display": "block",
+        "gap": "normal",
+        "maxWidth": "none"
+       }
+      },
+      {
+       "tag": "span",
+       "cls": "f3",
+       "text": "Docs",
+       "box": {
+        "x": 342,
+        "y": 7205,
+        "w": 41,
+        "h": 23
+       },
+       "style": {
+        "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+        "fontSize": "18px",
+        "fontWeight": "700",
+        "lineHeight": "23.4px",
+        "letterSpacing": "normal",
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderRadius": "0px",
+        "border": "0px none rgb(26, 26, 26)",
+        "boxShadow": "none",
+        "padding": "0px",
+        "margin": "0px",
+        "textAlign": "center",
+        "display": "block",
+        "gap": "normal",
+        "maxWidth": "none"
+       }
+      },
+      {
+       "tag": "span",
+       "cls": "f4",
+       "text": "VS Code",
+       "box": {
+        "x": 407,
+        "y": 7205,
+        "w": 72,
+        "h": 23
+       },
+       "style": {
+        "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+        "fontSize": "18px",
+        "fontWeight": "600",
+        "lineHeight": "23.4px",
+        "letterSpacing": "normal",
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderRadius": "0px",
+        "border": "0px none rgb(26, 26, 26)",
+        "boxShadow": "none",
+        "padding": "0px",
+        "margin": "0px",
+        "textAlign": "center",
+        "display": "block",
+        "gap": "normal",
+        "maxWidth": "none"
+       }
+      },
+      {
+       "tag": "span",
+       "cls": "f1",
+       "text": "Cursor",
+       "box": {
+        "x": 503,
+        "y": 7205,
+        "w": 52,
+        "h": 23
+       },
+       "style": {
+        "fontFamily": "\"IsDead EB Garamond\", \"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, serif",
+        "fontSize": "18px",
+        "fontWeight": "700",
+        "lineHeight": "23.4px",
+        "letterSpacing": "normal",
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderRadius": "0px",
+        "border": "0px none rgb(26, 26, 26)",
+        "boxShadow": "none",
+        "padding": "0px",
+        "margin": "0px",
+        "textAlign": "center",
+        "display": "block",
+        "gap": "normal",
+        "maxWidth": "none"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "tag": "section",
+   "cls": "pr-roi",
+   "box": {
+    "x": 0,
+    "y": 7304,
+    "w": 390,
+    "h": 893
+   },
+   "style": {
+    "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+    "fontSize": "16px",
+    "fontWeight": "400",
+    "lineHeight": "20.8px",
+    "letterSpacing": "normal",
+    "color": "rgb(255, 255, 235)",
+    "backgroundColor": "rgb(3, 79, 70)",
+    "backgroundImage": "none",
+    "borderRadius": "40px",
+    "border": "0px none rgb(255, 255, 235)",
+    "boxShadow": "none",
+    "padding": "72px 20px 56px",
+    "margin": "0px",
+    "textAlign": "center",
+    "display": "block",
+    "gap": "normal",
+    "maxWidth": "none"
+   },
+   "kids": [
+    {
+     "tag": "div",
+     "cls": "roi-in",
+     "box": {
+      "x": 20,
+      "y": 7376,
+      "w": 350,
+      "h": 689
+     },
+     "style": {
+      "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "lineHeight": "20.8px",
+      "letterSpacing": "normal",
+      "color": "rgb(255, 255, 235)",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "backgroundImage": "none",
+      "borderRadius": "0px",
+      "border": "0px none rgb(255, 255, 235)",
+      "boxShadow": "none",
+      "padding": "0px",
+      "margin": "0px",
+      "textAlign": "center",
+      "display": "block",
+      "gap": "normal",
+      "maxWidth": "none"
+     },
+     "kids": [
+      {
+       "tag": "div",
+       "cls": "eyebrow",
+       "text": "ROI calculator",
+       "box": {
+        "x": 20,
+        "y": 7376,
+        "w": 350,
+        "h": 16
+       },
+       "style": {
+        "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "500",
+        "lineHeight": "15.6px",
+        "letterSpacing": "1.68px",
+        "color": "rgb(255, 255, 235)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderRadius": "0px",
+        "border": "0px none rgb(255, 255, 235)",
+        "boxShadow": "none",
+        "padding": "0px",
+        "margin": "0px",
+        "textAlign": "center",
+        "display": "block",
+        "gap": "normal",
+        "maxWidth": "none"
+       }
+      },
+      {
+       "tag": "h2",
+       "cls": "",
+       "box": {
+        "x": 20,
+        "y": 7411,
+        "w": 350,
+        "h": 80
+       },
+       "style": {
+        "fontFamily": "\"IsDead EB Garamond\", \"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, \"EB Garamond\", serif",
+        "fontSize": "40px",
+        "fontWeight": "400",
+        "lineHeight": "40px",
+        "letterSpacing": "-0.8px",
+        "color": "rgb(255, 255, 235)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderRadius": "0px",
+        "border": "0px none rgb(255, 255, 235)",
+        "boxShadow": "none",
+        "padding": "0px",
+        "margin": "20px 0px 0px",
+        "textAlign": "center",
+        "display": "block",
+        "gap": "normal",
+        "maxWidth": "none"
+       }
+      },
+      {
+       "tag": "div",
+       "cls": "roi-card",
+       "box": {
+        "x": 20,
+        "y": 7515,
+        "w": 350,
+        "h": 549
+       },
+       "style": {
+        "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "20.8px",
+        "letterSpacing": "normal",
+        "color": "rgb(255, 255, 235)",
+        "backgroundColor": "rgb(6, 54, 47)",
+        "backgroundImage": "none",
+        "borderRadius": "24px",
+        "border": "0px none rgb(255, 255, 235)",
+        "boxShadow": "none",
+        "padding": "32px",
+        "margin": "24px 0px 0px",
+        "textAlign": "left",
+        "display": "block",
+        "gap": "normal",
+        "maxWidth": "none"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "tag": "section",
+   "cls": "pr-faq",
+   "box": {
+    "x": 0,
+    "y": 8197,
+    "w": 390,
+    "h": 962
+   },
+   "style": {
+    "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+    "fontSize": "16px",
+    "fontWeight": "400",
+    "lineHeight": "20.8px",
+    "letterSpacing": "normal",
+    "color": "rgb(26, 26, 26)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "backgroundImage": "none",
+    "borderRadius": "0px",
+    "border": "0px none rgb(26, 26, 26)",
+    "boxShadow": "none",
+    "padding": "72px 20px 0px",
+    "margin": "0px",
+    "textAlign": "center",
+    "display": "block",
+    "gap": "normal",
+    "maxWidth": "none"
+   },
+   "kids": [
+    {
+     "tag": "div",
+     "cls": "faq-in",
+     "box": {
+      "x": 20,
+      "y": 8291,
+      "w": 350,
+      "h": 824
+     },
+     "style": {
+      "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "lineHeight": "20.8px",
+      "letterSpacing": "normal",
+      "color": "rgb(26, 26, 26)",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "backgroundImage": "none",
+      "borderRadius": "0px",
+      "border": "0px none rgb(26, 26, 26)",
+      "boxShadow": "none",
+      "padding": "0px",
+      "margin": "0px",
+      "textAlign": "center",
+      "display": "block",
+      "gap": "normal",
+      "maxWidth": "none"
+     },
+     "kids": [
+      {
+       "tag": "h2",
+       "cls": "",
+       "box": {
+        "x": 20,
+        "y": 8291,
+        "w": 350,
+        "h": 80
+       },
+       "style": {
+        "fontFamily": "\"IsDead EB Garamond\", \"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, \"EB Garamond\", serif",
+        "fontSize": "40px",
+        "fontWeight": "400",
+        "lineHeight": "40px",
+        "letterSpacing": "-0.8px",
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderRadius": "0px",
+        "border": "0px none rgb(26, 26, 26)",
+        "boxShadow": "none",
+        "padding": "0px",
+        "margin": "0px",
+        "textAlign": "center",
+        "display": "block",
+        "gap": "normal",
+        "maxWidth": "none"
+       }
+      },
+      {
+       "tag": "div",
+       "cls": "faq2",
+       "box": {
+        "x": 20,
+        "y": 8411,
+        "w": 350,
+        "h": 704
+       },
+       "style": {
+        "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "20.8px",
+        "letterSpacing": "normal",
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgb(228, 228, 208)",
+        "backgroundImage": "none",
+        "borderRadius": "24px",
+        "border": "0px none rgb(26, 26, 26)",
+        "boxShadow": "none",
+        "padding": "0px",
+        "margin": "40px 0px 0px",
+        "textAlign": "left",
+        "display": "block",
+        "gap": "0px",
+        "maxWidth": "none"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "tag": "section",
+   "cls": "pr-cta",
+   "box": {
+    "x": 0,
+    "y": 9159,
+    "w": 390,
+    "h": 435
+   },
+   "style": {
+    "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+    "fontSize": "16px",
+    "fontWeight": "400",
+    "lineHeight": "20.8px",
+    "letterSpacing": "normal",
+    "color": "rgb(255, 255, 235)",
+    "backgroundColor": "rgb(58, 34, 22)",
+    "backgroundImage": "radial-gradient(60% 55% at 20% 25%, rgb(192, 122, 58), rgba(0, 0, 0, 0) 70%), radial-gradient(40% 50% at 78% 70%, rgb(181, 83, 42), rgba(0, 0, 0, 0) 70%), radial-gradient(35% 40% at 40% 20%, rgb(15, 59, 69), rgba(0, 0, 0, 0) 70%), radial-gradient(40% 40% at 60% 100%, rgb(30, 42, 94), rgba(0, 0, 0, 0) 70%), none",
+    "borderRadius": "40px",
+    "border": "0px none rgb(255, 255, 235)",
+    "boxShadow": "none",
+    "padding": "64px 20px 0px",
+    "margin": "0px",
+    "textAlign": "center",
+    "display": "block",
+    "gap": "normal",
+    "maxWidth": "none"
+   },
+   "kids": [
+    {
+     "tag": "h2",
+     "cls": "",
+     "box": {
+      "x": 20,
+      "y": 9223,
+      "w": 350,
+      "h": 168
+     },
+     "style": {
+      "fontFamily": "\"IsDead EB Garamond\", \"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, \"EB Garamond\", serif",
+      "fontSize": "56px",
+      "fontWeight": "400",
+      "lineHeight": "56px",
+      "letterSpacing": "-1.68px",
+      "color": "rgb(255, 255, 235)",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "backgroundImage": "none",
+      "borderRadius": "0px",
+      "border": "0px none rgb(255, 255, 235)",
+      "boxShadow": "none",
+      "padding": "0px",
+      "margin": "0px",
+      "textAlign": "center",
+      "display": "block",
+      "gap": "normal",
+      "maxWidth": "1024px"
+     },
+     "kids": [
+      {
+       "tag": "em",
+       "cls": "",
+       "text": "Speak.",
+       "box": {
+        "x": 71,
+        "y": 9214,
+        "w": 128,
+        "h": 73
+       },
+       "style": {
+        "fontFamily": "\"IsDead EB Garamond\", \"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, \"EB Garamond\", serif",
+        "fontSize": "56px",
+        "fontWeight": "400",
+        "lineHeight": "56px",
+        "letterSpacing": "-1.68px",
+        "color": "rgb(255, 255, 235)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderRadius": "0px",
+        "border": "0px none rgb(255, 255, 235)",
+        "boxShadow": "none",
+        "padding": "0px",
+        "margin": "0px",
+        "textAlign": "center",
+        "display": "inline",
+        "gap": "normal",
+        "maxWidth": "none"
+       }
+      }
+     ]
+    },
+    {
+     "tag": "a",
+     "cls": "btn cream",
+     "box": {
+      "x": 85,
+      "y": 9423,
+      "w": 221,
+      "h": 50
+     },
+     "style": {
+      "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+      "fontSize": "15px",
+      "fontWeight": "600",
+      "lineHeight": "19.5px",
+      "letterSpacing": "normal",
+      "color": "rgb(26, 26, 26)",
+      "backgroundColor": "rgb(255, 255, 235)",
+      "backgroundImage": "none",
+      "borderRadius": "8px",
+      "border": "2px solid rgb(26, 26, 26)",
+      "boxShadow": "none",
+      "padding": "0px 20px",
+      "margin": "32px 0px 0px",
+      "textAlign": "center",
+      "display": "inline-flex",
+      "gap": "8px",
+      "maxWidth": "none"
+     },
+     "kids": [
+      {
+       "tag": "svg",
+       "cls": "[object SVGAnimatedString]",
+       "box": {
+        "x": 107,
+        "y": 9439,
+        "w": 16,
+        "h": 18
+       },
+       "style": {
+        "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+        "fontSize": "15px",
+        "fontWeight": "600",
+        "lineHeight": "19.5px",
+        "letterSpacing": "normal",
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderRadius": "0px",
+        "border": "0px none rgb(26, 26, 26)",
+        "boxShadow": "none",
+        "padding": "0px",
+        "margin": "0px",
+        "textAlign": "center",
+        "display": "block",
+        "gap": "normal",
+        "maxWidth": "none"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "tag": "footer",
+   "cls": "ft",
+   "box": {
+    "x": 0,
+    "y": 9594,
+    "w": 390,
+    "h": 1572
+   },
+   "style": {
+    "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+    "fontSize": "16px",
+    "fontWeight": "400",
+    "lineHeight": "20.8px",
+    "letterSpacing": "normal",
+    "color": "rgb(26, 26, 26)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "backgroundImage": "none",
+    "borderRadius": "0px",
+    "border": "0px none rgb(26, 26, 26)",
+    "boxShadow": "none",
+    "padding": "0px",
+    "margin": "0px",
+    "textAlign": "start",
+    "display": "block",
+    "gap": "normal",
+    "maxWidth": "none"
+   },
+   "kids": [
+    {
+     "tag": "div",
+     "cls": "ft-in",
+     "box": {
+      "x": 0,
+      "y": 9594,
+      "w": 390,
+      "h": 1572
+     },
+     "style": {
+      "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+      "fontSize": "14px",
+      "fontWeight": "400",
+      "lineHeight": "18.2px",
+      "letterSpacing": "normal",
+      "color": "rgb(26, 26, 26)",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "backgroundImage": "none",
+      "borderRadius": "0px",
+      "border": "0px none rgb(26, 26, 26)",
+      "boxShadow": "none",
+      "padding": "64px 20px 50px",
+      "margin": "0px",
+      "textAlign": "start",
+      "display": "flex",
+      "gap": "20px",
+      "maxWidth": "100%"
+     },
+     "kids": [
+      {
+       "tag": "div",
+       "cls": "ft-lab",
+       "text": "Products",
+       "box": {
+        "x": 20,
+        "y": 9658,
+        "w": 350,
+        "h": 16
+       },
+       "style": {
+        "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "500",
+        "lineHeight": "15.6px",
+        "letterSpacing": "1.68px",
+        "color": "rgb(59, 59, 57)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderRadius": "0px",
+        "border": "0px none rgb(59, 59, 57)",
+        "boxShadow": "none",
+        "padding": "0px",
+        "margin": "0px",
+        "textAlign": "start",
+        "display": "block",
+        "gap": "normal",
+        "maxWidth": "none"
+       }
+      },
+      {
+       "tag": "div",
+       "cls": "ft-prod",
+       "box": {
+        "x": 20,
+        "y": 9693,
+        "w": 350,
+        "h": 481
+       },
+       "style": {
+        "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "18.2px",
+        "letterSpacing": "normal",
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderRadius": "0px",
+        "border": "0px none rgb(26, 26, 26)",
+        "boxShadow": "none",
+        "padding": "0px",
+        "margin": "0px",
+        "textAlign": "start",
+        "display": "grid",
+        "gap": "16px",
+        "maxWidth": "none"
+       }
+      },
+      {
+       "tag": "div",
+       "cls": "ft-cols",
+       "box": {
+        "x": 20,
+        "y": 10222,
+        "w": 350,
+        "h": 557
+       },
+       "style": {
+        "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "18.2px",
+        "letterSpacing": "normal",
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderRadius": "0px",
+        "border": "0px none rgb(26, 26, 26)",
+        "boxShadow": "none",
+        "padding": "0px",
+        "margin": "28px 0px 0px",
+        "textAlign": "start",
+        "display": "grid",
+        "gap": "24px 16px",
+        "maxWidth": "none"
+       }
+      },
+      {
+       "tag": "div",
+       "cls": "ft-big",
+       "box": {
+        "x": 20,
+        "y": 10842,
+        "w": 350,
+        "h": 100
+       },
+       "style": {
+        "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "18.2px",
+        "letterSpacing": "normal",
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderRadius": "0px",
+        "border": "0px none rgb(26, 26, 26)",
+        "boxShadow": "none",
+        "padding": "0px",
+        "margin": "43px 0px 20px",
+        "textAlign": "start",
+        "display": "block",
+        "gap": "normal",
+        "maxWidth": "none"
+       }
+      },
+      {
+       "tag": "div",
+       "cls": "ft-legal",
+       "box": {
+        "x": 20,
+        "y": 10982,
+        "w": 350,
+        "h": 20
+       },
+       "style": {
+        "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "18.2px",
+        "letterSpacing": "normal",
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderRadius": "0px",
+        "border": "0px none rgb(26, 26, 26)",
+        "boxShadow": "none",
+        "padding": "0px",
+        "margin": "0px",
+        "textAlign": "start",
+        "display": "flex",
+        "gap": "12px",
+        "maxWidth": "none"
+       }
+      },
+      {
+       "tag": "div",
+       "cls": "ft-l2",
+       "text": "Apache-2.0 · Not affiliated with Wispr AI or Wispr Flow.",
+       "box": {
+        "x": 20,
+        "y": 11022,
+        "w": 350,
+        "h": 16
+       },
+       "style": {
+        "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "lineHeight": "15.6px",
+        "letterSpacing": "normal",
+        "color": "rgb(59, 59, 57)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderRadius": "0px",
+        "border": "0px none rgb(59, 59, 57)",
+        "boxShadow": "none",
+        "padding": "0px",
+        "margin": "0px",
+        "textAlign": "start",
+        "display": "block",
+        "gap": "normal",
+        "maxWidth": "none"
+       }
+      },
+      {
+       "tag": "div",
+       "cls": "ft-l3",
+       "text": "Free and open source. No tracking, no cookie banner.",
+       "box": {
+        "x": 20,
+        "y": 11058,
+        "w": 350,
+        "h": 16
+       },
+       "style": {
+        "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "lineHeight": "15.6px",
+        "letterSpacing": "normal",
+        "color": "rgb(59, 59, 57)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderRadius": "0px",
+        "border": "0px none rgb(59, 59, 57)",
+        "boxShadow": "none",
+        "padding": "0px",
+        "margin": "0px 0px 40px",
+        "textAlign": "start",
+        "display": "block",
+        "gap": "normal",
+        "maxWidth": "none"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "landmarks": {
+  "nav": {
+   "tag": "nav",
+   "cls": "nav",
+   "box": {
+    "x": 16,
+    "y": 4,
+    "w": 358,
+    "h": 62
+   },
+   "style": {
+    "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+    "fontSize": "16px",
+    "fontWeight": "400",
+    "lineHeight": "20.8px",
+    "letterSpacing": "normal",
+    "color": "rgb(26, 26, 26)",
+    "backgroundColor": "rgba(255, 255, 235, 0.9)",
+    "backgroundImage": "none",
+    "borderRadius": "12px",
+    "border": "1px solid rgb(228, 228, 208)",
+    "boxShadow": "none",
+    "padding": "0px 10px 0px 16px",
+    "margin": "4px 16px 0px",
+    "textAlign": "start",
+    "display": "flex",
+    "gap": "normal",
+    "maxWidth": "calc(100% - 32px)"
+   },
+   "kids": [
+    {
+     "tag": "a",
+     "cls": "logo",
+     "box": {
+      "x": 33,
+      "y": 24,
+      "w": 164,
+      "h": 22
+     },
+     "style": {
+      "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+      "fontSize": "17px",
+      "fontWeight": "700",
+      "lineHeight": "22.1px",
+      "letterSpacing": "-0.17px",
+      "color": "rgb(26, 26, 26)",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "backgroundImage": "none",
+      "borderRadius": "0px",
+      "border": "0px none rgb(26, 26, 26)",
+      "boxShadow": "none",
+      "padding": "0px",
+      "margin": "0px",
+      "textAlign": "start",
+      "display": "flex",
+      "gap": "8px",
+      "maxWidth": "none"
+     }
+    },
+    {
+     "tag": "button",
+     "cls": "burger",
+     "box": {
+      "x": 332,
+      "y": 15,
+      "w": 31,
+      "h": 40
+     },
+     "style": {
+      "fontFamily": "Arial",
+      "fontSize": "13.3333px",
+      "fontWeight": "400",
+      "lineHeight": "normal",
+      "letterSpacing": "normal",
+      "color": "rgb(0, 0, 0)",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "backgroundImage": "none",
+      "borderRadius": "0px",
+      "border": "0px none rgb(0, 0, 0)",
+      "boxShadow": "none",
+      "padding": "6px",
+      "margin": "0px 0px 0px 8px",
+      "textAlign": "center",
+      "display": "flex",
+      "gap": "6px",
+      "maxWidth": "none"
+     }
+    },
+    {
+     "tag": "a",
+     "cls": "btn sm",
+     "box": {
+      "x": 197,
+      "y": 17,
+      "w": 127,
+      "h": 36
+     },
+     "style": {
+      "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+      "fontSize": "14px",
+      "fontWeight": "600",
+      "lineHeight": "18.2px",
+      "letterSpacing": "normal",
+      "color": "rgb(26, 26, 26)",
+      "backgroundColor": "rgb(240, 215, 255)",
+      "backgroundImage": "none",
+      "borderRadius": "8px",
+      "border": "2px solid rgb(26, 26, 26)",
+      "boxShadow": "none",
+      "padding": "0px 12px",
+      "margin": "0px",
+      "textAlign": "start",
+      "display": "flex",
+      "gap": "8px",
+      "maxWidth": "none"
+     }
+    }
+   ]
+  },
+  "h1": {
+   "tag": "h1",
+   "cls": "",
+   "text": "Pricing",
+   "box": {
+    "x": 20,
+    "y": 136,
+    "w": 350,
+    "h": 60
+   },
+   "style": {
+    "fontFamily": "\"IsDead EB Garamond\", \"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, \"EB Garamond\", serif",
+    "fontSize": "64px",
+    "fontWeight": "400",
+    "lineHeight": "60px",
+    "letterSpacing": "-1.92px",
+    "color": "rgb(26, 26, 26)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "backgroundImage": "none",
+    "borderRadius": "0px",
+    "border": "0px none rgb(26, 26, 26)",
+    "boxShadow": "none",
+    "padding": "0px",
+    "margin": "0px",
+    "textAlign": "center",
+    "display": "block",
+    "gap": "normal",
+    "maxWidth": "none"
+   },
+   "kids": []
+  },
+  "h2": {
+   "tag": "h2",
+   "cls": "",
+   "box": {
+    "x": 52,
+    "y": 1948,
+    "w": 286,
+    "h": 31
+   },
+   "style": {
+    "fontFamily": "\"IsDead EB Garamond\", \"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, \"EB Garamond\", serif",
+    "fontSize": "30px",
+    "fontWeight": "400",
+    "lineHeight": "30.5px",
+    "letterSpacing": "-0.6px",
+    "color": "rgb(26, 26, 26)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "backgroundImage": "none",
+    "borderRadius": "0px",
+    "border": "0px none rgb(26, 26, 26)",
+    "boxShadow": "none",
+    "padding": "0px",
+    "margin": "0px",
+    "textAlign": "left",
+    "display": "block",
+    "gap": "normal",
+    "maxWidth": "none"
+   },
+   "kids": [
+    {
+     "tag": "em",
+     "cls": "",
+     "text": "you work.",
+     "box": {
+      "x": 228,
+      "y": 1943,
+      "w": 110,
+      "h": 39
+     },
+     "style": {
+      "fontFamily": "\"IsDead EB Garamond\", \"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, \"EB Garamond\", serif",
+      "fontSize": "30px",
+      "fontWeight": "400",
+      "lineHeight": "30.5px",
+      "letterSpacing": "-0.6px",
+      "color": "rgb(26, 26, 26)",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "backgroundImage": "none",
+      "borderRadius": "0px",
+      "border": "0px none rgb(26, 26, 26)",
+      "boxShadow": "none",
+      "padding": "0px",
+      "margin": "0px",
+      "textAlign": "left",
+      "display": "inline",
+      "gap": "normal",
+      "maxWidth": "none"
+     }
+    }
+   ]
+  },
+  "primaryBtn": {
+   "tag": "button",
+   "cls": "burger",
+   "box": {
+    "x": 332,
+    "y": 15,
+    "w": 31,
+    "h": 40
+   },
+   "style": {
+    "fontFamily": "Arial",
+    "fontSize": "13.3333px",
+    "fontWeight": "400",
+    "lineHeight": "normal",
+    "letterSpacing": "normal",
+    "color": "rgb(0, 0, 0)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "backgroundImage": "none",
+    "borderRadius": "0px",
+    "border": "0px none rgb(0, 0, 0)",
+    "boxShadow": "none",
+    "padding": "6px",
+    "margin": "0px 0px 0px 8px",
+    "textAlign": "center",
+    "display": "flex",
+    "gap": "6px",
+    "maxWidth": "none"
+   },
+   "kids": []
+  },
+  "input": {
+   "tag": "input",
+   "cls": "",
+   "text": "",
+   "box": {
+    "x": 52,
+    "y": 7573,
+    "w": 286,
+    "h": 42
+   },
+   "style": {
+    "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+    "fontSize": "14px",
+    "fontWeight": "400",
+    "lineHeight": "normal",
+    "letterSpacing": "normal",
+    "color": "rgb(26, 26, 26)",
+    "backgroundColor": "rgb(255, 255, 235)",
+    "backgroundImage": "none",
+    "borderRadius": "8px",
+    "border": "0px none rgb(26, 26, 26)",
+    "boxShadow": "none",
+    "padding": "0px 12px",
+    "margin": "10px 0px 0px",
+    "textAlign": "start",
+    "display": "block",
+    "gap": "normal",
+    "maxWidth": "none"
+   },
+   "kids": []
+  },
+  "footer": {
+   "tag": "footer",
+   "cls": "ft",
+   "box": {
+    "x": 0,
+    "y": 9594,
+    "w": 390,
+    "h": 1572
+   },
+   "style": {
+    "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+    "fontSize": "16px",
+    "fontWeight": "400",
+    "lineHeight": "20.8px",
+    "letterSpacing": "normal",
+    "color": "rgb(26, 26, 26)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "backgroundImage": "none",
+    "borderRadius": "0px",
+    "border": "0px none rgb(26, 26, 26)",
+    "boxShadow": "none",
+    "padding": "0px",
+    "margin": "0px",
+    "textAlign": "start",
+    "display": "block",
+    "gap": "normal",
+    "maxWidth": "none"
+   },
+   "kids": [
+    {
+     "tag": "div",
+     "cls": "ft-in",
+     "box": {
+      "x": 0,
+      "y": 9594,
+      "w": 390,
+      "h": 1572
+     },
+     "style": {
+      "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+      "fontSize": "14px",
+      "fontWeight": "400",
+      "lineHeight": "18.2px",
+      "letterSpacing": "normal",
+      "color": "rgb(26, 26, 26)",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "backgroundImage": "none",
+      "borderRadius": "0px",
+      "border": "0px none rgb(26, 26, 26)",
+      "boxShadow": "none",
+      "padding": "64px 20px 50px",
+      "margin": "0px",
+      "textAlign": "start",
+      "display": "flex",
+      "gap": "20px",
+      "maxWidth": "100%"
+     }
+    }
+   ]
+  }
+ },
+ "headings": [
+  {
+   "tag": "H1",
+   "text": "Pricing",
+   "box": {
+    "x": 20,
+    "y": 136,
+    "w": 350,
+    "h": 60
+   },
+   "style": {
+    "fontFamily": "\"IsDead EB Garamond\", \"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, \"EB Garamond\", serif",
+    "fontSize": "64px",
+    "fontWeight": "400",
+    "lineHeight": "60px",
+    "letterSpacing": "-1.92px",
+    "color": "rgb(26, 26, 26)"
+   }
+  },
+  {
+   "tag": "H2",
+   "text": "Available where you work.",
+   "box": {
+    "x": 52,
+    "y": 1948,
+    "w": 286,
+    "h": 31
+   },
+   "style": {
+    "fontFamily": "\"IsDead EB Garamond\", \"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, \"EB Garamond\", serif",
+    "fontSize": "30px",
+    "fontWeight": "400",
+    "lineHeight": "30.5px",
+    "letterSpacing": "-0.6px",
+    "color": "rgb(26, 26, 26)"
+   }
+  },
+  {
+   "tag": "H2",
+   "text": "Compare pricing& features.",
+   "box": {
+    "x": 20,
+    "y": 2468,
+    "w": 350,
+    "h": 80
+   },
+   "style": {
+    "fontFamily": "\"IsDead EB Garamond\", \"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, \"EB Garamond\", serif",
+    "fontSize": "40px",
+    "fontWeight": "400",
+    "lineHeight": "40px",
+    "letterSpacing": "-0.8px",
+    "color": "rgb(26, 26, 26)"
+   }
+  },
+  {
+   "tag": "H2",
+   "text": "Security and privacy.On every plan.",
+   "box": {
+    "x": 52,
+    "y": 6540,
+    "w": 286,
+    "h": 61
+   },
+   "style": {
+    "fontFamily": "\"IsDead EB Garamond\", \"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, \"EB Garamond\", serif",
+    "fontSize": "30px",
+    "fontWeight": "400",
+    "lineHeight": "30.5px",
+    "letterSpacing": "-0.6px",
+    "color": "rgb(26, 26, 26)"
+   }
+  },
+  {
+   "tag": "H2",
+   "text": "See how much timeyou get back.",
+   "box": {
+    "x": 20,
+    "y": 7411,
+    "w": 350,
+    "h": 80
+   },
+   "style": {
+    "fontFamily": "\"IsDead EB Garamond\", \"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, \"EB Garamond\", serif",
+    "fontSize": "40px",
+    "fontWeight": "400",
+    "lineHeight": "40px",
+    "letterSpacing": "-0.8px",
+    "color": "rgb(255, 255, 235)"
+   }
+  },
+  {
+   "tag": "H2",
+   "text": "You might be wondering.",
+   "box": {
+    "x": 20,
+    "y": 8291,
+    "w": 350,
+    "h": 80
+   },
+   "style": {
+    "fontFamily": "\"IsDead EB Garamond\", \"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, \"EB Garamond\", serif",
+    "fontSize": "40px",
+    "fontWeight": "400",
+    "lineHeight": "40px",
+    "letterSpacing": "-0.8px",
+    "color": "rgb(26, 26, 26)"
+   }
+  },
+  {
+   "tag": "H2",
+   "text": "Speak. Write faster. Meet smarter.",
+   "box": {
+    "x": 20,
+    "y": 9223,
+    "w": 350,
+    "h": 168
+   },
+   "style": {
+    "fontFamily": "\"IsDead EB Garamond\", \"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, \"EB Garamond\", serif",
+    "fontSize": "56px",
+    "fontWeight": "400",
+    "lineHeight": "56px",
+    "letterSpacing": "-1.68px",
+    "color": "rgb(255, 255, 235)"
+   }
+  },
+  {
+   "tag": "H4",
+   "text": "Get started",
+   "box": {
+    "x": 20,
+    "y": 10222,
+    "w": 167,
+    "h": 16
+   },
+   "style": {
+    "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+    "fontSize": "12px",
+    "fontWeight": "500",
+    "lineHeight": "15.6px",
+    "letterSpacing": "1.68px",
+    "color": "rgb(59, 59, 57)"
+   }
+  },
+  {
+   "tag": "H4",
+   "text": "Professionals",
+   "box": {
+    "x": 203,
+    "y": 10222,
+    "w": 167,
+    "h": 16
+   },
+   "style": {
+    "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+    "fontSize": "12px",
+    "fontWeight": "500",
+    "lineHeight": "15.6px",
+    "letterSpacing": "1.68px",
+    "color": "rgb(59, 59, 57)"
+   }
+  },
+  {
+   "tag": "H4",
+   "text": "Resources",
+   "box": {
+    "x": 20,
+    "y": 10370,
+    "w": 167,
+    "h": 16
+   },
+   "style": {
+    "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+    "fontSize": "12px",
+    "fontWeight": "500",
+    "lineHeight": "15.6px",
+    "letterSpacing": "1.68px",
+    "color": "rgb(59, 59, 57)"
+   }
+  },
+  {
+   "tag": "H4",
+   "text": "Project",
+   "box": {
+    "x": 203,
+    "y": 10370,
+    "w": 167,
+    "h": 16
+   },
+   "style": {
+    "fontFamily": "\"IsDead Figtree\", system-ui, -apple-system, \"Segoe UI\", sans-serif, Figtree, system-ui, sans-serif",
+    "fontSize": "12px",
+    "fontWeight": "500",
+    "lineHeight": "15.6px",
+    "letterSpacing": "1.68px",
+    "color": "rgb(59, 59, 57)"
+   }
+  }
+ ],
+ "interactive": [
+  {
+   "text": "WisprFlowIsDead",
+   "box": {
+    "x": 33,
+    "y": 24,
+    "w": 164,
+    "h": 22
+   },
+   "style": {
+    "fontSize": "17px",
+    "fontWeight": "700",
+    "color": "rgb(26, 26, 26)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(26, 26, 26)",
+    "borderRadius": "0px",
+    "padding": "0px",
+    "height": "22.0938px"
+   }
+  },
+  {
+   "text": "",
+   "box": {
+    "x": 332,
+    "y": 15,
+    "w": 31,
+    "h": 40
+   },
+   "style": {
+    "fontSize": "13.3333px",
+    "fontWeight": "400",
+    "color": "rgb(0, 0, 0)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "borderRadius": "0px",
+    "padding": "6px",
+    "height": "40px"
+   }
+  },
+  {
+   "text": "Get started on macOS",
+   "box": {
+    "x": 197,
+    "y": 17,
+    "w": 127,
+    "h": 36
+   },
+   "style": {
+    "fontSize": "14px",
+    "fontWeight": "600",
+    "color": "rgb(26, 26, 26)",
+    "backgroundColor": "rgb(240, 215, 255)",
+    "border": "2px solid rgb(26, 26, 26)",
+    "borderRadius": "8px",
+    "padding": "0px 12px",
+    "height": "36px"
+   }
+  },
+  {
+   "text": "Monthly",
+   "box": {
+    "x": 73,
+    "y": 368,
+    "w": 70,
+    "h": 33
+   },
+   "style": {
+    "fontSize": "12px",
+    "fontWeight": "600",
+    "color": "rgb(26, 26, 26)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(26, 26, 26)",
+    "borderRadius": "8px",
+    "padding": "0px 12px",
+    "height": "33px"
+   }
+  },
+  {
+   "text": "Annual 20% discount",
+   "box": {
+    "x": 147,
+    "y": 368,
+    "w": 130,
+    "h": 33
+   },
+   "style": {
+    "fontSize": "12px",
+    "fontWeight": "600",
+    "color": "rgb(26, 26, 26)",
+    "backgroundColor": "rgb(240, 215, 255)",
+    "border": "0px none rgb(26, 26, 26)",
+    "borderRadius": "8px",
+    "padding": "0px 12px",
+    "height": "33px"
+   }
+  },
+  {
+   "text": "Get started",
+   "box": {
+    "x": 67,
+    "y": 599,
+    "w": 256,
+    "h": 52
+   },
+   "style": {
+    "fontSize": "16px",
+    "fontWeight": "600",
+    "color": "rgb(26, 26, 26)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "border": "2px solid rgb(26, 26, 26)",
+    "borderRadius": "8px",
+    "padding": "0px",
+    "height": "52px"
+   }
+  },
+  {
+   "text": "See all features ⌄",
+   "box": {
+    "x": 54,
+    "y": 674,
+    "w": 282,
+    "h": 43
+   },
+   "style": {
+    "fontSize": "14px",
+    "fontWeight": "500",
+    "color": "rgb(26, 26, 26)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(26, 26, 26)",
+    "borderRadius": "0px",
+    "padding": "0px 0px 25px",
+    "height": "43.1875px"
+   }
+  },
+  {
+   "text": "Get started",
+   "box": {
+    "x": 67,
+    "y": 966,
+    "w": 256,
+    "h": 52
+   },
+   "style": {
+    "fontSize": "16px",
+    "fontWeight": "600",
+    "color": "rgb(255, 255, 235)",
+    "backgroundColor": "rgb(26, 26, 26)",
+    "border": "2px solid rgb(26, 26, 26)",
+    "borderRadius": "8px",
+    "padding": "0px",
+    "height": "52px"
+   }
+  },
+  {
+   "text": "See all features ⌄",
+   "box": {
+    "x": 54,
+    "y": 1041,
+    "w": 282,
+    "h": 43
+   },
+   "style": {
+    "fontSize": "14px",
+    "fontWeight": "500",
+    "color": "rgb(26, 26, 26)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(26, 26, 26)",
+    "borderRadius": "0px",
+    "padding": "0px 0px 25px",
+    "height": "43.1875px"
+   }
+  },
+  {
+   "text": "Get started",
+   "box": {
+    "x": 67,
+    "y": 1366,
+    "w": 256,
+    "h": 52
+   },
+   "style": {
+    "fontSize": "16px",
+    "fontWeight": "600",
+    "color": "rgb(255, 255, 235)",
+    "backgroundColor": "rgb(26, 26, 26)",
+    "border": "2px solid rgb(26, 26, 26)",
+    "borderRadius": "8px",
+    "padding": "0px",
+    "height": "52px"
+   }
+  },
+  {
+   "text": "See all features ⌄",
+   "box": {
+    "x": 54,
+    "y": 1441,
+    "w": 282,
+    "h": 43
+   },
+   "style": {
+    "fontSize": "14px",
+    "fontWeight": "500",
+    "color": "rgb(26, 26, 26)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(26, 26, 26)",
+    "borderRadius": "0px",
+    "padding": "0px 0px 25px",
+    "height": "43.1875px"
+   }
+  },
+  {
+   "text": "Talk to sales",
+   "box": {
+    "x": 67,
+    "y": 1698,
+    "w": 256,
+    "h": 52
+   },
+   "style": {
+    "fontSize": "16px",
+    "fontWeight": "600",
+    "color": "rgb(255, 255, 235)",
+    "backgroundColor": "rgb(26, 26, 26)",
+    "border": "2px solid rgb(26, 26, 26)",
+    "borderRadius": "8px",
+    "padding": "0px",
+    "height": "52px"
+   }
+  },
+  {
+   "text": "See all features ⌄",
+   "box": {
+    "x": 54,
+    "y": 1773,
+    "w": 282,
+    "h": 43
+   },
+   "style": {
+    "fontSize": "14px",
+    "fontWeight": "500",
+    "color": "rgb(26, 26, 26)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(26, 26, 26)",
+    "borderRadius": "0px",
+    "padding": "0px 0px 25px",
+    "height": "43.1875px"
+   }
+  },
+  {
+   "text": "Get started ›",
+   "box": {
+    "x": 49,
+    "y": 2712,
+    "w": 72,
+    "h": 16
+   },
+   "style": {
+    "fontSize": "12px",
+    "fontWeight": "600",
+    "color": "rgb(26, 26, 26)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(26, 26, 26)",
+    "borderRadius": "0px",
+    "padding": "0px",
+    "height": "15.5938px"
+   }
+  },
+  {
+   "text": "Get started ›",
+   "box": {
+    "x": 159,
+    "y": 2712,
+    "w": 72,
+    "h": 16
+   },
+   "style": {
+    "fontSize": "12px",
+    "fontWeight": "600",
+    "color": "rgb(26, 26, 26)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(26, 26, 26)",
+    "borderRadius": "0px",
+    "padding": "0px",
+    "height": "15.5938px"
+   }
+  },
+  {
+   "text": "Get started ›",
+   "box": {
+    "x": 269,
+    "y": 2712,
+    "w": 72,
+    "h": 16
+   },
+   "style": {
+    "fontSize": "12px",
+    "fontWeight": "600",
+    "color": "rgb(26, 26, 26)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(26, 26, 26)",
+    "borderRadius": "0px",
+    "padding": "0px",
+    "height": "15.5938px"
+   }
+  },
+  {
+   "text": "Read the source ›",
+   "box": {
+    "x": 52,
+    "y": 6887,
+    "w": 112,
+    "h": 17
+   },
+   "style": {
+    "fontSize": "14px",
+    "fontWeight": "600",
+    "color": "rgb(26, 26, 26)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(26, 26, 26)",
+    "borderRadius": "0px",
+    "padding": "0px",
+    "height": "auto"
+   }
+  },
+  {
+   "text": "Start saving today ›",
+   "box": {
+    "x": 52,
+    "y": 8014,
+    "w": 286,
+    "h": 18
+   },
+   "style": {
+    "fontSize": "14px",
+    "fontWeight": "600",
+    "color": "rgb(255, 255, 235)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(255, 255, 235)",
+    "borderRadius": "0px",
+    "padding": "0px",
+    "height": "18.1875px"
+   }
+  },
+  {
+   "text": "How do I get Flow Pro?",
+   "box": {
+    "x": 32,
+    "y": 8427,
+    "w": 326,
+    "h": 46
+   },
+   "style": {
+    "fontSize": "14px",
+    "fontWeight": "500",
+    "color": "rgb(255, 255, 235)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(255, 255, 235)",
+    "borderRadius": "6px",
+    "padding": "14px 10px",
+    "height": "46px"
+   }
+  },
+  {
+   "text": "Is Flow free?",
+   "box": {
+    "x": 32,
+    "y": 8557,
+    "w": 326,
+    "h": 46
+   },
+   "style": {
+    "fontSize": "14px",
+    "fontWeight": "500",
+    "color": "rgb(255, 255, 235)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(255, 255, 235)",
+    "borderRadius": "6px",
+    "padding": "14px 10px",
+    "height": "46px"
+   }
+  },
+  {
+   "text": "Does the free plan include the Notetaker",
+   "box": {
+    "x": 32,
+    "y": 8603,
+    "w": 326,
+    "h": 46
+   },
+   "style": {
+    "fontSize": "14px",
+    "fontWeight": "500",
+    "color": "rgb(255, 255, 235)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(255, 255, 235)",
+    "borderRadius": "6px",
+    "padding": "14px 10px",
+    "height": "46px"
+   }
+  },
+  {
+   "text": "Can I change or cancel my subscription a",
+   "box": {
+    "x": 32,
+    "y": 8649,
+    "w": 326,
+    "h": 64
+   },
+   "style": {
+    "fontSize": "14px",
+    "fontWeight": "500",
+    "color": "rgb(255, 255, 235)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(255, 255, 235)",
+    "borderRadius": "6px",
+    "padding": "14px 10px",
+    "height": "64px"
+   }
+  },
+  {
+   "text": "Is Flow free for students and non-profit",
+   "box": {
+    "x": 32,
+    "y": 8713,
+    "w": 326,
+    "h": 46
+   },
+   "style": {
+    "fontSize": "14px",
+    "fontWeight": "500",
+    "color": "rgb(255, 255, 235)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(255, 255, 235)",
+    "borderRadius": "6px",
+    "padding": "14px 10px",
+    "height": "46px"
+   }
+  },
+  {
+   "text": "What happens when I hit my weekly meetin",
+   "box": {
+    "x": 32,
+    "y": 8759,
+    "w": 326,
+    "h": 64
+   },
+   "style": {
+    "fontSize": "14px",
+    "fontWeight": "500",
+    "color": "rgb(255, 255, 235)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(255, 255, 235)",
+    "borderRadius": "6px",
+    "padding": "14px 10px",
+    "height": "64px"
+   }
+  },
+  {
+   "text": "Which platforms does the Notetaker work ",
+   "box": {
+    "x": 32,
+    "y": 8823,
+    "w": 326,
+    "h": 46
+   },
+   "style": {
+    "fontSize": "14px",
+    "fontWeight": "500",
+    "color": "rgb(255, 255, 235)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(255, 255, 235)",
+    "borderRadius": "6px",
+    "padding": "14px 10px",
+    "height": "46px"
+   }
+  },
+  {
+   "text": "Does the Notetaker use a bot to join my ",
+   "box": {
+    "x": 32,
+    "y": 8869,
+    "w": 326,
+    "h": 64
+   },
+   "style": {
+    "fontSize": "14px",
+    "fontWeight": "500",
+    "color": "rgb(255, 255, 235)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(255, 255, 235)",
+    "borderRadius": "6px",
+    "padding": "14px 10px",
+    "height": "64px"
+   }
+  },
+  {
+   "text": "I already pay for Flow Pro. Do I get the",
+   "box": {
+    "x": 32,
+    "y": 8933,
+    "w": 326,
+    "h": 64
+   },
+   "style": {
+    "fontSize": "14px",
+    "fontWeight": "500",
+    "color": "rgb(255, 255, 235)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(255, 255, 235)",
+    "borderRadius": "6px",
+    "padding": "14px 10px",
+    "height": "64px"
+   }
+  },
+  {
+   "text": "Can I use Flow for my whole team?",
+   "box": {
+    "x": 32,
+    "y": 8997,
+    "w": 326,
+    "h": 46
+   },
+   "style": {
+    "fontSize": "14px",
+    "fontWeight": "500",
+    "color": "rgb(255, 255, 235)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(255, 255, 235)",
+    "borderRadius": "6px",
+    "padding": "14px 10px",
+    "height": "46px"
+   }
+  },
+  {
+   "text": "Get started on macOS",
+   "box": {
+    "x": 85,
+    "y": 9423,
+    "w": 221,
+    "h": 50
+   },
+   "style": {
+    "fontSize": "15px",
+    "fontWeight": "600",
+    "color": "rgb(26, 26, 26)",
+    "backgroundColor": "rgb(255, 255, 235)",
+    "border": "2px solid rgb(26, 26, 26)",
+    "borderRadius": "8px",
+    "padding": "0px 20px",
+    "height": "50px"
+   }
+  },
+  {
+   "text": "WisprFlowIsDead DictationThe free voice-",
+   "box": {
+    "x": 20,
+    "y": 9693,
+    "w": 350,
+    "h": 198
+   },
+   "style": {
+    "fontSize": "14px",
+    "fontWeight": "400",
+    "color": "rgb(26, 26, 26)",
+    "backgroundColor": "rgb(228, 228, 208)",
+    "border": "0px none rgb(26, 26, 26)",
+    "borderRadius": "16px",
+    "padding": "8px",
+    "height": "198.391px"
+   }
+  },
+  {
+   "text": "TranscriptWisprFlowIsDead NotetakerNewMe",
+   "box": {
+    "x": 20,
+    "y": 9908,
+    "w": 350,
+    "h": 178
+   },
+   "style": {
+    "fontSize": "14px",
+    "fontWeight": "400",
+    "color": "rgb(26, 26, 26)",
+    "backgroundColor": "rgb(228, 228, 208)",
+    "border": "0px none rgb(26, 26, 26)",
+    "borderRadius": "16px",
+    "padding": "8px",
+    "height": "178.391px"
+   }
+  },
+  {
+   "text": "Pricing: $0",
+   "box": {
+    "x": 20,
+    "y": 10258,
+    "w": 167,
+    "h": 22
+   },
+   "style": {
+    "fontSize": "14px",
+    "fontWeight": "400",
+    "color": "rgb(26, 26, 26)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(26, 26, 26)",
+    "borderRadius": "0px",
+    "padding": "0px",
+    "height": "22px"
+   }
+  },
+  {
+   "text": "Privacy and security",
+   "box": {
+    "x": 20,
+    "y": 10280,
+    "w": 167,
+    "h": 22
+   },
+   "style": {
+    "fontSize": "14px",
+    "fontWeight": "400",
+    "color": "rgb(26, 26, 26)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(26, 26, 26)",
+    "borderRadius": "0px",
+    "padding": "0px",
+    "height": "22px"
+   }
+  },
+  {
+   "text": "How it works",
+   "box": {
+    "x": 20,
+    "y": 10302,
+    "w": 167,
+    "h": 22
+   },
+   "style": {
+    "fontSize": "14px",
+    "fontWeight": "400",
+    "color": "rgb(26, 26, 26)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(26, 26, 26)",
+    "borderRadius": "0px",
+    "padding": "0px",
+    "height": "22px"
+   }
+  },
+  {
+   "text": "Log in",
+   "box": {
+    "x": 20,
+    "y": 10324,
+    "w": 167,
+    "h": 22
+   },
+   "style": {
+    "fontSize": "14px",
+    "fontWeight": "400",
+    "color": "rgb(26, 26, 26)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(26, 26, 26)",
+    "borderRadius": "0px",
+    "padding": "0px",
+    "height": "22px"
+   }
+  },
+  {
+   "text": "Writers",
+   "box": {
+    "x": 203,
+    "y": 10258,
+    "w": 167,
+    "h": 22
+   },
+   "style": {
+    "fontSize": "14px",
+    "fontWeight": "400",
+    "color": "rgb(26, 26, 26)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(26, 26, 26)",
+    "borderRadius": "0px",
+    "padding": "0px",
+    "height": "22px"
+   }
+  },
+  {
+   "text": "Developers",
+   "box": {
+    "x": 203,
+    "y": 10280,
+    "w": 167,
+    "h": 22
+   },
+   "style": {
+    "fontSize": "14px",
+    "fontWeight": "400",
+    "color": "rgb(26, 26, 26)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(26, 26, 26)",
+    "borderRadius": "0px",
+    "padding": "0px",
+    "height": "22px"
+   }
+  },
+  {
+   "text": "Students",
+   "box": {
+    "x": 203,
+    "y": 10302,
+    "w": 167,
+    "h": 22
+   },
+   "style": {
+    "fontSize": "14px",
+    "fontWeight": "400",
+    "color": "rgb(26, 26, 26)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(26, 26, 26)",
+    "borderRadius": "0px",
+    "padding": "0px",
+    "height": "22px"
+   }
+  },
+  {
+   "text": "Accessibility",
+   "box": {
+    "x": 203,
+    "y": 10324,
+    "w": 167,
+    "h": 22
+   },
+   "style": {
+    "fontSize": "14px",
+    "fontWeight": "400",
+    "color": "rgb(26, 26, 26)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(26, 26, 26)",
+    "borderRadius": "0px",
+    "padding": "0px",
+    "height": "22px"
+   }
+  },
+  {
+   "text": "Source code",
+   "box": {
+    "x": 20,
+    "y": 10405,
+    "w": 167,
+    "h": 22
+   },
+   "style": {
+    "fontSize": "14px",
+    "fontWeight": "400",
+    "color": "rgb(26, 26, 26)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(26, 26, 26)",
+    "borderRadius": "0px",
+    "padding": "0px",
+    "height": "22px"
+   }
+  },
+  {
+   "text": "Apache-2.0 license",
+   "box": {
+    "x": 20,
+    "y": 10427,
+    "w": 167,
+    "h": 22
+   },
+   "style": {
+    "fontSize": "14px",
+    "fontWeight": "400",
+    "color": "rgb(26, 26, 26)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(26, 26, 26)",
+    "borderRadius": "0px",
+    "padding": "0px",
+    "height": "22px"
+   }
+  },
+  {
+   "text": "Help",
+   "box": {
+    "x": 20,
+    "y": 10449,
+    "w": 167,
+    "h": 22
+   },
+   "style": {
+    "fontSize": "14px",
+    "fontWeight": "400",
+    "color": "rgb(26, 26, 26)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(26, 26, 26)",
+    "borderRadius": "0px",
+    "padding": "0px",
+    "height": "22px"
+   }
+  },
+  {
+   "text": "yourappisdead.com",
+   "box": {
+    "x": 203,
+    "y": 10405,
+    "w": 167,
+    "h": 22
+   },
+   "style": {
+    "fontSize": "14px",
+    "fontWeight": "400",
+    "color": "rgb(26, 26, 26)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(26, 26, 26)",
+    "borderRadius": "0px",
+    "padding": "0px",
+    "height": "22px"
+   }
+  },
+  {
+   "text": "GitHub",
+   "box": {
+    "x": 203,
+    "y": 10427,
+    "w": 167,
+    "h": 22
+   },
+   "style": {
+    "fontSize": "14px",
+    "fontWeight": "400",
+    "color": "rgb(26, 26, 26)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(26, 26, 26)",
+    "borderRadius": "0px",
+    "padding": "0px",
+    "height": "22px"
+   }
+  },
+  {
+   "text": "",
+   "box": {
+    "x": 350,
+    "y": 10982,
+    "w": 20,
+    "h": 20
+   },
+   "style": {
+    "fontSize": "14px",
+    "fontWeight": "500",
+    "color": "rgb(26, 26, 26)",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(26, 26, 26)",
+    "borderRadius": "0px",
+    "padding": "0px",
+    "height": "20px"
+   }
+  }
+ ]
+}
