@@ -1,0 +1,3072 @@
+[
+  {
+    "target": "original",
+    "page": "home",
+    "width": 1440,
+    "url": "https://wisprflow.ai/",
+    "errors": [],
+    "status": 200,
+    "title": "Wispr Flow | Voice to Text Dictation & AI Notetaker",
+    "links": [
+      {
+        "text": "Dictation",
+        "href": "https://wisprflow.ai/",
+        "visible": false
+      },
+      {
+        "text": "Notetaker",
+        "href": "https://wisprflow.ai/notetaker",
+        "visible": false
+      },
+      {
+        "text": "Business",
+        "href": "https://wisprflow.ai/business",
+        "visible": true
+      },
+      {
+        "text": "Pricing",
+        "href": "https://wisprflow.ai/pricing",
+        "visible": true
+      },
+      {
+        "text": "Lab",
+        "href": "https://wisprflow.ai/lab",
+        "visible": true
+      },
+      {
+        "text": "Download for free",
+        "href": "https://wisprflow.onelink.me/1Nfg/website",
+        "visible": true
+      },
+      {
+        "text": "Download free",
+        "href": "https://wisprflow.onelink.me/1Nfg/website",
+        "visible": true
+      },
+      {
+        "text": "",
+        "href": "https://wisprflow.ai/",
+        "visible": true
+      },
+      {
+        "text": "Download free",
+        "href": "https://wisprflow.onelink.me/1Nfg/website",
+        "visible": true
+      },
+      {
+        "text": "",
+        "href": "https://wisprflow.ai/notetaker",
+        "visible": true
+      },
+      {
+        "text": "Pricing",
+        "href": "https://wisprflow.ai/pricing",
+        "visible": true
+      },
+      {
+        "text": "Privacy & Security",
+        "href": "https://wisprflow.ai/privacy",
+        "visible": true
+      },
+      {
+        "text": "Web demo",
+        "href": "https://wisprflow.ai/demo",
+        "visible": true
+      },
+      {
+        "text": "Why Flow vs. Built-in Dictation",
+        "href": "https://wisprflow.ai/why-flow",
+        "visible": true
+      },
+      {
+        "text": "Microphone guide",
+        "href": "https://wisprflow.ai/microphones",
+        "visible": true
+      },
+      {
+        "text": "Merch store",
+        "href": "https://store.wisprflow.ai/",
+        "visible": true
+      },
+      {
+        "text": "Leaders",
+        "href": "https://wisprflow.ai/leaders",
+        "visible": true
+      },
+      {
+        "text": "Developers",
+        "href": "https://wisprflow.ai/developers",
+        "visible": true
+      },
+      {
+        "text": "Creators",
+        "href": "https://wisprflow.ai/content-creators",
+        "visible": true
+      },
+      {
+        "text": "Customer Support",
+        "href": "https://wisprflow.ai/customer-support",
+        "visible": true
+      },
+      {
+        "text": "Students",
+        "href": "https://wisprflow.ai/students",
+        "visible": true
+      },
+      {
+        "text": "Lawyers",
+        "href": "https://wisprflow.ai/lawyers",
+        "visible": true
+      },
+      {
+        "text": "Accessibility",
+        "href": "https://wisprflow.ai/accessibility",
+        "visible": true
+      },
+      {
+        "text": "Sales",
+        "href": "https://wisprflow.ai/sales",
+        "visible": true
+      },
+      {
+        "text": "Case studies",
+        "href": "https://wisprflow.ai/case-studies",
+        "visible": true
+      },
+      {
+        "text": "Blog",
+        "href": "https://wisprflow.ai/blog",
+        "visible": true
+      },
+      {
+        "text": "AI prompting guide",
+        "href": "https://wisprflow.ai/ai-prompting-guide",
+        "visible": true
+      },
+      {
+        "text": "Workflows",
+        "href": "https://wisprflow.ai/workflows",
+        "visible": true
+      },
+      {
+        "text": "Flow vs Gboard voice typing",
+        "href": "https://wisprflow.ai/flow-vs-gboard-typing",
+        "visible": true
+      },
+      {
+        "text": "Flow vs Apple Dictation",
+        "href": "https://wisprflow.ai/flow-vs-apple-dictation",
+        "visible": true
+      },
+      {
+        "text": "What's new",
+        "href": "https://wisprflow.ai/whats-new",
+        "visible": true
+      },
+      {
+        "text": "Vibe coding",
+        "href": "https://wisprflow.ai/vibe-coding",
+        "visible": true
+      },
+      {
+        "text": "Bug bounty",
+        "href": "https://wisprflow.ai/bug-bounty",
+        "visible": true
+      },
+      {
+        "text": "Talk to support",
+        "href": "https://wisprflow.ai/support",
+        "visible": true
+      },
+      {
+        "text": "Talk to sales",
+        "href": "https://wisprflow.ai/talk-to-sales",
+        "visible": true
+      },
+      {
+        "text": "Help center",
+        "href": "https://docs.wisprflow.ai/",
+        "visible": true
+      },
+      {
+        "text": "About",
+        "href": "https://wisprflow.ai/about",
+        "visible": true
+      },
+      {
+        "text": "Careers",
+        "href": "https://wisprflow.ai/careers",
+        "visible": true
+      },
+      {
+        "text": "Trust Center",
+        "href": "https://trust.wispr.ai/",
+        "visible": true
+      },
+      {
+        "text": "Become an affiliate",
+        "href": "https://partners.dub.co/flow",
+        "visible": true
+      },
+      {
+        "text": "Media Kit",
+        "href": "https://wisprflow.ai/media-kit",
+        "visible": true
+      },
+      {
+        "text": "Terms",
+        "href": "https://wisprflow.ai/terms-of-service",
+        "visible": true
+      },
+      {
+        "text": "Privacy",
+        "href": "https://wisprflow.ai/privacy-policy",
+        "visible": true
+      },
+      {
+        "text": "Data Controls",
+        "href": "https://wisprflow.ai/data-controls",
+        "visible": true
+      },
+      {
+        "text": "Do Not Sell or Share My Personal Information",
+        "href": "https://wisprflow.ai/#",
+        "visible": true
+      },
+      {
+        "text": "Privacy Settings",
+        "href": "https://wisprflow.ai/#",
+        "visible": true
+      },
+      {
+        "text": "",
+        "href": "https://www.youtube.com/channel/UCzaXlOt3J2_rYQT1aEJMMFQ/videos?sub_confirmation=1",
+        "visible": true
+      },
+      {
+        "text": "",
+        "href": "https://www.crunchbase.com/organization/wispr-ai",
+        "visible": true
+      },
+      {
+        "text": "",
+        "href": "https://www.instagram.com/wisprflow/",
+        "visible": true
+      },
+      {
+        "text": "",
+        "href": "https://x.com/wisprflow",
+        "visible": true
+      },
+      {
+        "text": "",
+        "href": "https://www.linkedin.com/company/wisprflow",
+        "visible": true
+      }
+    ],
+    "image": "original-home-1440.png",
+    "fullImage": "original-home-1440-full.png",
+    "fullCapture": "After scrolling for lazy content; initial viewport retained separately",
+    "reviewImage": "original-home-1440-review.jpg",
+    "downloadImage": "original-home-1440-download.png",
+    "downloadSection": {
+      "x": 0,
+      "y": -0.125,
+      "width": 1440,
+      "height": 864,
+      "backgroundImage": "none",
+      "backgroundSize": "auto"
+    },
+    "faqImage": "original-home-1440-faq.png",
+    "faqExpandedImage": "original-home-1440-faq-language.png",
+    "faqControls": [
+      {
+        "tag": "H3",
+        "text": "Questions",
+        "role": null,
+        "expanded": null,
+        "selected": null,
+        "x": 356,
+        "y": 328.875,
+        "width": 332,
+        "height": 19,
+        "fontSize": "20px",
+        "lineHeight": "19px",
+        "padding": "0px"
+      },
+      {
+        "tag": "H3",
+        "text": "Answer",
+        "role": null,
+        "expanded": null,
+        "selected": null,
+        "x": 748,
+        "y": 328.875,
+        "width": 364,
+        "height": 19,
+        "fontSize": "20px",
+        "lineHeight": "19px",
+        "padding": "0px"
+      }
+    ]
+  },
+  {
+    "target": "original",
+    "page": "home",
+    "width": 390,
+    "url": "https://wisprflow.ai/",
+    "errors": [],
+    "status": 200,
+    "title": "Wispr Flow | Voice to Text Dictation & AI Notetaker",
+    "links": [
+      {
+        "text": "Dictation",
+        "href": "https://wisprflow.ai/",
+        "visible": false
+      },
+      {
+        "text": "Notetaker",
+        "href": "https://wisprflow.ai/notetaker",
+        "visible": false
+      },
+      {
+        "text": "Business",
+        "href": "https://wisprflow.ai/business",
+        "visible": false
+      },
+      {
+        "text": "Pricing",
+        "href": "https://wisprflow.ai/pricing",
+        "visible": false
+      },
+      {
+        "text": "Lab",
+        "href": "https://wisprflow.ai/lab",
+        "visible": false
+      },
+      {
+        "text": "Download for free",
+        "href": "https://wisprflow.onelink.me/1Nfg?af_js_web=true&af_ss_ver=2_10_4&pid=Website+&c=Website+Overall&af_sub1=66d397ad-cdb8-4b84-b3dd-24b9bb4b56c3&deep_link_sub1=66d397ad-cdb8-4b84-b3dd-24b9bb4b56c3",
+        "visible": false
+      },
+      {
+        "text": "Download free",
+        "href": "https://wisprflow.onelink.me/1Nfg?af_js_web=true&af_ss_ver=2_10_4&pid=Website+&c=Website+Overall&af_sub1=66d397ad-cdb8-4b84-b3dd-24b9bb4b56c3&deep_link_sub1=66d397ad-cdb8-4b84-b3dd-24b9bb4b56c3",
+        "visible": true
+      },
+      {
+        "text": "",
+        "href": "https://wisprflow.ai/",
+        "visible": true
+      },
+      {
+        "text": "Download free",
+        "href": "https://wisprflow.onelink.me/1Nfg?af_js_web=true&af_ss_ver=2_10_4&pid=Website+&c=Website+Overall&af_sub1=66d397ad-cdb8-4b84-b3dd-24b9bb4b56c3&deep_link_sub1=66d397ad-cdb8-4b84-b3dd-24b9bb4b56c3",
+        "visible": true
+      },
+      {
+        "text": "",
+        "href": "https://wisprflow.ai/notetaker",
+        "visible": true
+      },
+      {
+        "text": "Pricing",
+        "href": "https://wisprflow.ai/pricing",
+        "visible": true
+      },
+      {
+        "text": "Privacy & Security",
+        "href": "https://wisprflow.ai/privacy",
+        "visible": true
+      },
+      {
+        "text": "Web demo",
+        "href": "https://wisprflow.ai/demo",
+        "visible": true
+      },
+      {
+        "text": "Why Flow vs. Built-in Dictation",
+        "href": "https://wisprflow.ai/why-flow",
+        "visible": true
+      },
+      {
+        "text": "Microphone guide",
+        "href": "https://wisprflow.ai/microphones",
+        "visible": true
+      },
+      {
+        "text": "Merch store",
+        "href": "https://store.wisprflow.ai/",
+        "visible": true
+      },
+      {
+        "text": "Leaders",
+        "href": "https://wisprflow.ai/leaders",
+        "visible": true
+      },
+      {
+        "text": "Developers",
+        "href": "https://wisprflow.ai/developers",
+        "visible": true
+      },
+      {
+        "text": "Creators",
+        "href": "https://wisprflow.ai/content-creators",
+        "visible": true
+      },
+      {
+        "text": "Customer Support",
+        "href": "https://wisprflow.ai/customer-support",
+        "visible": true
+      },
+      {
+        "text": "Students",
+        "href": "https://wisprflow.ai/students",
+        "visible": true
+      },
+      {
+        "text": "Lawyers",
+        "href": "https://wisprflow.ai/lawyers",
+        "visible": true
+      },
+      {
+        "text": "Accessibility",
+        "href": "https://wisprflow.ai/accessibility",
+        "visible": true
+      },
+      {
+        "text": "Sales",
+        "href": "https://wisprflow.ai/sales",
+        "visible": true
+      },
+      {
+        "text": "Case studies",
+        "href": "https://wisprflow.ai/case-studies",
+        "visible": true
+      },
+      {
+        "text": "Blog",
+        "href": "https://wisprflow.ai/blog",
+        "visible": true
+      },
+      {
+        "text": "AI prompting guide",
+        "href": "https://wisprflow.ai/ai-prompting-guide",
+        "visible": true
+      },
+      {
+        "text": "Workflows",
+        "href": "https://wisprflow.ai/workflows",
+        "visible": true
+      },
+      {
+        "text": "Flow vs Gboard voice typing",
+        "href": "https://wisprflow.ai/flow-vs-gboard-typing",
+        "visible": true
+      },
+      {
+        "text": "Flow vs Apple Dictation",
+        "href": "https://wisprflow.ai/flow-vs-apple-dictation",
+        "visible": true
+      },
+      {
+        "text": "What's new",
+        "href": "https://wisprflow.ai/whats-new",
+        "visible": true
+      },
+      {
+        "text": "Vibe coding",
+        "href": "https://wisprflow.ai/vibe-coding",
+        "visible": true
+      },
+      {
+        "text": "Bug bounty",
+        "href": "https://wisprflow.ai/bug-bounty",
+        "visible": true
+      },
+      {
+        "text": "Talk to support",
+        "href": "https://wisprflow.ai/support",
+        "visible": true
+      },
+      {
+        "text": "Talk to sales",
+        "href": "https://wisprflow.ai/talk-to-sales",
+        "visible": true
+      },
+      {
+        "text": "Help center",
+        "href": "https://docs.wisprflow.ai/",
+        "visible": true
+      },
+      {
+        "text": "About",
+        "href": "https://wisprflow.ai/about",
+        "visible": true
+      },
+      {
+        "text": "Careers",
+        "href": "https://wisprflow.ai/careers",
+        "visible": true
+      },
+      {
+        "text": "Trust Center",
+        "href": "https://trust.wispr.ai/",
+        "visible": true
+      },
+      {
+        "text": "Become an affiliate",
+        "href": "https://partners.dub.co/flow",
+        "visible": true
+      },
+      {
+        "text": "Media Kit",
+        "href": "https://wisprflow.ai/media-kit",
+        "visible": true
+      },
+      {
+        "text": "Terms",
+        "href": "https://wisprflow.ai/terms-of-service",
+        "visible": true
+      },
+      {
+        "text": "Privacy",
+        "href": "https://wisprflow.ai/privacy-policy",
+        "visible": true
+      },
+      {
+        "text": "Data Controls",
+        "href": "https://wisprflow.ai/data-controls",
+        "visible": true
+      },
+      {
+        "text": "Do Not Sell or Share My Personal Information",
+        "href": "https://wisprflow.ai/#",
+        "visible": true
+      },
+      {
+        "text": "Privacy Settings",
+        "href": "https://wisprflow.ai/#",
+        "visible": true
+      },
+      {
+        "text": "",
+        "href": "https://www.youtube.com/channel/UCzaXlOt3J2_rYQT1aEJMMFQ/videos?sub_confirmation=1",
+        "visible": true
+      },
+      {
+        "text": "",
+        "href": "https://www.crunchbase.com/organization/wispr-ai",
+        "visible": true
+      },
+      {
+        "text": "",
+        "href": "https://www.instagram.com/wisprflow/",
+        "visible": true
+      },
+      {
+        "text": "",
+        "href": "https://x.com/wisprflow",
+        "visible": true
+      },
+      {
+        "text": "",
+        "href": "https://www.linkedin.com/company/wisprflow",
+        "visible": true
+      }
+    ],
+    "image": "original-home-390.png",
+    "fullImage": "original-home-390-full.png",
+    "fullCapture": "After scrolling for lazy content; initial viewport retained separately",
+    "reviewImage": "original-home-390-review.jpg",
+    "downloadImage": "original-home-390-download.png",
+    "downloadSection": {
+      "x": 0,
+      "y": 0.46875,
+      "width": 390,
+      "height": 528.953125,
+      "backgroundImage": "none",
+      "backgroundSize": "auto"
+    },
+    "faqImage": "original-home-390-faq.png",
+    "faqExpandedImage": "original-home-390-faq-language.png",
+    "faqControls": [
+      {
+        "tag": "H3",
+        "text": "Questions",
+        "role": null,
+        "expanded": null,
+        "selected": null,
+        "x": 48,
+        "y": 205.78125,
+        "width": 294,
+        "height": 19,
+        "fontSize": "20px",
+        "lineHeight": "19px",
+        "padding": "0px"
+      }
+    ]
+  },
+  {
+    "target": "original",
+    "page": "pricing",
+    "width": 1440,
+    "url": "https://wisprflow.ai/pricing",
+    "errors": [],
+    "status": 200,
+    "title": "Pricing | Wispr Flow",
+    "links": [
+      {
+        "text": "Dictation",
+        "href": "https://wisprflow.ai/",
+        "visible": false
+      },
+      {
+        "text": "Notetaker",
+        "href": "https://wisprflow.ai/notetaker",
+        "visible": false
+      },
+      {
+        "text": "Business",
+        "href": "https://wisprflow.ai/business",
+        "visible": true
+      },
+      {
+        "text": "Pricing",
+        "href": "https://wisprflow.ai/pricing",
+        "visible": true
+      },
+      {
+        "text": "Lab",
+        "href": "https://wisprflow.ai/lab",
+        "visible": true
+      },
+      {
+        "text": "Download for free",
+        "href": "https://wisprflow.onelink.me/1Nfg/website",
+        "visible": true
+      },
+      {
+        "text": "Download free",
+        "href": "https://wisprflow.onelink.me/1Nfg/website",
+        "visible": true
+      },
+      {
+        "text": "",
+        "href": "https://wisprflow.ai/",
+        "visible": true
+      },
+      {
+        "text": "Download free",
+        "href": "https://wisprflow.onelink.me/1Nfg/website",
+        "visible": true
+      },
+      {
+        "text": "",
+        "href": "https://wisprflow.ai/notetaker",
+        "visible": true
+      },
+      {
+        "text": "Pricing",
+        "href": "https://wisprflow.ai/pricing",
+        "visible": true
+      },
+      {
+        "text": "Privacy & Security",
+        "href": "https://wisprflow.ai/privacy",
+        "visible": true
+      },
+      {
+        "text": "Web demo",
+        "href": "https://wisprflow.ai/demo",
+        "visible": true
+      },
+      {
+        "text": "Why Flow vs. Built-in Dictation",
+        "href": "https://wisprflow.ai/why-flow",
+        "visible": true
+      },
+      {
+        "text": "Microphone guide",
+        "href": "https://wisprflow.ai/microphones",
+        "visible": true
+      },
+      {
+        "text": "Merch store",
+        "href": "https://store.wisprflow.ai/",
+        "visible": true
+      },
+      {
+        "text": "Leaders",
+        "href": "https://wisprflow.ai/leaders",
+        "visible": true
+      },
+      {
+        "text": "Developers",
+        "href": "https://wisprflow.ai/developers",
+        "visible": true
+      },
+      {
+        "text": "Creators",
+        "href": "https://wisprflow.ai/content-creators",
+        "visible": true
+      },
+      {
+        "text": "Customer Support",
+        "href": "https://wisprflow.ai/customer-support",
+        "visible": true
+      },
+      {
+        "text": "Students",
+        "href": "https://wisprflow.ai/students",
+        "visible": true
+      },
+      {
+        "text": "Lawyers",
+        "href": "https://wisprflow.ai/lawyers",
+        "visible": true
+      },
+      {
+        "text": "Accessibility",
+        "href": "https://wisprflow.ai/accessibility",
+        "visible": true
+      },
+      {
+        "text": "Sales",
+        "href": "https://wisprflow.ai/sales",
+        "visible": true
+      },
+      {
+        "text": "Case studies",
+        "href": "https://wisprflow.ai/case-studies",
+        "visible": true
+      },
+      {
+        "text": "Blog",
+        "href": "https://wisprflow.ai/blog",
+        "visible": true
+      },
+      {
+        "text": "AI prompting guide",
+        "href": "https://wisprflow.ai/ai-prompting-guide",
+        "visible": true
+      },
+      {
+        "text": "Workflows",
+        "href": "https://wisprflow.ai/workflows",
+        "visible": true
+      },
+      {
+        "text": "Flow vs Gboard voice typing",
+        "href": "https://wisprflow.ai/flow-vs-gboard-typing",
+        "visible": true
+      },
+      {
+        "text": "Flow vs Apple Dictation",
+        "href": "https://wisprflow.ai/flow-vs-apple-dictation",
+        "visible": true
+      },
+      {
+        "text": "What's new",
+        "href": "https://wisprflow.ai/whats-new",
+        "visible": true
+      },
+      {
+        "text": "Vibe coding",
+        "href": "https://wisprflow.ai/vibe-coding",
+        "visible": true
+      },
+      {
+        "text": "Bug bounty",
+        "href": "https://wisprflow.ai/bug-bounty",
+        "visible": true
+      },
+      {
+        "text": "Talk to support",
+        "href": "https://wisprflow.ai/support",
+        "visible": true
+      },
+      {
+        "text": "Talk to sales",
+        "href": "https://wisprflow.ai/talk-to-sales",
+        "visible": true
+      },
+      {
+        "text": "Help center",
+        "href": "https://docs.wisprflow.ai/",
+        "visible": true
+      },
+      {
+        "text": "About",
+        "href": "https://wisprflow.ai/about",
+        "visible": true
+      },
+      {
+        "text": "Careers",
+        "href": "https://wisprflow.ai/careers",
+        "visible": true
+      },
+      {
+        "text": "Trust Center",
+        "href": "https://trust.wispr.ai/",
+        "visible": true
+      },
+      {
+        "text": "Become an affiliate",
+        "href": "https://partners.dub.co/flow",
+        "visible": true
+      },
+      {
+        "text": "Media Kit",
+        "href": "https://wisprflow.ai/media-kit",
+        "visible": true
+      },
+      {
+        "text": "Terms",
+        "href": "https://wisprflow.ai/terms-of-service",
+        "visible": true
+      },
+      {
+        "text": "Privacy",
+        "href": "https://wisprflow.ai/privacy-policy",
+        "visible": true
+      },
+      {
+        "text": "Data Controls",
+        "href": "https://wisprflow.ai/data-controls",
+        "visible": true
+      },
+      {
+        "text": "Do Not Sell or Share My Personal Information",
+        "href": "https://wisprflow.ai/pricing#",
+        "visible": true
+      },
+      {
+        "text": "Privacy Settings",
+        "href": "https://wisprflow.ai/pricing#",
+        "visible": true
+      },
+      {
+        "text": "IPinfo",
+        "href": "https://ipinfo.io/",
+        "visible": true
+      },
+      {
+        "text": "",
+        "href": "https://www.youtube.com/channel/UCzaXlOt3J2_rYQT1aEJMMFQ/videos?sub_confirmation=1",
+        "visible": true
+      },
+      {
+        "text": "",
+        "href": "https://www.crunchbase.com/organization/wispr-ai",
+        "visible": true
+      },
+      {
+        "text": "",
+        "href": "https://www.instagram.com/wisprflow/",
+        "visible": true
+      },
+      {
+        "text": "",
+        "href": "https://x.com/wisprflow",
+        "visible": true
+      },
+      {
+        "text": "",
+        "href": "https://www.linkedin.com/company/wisprflow",
+        "visible": true
+      }
+    ],
+    "image": "original-pricing-1440.png",
+    "fullImage": "original-pricing-1440-full.png",
+    "downloadImage": "original-pricing-1440-download.png",
+    "downloadSection": {
+      "x": 0,
+      "y": 0.0625,
+      "width": 1440,
+      "height": 788,
+      "backgroundImage": "none",
+      "backgroundSize": "auto"
+    }
+  },
+  {
+    "target": "original",
+    "page": "pricing",
+    "width": 390,
+    "url": "https://wisprflow.ai/pricing",
+    "errors": [],
+    "status": 200,
+    "title": "Pricing | Wispr Flow",
+    "links": [
+      {
+        "text": "Dictation",
+        "href": "https://wisprflow.ai/",
+        "visible": false
+      },
+      {
+        "text": "Notetaker",
+        "href": "https://wisprflow.ai/notetaker",
+        "visible": false
+      },
+      {
+        "text": "Business",
+        "href": "https://wisprflow.ai/business",
+        "visible": false
+      },
+      {
+        "text": "Pricing",
+        "href": "https://wisprflow.ai/pricing",
+        "visible": false
+      },
+      {
+        "text": "Lab",
+        "href": "https://wisprflow.ai/lab",
+        "visible": false
+      },
+      {
+        "text": "Download for free",
+        "href": "https://wisprflow.onelink.me/1Nfg?af_js_web=true&af_ss_ver=2_10_4&pid=Website+&c=Website+Overall&af_sub1=3cf64bb1-7ac2-446d-9f1f-5b4fd0e74b33&deep_link_sub1=3cf64bb1-7ac2-446d-9f1f-5b4fd0e74b33",
+        "visible": false
+      },
+      {
+        "text": "Download free",
+        "href": "https://wisprflow.onelink.me/1Nfg?af_js_web=true&af_ss_ver=2_10_4&pid=Website+&c=Website+Overall&af_sub1=3cf64bb1-7ac2-446d-9f1f-5b4fd0e74b33&deep_link_sub1=3cf64bb1-7ac2-446d-9f1f-5b4fd0e74b33",
+        "visible": true
+      },
+      {
+        "text": "",
+        "href": "https://wisprflow.ai/",
+        "visible": true
+      },
+      {
+        "text": "Download free",
+        "href": "https://wisprflow.onelink.me/1Nfg?af_js_web=true&af_ss_ver=2_10_4&pid=Website+&c=Website+Overall&af_sub1=3cf64bb1-7ac2-446d-9f1f-5b4fd0e74b33&deep_link_sub1=3cf64bb1-7ac2-446d-9f1f-5b4fd0e74b33",
+        "visible": true
+      },
+      {
+        "text": "",
+        "href": "https://wisprflow.ai/notetaker",
+        "visible": true
+      },
+      {
+        "text": "Pricing",
+        "href": "https://wisprflow.ai/pricing",
+        "visible": true
+      },
+      {
+        "text": "Privacy & Security",
+        "href": "https://wisprflow.ai/privacy",
+        "visible": true
+      },
+      {
+        "text": "Web demo",
+        "href": "https://wisprflow.ai/demo",
+        "visible": true
+      },
+      {
+        "text": "Why Flow vs. Built-in Dictation",
+        "href": "https://wisprflow.ai/why-flow",
+        "visible": true
+      },
+      {
+        "text": "Microphone guide",
+        "href": "https://wisprflow.ai/microphones",
+        "visible": true
+      },
+      {
+        "text": "Merch store",
+        "href": "https://store.wisprflow.ai/",
+        "visible": true
+      },
+      {
+        "text": "Leaders",
+        "href": "https://wisprflow.ai/leaders",
+        "visible": true
+      },
+      {
+        "text": "Developers",
+        "href": "https://wisprflow.ai/developers",
+        "visible": true
+      },
+      {
+        "text": "Creators",
+        "href": "https://wisprflow.ai/content-creators",
+        "visible": true
+      },
+      {
+        "text": "Customer Support",
+        "href": "https://wisprflow.ai/customer-support",
+        "visible": true
+      },
+      {
+        "text": "Students",
+        "href": "https://wisprflow.ai/students",
+        "visible": true
+      },
+      {
+        "text": "Lawyers",
+        "href": "https://wisprflow.ai/lawyers",
+        "visible": true
+      },
+      {
+        "text": "Accessibility",
+        "href": "https://wisprflow.ai/accessibility",
+        "visible": true
+      },
+      {
+        "text": "Sales",
+        "href": "https://wisprflow.ai/sales",
+        "visible": true
+      },
+      {
+        "text": "Case studies",
+        "href": "https://wisprflow.ai/case-studies",
+        "visible": true
+      },
+      {
+        "text": "Blog",
+        "href": "https://wisprflow.ai/blog",
+        "visible": true
+      },
+      {
+        "text": "AI prompting guide",
+        "href": "https://wisprflow.ai/ai-prompting-guide",
+        "visible": true
+      },
+      {
+        "text": "Workflows",
+        "href": "https://wisprflow.ai/workflows",
+        "visible": true
+      },
+      {
+        "text": "Flow vs Gboard voice typing",
+        "href": "https://wisprflow.ai/flow-vs-gboard-typing",
+        "visible": true
+      },
+      {
+        "text": "Flow vs Apple Dictation",
+        "href": "https://wisprflow.ai/flow-vs-apple-dictation",
+        "visible": true
+      },
+      {
+        "text": "What's new",
+        "href": "https://wisprflow.ai/whats-new",
+        "visible": true
+      },
+      {
+        "text": "Vibe coding",
+        "href": "https://wisprflow.ai/vibe-coding",
+        "visible": true
+      },
+      {
+        "text": "Bug bounty",
+        "href": "https://wisprflow.ai/bug-bounty",
+        "visible": true
+      },
+      {
+        "text": "Talk to support",
+        "href": "https://wisprflow.ai/support",
+        "visible": true
+      },
+      {
+        "text": "Talk to sales",
+        "href": "https://wisprflow.ai/talk-to-sales",
+        "visible": true
+      },
+      {
+        "text": "Help center",
+        "href": "https://docs.wisprflow.ai/",
+        "visible": true
+      },
+      {
+        "text": "About",
+        "href": "https://wisprflow.ai/about",
+        "visible": true
+      },
+      {
+        "text": "Careers",
+        "href": "https://wisprflow.ai/careers",
+        "visible": true
+      },
+      {
+        "text": "Trust Center",
+        "href": "https://trust.wispr.ai/",
+        "visible": true
+      },
+      {
+        "text": "Become an affiliate",
+        "href": "https://partners.dub.co/flow",
+        "visible": true
+      },
+      {
+        "text": "Media Kit",
+        "href": "https://wisprflow.ai/media-kit",
+        "visible": true
+      },
+      {
+        "text": "Terms",
+        "href": "https://wisprflow.ai/terms-of-service",
+        "visible": true
+      },
+      {
+        "text": "Privacy",
+        "href": "https://wisprflow.ai/privacy-policy",
+        "visible": true
+      },
+      {
+        "text": "Data Controls",
+        "href": "https://wisprflow.ai/data-controls",
+        "visible": true
+      },
+      {
+        "text": "Do Not Sell or Share My Personal Information",
+        "href": "https://wisprflow.ai/pricing#",
+        "visible": true
+      },
+      {
+        "text": "Privacy Settings",
+        "href": "https://wisprflow.ai/pricing#",
+        "visible": true
+      },
+      {
+        "text": "IPinfo",
+        "href": "https://ipinfo.io/",
+        "visible": true
+      },
+      {
+        "text": "",
+        "href": "https://www.youtube.com/channel/UCzaXlOt3J2_rYQT1aEJMMFQ/videos?sub_confirmation=1",
+        "visible": true
+      },
+      {
+        "text": "",
+        "href": "https://www.crunchbase.com/organization/wispr-ai",
+        "visible": true
+      },
+      {
+        "text": "",
+        "href": "https://www.instagram.com/wisprflow/",
+        "visible": true
+      },
+      {
+        "text": "",
+        "href": "https://x.com/wisprflow",
+        "visible": true
+      },
+      {
+        "text": "",
+        "href": "https://www.linkedin.com/company/wisprflow",
+        "visible": true
+      }
+    ],
+    "image": "original-pricing-390.png",
+    "fullImage": "original-pricing-390-full.png",
+    "downloadImage": "original-pricing-390-download.png",
+    "downloadSection": {
+      "x": 0,
+      "y": 0.171875,
+      "width": 390,
+      "height": 434.78125,
+      "backgroundImage": "none",
+      "backgroundSize": "auto"
+    }
+  },
+  {
+    "target": "original",
+    "page": "login",
+    "width": 1440,
+    "url": "https://wisprflow.ai/get-started",
+    "errors": [],
+    "status": 200,
+    "title": "Wispr Flow | Effortless Voice Dictation",
+    "links": [],
+    "image": "original-login-1440-settled.png",
+    "initialImage": "original-login-1440.png",
+    "loginFormVisible": true,
+    "readinessCheck": "Original email field visible and editable; authentication not attempted",
+    "controls": [
+      {
+        "tag": "INPUT",
+        "type": "submit",
+        "text": "Continue",
+        "disabled": true,
+        "ariaDisabled": null
+      }
+    ]
+  },
+  {
+    "target": "original",
+    "page": "login",
+    "width": 390,
+    "url": "https://wisprflow.ai/get-started",
+    "errors": [],
+    "status": 200,
+    "title": "Wispr Flow | Effortless Voice Dictation",
+    "links": [],
+    "image": "original-login-390-settled.png",
+    "initialImage": "original-login-390.png",
+    "loginFormVisible": true,
+    "readinessCheck": "Original email field visible and editable; authentication not attempted",
+    "controls": [
+      {
+        "tag": "INPUT",
+        "type": "submit",
+        "text": "Continue",
+        "disabled": true,
+        "ariaDisabled": null
+      }
+    ]
+  },
+  {
+    "target": "live",
+    "page": "home",
+    "width": 1440,
+    "url": "https://yourappisdead.com/wisprflowisdead",
+    "errors": [],
+    "status": 200,
+    "title": "WisprFlowIsDead · Free voice dictation for your Mac",
+    "links": [
+      {
+        "text": "WisprFlowIsDead",
+        "href": "https://yourappisdead.com/wisprflowisdead",
+        "visible": true
+      },
+      {
+        "text": "Dictation",
+        "href": "https://yourappisdead.com/wisprflowisdead",
+        "visible": true
+      },
+      {
+        "text": "Notetaker",
+        "href": "https://yourappisdead.com/wisprflowisdead#notetaker",
+        "visible": true
+      },
+      {
+        "text": "Business",
+        "href": "https://yourappisdead.com/wisprflowisdead#teams",
+        "visible": true
+      },
+      {
+        "text": "Pricing",
+        "href": "https://yourappisdead.com/wisprflowisdead/pricing",
+        "visible": true
+      },
+      {
+        "text": "Lab",
+        "href": "https://yourappisdead.com/wisprflowisdead#lab",
+        "visible": true
+      },
+      {
+        "text": "Log in",
+        "href": "https://yourappisdead.com/wisprflowisdead/login",
+        "visible": true
+      },
+      {
+        "text": "Get started on macOS",
+        "href": "https://yourappisdead.com/wisprflowisdead#download",
+        "visible": true
+      },
+      {
+        "text": "Get started on macOS",
+        "href": "https://yourappisdead.com/wisprflowisdead#download",
+        "visible": true
+      },
+      {
+        "text": "WisprFlowIsDead DictationThe free voice-to-text app that turns speech into clear, polished writing in every app.Download free ›",
+        "href": "https://yourappisdead.com/wisprflowisdead#download",
+        "visible": true
+      },
+      {
+        "text": "TranscriptWisprFlowIsDead NotetakerNewMeeting notes from your mic and system audio, summarized on your Mac.Download free ›",
+        "href": "https://yourappisdead.com/wisprflowisdead#download",
+        "visible": true
+      },
+      {
+        "text": "Pricing: $0",
+        "href": "https://yourappisdead.com/wisprflowisdead/pricing",
+        "visible": true
+      },
+      {
+        "text": "Privacy and security",
+        "href": "https://yourappisdead.com/wisprflowisdead#privacy",
+        "visible": true
+      },
+      {
+        "text": "How it works",
+        "href": "https://yourappisdead.com/wisprflowisdead#features",
+        "visible": true
+      },
+      {
+        "text": "Log in",
+        "href": "https://yourappisdead.com/wisprflowisdead/login",
+        "visible": true
+      },
+      {
+        "text": "Writers",
+        "href": "https://yourappisdead.com/wisprflowisdead#teams",
+        "visible": true
+      },
+      {
+        "text": "Developers",
+        "href": "https://yourappisdead.com/wisprflowisdead#teams",
+        "visible": true
+      },
+      {
+        "text": "Students",
+        "href": "https://yourappisdead.com/wisprflowisdead#teams",
+        "visible": true
+      },
+      {
+        "text": "Accessibility",
+        "href": "https://yourappisdead.com/wisprflowisdead#teams",
+        "visible": true
+      },
+      {
+        "text": "Source code",
+        "href": "https://github.com/tommy-muckstack/wisprflowisdead",
+        "visible": true
+      },
+      {
+        "text": "Apache-2.0 license",
+        "href": "https://github.com/tommy-muckstack/wisprflowisdead/blob/main/LICENSE",
+        "visible": true
+      },
+      {
+        "text": "Help",
+        "href": "https://yourappisdead.com/wisprflowisdead#faq",
+        "visible": true
+      },
+      {
+        "text": "yourappisdead.com",
+        "href": "https://yourappisdead.com/",
+        "visible": true
+      },
+      {
+        "text": "GitHub",
+        "href": "https://github.com/tommy-muckstack/wisprflowisdead",
+        "visible": true
+      },
+      {
+        "text": "",
+        "href": "https://github.com/tommy-muckstack/wisprflowisdead",
+        "visible": true
+      }
+    ],
+    "image": "live-home-1440.png",
+    "fullImage": "live-home-1440-full.png",
+    "fullCapture": "After scrolling for lazy content; initial viewport retained separately",
+    "reviewImage": "live-home-1440-review.jpg",
+    "downloadImage": "live-home-1440-download.png",
+    "downloadSection": {
+      "x": 24,
+      "y": 0,
+      "width": 1392,
+      "height": 864,
+      "backgroundImage": "radial-gradient(70% 60% at 25% 20%, rgb(233, 138, 76) 0px, rgba(0, 0, 0, 0) 60%), radial-gradient(80% 70% at 85% 25%, rgb(90, 143, 207), rgba(0, 0, 0, 0) 62%), radial-gradient(90% 90% at 50% 100%, rgb(62, 42, 28), rgb(29, 20, 13))",
+      "backgroundSize": "auto, auto, auto"
+    },
+    "faqImage": "live-home-1440-faq.png"
+  },
+  {
+    "target": "live",
+    "page": "home",
+    "width": 390,
+    "url": "https://yourappisdead.com/wisprflowisdead",
+    "errors": [],
+    "status": 200,
+    "title": "WisprFlowIsDead · Free voice dictation for your Mac",
+    "links": [
+      {
+        "text": "WisprFlowIsDead",
+        "href": "https://yourappisdead.com/wisprflowisdead",
+        "visible": true
+      },
+      {
+        "text": "Dictation",
+        "href": "https://yourappisdead.com/wisprflowisdead",
+        "visible": false
+      },
+      {
+        "text": "Notetaker",
+        "href": "https://yourappisdead.com/wisprflowisdead#notetaker",
+        "visible": false
+      },
+      {
+        "text": "Business",
+        "href": "https://yourappisdead.com/wisprflowisdead#teams",
+        "visible": false
+      },
+      {
+        "text": "Pricing",
+        "href": "https://yourappisdead.com/wisprflowisdead/pricing",
+        "visible": false
+      },
+      {
+        "text": "Lab",
+        "href": "https://yourappisdead.com/wisprflowisdead#lab",
+        "visible": false
+      },
+      {
+        "text": "Log in",
+        "href": "https://yourappisdead.com/wisprflowisdead/login",
+        "visible": false
+      },
+      {
+        "text": "Get started on macOS",
+        "href": "https://yourappisdead.com/wisprflowisdead#download",
+        "visible": true
+      },
+      {
+        "text": "Get started on macOS",
+        "href": "https://yourappisdead.com/wisprflowisdead#download",
+        "visible": true
+      },
+      {
+        "text": "WisprFlowIsDead DictationThe free voice-to-text app that turns speech into clear, polished writing in every app.Download free ›",
+        "href": "https://yourappisdead.com/wisprflowisdead#download",
+        "visible": true
+      },
+      {
+        "text": "TranscriptWisprFlowIsDead NotetakerNewMeeting notes from your mic and system audio, summarized on your Mac.Download free ›",
+        "href": "https://yourappisdead.com/wisprflowisdead#download",
+        "visible": true
+      },
+      {
+        "text": "Pricing: $0",
+        "href": "https://yourappisdead.com/wisprflowisdead/pricing",
+        "visible": true
+      },
+      {
+        "text": "Privacy and security",
+        "href": "https://yourappisdead.com/wisprflowisdead#privacy",
+        "visible": true
+      },
+      {
+        "text": "How it works",
+        "href": "https://yourappisdead.com/wisprflowisdead#features",
+        "visible": true
+      },
+      {
+        "text": "Log in",
+        "href": "https://yourappisdead.com/wisprflowisdead/login",
+        "visible": true
+      },
+      {
+        "text": "Writers",
+        "href": "https://yourappisdead.com/wisprflowisdead#teams",
+        "visible": true
+      },
+      {
+        "text": "Developers",
+        "href": "https://yourappisdead.com/wisprflowisdead#teams",
+        "visible": true
+      },
+      {
+        "text": "Students",
+        "href": "https://yourappisdead.com/wisprflowisdead#teams",
+        "visible": true
+      },
+      {
+        "text": "Accessibility",
+        "href": "https://yourappisdead.com/wisprflowisdead#teams",
+        "visible": true
+      },
+      {
+        "text": "Source code",
+        "href": "https://github.com/tommy-muckstack/wisprflowisdead",
+        "visible": true
+      },
+      {
+        "text": "Apache-2.0 license",
+        "href": "https://github.com/tommy-muckstack/wisprflowisdead/blob/main/LICENSE",
+        "visible": true
+      },
+      {
+        "text": "Help",
+        "href": "https://yourappisdead.com/wisprflowisdead#faq",
+        "visible": true
+      },
+      {
+        "text": "yourappisdead.com",
+        "href": "https://yourappisdead.com/",
+        "visible": true
+      },
+      {
+        "text": "GitHub",
+        "href": "https://github.com/tommy-muckstack/wisprflowisdead",
+        "visible": true
+      },
+      {
+        "text": "",
+        "href": "https://github.com/tommy-muckstack/wisprflowisdead",
+        "visible": true
+      }
+    ],
+    "image": "live-home-390.png",
+    "fullImage": "live-home-390-full.png",
+    "fullCapture": "After scrolling for lazy content; initial viewport retained separately",
+    "reviewImage": "live-home-390-review.jpg",
+    "downloadImage": "live-home-390-download.png",
+    "downloadSection": {
+      "x": 8,
+      "y": 0,
+      "width": 374,
+      "height": 529,
+      "backgroundImage": "radial-gradient(70% 60% at 25% 20%, rgb(233, 138, 76) 0px, rgba(0, 0, 0, 0) 60%), radial-gradient(80% 70% at 85% 25%, rgb(90, 143, 207), rgba(0, 0, 0, 0) 62%), radial-gradient(90% 90% at 50% 100%, rgb(62, 42, 28), rgb(29, 20, 13))",
+      "backgroundSize": "auto, auto, auto"
+    },
+    "faqImage": "live-home-390-faq.png"
+  },
+  {
+    "target": "live",
+    "page": "pricing",
+    "width": 1440,
+    "url": "https://yourappisdead.com/wisprflowisdead/pricing",
+    "errors": [],
+    "status": 200,
+    "title": "Pricing · WisprFlowIsDead",
+    "links": [
+      {
+        "text": "WisprFlowIsDead",
+        "href": "https://yourappisdead.com/wisprflowisdead",
+        "visible": true
+      },
+      {
+        "text": "Dictation",
+        "href": "https://yourappisdead.com/wisprflowisdead",
+        "visible": true
+      },
+      {
+        "text": "Notetaker",
+        "href": "https://yourappisdead.com/wisprflowisdead#notetaker",
+        "visible": true
+      },
+      {
+        "text": "Business",
+        "href": "https://yourappisdead.com/wisprflowisdead#teams",
+        "visible": true
+      },
+      {
+        "text": "Pricing",
+        "href": "https://yourappisdead.com/wisprflowisdead/pricing",
+        "visible": true
+      },
+      {
+        "text": "Lab",
+        "href": "https://yourappisdead.com/wisprflowisdead#lab",
+        "visible": true
+      },
+      {
+        "text": "Log in",
+        "href": "https://yourappisdead.com/wisprflowisdead/login",
+        "visible": true
+      },
+      {
+        "text": "Get started on macOS",
+        "href": "https://yourappisdead.com/wisprflowisdead#download",
+        "visible": true
+      },
+      {
+        "text": "WisprFlowIsDead DictationThe free voice-to-text app that turns speech into clear, polished writing in every app.Download free ›",
+        "href": "https://yourappisdead.com/wisprflowisdead#download",
+        "visible": true
+      },
+      {
+        "text": "TranscriptWisprFlowIsDead NotetakerNewMeeting notes from your mic and system audio, summarized on your Mac.Download free ›",
+        "href": "https://yourappisdead.com/wisprflowisdead#download",
+        "visible": true
+      },
+      {
+        "text": "Pricing: $0",
+        "href": "https://yourappisdead.com/wisprflowisdead/pricing",
+        "visible": true
+      },
+      {
+        "text": "Privacy and security",
+        "href": "https://yourappisdead.com/wisprflowisdead#privacy",
+        "visible": true
+      },
+      {
+        "text": "How it works",
+        "href": "https://yourappisdead.com/wisprflowisdead#features",
+        "visible": true
+      },
+      {
+        "text": "Log in",
+        "href": "https://yourappisdead.com/wisprflowisdead/login",
+        "visible": true
+      },
+      {
+        "text": "Writers",
+        "href": "https://yourappisdead.com/wisprflowisdead#teams",
+        "visible": true
+      },
+      {
+        "text": "Developers",
+        "href": "https://yourappisdead.com/wisprflowisdead#teams",
+        "visible": true
+      },
+      {
+        "text": "Students",
+        "href": "https://yourappisdead.com/wisprflowisdead#teams",
+        "visible": true
+      },
+      {
+        "text": "Accessibility",
+        "href": "https://yourappisdead.com/wisprflowisdead#teams",
+        "visible": true
+      },
+      {
+        "text": "Source code",
+        "href": "https://github.com/tommy-muckstack/wisprflowisdead",
+        "visible": true
+      },
+      {
+        "text": "Apache-2.0 license",
+        "href": "https://github.com/tommy-muckstack/wisprflowisdead/blob/main/LICENSE",
+        "visible": true
+      },
+      {
+        "text": "Help",
+        "href": "https://yourappisdead.com/wisprflowisdead#faq",
+        "visible": true
+      },
+      {
+        "text": "yourappisdead.com",
+        "href": "https://yourappisdead.com/",
+        "visible": true
+      },
+      {
+        "text": "GitHub",
+        "href": "https://github.com/tommy-muckstack/wisprflowisdead",
+        "visible": true
+      },
+      {
+        "text": "",
+        "href": "https://github.com/tommy-muckstack/wisprflowisdead",
+        "visible": true
+      }
+    ],
+    "image": "live-pricing-1440.png",
+    "fullImage": "live-pricing-1440-full.png",
+    "downloadImage": "live-pricing-1440-download.png",
+    "downloadSection": {
+      "x": 0,
+      "y": 0.203125,
+      "width": 1440,
+      "height": 788,
+      "backgroundImage": "radial-gradient(60% 55% at 20% 25%, rgb(192, 122, 58), rgba(0, 0, 0, 0) 70%), radial-gradient(40% 50% at 78% 70%, rgb(181, 83, 42), rgba(0, 0, 0, 0) 70%), radial-gradient(35% 40% at 40% 20%, rgb(15, 59, 69), rgba(0, 0, 0, 0) 70%), radial-gradient(40% 40% at 60% 100%, rgb(30, 42, 94), rgba(0, 0, 0, 0) 70%), none",
+      "backgroundSize": "auto, auto, auto, auto, auto"
+    }
+  },
+  {
+    "target": "live",
+    "page": "pricing",
+    "width": 390,
+    "url": "https://yourappisdead.com/wisprflowisdead/pricing",
+    "errors": [],
+    "status": 200,
+    "title": "Pricing · WisprFlowIsDead",
+    "links": [
+      {
+        "text": "WisprFlowIsDead",
+        "href": "https://yourappisdead.com/wisprflowisdead",
+        "visible": true
+      },
+      {
+        "text": "Dictation",
+        "href": "https://yourappisdead.com/wisprflowisdead",
+        "visible": false
+      },
+      {
+        "text": "Notetaker",
+        "href": "https://yourappisdead.com/wisprflowisdead#notetaker",
+        "visible": false
+      },
+      {
+        "text": "Business",
+        "href": "https://yourappisdead.com/wisprflowisdead#teams",
+        "visible": false
+      },
+      {
+        "text": "Pricing",
+        "href": "https://yourappisdead.com/wisprflowisdead/pricing",
+        "visible": false
+      },
+      {
+        "text": "Lab",
+        "href": "https://yourappisdead.com/wisprflowisdead#lab",
+        "visible": false
+      },
+      {
+        "text": "Log in",
+        "href": "https://yourappisdead.com/wisprflowisdead/login",
+        "visible": false
+      },
+      {
+        "text": "Get started on macOS",
+        "href": "https://yourappisdead.com/wisprflowisdead#download",
+        "visible": true
+      },
+      {
+        "text": "WisprFlowIsDead DictationThe free voice-to-text app that turns speech into clear, polished writing in every app.Download free ›",
+        "href": "https://yourappisdead.com/wisprflowisdead#download",
+        "visible": true
+      },
+      {
+        "text": "TranscriptWisprFlowIsDead NotetakerNewMeeting notes from your mic and system audio, summarized on your Mac.Download free ›",
+        "href": "https://yourappisdead.com/wisprflowisdead#download",
+        "visible": true
+      },
+      {
+        "text": "Pricing: $0",
+        "href": "https://yourappisdead.com/wisprflowisdead/pricing",
+        "visible": true
+      },
+      {
+        "text": "Privacy and security",
+        "href": "https://yourappisdead.com/wisprflowisdead#privacy",
+        "visible": true
+      },
+      {
+        "text": "How it works",
+        "href": "https://yourappisdead.com/wisprflowisdead#features",
+        "visible": true
+      },
+      {
+        "text": "Log in",
+        "href": "https://yourappisdead.com/wisprflowisdead/login",
+        "visible": true
+      },
+      {
+        "text": "Writers",
+        "href": "https://yourappisdead.com/wisprflowisdead#teams",
+        "visible": true
+      },
+      {
+        "text": "Developers",
+        "href": "https://yourappisdead.com/wisprflowisdead#teams",
+        "visible": true
+      },
+      {
+        "text": "Students",
+        "href": "https://yourappisdead.com/wisprflowisdead#teams",
+        "visible": true
+      },
+      {
+        "text": "Accessibility",
+        "href": "https://yourappisdead.com/wisprflowisdead#teams",
+        "visible": true
+      },
+      {
+        "text": "Source code",
+        "href": "https://github.com/tommy-muckstack/wisprflowisdead",
+        "visible": true
+      },
+      {
+        "text": "Apache-2.0 license",
+        "href": "https://github.com/tommy-muckstack/wisprflowisdead/blob/main/LICENSE",
+        "visible": true
+      },
+      {
+        "text": "Help",
+        "href": "https://yourappisdead.com/wisprflowisdead#faq",
+        "visible": true
+      },
+      {
+        "text": "yourappisdead.com",
+        "href": "https://yourappisdead.com/",
+        "visible": true
+      },
+      {
+        "text": "GitHub",
+        "href": "https://github.com/tommy-muckstack/wisprflowisdead",
+        "visible": true
+      },
+      {
+        "text": "",
+        "href": "https://github.com/tommy-muckstack/wisprflowisdead",
+        "visible": true
+      }
+    ],
+    "image": "live-pricing-390.png",
+    "fullImage": "live-pricing-390-full.png",
+    "downloadImage": "live-pricing-390-download.png",
+    "downloadSection": {
+      "x": 0,
+      "y": -0.4375,
+      "width": 390,
+      "height": 435,
+      "backgroundImage": "radial-gradient(60% 55% at 20% 25%, rgb(192, 122, 58), rgba(0, 0, 0, 0) 70%), radial-gradient(40% 50% at 78% 70%, rgb(181, 83, 42), rgba(0, 0, 0, 0) 70%), radial-gradient(35% 40% at 40% 20%, rgb(15, 59, 69), rgba(0, 0, 0, 0) 70%), radial-gradient(40% 40% at 60% 100%, rgb(30, 42, 94), rgba(0, 0, 0, 0) 70%), none",
+      "backgroundSize": "auto, auto, auto, auto, auto"
+    }
+  },
+  {
+    "target": "live",
+    "page": "login",
+    "width": 1440,
+    "url": "https://yourappisdead.com/wisprflowisdead/login",
+    "errors": [],
+    "status": 200,
+    "title": "Log in · WisprFlowIsDead",
+    "links": [],
+    "image": "live-login-1440-settled.png",
+    "initialImage": "live-login-1440.png",
+    "loginReady": true,
+    "controls": [
+      {
+        "tag": "BUTTON",
+        "type": "button",
+        "text": "Continue with Google",
+        "disabled": false,
+        "ariaDisabled": null
+      },
+      {
+        "tag": "BUTTON",
+        "type": "button",
+        "text": "Continue with Apple",
+        "disabled": false,
+        "ariaDisabled": null
+      },
+      {
+        "tag": "BUTTON",
+        "type": "button",
+        "text": "Continue with Microsoft",
+        "disabled": false,
+        "ariaDisabled": null
+      },
+      {
+        "tag": "BUTTON",
+        "type": "button",
+        "text": "Continue with SSO",
+        "disabled": false,
+        "ariaDisabled": null
+      },
+      {
+        "tag": "BUTTON",
+        "type": "submit",
+        "text": "Continue",
+        "disabled": false,
+        "ariaDisabled": null
+      },
+      {
+        "tag": "BUTTON",
+        "type": "button",
+        "text": "New here? Create an account",
+        "disabled": false,
+        "ariaDisabled": null
+      },
+      {
+        "tag": "BUTTON",
+        "type": "button",
+        "text": "Forgot password?",
+        "disabled": false,
+        "ariaDisabled": null
+      }
+    ]
+  },
+  {
+    "target": "live",
+    "page": "login",
+    "width": 390,
+    "url": "https://yourappisdead.com/wisprflowisdead/login",
+    "errors": [],
+    "status": 200,
+    "title": "Log in · WisprFlowIsDead",
+    "links": [],
+    "image": "live-login-390-settled.png",
+    "initialImage": "live-login-390.png",
+    "loginReady": true,
+    "controls": [
+      {
+        "tag": "BUTTON",
+        "type": "button",
+        "text": "Continue with Google",
+        "disabled": false,
+        "ariaDisabled": null
+      },
+      {
+        "tag": "BUTTON",
+        "type": "button",
+        "text": "Continue with Apple",
+        "disabled": false,
+        "ariaDisabled": null
+      },
+      {
+        "tag": "BUTTON",
+        "type": "button",
+        "text": "Continue with Microsoft",
+        "disabled": false,
+        "ariaDisabled": null
+      },
+      {
+        "tag": "BUTTON",
+        "type": "button",
+        "text": "Continue with SSO",
+        "disabled": false,
+        "ariaDisabled": null
+      },
+      {
+        "tag": "BUTTON",
+        "type": "submit",
+        "text": "Continue",
+        "disabled": false,
+        "ariaDisabled": null
+      },
+      {
+        "tag": "BUTTON",
+        "type": "button",
+        "text": "New here? Create an account",
+        "disabled": false,
+        "ariaDisabled": null
+      },
+      {
+        "tag": "BUTTON",
+        "type": "button",
+        "text": "Forgot password?",
+        "disabled": false,
+        "ariaDisabled": null
+      }
+    ]
+  },
+  {
+    "target": "candidate",
+    "page": "home",
+    "width": 1440,
+    "url": "http://127.0.0.1:3300/wisprflowisdead",
+    "errors": [],
+    "status": 200,
+    "title": "WisprFlowIsDead · Free voice dictation for your Mac",
+    "links": [
+      {
+        "text": "FlowIsDead",
+        "href": "http://127.0.0.1:3300/wisprflowisdead",
+        "visible": true
+      },
+      {
+        "text": "Dictation",
+        "href": "http://127.0.0.1:3300/wisprflowisdead",
+        "visible": true
+      },
+      {
+        "text": "Notetaker",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#notetaker",
+        "visible": true
+      },
+      {
+        "text": "Dictation",
+        "href": "http://127.0.0.1:3300/wisprflowisdead",
+        "visible": false
+      },
+      {
+        "text": "Notetaker",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#notetaker",
+        "visible": false
+      },
+      {
+        "text": "Business",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#teams",
+        "visible": true
+      },
+      {
+        "text": "Pricing",
+        "href": "http://127.0.0.1:3300/wisprflowisdead/pricing",
+        "visible": true
+      },
+      {
+        "text": "Lab",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#lab",
+        "visible": true
+      },
+      {
+        "text": "Log in",
+        "href": "http://127.0.0.1:3300/wisprflowisdead/login",
+        "visible": false
+      },
+      {
+        "text": "Get started on macOS",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#download",
+        "visible": true
+      },
+      {
+        "text": "Get started on macOS",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#download",
+        "visible": true
+      },
+      {
+        "text": "WisprFlowIsDead DictationThe free voice-to-text app that turns speech into clear, polished writing in every app.Download free ›",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#download",
+        "visible": true
+      },
+      {
+        "text": "TranscriptWisprFlowIsDead NotetakerNewMeeting notes from your mic and system audio, summarized on your Mac.Download free ›",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#download",
+        "visible": true
+      },
+      {
+        "text": "Pricing: $0",
+        "href": "http://127.0.0.1:3300/wisprflowisdead/pricing",
+        "visible": true
+      },
+      {
+        "text": "Privacy and security",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#privacy",
+        "visible": true
+      },
+      {
+        "text": "How it works",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#features",
+        "visible": true
+      },
+      {
+        "text": "Web demo",
+        "href": "http://127.0.0.1:3300/wisprflowisdead/demo",
+        "visible": true
+      },
+      {
+        "text": "Log in",
+        "href": "http://127.0.0.1:3300/wisprflowisdead/login",
+        "visible": true
+      },
+      {
+        "text": "Writers",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#teams",
+        "visible": true
+      },
+      {
+        "text": "Developers",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#teams",
+        "visible": true
+      },
+      {
+        "text": "Students",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#teams",
+        "visible": true
+      },
+      {
+        "text": "Accessibility",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#teams",
+        "visible": true
+      },
+      {
+        "text": "Source code",
+        "href": "https://github.com/tommy-muckstack/wisprflowisdead",
+        "visible": true
+      },
+      {
+        "text": "Apache-2.0 license",
+        "href": "https://github.com/tommy-muckstack/wisprflowisdead/blob/main/LICENSE",
+        "visible": true
+      },
+      {
+        "text": "Help",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#faq",
+        "visible": true
+      },
+      {
+        "text": "yourappisdead.com",
+        "href": "http://127.0.0.1:3300/",
+        "visible": true
+      },
+      {
+        "text": "GitHub",
+        "href": "https://github.com/tommy-muckstack/wisprflowisdead",
+        "visible": true
+      },
+      {
+        "text": "",
+        "href": "https://github.com/tommy-muckstack/wisprflowisdead",
+        "visible": true
+      }
+    ],
+    "image": "candidate-home-1440.png",
+    "fullImage": "candidate-home-1440-full.png",
+    "fullCapture": "After scrolling for lazy content; initial viewport retained separately",
+    "reviewImage": "candidate-home-1440-review.jpg",
+    "downloadImage": "candidate-home-1440-download.png",
+    "downloadSection": {
+      "x": 24,
+      "y": 0,
+      "width": 1392,
+      "height": 864,
+      "backgroundImage": "linear-gradient(rgba(16, 35, 31, 0.44), rgba(21, 27, 24, 0.6)), url(\"http://127.0.0.1:3300/wisprflowisdead/assets/download-outdoors-v1.webp\")",
+      "backgroundSize": "cover, cover"
+    },
+    "faqImage": "candidate-home-1440-faq.png",
+    "faqExpandedImage": "candidate-home-1440-faq-language.png",
+    "faqControls": [
+      {
+        "tag": "H3",
+        "text": "Questions",
+        "role": null,
+        "expanded": null,
+        "selected": null,
+        "x": 348,
+        "y": 338.59375,
+        "width": 333,
+        "height": 19,
+        "fontSize": "20px",
+        "lineHeight": "19px",
+        "padding": "0px"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Can I dictate into messages, notes, email and AI chats?",
+        "role": "tab",
+        "expanded": null,
+        "selected": "false",
+        "x": 348,
+        "y": 371.59375,
+        "width": 333,
+        "height": 60.40625,
+        "fontSize": "14px",
+        "lineHeight": "18.2px",
+        "padding": "12px 8px"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "What does it add to built-in voice typing?",
+        "role": "tab",
+        "expanded": null,
+        "selected": "false",
+        "x": 348,
+        "y": 432,
+        "width": 333,
+        "height": 50,
+        "fontSize": "14px",
+        "lineHeight": "18.2px",
+        "padding": "12px 8px"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Which languages can I choose?",
+        "role": "tab",
+        "expanded": null,
+        "selected": "true",
+        "x": 348,
+        "y": 482,
+        "width": 333,
+        "height": 50,
+        "fontSize": "14px",
+        "lineHeight": "18.2px",
+        "padding": "12px 8px"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "How well does it handle different accents?",
+        "role": "tab",
+        "expanded": null,
+        "selected": "false",
+        "x": 348,
+        "y": 532,
+        "width": 333,
+        "height": 50,
+        "fontSize": "14px",
+        "lineHeight": "18.2px",
+        "padding": "12px 8px"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Can I speak quickly or quietly in a noisy room?",
+        "role": "tab",
+        "expanded": null,
+        "selected": "false",
+        "x": 348,
+        "y": 582,
+        "width": 333,
+        "height": 50,
+        "fontSize": "14px",
+        "lineHeight": "18.2px",
+        "padding": "12px 8px"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Do I need to buy a microphone?",
+        "role": "tab",
+        "expanded": null,
+        "selected": "false",
+        "x": 348,
+        "y": 632,
+        "width": 333,
+        "height": 50,
+        "fontSize": "14px",
+        "lineHeight": "18.2px",
+        "padding": "12px 8px"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Where does my audio and text go?",
+        "role": "tab",
+        "expanded": null,
+        "selected": "false",
+        "x": 348,
+        "y": 682,
+        "width": 333,
+        "height": 50,
+        "fontSize": "14px",
+        "lineHeight": "18.2px",
+        "padding": "12px 8px"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Does it cost anything?",
+        "role": "tab",
+        "expanded": null,
+        "selected": "false",
+        "x": 348,
+        "y": 732,
+        "width": 333,
+        "height": 50,
+        "fontSize": "14px",
+        "lineHeight": "18.2px",
+        "padding": "12px 8px"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Can colleagues use it together?",
+        "role": "tab",
+        "expanded": null,
+        "selected": "false",
+        "x": 348,
+        "y": 782,
+        "width": 333,
+        "height": 50,
+        "fontSize": "14px",
+        "lineHeight": "18.2px",
+        "padding": "12px 8px"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Can it take notes during meetings?",
+        "role": "tab",
+        "expanded": null,
+        "selected": "false",
+        "x": 348,
+        "y": 832,
+        "width": 333,
+        "height": 50,
+        "fontSize": "14px",
+        "lineHeight": "18.2px",
+        "padding": "12px 8px"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Are dictation and meeting notes both free?",
+        "role": "tab",
+        "expanded": null,
+        "selected": "false",
+        "x": 348,
+        "y": 882,
+        "width": 333,
+        "height": 50,
+        "fontSize": "14px",
+        "lineHeight": "18.2px",
+        "padding": "12px 8px"
+      },
+      {
+        "tag": "H3",
+        "text": "Answer",
+        "role": null,
+        "expanded": null,
+        "selected": null,
+        "x": 748,
+        "y": 338.59375,
+        "width": 348,
+        "height": 19,
+        "fontSize": "20px",
+        "lineHeight": "19px",
+        "padding": "0px"
+      }
+    ]
+  },
+  {
+    "target": "candidate",
+    "page": "home",
+    "width": 390,
+    "url": "http://127.0.0.1:3300/wisprflowisdead",
+    "errors": [],
+    "status": 200,
+    "title": "WisprFlowIsDead · Free voice dictation for your Mac",
+    "links": [
+      {
+        "text": "FlowIsDead",
+        "href": "http://127.0.0.1:3300/wisprflowisdead",
+        "visible": true
+      },
+      {
+        "text": "Dictation",
+        "href": "http://127.0.0.1:3300/wisprflowisdead",
+        "visible": false
+      },
+      {
+        "text": "Notetaker",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#notetaker",
+        "visible": false
+      },
+      {
+        "text": "Dictation",
+        "href": "http://127.0.0.1:3300/wisprflowisdead",
+        "visible": false
+      },
+      {
+        "text": "Notetaker",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#notetaker",
+        "visible": false
+      },
+      {
+        "text": "Business",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#teams",
+        "visible": false
+      },
+      {
+        "text": "Pricing",
+        "href": "http://127.0.0.1:3300/wisprflowisdead/pricing",
+        "visible": false
+      },
+      {
+        "text": "Lab",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#lab",
+        "visible": false
+      },
+      {
+        "text": "Log in",
+        "href": "http://127.0.0.1:3300/wisprflowisdead/login",
+        "visible": false
+      },
+      {
+        "text": "Get started on macOS",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#download",
+        "visible": true
+      },
+      {
+        "text": "Get started on macOS",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#download",
+        "visible": true
+      },
+      {
+        "text": "WisprFlowIsDead DictationThe free voice-to-text app that turns speech into clear, polished writing in every app.Download free ›",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#download",
+        "visible": true
+      },
+      {
+        "text": "TranscriptWisprFlowIsDead NotetakerNewMeeting notes from your mic and system audio, summarized on your Mac.Download free ›",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#download",
+        "visible": true
+      },
+      {
+        "text": "Pricing: $0",
+        "href": "http://127.0.0.1:3300/wisprflowisdead/pricing",
+        "visible": true
+      },
+      {
+        "text": "Privacy and security",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#privacy",
+        "visible": true
+      },
+      {
+        "text": "How it works",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#features",
+        "visible": true
+      },
+      {
+        "text": "Web demo",
+        "href": "http://127.0.0.1:3300/wisprflowisdead/demo",
+        "visible": true
+      },
+      {
+        "text": "Log in",
+        "href": "http://127.0.0.1:3300/wisprflowisdead/login",
+        "visible": true
+      },
+      {
+        "text": "Writers",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#teams",
+        "visible": true
+      },
+      {
+        "text": "Developers",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#teams",
+        "visible": true
+      },
+      {
+        "text": "Students",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#teams",
+        "visible": true
+      },
+      {
+        "text": "Accessibility",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#teams",
+        "visible": true
+      },
+      {
+        "text": "Source code",
+        "href": "https://github.com/tommy-muckstack/wisprflowisdead",
+        "visible": true
+      },
+      {
+        "text": "Apache-2.0 license",
+        "href": "https://github.com/tommy-muckstack/wisprflowisdead/blob/main/LICENSE",
+        "visible": true
+      },
+      {
+        "text": "Help",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#faq",
+        "visible": true
+      },
+      {
+        "text": "yourappisdead.com",
+        "href": "http://127.0.0.1:3300/",
+        "visible": true
+      },
+      {
+        "text": "GitHub",
+        "href": "https://github.com/tommy-muckstack/wisprflowisdead",
+        "visible": true
+      },
+      {
+        "text": "",
+        "href": "https://github.com/tommy-muckstack/wisprflowisdead",
+        "visible": true
+      }
+    ],
+    "image": "candidate-home-390.png",
+    "fullImage": "candidate-home-390-full.png",
+    "fullCapture": "After scrolling for lazy content; initial viewport retained separately",
+    "reviewImage": "candidate-home-390-review.jpg",
+    "downloadImage": "candidate-home-390-download.png",
+    "downloadSection": {
+      "x": 8,
+      "y": -0.453125,
+      "width": 374,
+      "height": 590.328125,
+      "backgroundImage": "linear-gradient(rgba(16, 35, 31, 0.44), rgba(21, 27, 24, 0.6)), url(\"http://127.0.0.1:3300/wisprflowisdead/assets/download-outdoors-v1.webp\")",
+      "backgroundSize": "cover, cover"
+    },
+    "faqImage": "candidate-home-390-faq.png",
+    "faqExpandedImage": "candidate-home-390-faq-language.png",
+    "faqControls": [
+      {
+        "tag": "H3",
+        "text": "Questions",
+        "role": null,
+        "expanded": null,
+        "selected": null,
+        "x": 48,
+        "y": 206.546875,
+        "width": 294,
+        "height": 19,
+        "fontSize": "20px",
+        "lineHeight": "19px",
+        "padding": "0px"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Can I dictate into messages, notes, email and AI chats?",
+        "role": null,
+        "expanded": "false",
+        "selected": null,
+        "x": 48,
+        "y": 249.546875,
+        "width": 294,
+        "height": 68.40625,
+        "fontSize": "14px",
+        "lineHeight": "18.2px",
+        "padding": "16px 0px"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "What does it add to built-in voice typing?",
+        "role": null,
+        "expanded": "false",
+        "selected": null,
+        "x": 48,
+        "y": 317.953125,
+        "width": 294,
+        "height": 50.203125,
+        "fontSize": "14px",
+        "lineHeight": "18.2px",
+        "padding": "16px 0px"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Which languages can I choose?",
+        "role": null,
+        "expanded": "true",
+        "selected": null,
+        "x": 48,
+        "y": 368.15625,
+        "width": 294,
+        "height": 50.203125,
+        "fontSize": "14px",
+        "lineHeight": "18.2px",
+        "padding": "16px 0px"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "How well does it handle different accents?",
+        "role": null,
+        "expanded": "false",
+        "selected": null,
+        "x": 48,
+        "y": 604.359375,
+        "width": 294,
+        "height": 50.203125,
+        "fontSize": "14px",
+        "lineHeight": "18.2px",
+        "padding": "16px 0px"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Can I speak quickly or quietly in a noisy room?",
+        "role": null,
+        "expanded": "false",
+        "selected": null,
+        "x": 48,
+        "y": 654.5625,
+        "width": 294,
+        "height": 50.203125,
+        "fontSize": "14px",
+        "lineHeight": "18.2px",
+        "padding": "16px 0px"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Do I need to buy a microphone?",
+        "role": null,
+        "expanded": "false",
+        "selected": null,
+        "x": 48,
+        "y": 704.765625,
+        "width": 294,
+        "height": 50.203125,
+        "fontSize": "14px",
+        "lineHeight": "18.2px",
+        "padding": "16px 0px"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Where does my audio and text go?",
+        "role": null,
+        "expanded": "false",
+        "selected": null,
+        "x": 48,
+        "y": 754.96875,
+        "width": 294,
+        "height": 50.203125,
+        "fontSize": "14px",
+        "lineHeight": "18.2px",
+        "padding": "16px 0px"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Does it cost anything?",
+        "role": null,
+        "expanded": "false",
+        "selected": null,
+        "x": 48,
+        "y": 805.171875,
+        "width": 294,
+        "height": 50.203125,
+        "fontSize": "14px",
+        "lineHeight": "18.2px",
+        "padding": "16px 0px"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Can colleagues use it together?",
+        "role": null,
+        "expanded": "false",
+        "selected": null,
+        "x": 48,
+        "y": 855.375,
+        "width": 294,
+        "height": 50.203125,
+        "fontSize": "14px",
+        "lineHeight": "18.2px",
+        "padding": "16px 0px"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Can it take notes during meetings?",
+        "role": null,
+        "expanded": "false",
+        "selected": null,
+        "x": 48,
+        "y": 905.578125,
+        "width": 294,
+        "height": 50.203125,
+        "fontSize": "14px",
+        "lineHeight": "18.2px",
+        "padding": "16px 0px"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Are dictation and meeting notes both free?",
+        "role": null,
+        "expanded": "false",
+        "selected": null,
+        "x": 48,
+        "y": 955.78125,
+        "width": 294,
+        "height": 50.203125,
+        "fontSize": "14px",
+        "lineHeight": "18.2px",
+        "padding": "16px 0px"
+      }
+    ]
+  },
+  {
+    "target": "candidate",
+    "page": "pricing",
+    "width": 1440,
+    "url": "http://127.0.0.1:3300/wisprflowisdead/pricing",
+    "errors": [],
+    "status": 200,
+    "title": "Pricing · WisprFlowIsDead",
+    "links": [
+      {
+        "text": "FlowIsDead",
+        "href": "http://127.0.0.1:3300/wisprflowisdead",
+        "visible": true
+      },
+      {
+        "text": "Dictation",
+        "href": "http://127.0.0.1:3300/wisprflowisdead",
+        "visible": true
+      },
+      {
+        "text": "Notetaker",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#notetaker",
+        "visible": true
+      },
+      {
+        "text": "Dictation",
+        "href": "http://127.0.0.1:3300/wisprflowisdead",
+        "visible": false
+      },
+      {
+        "text": "Notetaker",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#notetaker",
+        "visible": false
+      },
+      {
+        "text": "Business",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#teams",
+        "visible": true
+      },
+      {
+        "text": "Pricing",
+        "href": "http://127.0.0.1:3300/wisprflowisdead/pricing",
+        "visible": true
+      },
+      {
+        "text": "Lab",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#lab",
+        "visible": true
+      },
+      {
+        "text": "Log in",
+        "href": "http://127.0.0.1:3300/wisprflowisdead/login",
+        "visible": false
+      },
+      {
+        "text": "Get started on macOS",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#download",
+        "visible": true
+      },
+      {
+        "text": "WisprFlowIsDead DictationThe free voice-to-text app that turns speech into clear, polished writing in every app.Download free ›",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#download",
+        "visible": true
+      },
+      {
+        "text": "TranscriptWisprFlowIsDead NotetakerNewMeeting notes from your mic and system audio, summarized on your Mac.Download free ›",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#download",
+        "visible": true
+      },
+      {
+        "text": "Pricing: $0",
+        "href": "http://127.0.0.1:3300/wisprflowisdead/pricing",
+        "visible": true
+      },
+      {
+        "text": "Privacy and security",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#privacy",
+        "visible": true
+      },
+      {
+        "text": "How it works",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#features",
+        "visible": true
+      },
+      {
+        "text": "Web demo",
+        "href": "http://127.0.0.1:3300/wisprflowisdead/demo",
+        "visible": true
+      },
+      {
+        "text": "Log in",
+        "href": "http://127.0.0.1:3300/wisprflowisdead/login",
+        "visible": true
+      },
+      {
+        "text": "Writers",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#teams",
+        "visible": true
+      },
+      {
+        "text": "Developers",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#teams",
+        "visible": true
+      },
+      {
+        "text": "Students",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#teams",
+        "visible": true
+      },
+      {
+        "text": "Accessibility",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#teams",
+        "visible": true
+      },
+      {
+        "text": "Source code",
+        "href": "https://github.com/tommy-muckstack/wisprflowisdead",
+        "visible": true
+      },
+      {
+        "text": "Apache-2.0 license",
+        "href": "https://github.com/tommy-muckstack/wisprflowisdead/blob/main/LICENSE",
+        "visible": true
+      },
+      {
+        "text": "Help",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#faq",
+        "visible": true
+      },
+      {
+        "text": "yourappisdead.com",
+        "href": "http://127.0.0.1:3300/",
+        "visible": true
+      },
+      {
+        "text": "GitHub",
+        "href": "https://github.com/tommy-muckstack/wisprflowisdead",
+        "visible": true
+      },
+      {
+        "text": "",
+        "href": "https://github.com/tommy-muckstack/wisprflowisdead",
+        "visible": true
+      }
+    ],
+    "image": "candidate-pricing-1440.png",
+    "fullImage": "candidate-pricing-1440-full.png",
+    "downloadImage": "candidate-pricing-1440-download.png",
+    "downloadSection": {
+      "x": 0,
+      "y": 0,
+      "width": 1440,
+      "height": 788,
+      "backgroundImage": "linear-gradient(rgba(16, 35, 31, 0.44), rgba(21, 27, 24, 0.4)), url(\"http://127.0.0.1:3300/wisprflowisdead/assets/download-studio-v1.webp\")",
+      "backgroundSize": "cover, cover"
+    }
+  },
+  {
+    "target": "candidate",
+    "page": "pricing",
+    "width": 390,
+    "url": "http://127.0.0.1:3300/wisprflowisdead/pricing",
+    "errors": [],
+    "status": 200,
+    "title": "Pricing · WisprFlowIsDead",
+    "links": [
+      {
+        "text": "FlowIsDead",
+        "href": "http://127.0.0.1:3300/wisprflowisdead",
+        "visible": true
+      },
+      {
+        "text": "Dictation",
+        "href": "http://127.0.0.1:3300/wisprflowisdead",
+        "visible": false
+      },
+      {
+        "text": "Notetaker",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#notetaker",
+        "visible": false
+      },
+      {
+        "text": "Dictation",
+        "href": "http://127.0.0.1:3300/wisprflowisdead",
+        "visible": false
+      },
+      {
+        "text": "Notetaker",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#notetaker",
+        "visible": false
+      },
+      {
+        "text": "Business",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#teams",
+        "visible": false
+      },
+      {
+        "text": "Pricing",
+        "href": "http://127.0.0.1:3300/wisprflowisdead/pricing",
+        "visible": false
+      },
+      {
+        "text": "Lab",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#lab",
+        "visible": false
+      },
+      {
+        "text": "Log in",
+        "href": "http://127.0.0.1:3300/wisprflowisdead/login",
+        "visible": false
+      },
+      {
+        "text": "Get started on macOS",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#download",
+        "visible": true
+      },
+      {
+        "text": "WisprFlowIsDead DictationThe free voice-to-text app that turns speech into clear, polished writing in every app.Download free ›",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#download",
+        "visible": true
+      },
+      {
+        "text": "TranscriptWisprFlowIsDead NotetakerNewMeeting notes from your mic and system audio, summarized on your Mac.Download free ›",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#download",
+        "visible": true
+      },
+      {
+        "text": "Pricing: $0",
+        "href": "http://127.0.0.1:3300/wisprflowisdead/pricing",
+        "visible": true
+      },
+      {
+        "text": "Privacy and security",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#privacy",
+        "visible": true
+      },
+      {
+        "text": "How it works",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#features",
+        "visible": true
+      },
+      {
+        "text": "Web demo",
+        "href": "http://127.0.0.1:3300/wisprflowisdead/demo",
+        "visible": true
+      },
+      {
+        "text": "Log in",
+        "href": "http://127.0.0.1:3300/wisprflowisdead/login",
+        "visible": true
+      },
+      {
+        "text": "Writers",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#teams",
+        "visible": true
+      },
+      {
+        "text": "Developers",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#teams",
+        "visible": true
+      },
+      {
+        "text": "Students",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#teams",
+        "visible": true
+      },
+      {
+        "text": "Accessibility",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#teams",
+        "visible": true
+      },
+      {
+        "text": "Source code",
+        "href": "https://github.com/tommy-muckstack/wisprflowisdead",
+        "visible": true
+      },
+      {
+        "text": "Apache-2.0 license",
+        "href": "https://github.com/tommy-muckstack/wisprflowisdead/blob/main/LICENSE",
+        "visible": true
+      },
+      {
+        "text": "Help",
+        "href": "http://127.0.0.1:3300/wisprflowisdead#faq",
+        "visible": true
+      },
+      {
+        "text": "yourappisdead.com",
+        "href": "http://127.0.0.1:3300/",
+        "visible": true
+      },
+      {
+        "text": "GitHub",
+        "href": "https://github.com/tommy-muckstack/wisprflowisdead",
+        "visible": true
+      },
+      {
+        "text": "",
+        "href": "https://github.com/tommy-muckstack/wisprflowisdead",
+        "visible": true
+      }
+    ],
+    "image": "candidate-pricing-390.png",
+    "fullImage": "candidate-pricing-390-full.png",
+    "downloadImage": "candidate-pricing-390-download.png",
+    "downloadSection": {
+      "x": 0,
+      "y": 0.296875,
+      "width": 390,
+      "height": 435,
+      "backgroundImage": "linear-gradient(rgba(16, 35, 31, 0.44), rgba(21, 27, 24, 0.4)), url(\"http://127.0.0.1:3300/wisprflowisdead/assets/download-studio-v1.webp\")",
+      "backgroundSize": "cover, cover"
+    }
+  },
+  {
+    "target": "candidate",
+    "page": "login",
+    "width": 1440,
+    "url": "http://127.0.0.1:3300/wisprflowisdead/login",
+    "errors": [],
+    "status": 200,
+    "title": "Log in · WisprFlowIsDead",
+    "links": [
+      {
+        "text": "Try browser dictation without an account",
+        "href": "http://127.0.0.1:3300/wisprflowisdead/demo",
+        "visible": true
+      }
+    ],
+    "image": "candidate-login-1440-settled.png",
+    "initialImage": "candidate-login-1440.png",
+    "loginReady": true,
+    "controls": [
+      {
+        "tag": "BUTTON",
+        "type": "button",
+        "text": "Continue with Google",
+        "disabled": false,
+        "ariaDisabled": null
+      },
+      {
+        "tag": "BUTTON",
+        "type": "button",
+        "text": "Continue with Apple",
+        "disabled": true,
+        "ariaDisabled": null
+      },
+      {
+        "tag": "BUTTON",
+        "type": "button",
+        "text": "Continue with Microsoft",
+        "disabled": true,
+        "ariaDisabled": null
+      },
+      {
+        "tag": "BUTTON",
+        "type": "button",
+        "text": "Continue with SSO",
+        "disabled": true,
+        "ariaDisabled": null
+      },
+      {
+        "tag": "BUTTON",
+        "type": "submit",
+        "text": "Continue",
+        "disabled": false,
+        "ariaDisabled": null
+      },
+      {
+        "tag": "BUTTON",
+        "type": "button",
+        "text": "Create an account",
+        "disabled": false,
+        "ariaDisabled": null
+      },
+      {
+        "tag": "BUTTON",
+        "type": "button",
+        "text": "Forgot password?",
+        "disabled": false,
+        "ariaDisabled": null
+      }
+    ]
+  },
+  {
+    "target": "candidate",
+    "page": "login",
+    "width": 390,
+    "url": "http://127.0.0.1:3300/wisprflowisdead/login",
+    "errors": [],
+    "status": 200,
+    "title": "Log in · WisprFlowIsDead",
+    "links": [
+      {
+        "text": "Try browser dictation without an account",
+        "href": "http://127.0.0.1:3300/wisprflowisdead/demo",
+        "visible": true
+      }
+    ],
+    "image": "candidate-login-390-settled.png",
+    "initialImage": "candidate-login-390.png",
+    "loginReady": true,
+    "controls": [
+      {
+        "tag": "BUTTON",
+        "type": "button",
+        "text": "Continue with Google",
+        "disabled": false,
+        "ariaDisabled": null
+      },
+      {
+        "tag": "BUTTON",
+        "type": "button",
+        "text": "Continue with Apple",
+        "disabled": true,
+        "ariaDisabled": null
+      },
+      {
+        "tag": "BUTTON",
+        "type": "button",
+        "text": "Continue with Microsoft",
+        "disabled": true,
+        "ariaDisabled": null
+      },
+      {
+        "tag": "BUTTON",
+        "type": "button",
+        "text": "Continue with SSO",
+        "disabled": true,
+        "ariaDisabled": null
+      },
+      {
+        "tag": "BUTTON",
+        "type": "submit",
+        "text": "Continue",
+        "disabled": false,
+        "ariaDisabled": null
+      },
+      {
+        "tag": "BUTTON",
+        "type": "button",
+        "text": "Create an account",
+        "disabled": false,
+        "ariaDisabled": null
+      },
+      {
+        "tag": "BUTTON",
+        "type": "button",
+        "text": "Forgot password?",
+        "disabled": false,
+        "ariaDisabled": null
+      }
+    ]
+  }
+]
