@@ -1,4 +1,6 @@
 /* Shared marketing navigation. Keep the CTA and product switcher intrinsic-sized. */
+.nav{position:sticky;top:16px}
+.home-page section[id],.pricing-page section[id]{scroll-margin-top:100px}
 .nav .logo{flex:none;white-space:nowrap;gap:6px}
 .nav .seg{flex:none}
 .nav .links{flex:none;gap:16px}
@@ -10,13 +12,14 @@
 .nav .links a:hover{color:#1A1A1A;text-decoration:underline;text-underline-offset:4px}
 
 @media(max-width:900px){
-  .nav{gap:0;padding-right:10px}
+  .nav{top:8px;gap:0;padding-right:10px}
   .nav>.btn{margin-left:auto}
   .nav .seg{display:none}
   .nav .burger{order:5;display:flex;flex-direction:column;justify-content:center;gap:6px;width:44px;height:44px;margin-left:8px;border:0;background:transparent;cursor:pointer;padding:10px}
   .nav .burger i{display:block;height:2px;background:#1A1A1A;border-radius:2px}
   .nav .links{display:none}
   .nav.open .links{display:flex;position:absolute;top:calc(100% + 8px);left:0;right:0;flex-direction:column;align-items:stretch;gap:0;margin:0;padding:8px;background:#FFFFEB;border:1px solid #E4E4D0;border-radius:12px;box-shadow:0 8px 24px #1A1A1A14}
+  .nav.open .links{max-height:calc(100dvh - 136px);overflow:auto}
   .nav .links a{padding:12px 16px;min-height:44px;border-radius:6px}
   .nav .links a:hover{background:#E4E4D0;text-decoration:none}
   .nav .nav-mobile-only{display:block}

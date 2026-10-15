@@ -58,6 +58,11 @@ try {
         if (!faces.some(face => face.style === 'italic' && face.status === 'loaded')) throw Error('The display italic font did not load');
       });
       const faq = page.locator('.home-faq');
+      await faq.scrollIntoViewIfNeeded();
+      const scrolledNav = await page.locator('.nav').boundingBox();
+      assert.ok(scrolledNav.y >= 0 && scrolledNav.y <= 20 && scrolledNav.y + scrolledNav.height < 120,
+        'Marketing navigation disappears while scrolling');
+      await page.screenshot({path:path.join(output,`navigation-scrolled-${width}.png`)});
       const faqQuestions = faq.locator('.home-questions button');
       assert.equal(await faqQuestions.count(),11);
       if (width === 390) {
@@ -115,6 +120,19 @@ try {
         await page.keyboard.press('Escape');
         assert.equal(await menu.getAttribute('aria-expanded'),'false');
         assert.equal(await menu.evaluate(button => document.activeElement === button),true);
+        await page.setViewportSize({width,height:320});
+        await page.evaluate(() => window.scrollTo({top:0,behavior:'instant'}));
+        await menu.click();
+        const menuBox = await page.locator('#main-links').boundingBox();
+        assert.ok(menuBox.y >= 0 && menuBox.y + menuBox.height <= 320,'Short-screen menu extends below the viewport');
+        const lastLink = page.locator('#main-links a').last();
+        await lastLink.focus();
+        const lastBox = await lastLink.boundingBox();
+        assert.ok(lastBox.y >= menuBox.y && lastBox.y + lastBox.height <= menuBox.y + menuBox.height,
+          'Last menu link cannot be reached in a short viewport');
+        await page.screenshot({path:path.join(output,'navigation-menu-390x320.png')});
+        await page.keyboard.press('Escape');
+        await page.setViewportSize({width,height:844});
         await menu.click();
         await page.locator('#main-links').getByRole('link',{name:'Pricing',exact:true}).click();
         await page.waitForURL(base + '/pricing');
@@ -127,6 +145,9 @@ try {
       }
     });
     await check('pricing',width,'/pricing',async page => {
+      await page.locator('.pr-faq').scrollIntoViewIfNeeded();
+      const scrolledNav = await page.locator('.nav').boundingBox();
+      assert.ok(scrolledNav.y >= 0 && scrolledNav.y <= 20,'Pricing navigation disappears while scrolling');
       const addon = page.locator('#notetaker-addon');
       assert.equal(await addon.isChecked(),false);
       assert.deepEqual(await page.locator('[data-price="pro"]').allTextContents(),['$12','$12']);

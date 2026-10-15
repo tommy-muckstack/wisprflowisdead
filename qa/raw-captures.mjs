@@ -110,6 +110,14 @@ try {
             ? page.getByText('Does Flow work in other languages?',{exact:true}).first()
             : page.locator('#home-question-2');
           await languageQuestion.click();
+          entry.faqSelectedControl = await languageQuestion.evaluate(element => {
+            const nodes = []; let current = element;
+            for (let depth = 0; current && depth < 4; depth++, current = current.parentElement) {
+              const box = current.getBoundingClientRect(), style = getComputedStyle(current);
+              nodes.push({tag:current.tagName,cls:current.className,x:box.x,y:box.y + scrollY,width:box.width,height:box.height,fontSize:style.fontSize,lineHeight:style.lineHeight,fontWeight:style.fontWeight,padding:style.padding,margin:style.margin,gap:style.gap,background:style.backgroundColor});
+            }
+            return nodes;
+          });
           await page.waitForTimeout(300);
           entry.faqExpandedImage = `${target}-home-${width}-faq-language.png`;
           await page.screenshot({path:path.join(output,entry.faqExpandedImage)});
@@ -119,6 +127,23 @@ try {
               return {tag:element.tagName,text:element.textContent.trim().slice(0,120),role:element.getAttribute('role'),expanded:element.getAttribute('aria-expanded'),selected:element.getAttribute('aria-selected'),x:box.x,y:box.y,width:box.width,height:box.height,fontSize:style.fontSize,lineHeight:style.lineHeight,padding:style.padding};
             }));
         }
+      }
+      if (item.name === 'home' && target !== 'live') {
+        const section = page.locator(target === 'original' ? '.section_lang-wrap' : '.lang');
+        const bounds = await section.evaluate(element => ({top:element.getBoundingClientRect().top + scrollY,height:element.getBoundingClientRect().height}));
+        entry.featureImages = [];
+        for (let index = 0; index < 4; index++) {
+          await page.evaluate(top => window.scrollTo({top,behavior:'instant'}),bounds.top + bounds.height * index / 4 - 120);
+          await page.waitForTimeout(300);
+          const filename = `${target}-home-${width}-feature-${index}.png`;
+          await page.screenshot({path:path.join(output,filename)});
+          entry.featureImages.push(filename);
+        }
+        entry.featureStyles = await section.evaluate(section => [...section.querySelectorAll('*')]
+          .filter(element => element instanceof HTMLElement && element.getBoundingClientRect().height && element.getBoundingClientRect().width).slice(0,160).map(element => {
+            const box = element.getBoundingClientRect(), style = getComputedStyle(element);
+            return {tag:element.tagName,cls:element.className,text:element.children.length ? '' : element.textContent.trim().slice(0,120),x:box.x,y:box.y + scrollY,width:box.width,height:box.height,fontSize:style.fontSize,fontStyle:style.fontStyle,lineHeight:style.lineHeight,fontWeight:style.fontWeight,letterSpacing:style.letterSpacing,color:style.color,background:style.backgroundColor,padding:style.padding,margin:style.margin,radius:style.borderRadius,position:style.position};
+          }));
       }
     } catch (error) {entry.failure = error.message.slice(0,500);}
     results.push(entry); await context.close();
