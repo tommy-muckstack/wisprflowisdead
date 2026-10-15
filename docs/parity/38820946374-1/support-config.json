@@ -1,0 +1,20 @@
+{
+  "app": "wisprflowisdead",
+  "orig": "https://wisprflow.ai",
+  "clone": "http://localhost:3300",
+  "viewports": [
+    "1440x900",
+    "390x844"
+  ],
+  "pages": [
+    {
+      "name": "support",
+      "orig": "/support",
+      "clone": "/wisprflowisdead/support",
+      "full": true
+    }
+  ],
+  "block": [
+    "usercentrics"
+  ]
+}
