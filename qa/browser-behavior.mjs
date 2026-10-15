@@ -143,6 +143,10 @@ try {
         await faqQuestions.first().focus(); await page.keyboard.press('End');
         assert.equal(await faqQuestions.last().getAttribute('aria-selected'),'true');
         assert.equal(await faq.locator('#home-faq-panel').getAttribute('aria-labelledby'),'home-question-10');
+        const questionCard = await faq.locator('.home-faq-list').boundingBox();
+        const questionHeading = await faq.locator('.home-faq-list h3').boundingBox();
+        assert.ok(questionHeading.y >= questionCard.y && questionHeading.y + questionHeading.height <= questionCard.y + questionCard.height,
+          'The Questions heading scrolls out of its card when the last tab receives focus');
         await page.keyboard.press('Home');
         assert.equal(await faqQuestions.first().getAttribute('aria-selected'),'true');
       }
