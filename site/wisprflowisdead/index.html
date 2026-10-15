@@ -9,7 +9,10 @@
 <link rel="stylesheet" href="/wisprflowisdead/assets/navigation.css">
 <script src="/wisprflowisdead/assets/navigation.js" defer></script>
 <link rel="stylesheet" href="/wisprflowisdead/assets/branding.css">
-</head><body>
+<link rel="stylesheet" href="/wisprflowisdead/assets/home.css">
+<script src="/wisprflowisdead/assets/home.js" defer></script>
+</head><body class="home-page">
+<a class="skip-link" href="#features">Skip to features</a>
 <div class="banner"><span>WisprFlowIsDead Notetaker is now free on Mac.</span><a href="#download">Try it free <span aria-hidden="true">›</span></a></div>
 <nav class="nav" aria-label="Main">
   <a class="logo" href="/wisprflowisdead" aria-label="WisprFlowIsDead home" title="WisprFlowIsDead"><img class="brand-mark" src="/wisprflowisdead/assets/tombstone.png" width="24" height="24" alt=""><span>FlowIsDead</span></a>
@@ -31,17 +34,18 @@
   <div class="mic" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
 </header>
 
-<section class="strip"><div class="eyebrow">Works in every app you already use</div>
+<main>
+<section class="strip"><div class="eyebrow">Dictate into your Mac apps</div>
   <div class="logos"><span class="f4">Mail</span><span class="f3">Slack</span><span class="f1">Notes</span><span class="f2">MESSAGES</span><span class="f3">Docs</span><span class="f4">VS Code</span><span class="f1">Cursor</span></div></section>
 
-<section class="pin" id="features"><div class="stage">
-  <div class="stage-in on" data-s="0"><h2>4x faster <em>than typing</em></h2><p class="lede">Voice that finally works is here. Talk to create, code, message and write at the speed of thought, four times faster than your keyboard.</p>
-    <div class="vs"><div class="kb"><b>Keyboard</b><h3>45 wpm</h3></div><div class="fl"><b>Talking</b><h3>220 wpm</h3><svg class="rb" viewBox="0 0 800 90" preserveAspectRatio="none" aria-hidden="true"><defs><path id="rp2" d="M0 70 C 200 80, 360 40, 560 30 S 760 20, 820 10"/></defs><text font-family="Figtree,sans-serif" font-weight="600" font-size="17" fill="#FFFFEB"><textPath href="#rp2">I’m getting started with the project. Want to walk me through what you’re building, or start from a template? Up to you, I’ll follow your lead.</textPath></text></svg><div class="pillbar"><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div></div>
-  <div class="stage-in" data-s="1"><h2>Speak at the speed <em>you think</em></h2><p class="lede">In every app, on every Mac, with nothing to set up or integrate. If you can type there, you can talk there.</p>
+<section class="pin" id="features" tabindex="-1" aria-label="Dictation features"><div class="stage">
+  <div class="stage-in on" data-s="0"><h2>Less typing, <em>more talking</em></h2><p class="lede">Speak a first draft, review it, and keep going. Try dictation with your own words and see how it fits your day.</p>
+    <div class="vs"><div class="kb"><b>Keyboard</b><h3>Type your draft</h3></div><div class="fl"><b>Dictation</b><h3>Speak your draft</h3><svg class="rb" viewBox="0 0 800 90" preserveAspectRatio="none" aria-hidden="true"><defs><path id="rp2" d="M0 70 C 200 80, 360 40, 560 30 S 760 20, 820 10"/></defs><text font-family="Figtree,sans-serif" font-weight="600" font-size="17" fill="#FFFFEB"><textPath href="#rp2">I’m getting started with the project. Want to walk me through what you’re building, or start from a template? Up to you, I’ll follow your lead.</textPath></text></svg><div class="pillbar" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div></div>
+  <div class="stage-in" data-s="1"><h2>Speak at the speed <em>you think</em></h2><p class="lede">On your Mac, grant Microphone and Accessibility access to dictate into the focused text field. If insertion is unavailable, copy from the clipboard.</p>
     <div class="chips"><span>Mail</span><span>Slack</span><span>Messages</span><span>Notes</span><span>Google Docs</span><span>Notion</span><span>VS Code</span><span>Cursor</span><span>Xcode</span><span>Terminal</span></div></div>
   <div class="stage-in" data-s="2"><h2>Speak <em>naturally</em></h2><p class="lede">Ums, false starts and “actually, no” corrections are tidied away. Lists turn into lists. Your meaning stays, the filler goes.</p>
     <div class="edit"><div class="a">so um let’s meet tuesday at two actually no three and bring the uh the deck</div><div class="b">Let’s meet Tuesday at 3, and bring the deck.</div></div></div>
-  <div class="stage-in" data-s="3"><h2>Your Mac <em>edits as you speak</em></h2><p class="lede">Select text and say what you want: shorten it, make it friendlier, turn it into a prompt. Transforms run on-device.</p>
+  <div class="stage-in" data-s="3"><h2>Your Mac <em>edits as you speak</em></h2><p class="lede">Select text and run a Transform. Flexible rewriting needs Apple’s on-device model on a compatible macOS 26 Mac; older systems use basic cleanup and prompt templates.</p>
     <div class="edit"><div class="a">Hey just wanted to check in on whether you maybe had a chance to look at the thing I sent over last week</div><div class="b">Did you get a chance to look at what I sent last week?</div></div></div>
 </div></section>
 
@@ -49,45 +53,48 @@
   <h2>Built around <em>how you work,</em><br>not how we think you should.</h2>
   <div class="bento">
     <div class="tile"><h3>Styles per app</h3><p>Casual in chat, formal in email, exact in code. Tone follows the app you’re in.</p>
-      <div class="tabs" role="tablist"><button class="on" data-t="0">Formal</button><button data-t="1">Casual</button><button data-t="2">Very casual</button></div>
-      <div class="bubble" id="tone">Hello, are you free for lunch tomorrow? Noon works well for me.</div></div>
+      <div class="tabs" role="tablist" aria-label="Writing style preview"><button type="button" id="style-formal" role="tab" aria-controls="tone-formal" aria-selected="true" class="on">Formal</button><button type="button" id="style-casual" role="tab" aria-controls="tone-casual" aria-selected="false" tabindex="-1">Casual</button><button type="button" id="style-very-casual" role="tab" aria-controls="tone-very-casual" aria-selected="false" tabindex="-1">Very casual</button></div>
+      <div class="bubble" id="tone-formal" role="tabpanel" aria-labelledby="style-formal" tabindex="0">Hello, are you free for lunch tomorrow? Noon works well for me.</div>
+      <div class="bubble" id="tone-casual" role="tabpanel" aria-labelledby="style-casual" tabindex="0">Hey, are you free for lunch tomorrow? Let’s do 12 if that works.</div>
+      <div class="bubble" id="tone-very-casual" role="tabpanel" aria-labelledby="style-very-casual" tabindex="0">hey free for lunch tomorrow? 12 work?</div></div>
     <div class="tile lav"><h3>Your words, spelled right</h3><p>A personal dictionary and snippets learn names, jargon and phrases. Fix a word once and it sticks.</p>
       <div class="lang-card"><div>Add a new word</div><div>Maya · Priya · Dmitri</div><div>Correct a misspelling</div></div></div>
-    <div class="tile wide dk" style="background:#1A1A1A"><h3>100+ languages</h3><p style="color:#d9d9c8">Speak the language you think in. Transcription runs on your Mac’s Neural Engine, and you can switch mid-sentence.</p>
-      <div class="chips" style="justify-content:flex-start;margin-top:36px"><span>English</span><span>Español</span><span>Deutsch</span><span>Français</span><span>हिन्दी</span><span>日本語</span><span>Português</span></div></div>
+    <div class="tile wide dk" style="background:#1A1A1A"><h3>Choose how <em>you dictate</em></h3><p style="color:#d9d9c8">The Mac app offers local speech engines with different language support. Apple and Qwen3 currently use English. In the web demo, language availability depends on your browser’s speech service.</p>
+      <div class="chips" style="justify-content:flex-start;margin-top:36px"><span>Parakeet</span><span>Apple Speech · macOS 26</span><span>Qwen3 · macOS 15+</span><span>Browser speech</span></div></div>
   </div></section>
 
 <section class="sect-trust" id="privacy"><div class="trust"><h2>Your voice <em>stays yours.</em></h2>
-  <div><p>There is no server to send your voice to. Speech recognition and cleanup run on-device, history lives in a folder on your disk, and you can delete it any time.</p>
+  <div><p>In the Mac app, speech recognition and cleanup run on-device, and history stays on your disk until you delete it. The separate web demo uses your browser’s speech service, which may send audio to its provider.</p>
   <div class="rings" style="margin-top:20px"><span>No cloud<br>audio</span><span>No<br>account</span><span>Open<br>source</span></div></div></div></section>
 
-<section class="proof" id="teams"><div class="eyebrow">Built in the open, used every day</div>
-  <h2>From the first <em>people to use it.</em></h2>
-  <div class="pcard"><div class="t"><q>I stopped typing first drafts. Talk, skim, send.</q><small>Why people switch · Writers</small></div><div class="s"><div><b>$0</b><span>per month, forever</span></div><div><b>100+</b><span>languages on-device</span></div></div></div>
+<section class="proof" id="teams"><div class="eyebrow">Free and open source</div>
+  <h2>Built for <em>everyday writing.</em></h2>
+  <div class="pcard"><div class="t"><p class="product-statement">Talk through a first draft. Review it. Make it yours.</p><small>Dictation for your Mac</small></div><div class="s"><div><b>$0</b><span>no subscription or word cap</span></div><div><b>Local</b><span>Mac speech processing</span></div></div></div>
   <div class="quotes">
-    <div>It types where my cursor is, in every app. No integrations to set up.<small>Why people switch · Everyone</small></div>
-    <div>There’s no server. My voice never leaves the machine, so I can dictate client notes.<small>Why people switch · Privacy</small></div>
-    <div>Free with no word cap, and I can read every line of the source.<small>Why people switch · Developers</small></div>
-    <div>Hold fn, talk, release. Cleaner than the built-in dictation by a mile.<small>Why people switch · Dictation</small></div>
-    <div>Notetaker records my meetings from the mic and system audio, then drafts the summary.<small>Why people switch · Meetings</small></div>
-    <div>Snippets and a personal dictionary mean names finally come out right.<small>Why people switch · Accuracy</small></div>
+    <div>Insert text into the focused Mac app with Accessibility access, or copy it from the clipboard.<small>Write where you work</small></div>
+    <div>Process speech locally in the Mac app and manage saved history on your device.<small>Control your history</small></div>
+    <div>Read the source, build it yourself, and make changes under the Apache-2.0 license.<small>Explore the source</small></div>
+    <div>Hold your dictation shortcut, speak, and release. Review the text before you send it.<small>Start with your voice</small></div>
+    <div>Record meetings from your microphone and optional system audio, then review the transcript and summary.<small>Keep meeting notes</small></div>
+    <div>Add spellings and reusable phrases to a personal dictionary and snippets library.<small>Save your words</small></div>
   </div></section>
 
 <section class="faq" id="faq"><div class="eyebrow">FAQs</div><h2>Good <em>questions.</em></h2>
   <div class="faqbox">
   <details open><summary>Is it actually free?</summary><p>Yes. No trial, no tiers, no word caps. It’s open source under Apache-2.0.</p></details>
-  <details><summary>What Mac do I need?</summary><p>macOS 14 Sonoma or later on Apple silicon. Smarter cleanup and Transforms use Apple’s on-device model on macOS 26; older systems get rule-based cleanup.</p></details>
+  <details><summary>What Mac do I need?</summary><p>macOS 14.2 Sonoma or later on Apple silicon. Smarter cleanup and Transforms need Apple’s on-device model available on a compatible macOS 26 Mac; older systems get rule-based cleanup.</p></details>
   <details><summary>What permissions does it ask for?</summary><p>Microphone to hear you, Accessibility to type into other apps and read the selected text, and optionally System Audio for the Notetaker.</p></details>
   <details><summary>Why is there a login page?</summary><p>One yourappisdead.com account works across every IsDead app. The Mac app itself doesn’t need it.</p></details>
   <details><summary>Is this affiliated with Wispr Flow?</summary><p>No. WisprFlowIsDead is an independent project and is not affiliated with, endorsed by, or connected to Wispr AI or Wispr Flow.</p></details>
   </div></section>
 
 <section class="final" id="download"><h2>You have a way with words.<br><em>Now, talk.</em></h2>
-  <p>Free for macOS 14+ on Apple silicon. Dictation and Notetaker, no subscription.</p>
+  <p>Free for macOS 14.2+ on Apple silicon. Dictation and Notetaker, no subscription.</p>
   <a class="btn cream" id="dl" href="#build"><svg width="16" height="18" viewBox="0 0 16 18" fill="#1A1A1A" aria-hidden="true"><path d="M13 9.600c0-2 1.6-3 1.7-3.1-.9-1.4-2.4-1.6-2.9-1.6-1.2-.1-2.4.7-3 .7-.6 0-1.6-.7-2.6-.7C4.8 4.9 3.5 5.6 2.9 6.7 1.5 9 2.5 12.4 3.8 14.300c.7.9 1.4 2 2.4 2 1 0 1.3-.6 2.5-.6 1.2 0 1.5.6 2.5.6s1.7-.9 2.3-1.800c.7-1 1-2 1-2.1 0 0-2-.8-2-3.100zM11 3.500c.5-.6.9-1.5.8-2.4-.8 0-1.7.5-2.3 1.2-.5.6-.9 1.5-.8 2.3.9.1 1.8-.4 2.3-1.100z"/></svg><span>Download for Mac</span></a>
   <div class="note" id="dlnote">Signed builds are coming soon. Until then, build it from source:</div>
   <div id="build"><pre>git clone https://github.com/tommy-muckstack/wisprflowisdead
 cd wisprflowisdead &amp;&amp; scripts/run-dev.sh</pre></div></section>
+</main>
 
 <footer class="ft home" id="compare">
   <div class="ft-in">
@@ -110,11 +117,6 @@ cd wisprflowisdead &amp;&amp; scripts/run-dev.sh</pre></div></section>
 </footer>
 <script>
 fetch("/wisprflowisdead/api/config").then(r=>r.json()).then(c=>{if(c.downloadUrl){const a=document.getElementById("dl");a.href=c.downloadUrl;document.getElementById("dlnote").textContent="Universal .dmg · drag to Applications";document.getElementById("build").style.display="none"}}).catch(()=>{});
-(()=>{const pin=document.querySelector(".pin"),st=[...document.querySelectorAll(".stage-in")];let cur=0;
-const f=()=>{const r=pin.getBoundingClientRect(),span=pin.offsetHeight-innerHeight;const p=Math.min(.999,Math.max(0,-r.top/span));const i=Math.floor(p*st.length);if(i!==cur){st[cur].classList.remove("on");st[i].classList.add("on");cur=i}};
-addEventListener("scroll",f,{passive:true});f();
-const tones=["Hello, are you free for lunch tomorrow? Noon works well for me.","Hey, are you free for lunch tomorrow? Let’s do 12 if that works.","hey free for lunch tomorrow? 12 work?"];
-document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tabs button").forEach(x=>x.classList.remove("on"));b.classList.add("on");document.getElementById("tone").textContent=tones[+b.dataset.t]});})();
 </script>
 
 </body></html>

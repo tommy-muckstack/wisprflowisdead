@@ -1,0 +1,25 @@
+.home-page [hidden]{display:none!important}
+.home-page :focus-visible{outline:3px solid #034F46;outline-offset:4px}
+.home-page .stage :focus-visible,.home-page .proof :focus-visible{outline-color:#F0D7FF}
+.skip-link{position:fixed;left:16px;top:12px;z-index:100;background:#FFFFEB;color:#1A1A1A;padding:12px 18px;border:2px solid #034F46;border-radius:8px;transform:translateY(-160%)}
+.skip-link:focus{transform:none}
+.home-page .pcard .product-statement{margin:0;font-family:var(--ids-font-display),serif;font-size:38px;line-height:1.05}
+.home-page .tabs{max-width:100%;flex-wrap:wrap}
+.home-page .tabs button{min-height:44px}
+.home-page .bubble{overflow-wrap:anywhere}
+.home-page:not(.home-enhanced) .tabs{display:none}
+.home-page:not(.home-enhanced) .bubble+.bubble{margin-top:12px}
+/* Without JavaScript, every feature remains visible in document order. */
+.home-page:not(.home-enhanced) .pin{height:auto;margin-top:0}
+.home-page:not(.home-enhanced) .stage{position:static;height:auto;min-height:0;overflow:visible}
+.home-page:not(.home-enhanced) .stage-in{position:relative;opacity:1;padding-bottom:80px}
+/* Small viewports must not clip pinned panels; reduced motion reads linearly. */
+@media(prefers-reduced-motion:reduce),(max-height:720px),(max-width:600px){
+  .home-page .pin{height:auto;margin-top:0}
+  .home-page .stage{position:static;height:auto;min-height:0;overflow:visible}
+  .home-page .stage-in{position:relative;opacity:1;transition:none;padding-bottom:80px}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .home-page *,.home-page *::before,.home-page *::after{animation:none!important;transition:none!important}
+}

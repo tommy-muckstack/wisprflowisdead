@@ -13,6 +13,7 @@ Scope: marketing website, shared Firebase account flow, and a browser dictation 
 - Public text/navigation inspected on [home](https://wisprflow.ai), [pricing](https://wisprflow.ai/pricing), [get started](https://wisprflow.ai/get-started), and the [help center](https://docs.wisprflow.ai). This is source/text evidence, not a rendered-browser comparison. Responsive nav menus, hover states, and current computed styles remain unobserved.
 - No reference captures at `/workspace/isdead-shots/parity/wisprflowisdead/`. The local in-app browser execution tool is unavailable. Standalone Playwright Chromium fails at launch with macOS `bootstrap_check_in ... MachPortRendezvousServer` permission errors, including escalated attempts.
 - The user subsequently supplied a paired desktop screenshot (`image (10).png`, original left, clone right) and prioritized the navigation bar. It is useful reference evidence, but its two panels do not establish equal viewport widths or a measured parity score. Installed Google Chrome was also attempted through Playwright and exited before navigation.
+- Cached Playwright Firefox and WebKit were also attempted against the local server with escalation. Both abort before navigation (`SIGABRT` / `Abort trap: 6`). The local HTTP server responds, but no installed engine has produced a website screenshot.
 - `npm install` for both website and parity tooling fails with `ENOTFOUND registry.npmjs.org`. Website APIs cannot be exercised without dependencies/configuration. No environment values or secrets were read, changed, or committed.
 - A static preview was started at `http://127.0.0.1:3300/wisprflowisdead/` after socket-binding approval. This Python fallback serves `.html` paths; it does not emulate Vercel clean URLs or functions.
 - `scripts/parity.mjs --config parity/wispr.json --clone https://yourappisdead.com --viewports 1440x900,390x844` was attempted: missing package dependency prevents capture. `templates/smoke2.mjs https://yourappisdead.com/wisprflowisdead wispr-account` was attempted: browser launch fails before navigation. No accounts were created, so there are none to delete.
@@ -42,11 +43,11 @@ Status is `match`, `differs`, or `missing`. `Differs` includes implementations a
 | Home: hero layout, type, colors, spacing | differs | P1 | `site.css`: manually tuned layout; current original measurement required | N/M |
 | Home: hero art and animation | differs | P2 | Original SVG lettering and CSS wave bars; E1 | N/M |
 | Home: logo strip | differs | P2 | App-name compatibility strip replaces customer marks; E2 | N/M |
-| Home: speed comparison and scroll demos | differs | P1 | Four sticky stages, fixed heights; compare every stage at both widths | N/M |
-| Home: feature grid and style preview | differs | P2 | Three tiles; tab semantics and keyboard behavior incomplete | N/M |
-| Home: privacy/security card | differs | P2 | Local-device claims replace external certifications; E3 | N/M |
-| Home: testimonials | differs | P1 | Unattributed first-person quote and generic testimonial-like statements; replace with factual product information | N/M |
-| Home: FAQ, CTA and download | differs | P1 | Limited FAQ, source-build fallback; minimum OS copy inconsistent with README (14 vs 14.2) | N/M |
+| Home: speed comparison and scroll demos | differs | P1 | Unsupported speed claims removed; linear fallback for reduced motion, small viewports and no JS; desktop scroll stages still need rendered comparison | N/M |
+| Home: feature grid and style preview | differs | P2 | Linked tab/panel semantics, arrow/Home/End navigation and focus styling implemented; browser verification pending | N/M |
+| Home: privacy/security card | differs | P2 | Mac-local processing distinguished from browser service; no external certification claims, E3 | N/M |
+| Home: testimonials | differs | P2 | Anonymous quotes replaced with factual product cards; intentional E2, layout comparison pending | N/M |
+| Home: FAQ, CTA and download | differs | P1 | Minimum OS corrected to 14.2; limited FAQ and source-build fallback remain | N/M |
 | Home: mobile layout | differs | P1 | Multiple overrides and fixed heights; overflow, order and tap targets unverified | N/M |
 | Home/pricing: footer and links | missing | P1 | Most original destinations absent; complete inventory below | N/M |
 | Cookie/privacy controls | differs | P2 | Footer says no tracking/cookie banner; verify scripts/storage before validating E4 | N/M |
@@ -206,7 +207,7 @@ Draft PR: [#5](https://github.com/tommy-muckstack/wisprflowisdead/pull/5), stack
 
 ### Personal dictionary and snippets
 
-Draft branch: `qa/browser-library`, stacked on #5.
+Draft PR: [#6](https://github.com/tommy-muckstack/wisprflowisdead/pull/6), stacked on #5.
 
 - Before: personal words and snippets existed only in the native app. Browser dictation could not apply or manage them.
 - After: the demo offers personal word/correction and snippet CRUD, search, alphabetical/newest/oldest sorting, dictionary stars, native form validation, plain-text expansion counts, keyboard tabs, save/cancel, delete confirmation and visible empty/error states. Duplicate phrases are rejected across both lists.
@@ -216,6 +217,18 @@ Draft branch: `qa/browser-library`, stacked on #5.
 - Website lint/build and whitespace checks pass. **35 tests pass**, including ten library validation/storage/matching tests. A source integration check confirms demo/library DOM IDs resolve without duplicates. Neither check establishes rendered controls, actual localStorage behavior in all engines, microphone results, or focus behavior.
 - The shared smoke2 implementation was attempted with a cleanup wrapper for its own throwaway account. Chromium failed at the same Mach-port launch step before navigation or account creation; cleanup was not needed. Screenshots, computed styles and scores remain **N/M → N/M**.
 - References: [dictionary behavior](https://docs.wisprflow.ai/articles/4052411709-teach-flow-your-words-with-the-dictionary), [snippets](https://docs.wisprflow.ai/articles/5784437944-create-and-use-snippets), [library management](https://docs.wisprflow.ai/articles/9639977157-view-shared-dictionary-words-and-snippets-in-the-admin-portal). These supplied behavior evidence, not screenshots or proprietary implementation.
+
+### Home content and accessibility
+
+Draft branch: `qa/home-content-accessibility`, stacked on #6.
+
+- Before: anonymous first-person statements resembled customer testimonials; speed figures and a 100+ language promise lacked evidence for this clone. Minimum OS copy disagreed with `Package.swift`/README. Privacy copy could be mistaken for the browser demo's behavior.
+- After: factual product cards replace implied testimonials, unsupported speed/language claims are removed, Mac requirements say 14.2+, and copy distinguishes local Mac processing from browser speech services. Native Apple/Qwen3 English configuration and model-dependent rewriting are described accurately. These intentional content differences implement E2/E3/E7/E9; no customers or benchmarks were invented.
+- Style previews have linked tab/panel roles, selected state, a single tab stop, arrow/Home/End navigation, and visible focus. A skip link and main landmark improve navigation. All previews remain readable without JavaScript.
+- Feature panels flow in document order when JavaScript is unavailable, reduced motion is requested, the viewport is at most 600px wide, or at most 720px high. This avoids an absolute, clipped panel on small screens. Desktop scrolling is animation-frame scheduled and updates after resize/page restoration. Exact original scroll timing and mobile geometry remain unverified differences.
+- Website lint/build, whitespace checks and all **35 existing tests** pass. Source checks confirm unique IDs and resolved ARIA references. No new implementation-mirroring tests were added for this content/CSS change; these checks do not verify rendered layout, assistive technology or focus behavior.
+- Shared live smoke2 with throwaway-account cleanup was attempted again and failed at Chromium launch before navigation. No account was created. Before/after screenshots, computed styles and scores remain **N/M → N/M**; this change remains a draft.
+- References: native `Transcription.swift`, `TransformRunner.swift` and package platform requirement; [WAI tabs pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/). The original homepage remains the comparison target, not evidence for clone performance claims.
 
 ## Next verification gates
 
