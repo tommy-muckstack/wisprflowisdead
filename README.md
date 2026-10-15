@@ -46,3 +46,7 @@ Grant Microphone and Accessibility when asked. Accessibility lets the app type i
 ## License
 
 Apache-2.0. See `LICENSE` and `NOTICE`. Figtree and EB Garamond are under the SIL Open Font License (`Sources/WisprFlowIsDead/Resources/Fonts/OFL-*.txt`). Theme tokens come from the shared IsDead design system (`scripts/sync-design.sh`).
+
+## Website
+
+The one-page site and `/login` live in [`site/`](site/README.md), deployed as its own Vercel project and served at yourappisdead.com/wisprflowisdead.

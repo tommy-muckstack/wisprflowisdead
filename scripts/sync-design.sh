@@ -7,6 +7,6 @@ cd "$(dirname "$0")/.."
 DESIGN="${ISDEAD_DESIGN:-../isdead-design}"
 cp "$DESIGN/swift/IsDeadTokens.swift" Sources/IsDeadDesign/IsDeadTokens.swift
 cp "$DESIGN"/fonts/wisprflow/OFL-*.txt Sources/WisprFlowIsDead/Resources/Fonts/
-cp "$DESIGN/css/wisprflow.css" site/wisprflowisdead/assets/isdead-wisprflow.css
+cp "$DESIGN/css/wisprflow.css" site/wisprflowisdead/assets/isdead-wisprflow.css && sed -i.bak "s#../fonts/wisprflow/#fonts/#g" site/wisprflowisdead/assets/isdead-wisprflow.css && rm -f site/wisprflowisdead/assets/isdead-wisprflow.css.bak
 cp "$DESIGN"/fonts/wisprflow/*.woff2 site/wisprflowisdead/assets/fonts/
 echo "Synced from $DESIGN"

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Log in · WisprFlowIsDead</title>
+<link rel="icon" href="/wisprflowisdead/assets/favicon.png">
+<link rel="stylesheet" href="/wisprflowisdead/assets/isdead-wisprflow.css"><link rel="stylesheet" href="/wisprflowisdead/assets/site.css">
+</head><body>
+<nav><div class="wrap"><a class="brand" href="/wisprflowisdead"><img src="/wisprflowisdead/assets/icon.png" alt="">WisprFlowIsDead</a>
+<div class="links"></div><a class="btn sm primary" href="/wisprflowisdead#download">Download for Mac</a></div></nav>
+<main class="auth">
+  <h1 class="serif" id="title">Welcome back</h1>
+  <p style="margin:0;color:var(--ids-color-text-muted)">One account for every app on yourappisdead.com.</p>
+  <button class="btn" id="google" type="button">Continue with Google</button>
+  <p class="or">or with email</p>
+  <form id="form">
+    <div id="nameRow" hidden><label for="name">Name</label><input id="name" autocomplete="name"></div>
+    <label for="email">Email</label><input id="email" type="email" required autocomplete="email">
+    <label for="password">Password</label><input id="password" type="password" required minlength="6" autocomplete="current-password">
+    <button class="btn primary" id="submit" type="submit">Log in</button>
+  </form>
+  <div class="msg" id="msg" role="status"></div>
+  <p style="font-size:14px;margin-top:18px"><button class="linkish" id="toggle" type="button">New here? Create an account</button> · <button class="linkish" id="reset" type="button">Forgot password?</button></p>
+</main>
+<script type="module">
+const $ = id => document.getElementById(id);
+const say = (t, ok) => { $("msg").textContent = t; $("msg").className = "msg " + (ok ? "ok" : "err"); };
+let signup = false;
+$("toggle").onclick = () => { signup = !signup; $("nameRow").hidden = !signup; $("title").textContent = signup ? "Create your account" : "Welcome back";
+  $("submit").textContent = signup ? "Create account" : "Log in"; $("toggle").textContent = signup ? "Have an account? Log in" : "New here? Create an account";
+  $("password").autocomplete = signup ? "new-password" : "current-password"; };
+function friendly(e){ const c=String(e?.code??"");
+  if(/invalid-credential|wrong-password|user-not-found/.test(c))return"Wrong email or password.";
+  if(c.includes("email-already-in-use"))return"That email already has an account. Log in instead.";
+  if(c.includes("weak-password"))return"Use at least 6 characters for your password.";
+  if(c.includes("invalid-email"))return"That email address doesn't look right.";
+  if(c.includes("popup-closed"))return"Google sign-in was closed before it finished.";
+  if(c.includes("too-many-requests"))return"Too many attempts. Try again in a few minutes.";
+  return e?.message??"Something went wrong."; }
+const cfg = await fetch("/wisprflowisdead/api/config").then(r => r.json()).catch(() => ({}));
+if (!cfg.firebase) { say("Sign-in isn't configured yet."); document.querySelectorAll("button,input").forEach(b => b.disabled = true); }
+else {
+  const V = "10.14.1";
+  const { initializeApp } = await import(`https://www.gstatic.com/firebasejs/${V}/firebase-app.js`);
+  const A = await import(`https://www.gstatic.com/firebasejs/${V}/firebase-auth.js`);
+  const auth = A.getAuth(initializeApp(cfg.firebase, "isdead"));
+  await A.setPersistence(auth, A.inMemoryPersistence); // the shared cookie is the source of truth
+  const next = new URLSearchParams(location.search).get("next");
+  const done = async user => {
+    const r = await fetch("/wisprflowisdead/api/session", { method: "POST", headers: { "content-type": "application/json" }, credentials: "same-origin", body: JSON.stringify({ idToken: await user.getIdToken(true) }) });
+    if (!r.ok) throw new Error((await r.json().catch(() => null))?.error ?? "Could not start a session");
+    say("You're signed in.", true);
+    location.href = next && next.startsWith("/") && !next.startsWith("//") ? next : "/wisprflowisdead";
+  };
+  $("google").onclick = async () => { try { await done((await A.signInWithPopup(auth, new A.GoogleAuthProvider())).user); } catch (e) { say(friendly(e)); } };
+  $("form").onsubmit = async ev => { ev.preventDefault(); const email = $("email").value, pw = $("password").value;
+    try {
+      if (signup) { const c = await A.createUserWithEmailAndPassword(auth, email, pw);
+        if ($("name").value) await A.updateProfile(c.user, { displayName: $("name").value });
+        A.sendEmailVerification(c.user).catch(() => {}); await done(c.user); }
+      else await done((await A.signInWithEmailAndPassword(auth, email, pw)).user);
+    } catch (e) { say(friendly(e)); } };
+  $("reset").onclick = async () => { const email = $("email").value; if (!email) return say("Type your email first.");
+    try { await A.sendPasswordResetEmail(auth, email); say("Check your inbox for a reset link.", true); } catch (e) { say(friendly(e)); } };
+}
+</script>
+</body></html>
