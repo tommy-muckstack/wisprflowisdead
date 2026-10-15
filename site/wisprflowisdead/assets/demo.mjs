@@ -2,6 +2,8 @@ import {Dictation} from './dictation.mjs';
 import {polishWithLibrary} from './library.mjs';
 import {mountLibrary} from './library-ui.mjs';
 import {mountHistory} from './history-ui.mjs';
+import {mountSettings} from './settings-ui.mjs';
+import {Shortcut} from './preferences.mjs';
 
 const $ = id => document.getElementById(id);
 const editor = $('editor');
@@ -23,6 +25,11 @@ const machine = new Dictation({
   polish: polishWithLibrary,
   onChange: render
 });
+const settings = mountSettings({onMicrophoneBusy:busy => {
+  $('record').disabled = busy || ['requesting','transcribing','polishing'].includes(machine.state) || !machine.createRecognition;
+}});
+const keyboard = new Shortcut({preferences:() => settings.preferences.value, start:startRecording, stop:() => machine.stop(), toggle:record,
+  allowed:() => !settings.open && !settings.microphone.busy});
 
 function options() { return {language:$('language').value, style:$('style').value, entries:library.entries.map(entry => ({...entry}))}; }
 function counts() {
@@ -45,6 +52,8 @@ function insert(text) {
 function render(snapshot) {
   const busy = machine.busy;
   history.setBusy(busy);
+  settings.setBusy(busy);
+  if (!busy) keyboard.reset();
   $('options').disabled = busy;
   tabs.forEach(tab => {tab.disabled = busy;});
   editor.readOnly = busy;
@@ -70,10 +79,13 @@ function render(snapshot) {
   }
   counts();
 }
+function startRecording() {
+  if (machine.busy || settings.microphone.busy) return false;
+  captureInsertion(); return machine.start(options());
+}
 function record() {
   if (machine.state === 'listening') return machine.stop();
-  if (machine.busy) return;
-  captureInsertion(); machine.start(options());
+  return startRecording();
 }
 $('record').addEventListener('click', record);
 $('cancel').addEventListener('click', () => machine.cancel());
@@ -125,9 +137,10 @@ tabs.forEach((tab,index) => {
 });
 document.addEventListener('keydown', event => {
   if (event.key === 'Escape' && machine.busy) {event.preventDefault(); machine.cancel();}
-  if (event.code === 'Space' && event.ctrlKey && event.altKey && !event.metaKey && !event.shiftKey && !event.repeat && !event.isComposing) {event.preventDefault(); record();}
+  keyboard.down(event);
 });
-addEventListener('pagehide', () => {if (machine.busy) machine.cancel();});
-document.addEventListener('visibilitychange', () => {if (document.hidden && machine.busy) machine.cancel();});
-$('language').addEventListener('change', () => {$('style').disabled = !$('language').value.startsWith('en');});
+document.addEventListener('keyup', event => keyboard.up(event));
+addEventListener('blur', () => {if (keyboard.held) {keyboard.reset(); if (machine.busy) machine.cancel();}});
+addEventListener('pagehide', () => {keyboard.reset(); if (machine.busy) machine.cancel();});
+document.addEventListener('visibilitychange', () => {if (document.hidden) {keyboard.reset(); if (machine.busy) machine.cancel();}});
 render({state:'idle', message:!machine.createRecognition ? 'Speech recognition is unavailable here. Use typed practice below, or open this page in a supported browser over HTTPS.' : '', raw:'', interim:'', result:''});

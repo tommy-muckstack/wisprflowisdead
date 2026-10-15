@@ -11,7 +11,7 @@ export const speechErrors = {
 };
 
 export class Dictation {
-  constructor({createRecognition, onChange, polish = cleanText, schedule = setTimeout, unschedule = clearTimeout}) {
+  constructor({createRecognition, onChange, polish = cleanText, schedule = (fn, delay) => setTimeout(fn, delay), unschedule = id => clearTimeout(id)}) {
     Object.assign(this, {createRecognition, onChange, polish, schedule, unschedule});
     this.state = 'idle';
     this.generation = 0;

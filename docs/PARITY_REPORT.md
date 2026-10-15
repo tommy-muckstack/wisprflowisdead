@@ -74,7 +74,7 @@ Status is `match`, `differs`, or `missing`. `Differs` includes implementations a
 | Snippets | differs | P1 | Browser CRUD and case-preserving plain-text expansion implemented; rich text/import/sync and rendered checks pending | N/M |
 | Command mode | missing | P1 | Native model implementation; browser free equivalent needed, E7 | N/M |
 | History/copy/delete/recovery | differs | P1 | Browser text history, original/result restore, search/copy/delete, retention and storage recovery drafted; audio replay/retry unavailable, live checks pending | N/M |
-| Settings: hotkey/language/microphone | differs | P1 | Demo language selector and focused-page shortcut; customization/device settings pending, E8/E9 | N/M |
+| Settings: hotkey/language/microphone | differs | P1 | Settings dialog adds language/style persistence, custom focused-page shortcut, hold/toggle activation and bounded microphone level check; native device picker/global shortcuts remain E8/E9 | N/M |
 | Settings: privacy/storage | differs | P1 | Library saving is opt-in; history offers page-only, 24-hour, until-deleted and disabled modes; browser/account isolation and real retention checks pending | N/M |
 | Browser onboarding | missing | P1 | Permission/practice/language/style onboarding absent | N/M |
 | Microphone denied/unavailable/no speech | differs | P0 | Recoverable messages and timeouts tested with injected recognizer; real permissions/audio pending | N/M |
@@ -245,7 +245,7 @@ Draft PR: [#8](https://github.com/tommy-muckstack/wisprflowisdead/pull/8), stack
 
 ### Browser history and retention
 
-Draft branch: `qa/browser-history`, stacked on #8.
+Draft PR: [#9](https://github.com/tommy-muckstack/wisprflowisdead/pull/9), stacked on #8.
 
 - Before: completed browser dictations and typed practice had no history list or recovery after changing drafts.
 - After: Recent activity stores each completed result once, with original words, language/style/context and timestamp. It offers search, copy, full-text inspection, restore-result/restore-original with overwrite confirmation, individual deletion and clear-all. Restoring is disabled during recording/cleanup. Text is rendered literally; no user content is inserted as HTML.
@@ -256,6 +256,19 @@ Draft branch: `qa/browser-history`, stacked on #8.
 - Website lint/build, whitespace and source integration checks pass. **49 tests pass**, including ten history validation/storage/expiry/conflict tests. These validate deterministic logic, not actual browser persistence, privacy permissions, microphone capture or native history parity.
 - Shared live smoke2 with cleanup was attempted and failed at Chromium launch before navigation; no account was created. Website screenshots, computed styles and parity remain **N/M → N/M**. The change remains a draft pending browser, live auth and microphone verification.
 - References: [original history deletion and retention](https://docs.wisprflow.ai/articles/4465314211-delete-transcripts-and-history-in-wispr-flow), [original data-sharing/local-history controls](https://docs.wisprflow.ai/articles/9609615338-private-cloud-sync-and-data-sharing-preferences-in-wispr-flow).
+
+### Browser settings and microphone check
+
+Draft branch: `qa/browser-settings`, stacked on #9.
+
+- Before: only inline language/style controls and a fixed Ctrl+Alt+Space toggle were available. There was no microphone check, shortcut customization or settings persistence.
+- After: a native modal dialog offers synchronized language/style controls, one custom Ctrl+Alt+(optional Shift)+letter/number/Space shortcut, keyboard enable/disable, and hold-to-talk or press-to-toggle activation. Key release stops a held dictation even after modifier release; repeats, composing text and AltGraph do not trigger recording. Closing/cancelling/hiding the page releases active checks. Browser timer/frame callbacks use wrappers so they do not receive a controller object as their host receiver.
+- Settings apply only to the page by default. Explicit opt-in writes only `wisprflowisdead.preferences.v1`; reload/reset, corrupt data, known cross-tab changes, failed writes and failed removal have visible states. A failed saved update preserves both active and saved settings. Errors from inline selectors are visible outside the modal too. Reset leaves history/library/account data unchanged.
+- The microphone check requests the browser default input only on a button click, displays its reported label and measured input level, and stops after 20 seconds. Permission/setup has a 15-second timeout. Cancelling a pending request closes any late-granted stream; disconnects, permission failures and processing errors release tracks, frames and audio context. It does not record, upload or play audio through speakers.
+- Remaining differences: browser/system settings select dictation input; the local test does not claim it can force the speech service to use that device. Global/Fn/mouse/multiple native bindings and automatic multilingual recognition are not provided. Web Speech track-input support is not assumed across browsers. E8/E9 apply; real permission prompts, input levels, native dialog focus and hold behavior still require browser testing.
+- Website lint/build, whitespace and source integration checks pass. **64 tests pass**, including eight preference/shortcut tests and seven microphone lifecycle tests. Audio streams, permissions and levels are injected in those tests; no real microphone or browser interaction pass is claimed.
+- Shared smoke2 with cleanup was attempted again and failed at Chromium launch before navigation/account creation. The in-app Node REPL/browser execution tool is still unavailable. Screenshots, computed styles and scores remain **N/M → N/M**; this change is a draft.
+- References: [original shortcut controls](https://docs.wisprflow.ai/articles/2612050838-Supported-%26-Unsupported-Keyboard-Hotkey-Shortcuts), [original microphone controls](https://docs.wisprflow.ai/articles/8884408990-connect-and-set-up-external-audio-devices), [getUserMedia](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia), [SpeechRecognition input](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition/start).
 
 ## Next verification gates
 

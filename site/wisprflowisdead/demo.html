@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="/wisprflowisdead/assets/demo.css">
   <link rel="stylesheet" href="/wisprflowisdead/assets/library.css">
   <link rel="stylesheet" href="/wisprflowisdead/assets/history.css">
+  <link rel="stylesheet" href="/wisprflowisdead/assets/settings.css">
   <script type="module" src="/wisprflowisdead/assets/demo.mjs"></script>
 <link rel="stylesheet" href="/wisprflowisdead/assets/branding.css">
 </head>
@@ -17,7 +18,7 @@
 <a class="skip" href="#workspace">Skip to dictation</a>
 <header class="demo-header">
   <a class="brand" href="/wisprflowisdead" aria-label="WisprFlowIsDead home"><img class="brand-mark" src="/wisprflowisdead/assets/tombstone.png" width="24" height="24" alt=""> FlowIsDead</a>
-  <nav aria-label="Demo navigation"><a href="/wisprflowisdead/app">Account</a><a class="button" href="/wisprflowisdead#download">Get the Mac app</a></nav>
+  <nav aria-label="Demo navigation"><button id="open-settings" type="button" aria-haspopup="dialog" aria-controls="settings-dialog" disabled>Settings</button><a href="/wisprflowisdead/app">Account</a><a class="button" href="/wisprflowisdead#download">Get the Mac app</a></nav>
 </header>
 <main>
   <div class="intro"><p class="eyebrow">WisprFlowIsDead · Web demo</p><h1>Let your words <em>flow.</em></h1><p>Speak a thought. Get writing you can edit, copy, and use.</p></div>
@@ -33,6 +34,7 @@
       <label>Language<select id="language"><option value="en-US">English (US)</option><option value="en-GB">English (UK)</option><option value="es-ES">Español</option><option value="fr-FR">Français</option><option value="de-DE">Deutsch</option><option value="pt-BR">Português</option><option value="hi-IN">हिन्दी</option><option value="ja-JP">日本語</option></select></label>
       <label>Writing style<select id="style"><option value="formal">Formal.</option><option value="casual">Casual</option><option value="very-casual">very casual</option><option value="excited">Excited!</option></select></label>
     </fieldset>
+    <p id="preferences-notice" class="hint" role="status" hidden></p>
     <label class="sr-only" for="editor">Your writing</label>
     <textarea id="editor" rows="7" placeholder="Click Start dictating, or write here…" spellcheck="true"></textarea>
     <div class="editor-actions"><span id="word-count">0 words</span><div><button id="undo" type="button" disabled>Undo cleanup</button><button id="copy" type="button" disabled>Copy text</button><button id="clear" type="button" disabled>Clear</button></div></div>
@@ -93,6 +95,33 @@
   </section>
   <noscript><p class="workspace">Enable JavaScript to use dictation and text cleanup. You can still <a href="/wisprflowisdead#download">get the Mac app</a>.</p></noscript>
 </main>
+<dialog class="settings-dialog" id="settings-dialog" aria-labelledby="settings-heading">
+  <header><h2 id="settings-heading">Settings</h2><button id="settings-close" type="button" autofocus>Done</button></header>
+  <fieldset id="settings-fields"><legend class="sr-only">Browser dictation settings</legend>
+    <h3>Language and writing</h3>
+    <label>Dictation language<select id="settings-language"></select></label>
+    <label>Writing style<select id="settings-style"></select></label>
+    <p>Language availability depends on your browser’s speech service. Cleanup and styles support English; other languages retain the recognized text.</p>
+    <h3>Keyboard shortcut</h3>
+    <label class="check"><input id="shortcut-enabled" type="checkbox" checked>Enable dictation shortcut</label>
+    <label>Activation<select id="shortcut-activation"><option value="toggle">Press to start or stop</option><option value="hold">Hold to talk</option></select></label>
+    <output id="shortcut-current">Ctrl + Alt + Space</output>
+    <button id="shortcut-change" type="button">Change shortcut</button>
+    <input id="shortcut-capture" readonly hidden aria-label="Press a new dictation shortcut" aria-describedby="shortcut-help">
+    <p id="shortcut-help">Use Ctrl + Alt with a letter, number or Space; Shift is optional. Browser shortcuts work only while this page is focused. Fn and system-wide shortcuts require the Mac app. If your browser or system reserves a combination, use another one.</p>
+    <h3>Microphone</h3>
+    <p>Dictation uses the browser’s default microphone. Change the input in browser or system settings. This local check does not record or upload audio and does not guarantee that the speech service will use the same device.</p>
+    <label for="microphone-level">Input level</label><meter id="microphone-level" min="0" max="1" value="0"></meter>
+    <div class="settings-actions"><button id="microphone-start" type="button">Test microphone</button><button id="microphone-stop" type="button" hidden>Stop test</button></div>
+    <p id="microphone-status" role="status">Microphone access is requested only when you start a test or dictation.</p>
+    <h3>Remember settings</h3>
+    <label class="check"><input id="remember-settings" type="checkbox">Keep these settings after closing the page</label>
+    <p id="settings-storage-hint"></p>
+    <div class="settings-actions"><button id="settings-reload" type="button">Reload saved settings</button><button id="settings-reset" type="button">Reset settings</button></div>
+    <p>History and personal library storage have separate controls on the demo page.</p>
+  </fieldset>
+  <p id="settings-status" role="status" aria-live="polite"></p>
+</dialog>
 <footer><a href="/wisprflowisdead">WisprFlowIsDead</a> · Free and open source. Not affiliated with Wispr AI or Wispr Flow. <a href="https://github.com/tommy-muckstack/wisprflowisdead">Source code</a></footer>
 </body>
 </html>
