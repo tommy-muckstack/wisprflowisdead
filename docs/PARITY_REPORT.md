@@ -55,12 +55,12 @@ Status is `match`, `differs`, or `missing`. `Differs` includes implementations a
 | Pricing: FAQ | differs | P2 | JS-created answers and selected-class controls lack complete accessible state | N/M |
 | Pricing: security card and CTA | differs | P2 | Independent-project claims; preserve E3/E5 | N/M |
 | Pricing: mobile card collapse | differs | P2 | Toggle exists; verify controls, expanded copy and heights | N/M |
-| Login: visual layout | differs | P1 | `login.html` contains duplicate body start; mobile art/card needs capture | N/M |
-| Login: Google sign-in/button | differs | P1 | Existing supplied official SVG; `site.css` overrides approved button styling; popup not tested | N/M |
-| Login: Apple/Microsoft/SSO | missing | P1 | Buttons currently report unavailable; E6, configuration decision required | N/M |
-| Email login/signup | differs | P1 | Email-first Firebase implementation, no request lock; signed-in redirect defaults to marketing | N/M |
-| Password reset and verification | differs | P1 | Reset link exists; no verification-code flow, resend UX, or email edit step | N/M |
-| Auth validation/error/loading | differs | P1 | SDK import/persistence failures are uncaught, config failure disables all controls, no retry | N/M |
+| Login: visual layout | differs | P1 | Duplicate body removed; responsive card/focus fixes and provider styling drafted; capture pending | N/M |
+| Login: Google sign-in/button | differs | P1 | Existing official gradient G retained; approved white/gray/Google Sans treatment restored; popup/rendering untested | N/M |
+| Login: Apple/Microsoft/SSO | missing | P1 | Unavailable providers are disabled with visible explanation; E6, configuration decision required | N/M |
+| Email login/signup | differs | P1 | Locked email-first flow with editable email and recoverable signup continuation; default return is account page | N/M |
+| Password reset and verification | differs | P1 | Reset view and verification-link resend added; Firebase link verification differs from original email-code flow, E6 | N/M |
+| Auth validation/error/loading | differs | P1 | Config/SDK setup timeout and retry, operation status, native validation, friendly errors; live SDK checks pending | N/M |
 | Account identity/loading | differs | P1 | Account recovery change adds loading, retry and 401-only redirect; five source-level tests pass; browser pending | N/M |
 | Account sign-out | differs | P1 | Account recovery change checks DELETE success, blocks duplicates and retains failed state; live smoke blocked | N/M |
 | Home/pricing account access | differs | P2 | Navigation change moves account access to footer/mobile menu; sign-out uses account page recovery flow | N/M |
@@ -134,7 +134,7 @@ These document constraints, not a blanket waiver for unfinished work. Outstandin
 - **E3 — certifications:** do not imply SOC 2, HIPAA, ISO certification or enterprise guarantees for this project. Describe actual implementation instead.
 - **E4 — privacy UI:** do not add a nonfunctional consent banner for visual similarity. First verify cookies, SDK traffic and storage, then provide controls the clone actually needs.
 - **E5 — pricing/payment:** preserve the existing free clone and all payment behavior. Original paid-plan labels may be comparative only; do not create checkout, trial, billing or fake enterprise services.
-- **E6 — providers:** existing Firebase email/password and Google must work. Apple, Microsoft and SAML require provider/tenant configuration; no credentials/configuration changes are authorized in this task. Disabled/clear unavailable states are preferable to misleading buttons. Exact provider parity needs a maintainer decision.
+- **E6 — providers:** existing Firebase email/password and Google must work. Apple, Microsoft and SAML require provider/tenant configuration; no credentials/configuration changes are authorized in this task. Disabled/clear unavailable states are preferable to misleading buttons. Exact provider parity needs a maintainer decision. The existing Firebase email/password setup sends verification/reset links, not the original email login-code flow; changing authentication protocols is outside this client recovery change.
 - **E7 — transcription/polish:** Web Speech and deterministic cleanup are the implemented free browser alternative, not equivalent to Wispr models. Accuracy, correction semantics and unrestricted AI rewriting must be documented honestly. Browser recognition may use the browser vendor's server; never describe it as guaranteed local/offline.
 - **E8 — operating-system integration:** browser shortcuts work while the page is focused, cannot reproduce global Fn hooks or insert into arbitrary desktop apps. Keep native app handoff available.
 - **E9 — microphone/language support:** browser recognition support and device selection differ by engine. Detect capabilities, expose only working settings, and provide a typed practice fallback. Test real microphone permission and audio on a supported browser.
@@ -177,6 +177,18 @@ Draft PR: [#3](https://github.com/tommy-muckstack/wisprflowisdead/pull/3), stack
 - `npm run lint --prefix site` and `npm run build --prefix site`: passed. New dependency-free scripts parse JavaScript (including inline scripts) and check local asset paths. The site is deployed as source, with no bundler; these checks do not claim HTML/CSS visual or semantic validation.
 - `npm test --prefix site`: **15 passed**, including the five account tests and ten speech/cleanup tests. Recognition events are injected, not real audio or browser permission tests.
 - Shared live auth smoke was attempted before publication and failed at Chromium launch before navigation. No account was created. Screenshots and scores remain unavailable, **N/M → N/M**. This change stays a draft until live auth, browser, microphone and paired viewport checks pass.
+
+### Login, signup and email recovery
+
+Draft branch: `qa/login-recovery`, stacked on #3.
+
+- Before: duplicate body markup, uncaught SDK/config failures, no retry or pending lock, password fields could be submitted inconsistently, session failure after account creation could trigger a second signup attempt, and return URLs accepted backslashes.
+- After: explicit setup/loading/retry, native email/password validation, email correction, independent reset view, request locks, clear provider/network/error messages, signup-created confirmation with verification-link resend, and session retry without recreating the account. Successful sessions return to the account page or a validated local application route. The in-memory SDK is signed out after the server cookie is established.
+- Signup confirms account creation separately from successful verification delivery. A failed name update or verification email does not imply account creation failed. Password reset uses a neutral response for unknown emails and does not describe a failed request as sent.
+- The existing official Google SVG/font are retained. Scoped CSS restores the approved light button fill, border, type and spacing instead of the marketing cream override. Apple/Microsoft/SSO remain disabled with a visible configuration explanation (E6). Mobile card width, keyboard focus, hidden fields and no-JavaScript fallback are addressed; visual parity remains unverified.
+- `npm run lint --prefix site`, `npm run build --prefix site`, and `git diff --check`: passed. `npm test --prefix site`: **25 passed**, including ten auth state/redirect/session-exchange regression tests. Firebase methods and fetch responses are mocked; these do not establish real signup, email delivery or Google OAuth success.
+- Shared live smoke was attempted and stopped at the same Chromium Mach-port launch failure before navigation or account creation. Screenshots and scores remain unavailable, **N/M → N/M**. No secrets, Firebase provider settings, API payment behavior or cookie policy are changed.
+- References: [Google button guidelines](https://developers.google.com/identity/branding-guidelines), [Firebase user management](https://firebase.google.com/docs/auth/web/manage-users), [Firebase session cookies](https://firebase.google.com/docs/auth/admin/manage-cookies).
 
 ## Next verification gates
 

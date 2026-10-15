@@ -23,3 +23,9 @@ The public demo uses `SpeechRecognition` / `webkitSpeechRecognition` on browsers
 Web Speech can send audio to the browser vendor's recognition service; this is **not** the fully local Mac app. This page stores no audio or transcripts. English cleanup is deterministic: conservative fillers/stutters, spoken punctuation, explicit paragraph/bullet commands, and four writing styles. Other languages retain the recognized text. It does not reproduce Wispr's models, unrestricted rewriting, semantic corrections, or automatic language detection. URL/email/code literals are preserved during cleanup. There is no global desktop shortcut or insertion into other apps; copy the result or use the native app.
 
 References: [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition), [recognition error codes](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognitionErrorEvent/error), [original public demo](https://wisprflow.ai/demo). The tests simulate recognition events to verify lifecycle/race/error handling. Real microphone, browser compatibility, keyboard/focus and visual parity checks are still required.
+
+## Login recovery
+
+Sign-in uses the existing Firebase email/password and Google providers with the shared HTTP-only session cookie. Client SDK state stays in memory. Setup has a timeout and retry; requests are locked while pending. New accounts show a confirmation and verification-link resend before continuing to the account page. If session creation fails, Continue retries that account rather than creating another. Password reset uses Firebase email links; no email-code login or additional provider configuration is introduced.
+
+Auth tests mock the SDK/HTTP boundary. They cover errors, request overlap, safe return paths, signup continuation and reset/resend outcomes. Real OAuth, email delivery and the required signup/sign-out/login/sign-out smoke still need a working browser and deployment.
