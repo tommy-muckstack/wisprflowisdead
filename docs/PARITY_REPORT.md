@@ -12,6 +12,7 @@ Scope: marketing website, shared Firebase account flow, and a browser dictation 
 - `site/` is the Vercel project root; functions are in `site/api/`. Only home, pricing, login, and app HTML routes exist. There are no website lint/build/test scripts at baseline.
 - Public text/navigation inspected on [home](https://wisprflow.ai), [pricing](https://wisprflow.ai/pricing), [get started](https://wisprflow.ai/get-started), and the [help center](https://docs.wisprflow.ai). This is source/text evidence, not a rendered-browser comparison. Responsive nav menus, hover states, and current computed styles remain unobserved.
 - No reference captures at `/workspace/isdead-shots/parity/wisprflowisdead/`. The local in-app browser execution tool is unavailable. Standalone Playwright Chromium fails at launch with macOS `bootstrap_check_in ... MachPortRendezvousServer` permission errors, including escalated attempts.
+- The user subsequently supplied a paired desktop screenshot (`image (10).png`, original left, clone right) and prioritized the navigation bar. It is useful reference evidence, but its two panels do not establish equal viewport widths or a measured parity score. Installed Google Chrome was also attempted through Playwright and exited before navigation.
 - `npm install` for both website and parity tooling fails with `ENOTFOUND registry.npmjs.org`. Website APIs cannot be exercised without dependencies/configuration. No environment values or secrets were read, changed, or committed.
 - A static preview was started at `http://127.0.0.1:3300/wisprflowisdead/` after socket-binding approval. This Python fallback serves `.html` paths; it does not emulate Vercel clean URLs or functions.
 - `scripts/parity.mjs --config parity/wispr.json --clone https://yourappisdead.com --viewports 1440x900,390x844` was attempted: missing package dependency prevents capture. `templates/smoke2.mjs https://yourappisdead.com/wisprflowisdead wispr-account` was attempted: browser launch fails before navigation. No accounts were created, so there are none to delete.
@@ -36,7 +37,7 @@ Status is `match`, `differs`, or `missing`. `Differs` includes implementations a
 
 | Page / feature | Status | Severity | Evidence / remaining work | Screenshots / score |
 |---|---|---|---|---|
-| Home: banner, navigation, menus | differs | P1 | `index.html`: static banner, inline mobile toggle; no expanded state or Escape handling | N/M |
+| Home: banner, navigation, menus | differs | P1 | Navigation change removes auth-driven crowding, preserves single-line CTA, adds disclosure state/Escape; screenshot verification pending | N/M |
 | Home: hero layout, type, colors, spacing | differs | P1 | `site.css`: manually tuned layout; current original measurement required | N/M |
 | Home: hero art and animation | differs | P2 | Original SVG lettering and CSS wave bars; E1 | N/M |
 | Home: logo strip | differs | P2 | App-name compatibility strip replaces customer marks; E2 | N/M |
@@ -62,7 +63,7 @@ Status is `match`, `differs`, or `missing`. `Differs` includes implementations a
 | Auth validation/error/loading | differs | P1 | SDK import/persistence failures are uncaught, config failure disables all controls, no retry | N/M |
 | Account identity/loading | differs | P1 | Account recovery change adds loading, retry and 401-only redirect; five source-level tests pass; browser pending | N/M |
 | Account sign-out | differs | P1 | Account recovery change checks DELETE success, blocks duplicates and retains failed state; live smoke blocked | N/M |
-| Home/pricing sign-out | differs | P1 | Existing inline handlers reload without checking response status | N/M |
+| Home/pricing account access | differs | P2 | Navigation change moves account access to footer/mobile menu; sign-out uses account page recovery flow | N/M |
 | Browser dictation demo | missing | P0 | `app.html` is a download/account handoff, no recognizer | N/M |
 | Idle/listening/transcribing/polishing/result | missing | P0 | Native FlowBar has analogous states; browser state machine absent | N/M |
 | Filler removal/punctuation/formatting | missing | P0 | Native FlowCore only; browser implementation absent | N/M |
@@ -143,6 +144,8 @@ These document constraints, not a blanket waiver for unfinished work. Outstandin
 
 ### Account recovery
 
+Draft PR: [#1](https://github.com/tommy-muckstack/wisprflowisdead/pull/1).
+
 - Before: initial account could be displayed despite `hidden` because `.box` sets `display:grid`; network failures were treated as logged-out; DELETE failures were swallowed and redirected home.
 - After: explicit hidden styling; visible loading status; retry on request/parse/server failure; redirect to login only for 401; show sign-out failure; lock duplicate DELETE; revalidate restored pages.
 - `node --test site/tests/account.test.cjs`: **5 passed**. Tests exercise actual client code with mocked DOM/HTTP responses. This is not Firebase/browser end-to-end verification.
@@ -150,6 +153,14 @@ These document constraints, not a blanket waiver for unfinished work. Outstandin
 - `npm run lint` / `npm run build`: unavailable; baseline package has neither script. These are not reported as passed.
 - Shared live auth smoke: attempted, blocked at Chromium launch before signup. Account cleanup: not applicable, no account created.
 - Screenshots and score change: **unavailable, N/M → N/M**. Draft status required until browser/auth evidence is attached.
+
+### Navigation proportions and behavior
+
+- Reference: user-provided desktop pair, original on the left. Visible differences: longer clone wordmark crowds the product switcher, injected Account/Sign out crowds the links, and the download CTA wraps.
+- Use the compact, independent `FlowIsDead` label with the full `WisprFlowIsDead home` accessible name and existing project waveform. Keep the 912px navigation container and existing colors/type scale; do not copy the original wordmark.
+- Home and pricing share non-shrinking logo/product/CTA sizing and a one-line download label. Desktop primary links remain Business, Pricing, Lab. Account access remains in the footer and the mobile menu; sign-out stays on the account page.
+- At compact widths the product links move into the disclosure menu. The menu now works throughout 601–900px, exposes `aria-expanded`/`aria-controls`, closes on Escape, outside click, link selection, focus leaving the nav, or breakpoint change, and includes visible keyboard focus.
+- Source syntax and whitespace checks passed. Real-browser sizing, focus behavior, screenshots and parity delta remain **unverified, N/M → N/M**. This change should remain a draft until those checks can run.
 
 ## Next verification gates
 

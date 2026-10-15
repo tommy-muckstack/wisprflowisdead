@@ -5,12 +5,14 @@
 <meta name="description" content="Free on Mac. Dictation and Notetaker with no caps, no subscription and no account needed.">
 <link rel="icon" href="/wisprflowisdead/assets/favicon.png">
 <link rel="stylesheet" href="/wisprflowisdead/assets/isdead-wisprflow.css"><link rel="stylesheet" href="/wisprflowisdead/assets/site.css"><link rel="stylesheet" href="/wisprflowisdead/assets/pricing.css">
+<link rel="stylesheet" href="/wisprflowisdead/assets/navigation.css">
+<script src="/wisprflowisdead/assets/navigation.js" defer></script>
 </head><body class="pricing-page">
 <nav class="nav" aria-label="Main">
-  <a class="logo" href="/wisprflowisdead"><svg width="24" height="22" viewBox="0 0 24 22" fill="#1A1A1A" aria-hidden="true"><rect x="0" y="7" width="3" height="8" rx="1.5"/><rect x="5" y="3" width="3" height="16" rx="1.5"/><rect x="10" y="0" width="3" height="22" rx="1.5"/><rect x="15" y="5" width="3" height="12" rx="1.5"/><rect x="20" y="8" width="3" height="6" rx="1.5"/></svg><span>WisprFlowIsDead</span></a>
+  <a class="logo" href="/wisprflowisdead" aria-label="WisprFlowIsDead home" title="WisprFlowIsDead"><svg width="24" height="22" viewBox="0 0 24 22" fill="#1A1A1A" aria-hidden="true"><rect x="0" y="7" width="3" height="8" rx="1.5"/><rect x="5" y="3" width="3" height="16" rx="1.5"/><rect x="10" y="0" width="3" height="22" rx="1.5"/><rect x="15" y="5" width="3" height="12" rx="1.5"/><rect x="20" y="8" width="3" height="6" rx="1.5"/></svg><span>FlowIsDead</span></a>
   <div class="seg"><a class="on" href="/wisprflowisdead">Dictation</a><a href="/wisprflowisdead#notetaker">Notetaker</a></div>
-  <button class="burger" aria-label="Menu" onclick="document.querySelector('.nav').classList.toggle('open')"><i></i><i></i><i></i></button>
-  <div class="links"><a href="/wisprflowisdead#teams">Business</a><a class="cur" href="/wisprflowisdead/pricing">Pricing</a><a href="/wisprflowisdead#lab">Lab</a><a href="/wisprflowisdead/login">Log in</a></div>
+  <button class="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="main-links"><i></i><i></i><i></i></button>
+  <div class="links" id="main-links"><a class="nav-mobile-only nav-mobile-product" href="/wisprflowisdead">Dictation</a><a class="nav-mobile-only nav-mobile-product" href="/wisprflowisdead#notetaker">Notetaker</a><a href="/wisprflowisdead#teams">Business</a><a class="cur" href="/wisprflowisdead/pricing">Pricing</a><a href="/wisprflowisdead#lab">Lab</a><a class="nav-mobile-only" data-account-link href="/wisprflowisdead/login">Log in</a></div>
   <a class="btn sm" href="/wisprflowisdead#download"><svg width="16" height="18" viewBox="0 0 16 18" fill="#1A1A1A" aria-hidden="true"><path d="M13 9.600c0-2 1.6-3 1.7-3.1-.9-1.4-2.4-1.6-2.9-1.6-1.2-.1-2.4.7-3 .7-.6 0-1.6-.7-2.6-.7C4.8 4.9 3.5 5.6 2.9 6.7 1.5 9 2.5 12.4 3.8 14.300c.7.9 1.4 2 2.4 2 1 0 1.3-.6 2.5-.6 1.2 0 1.5.6 2.5.6s1.7-.9 2.3-1.800c.7-1 1-2 1-2.1 0 0-2-.8-2-3.100zM11 3.500c.5-.6.9-1.5.8-2.4-.8 0-1.7.5-2.3 1.200-.5.6-.9 1.500-.8 2.300.9.1 1.800-.4 2.300-1.100z"/></svg><span>Get started<span class="dm"> on macOS</span></span></a>
 </nav>
 
@@ -98,7 +100,7 @@
       <a class="ft-card" id="notetaker" href="/wisprflowisdead#download"><span class="ft-img grn"><span class="ft-doc"><b>Transcript</b><u></u><u></u><u></u><u></u></span></span><span class="ft-txt"><b>WisprFlowIsDead Notetaker<span class="ft-new">New</span></b><span>Meeting notes from your mic and system audio, summarized on your Mac.</span><em>Download free <i>›</i></em></span></a>
     </div>
     <div class="ft-cols">
-      <div><h4>Get started</h4><a href="/wisprflowisdead/pricing">Pricing: $0</a><a href="/wisprflowisdead#privacy">Privacy and security</a><a href="/wisprflowisdead#features">How it works</a><a href="/wisprflowisdead/login">Log in</a></div>
+      <div><h4>Get started</h4><a href="/wisprflowisdead/pricing">Pricing: $0</a><a href="/wisprflowisdead#privacy">Privacy and security</a><a href="/wisprflowisdead#features">How it works</a><a data-account-link href="/wisprflowisdead/login">Log in</a></div>
       <div><h4>Professionals</h4><a href="/wisprflowisdead#teams">Writers</a><a href="/wisprflowisdead#teams">Developers</a><a href="/wisprflowisdead#teams">Students</a><a href="/wisprflowisdead#teams">Accessibility</a></div>
       <div><h4>Resources</h4><a href="https://github.com/tommy-muckstack/wisprflowisdead">Source code</a><a href="https://github.com/tommy-muckstack/wisprflowisdead/blob/main/LICENSE">Apache-2.0 license</a><a href="/wisprflowisdead#faq">Help</a></div>
       <div><h4>Project</h4><a href="/">yourappisdead.com</a><a href="https://github.com/tommy-muckstack/wisprflowisdead">GitHub</a></div>
@@ -121,9 +123,5 @@ const calc=()=>{const hrs=+h.value||0,rate=+r.value||0,m=Math.round(hrs*11);t.te
 h.oninput=r.oninput=calc;calc();
 document.querySelectorAll(".ptabs .pt").forEach(a=>a.onclick=()=>{document.querySelectorAll(".ptabs .pt").forEach(x=>x.classList.remove("on"));a.classList.add("on")});
 </script>
-<script>
-fetch("/wisprflowisdead/api/session",{credentials:"same-origin"}).then(r=>r.ok?r.json():null).then(me=>{if(!me)return;
-document.querySelectorAll('a[href="/wisprflowisdead/login"]').forEach(a=>{if(a.closest(".links")){a.textContent="Account";a.href="/wisprflowisdead/app"}});
-const l=document.querySelector(".nav .links");if(l){const o=document.createElement("a");o.href="#";o.textContent="Sign out";o.onclick=async e=>{e.preventDefault();await fetch("/wisprflowisdead/api/session",{method:"DELETE",credentials:"same-origin"});location.reload()};l.appendChild(o)}}).catch(()=>{});
-</script>
+
 </body></html>
