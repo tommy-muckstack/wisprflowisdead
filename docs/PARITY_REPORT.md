@@ -19,6 +19,7 @@ Scope: marketing website, shared Firebase account flow, and a browser dictation 
 - A static preview was started at `http://127.0.0.1:3300/wisprflowisdead/` after socket-binding approval. This Python fallback serves `.html` paths; it does not emulate Vercel clean URLs or functions.
 - `scripts/parity.mjs --config parity/wispr.json --clone https://yourappisdead.com --viewports 1440x900,390x844` was attempted: missing package dependency prevents capture. `templates/smoke2.mjs https://yourappisdead.com/wisprflowisdead wispr-account` was attempted: browser launch fails before navigation. No accounts were created, so there are none to delete.
 - An original desktop installation already exists. It was not launched or inspected, and no existing personal account was used. Original email signup, onboarding and free-plan eligibility still need hands-on checks; no SSO, paid trial or payment was used.
+- GitHub-hosted macOS/Linux runners are available. Native CI has now verified all 43 tests plus complete app/icon assembly after restoring an executable bit. A separate Ubuntu Playwright workflow is being added to obtain website captures independently of local browser failures; no hosted website measurements are claimed until its artifacts are inspected.
 
 ## Score ledger
 
@@ -300,16 +301,26 @@ Draft PR: [#12](https://github.com/tommy-muckstack/wisprflowisdead/pull/12), sta
 
 ### App bundle entry point
 
-Draft branch: `qa/restore-bundle-script-mode`, stacked on #12.
+Draft PR: [#13](https://github.com/tommy-muckstack/wisprflowisdead/pull/13), stacked on #12.
 
 - GitHub Actions provides an independent working macOS/Linux environment. [CI run 38786413225](https://github.com/tommy-muckstack/wisprflowisdead/actions/runs/38786413225) built Swift and passed all 43 native tests, but failed before app assembly because `scripts/run-dev.sh` was not executable.
 - The original tree records this script as `100755`; the branding PR's remote file update accidentally recorded `100644`. This change restores the executable bit without changing the script contents. The original executable mode of `scripts/sync-design.sh` remains intact remotely; `build-icons.sh` is intentionally invoked through Bash.
-- A fresh native CI run is required to verify icon conversion and app assembly after this correction. Local iconutil/browser launch failures are not proof of failures on GitHub-hosted runners. Native tests are not a substitute for Dock/menu-bar visual inspection or website screenshots.
+- [Fresh CI run 38787305059](https://github.com/tommy-muckstack/wisprflowisdead/actions/runs/38787305059) passed macOS build/test/app assembly and Linux tests. App assembly includes PNG resizing, ICNS conversion and ad-hoc signing. Dock/menu-bar visual inspection remains outstanding; native build success is not website evidence.
 - Website lint/build and all 78 tests pass before the PR. Shared smoke2 remains blocked locally before browser navigation/account creation; no account was created. Visual scores and screenshots for this change remain N/M.
+
+### Hosted website verification
+
+Draft branch: `qa/hosted-browser-verification`, stacked on #13.
+
+- Before: the parity CLI and browser checks could not run in this Mac environment; the repository CI only built/tested the native application.
+- After: a separate Ubuntu workflow installs the pinned shared parity toolchain/Chromium, checks the site, and captures original, live deployment and PR-head candidate home/pricing/login at both required widths. Shared parity scores and computed styles are uploaded with raw viewport captures and a navigation/footer inventory. The workflow records source/tool commits and reuses valid original screenshots for the candidate comparison.
+- The candidate server is read-only and serves only public website files plus the fixed public config endpoint. It forwards no cookies/auth headers and has no repository/deployment secrets. Session GET returns 401; writes return 405. This is an anonymous visual preview and explicitly cannot prove authentication or Vercel function behavior.
+- The gate fails on capture errors, non-200 parity pages, scores below 90 or horizontal overflow. Artifacts upload even after failed measurements. Raw images retain cookie/animation states hidden by the shared script, so the score is not treated as evidence for those states. Visual/interaction review remains required even if scores pass.
+- Local website lint/build and 78 tests pass; QA scripts parse and whitespace checks pass. Shared smoke2 remains blocked locally before navigation/account creation. Hosted screenshots, computed styles and score deltas remain N/M until the first run is inspected. Full instructions and evidence limits are in `qa/README.md`.
 
 ## Next verification gates
 
-1. Restore browser launch and network/dependency access. Install website and parity dependencies; supply environment through the existing deployment workflow, never a committed .env file.
+1. Run and inspect the hosted browser workflow; download artifacts and validate that captures show the intended pages. Restore interactive/local browser access for the flows the read-only capture cannot verify. Supply environment through the existing deployment workflow, never a committed .env file.
 2. Capture original/live baseline at 1440 × 900 and 390 × 844, plus menus, hover/focus, scroll and cookie states excluded by parity.mjs. Save computed styles alongside paired images.
 3. Create dedicated email-only free test accounts where eligible, run signup → sign-out → login → sign-out, then delete those accounts. Do not use existing personal sessions, SSO on the original, trials or payment details.
 4. Complete remaining logical PR areas, append measured before/after evidence for each, and rerun smoke per PR. No merge is authorized.

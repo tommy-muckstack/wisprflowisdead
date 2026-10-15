@@ -1,0 +1,67 @@
+name: Website parity
+on:
+  pull_request:
+    paths:
+      - 'site/**'
+      - 'qa/**'
+      - '.github/workflows/site-parity.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: website-parity-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  browser-evidence:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: tommy-muckstack/isdead-design
+          ref: 3020a26628341fa65dbf5759b9b69cffc913d2aa
+          path: parity-tools
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Website checks
+        working-directory: site
+        run: |
+          npm run lint
+          npm run build
+          npm test
+      - name: Install pinned parity dependencies and Chromium
+        run: |
+          npm ci --prefix parity-tools/scripts
+          parity-tools/scripts/node_modules/.bin/playwright install --with-deps chromium
+      - name: Start anonymous candidate preview
+        run: |
+          mkdir -p qa-artifacts
+          node qa/serve.mjs > qa-artifacts/preview.log 2>&1 &
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:3300/__qa_health; then exit 0; fi
+            sleep 1
+          done
+          exit 1
+      - name: Capture live and candidate parity with computed styles
+        run: node qa/capture-parity.mjs
+      - name: Publish measurement summary
+        if: always()
+        run: |
+          if [ -f qa-artifacts/SUMMARY.md ]; then cat qa-artifacts/SUMMARY.md >> "$GITHUB_STEP_SUMMARY"; fi
+      - name: Upload screenshots, computed styles and reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wispr-parity-${{ github.run_id }}
+          path: qa-artifacts/
+          if-no-files-found: warn
+          retention-days: 14
