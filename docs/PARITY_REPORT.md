@@ -579,11 +579,19 @@ Draft PR: [#30](https://github.com/tommy-muckstack/wisprflowisdead/pull/30), sta
 
 ### Home FAQ panel spacing and text
 
-Draft PR: pending, stacked on #30.
+Draft PR: [#31](https://github.com/tommy-muckstack/wisprflowisdead/pull/31), stacked on #30.
 
 - Reference [run 38815732602](https://github.com/tommy-muckstack/wisprflowisdead/actions/runs/38815732602) records a 452 px desktop panel with 16 px inset, a 388×420 px question card and 28 px top padding. Its heading stays above a separately scrolling question list. Candidate uses 12 px outer padding, a 396×427 px card and scrolls the heading with the list. [Original expanded desktop](https://github.com/tommy-muckstack/wisprflowisdead/blob/qa/parity-evidence-38819990954-1/docs/parity/38819990954-1/raw/original-home-1440-faq-language.png) was inspected. The reference section eyebrow uses 14/18.2 px and its panel starts about 285 px into the section; the candidate uses 12/15.6 px and starts about 307 px in.
 - Matches the measured panel/card dimensions and insets, separates the desktop list's scrolling from its heading, and applies 16 px question padding with a 4 px gap. The section uses 128 px top padding, 16 px heading margin and a 48 px panel gap. Answer text uses 14/18.2 px desktop and 13/16.9 px mobile at weight 500; prompt and bubble widths are capped at the measured 335 px. Mobile retains its existing chevrons/accordion and grows for truthful answers. No-JavaScript keeps every answer visible. Native scrollbar width, bubble decoration and truthful copy lengths remain differences.
 - The existing keyboard test now checks that Questions stays in its card after End selects the last tab. Existing checks retain all eleven questions, switch/close, no-JavaScript visibility and overflow. Local lint/build, QA syntax and whitespace checks pass. Required local smoke2 attempts inside/outside the sandbox fail before browser navigation/account creation. Hosted browser/auth verification, paired after captures and score changes remain pending. Home baseline is **84.1/71.1**.
+
+### Missing-page recovery
+
+Draft PR: pending, stacked on #31.
+
+- No branded 404 exists in the clone. The first commit captures a deliberately missing path on original, live and candidate at both widths, preserving HTTP status, screenshots and visible element styles. Raw capture validation explicitly expects 404 for that path, retaining 200 for normal pages. This does not make a failing normal route pass.
+- Original rendering is not yet known; no replacement design or status-parity claim is made before inspecting the captures. The shared scoring tool treats all clone 4xx responses as failures, so the error-page visual score is N/M while actual 404 semantics remain required. Home/pricing/login continue using its unmodified 90+ gate.
+- Local lint/build and capture syntax/whitespace checks pass. Required local smoke2 attempts inside/outside the sandbox fail before browser navigation/account creation. Hosted auth, captures and implementation are pending.
 
 ## Next verification gates
 

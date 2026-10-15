@@ -6,7 +6,7 @@ const tools = path.resolve(process.env.PARITY_TOOLS_DIR || 'parity-tools');
 const {chromium} = createRequire(path.join(tools, 'scripts/package.json'))('playwright');
 const output = path.resolve('qa-artifacts/raw'); fs.mkdirSync(output, {recursive:true});
 const targets = {original:'https://wisprflow.ai',live:'https://yourappisdead.com',candidate:'http://127.0.0.1:3300'};
-const pages = [{name:'home',original:'/',clone:'/wisprflowisdead'}, {name:'pricing',original:'/pricing',clone:'/wisprflowisdead/pricing'}, {name:'login',original:'/get-started',clone:'/wisprflowisdead/login'}, {name:'support',original:'/support',clone:'/wisprflowisdead/support',skipLive:true}];
+const pages = [{name:'home',original:'/',clone:'/wisprflowisdead'}, {name:'pricing',original:'/pricing',clone:'/wisprflowisdead/pricing'}, {name:'login',original:'/get-started',clone:'/wisprflowisdead/login'}, {name:'support',original:'/support',clone:'/wisprflowisdead/support',skipLive:true}, {name:'not-found',original:'/qa-missing-page-20261015',clone:'/wisprflowisdead/qa-missing-page-20261015',expectedStatus:404}];
 const results = [];
 function ancestorStyles(element) {
   const nodes = [];
@@ -29,7 +29,7 @@ try {
     page.on('requestfailed', request => {
       if (target === 'candidate' && request.url().startsWith(origin + '/wisprflowisdead/assets/')) errors.push(`Asset request failed: ${request.url()}`);
     });
-    const entry = {target,page:item.name,width,url:origin + (target === 'original' ? item.original : item.clone),errors};
+    const entry = {target,page:item.name,width,url:origin + (target === 'original' ? item.original : item.clone),expectedStatus:item.expectedStatus || 200,errors};
     try {
       const response = await page.goto(entry.url, {waitUntil:'load',timeout:45000});
       entry.status = response?.status() || 0;
@@ -39,6 +39,13 @@ try {
       entry.links = await page.locator('nav a,header a,footer a').evaluateAll(links => links.map(link => ({text:link.textContent.trim(),href:link.href,visible:!!(link.getBoundingClientRect().width && link.getBoundingClientRect().height)})));
       entry.image = `${target}-${item.name}-${width}.png`;
       await page.screenshot({path:path.join(output,entry.image)});
+      if (item.name === 'not-found') {
+        entry.notFoundStyles = await page.locator('body').evaluate(body => [...body.querySelectorAll('*')]
+          .filter(element => element instanceof HTMLElement && element.getBoundingClientRect().height && element.getBoundingClientRect().width).slice(0,120).map(element => {
+            const box = element.getBoundingClientRect(), style = getComputedStyle(element);
+            return {tag:element.tagName,cls:element.className,text:element.children.length ? '' : element.textContent.trim().slice(0,160),x:box.x,y:box.y,width:box.width,height:box.height,fontFamily:style.fontFamily,fontSize:style.fontSize,lineHeight:style.lineHeight,fontWeight:style.fontWeight,letterSpacing:style.letterSpacing,color:style.color,background:style.backgroundColor,padding:style.padding,margin:style.margin,gap:style.gap,radius:style.borderRadius,display:style.display};
+          }));
+      }
       if (item.name === 'support') {
         entry.fullImage = `${target}-support-${width}-full.png`;
         await page.screenshot({path:path.join(output,entry.fullImage),fullPage:true});
@@ -205,4 +212,4 @@ try {
     fs.writeFileSync(path.join(output,'inventory.json'), JSON.stringify(results,null,2));
   }
 } finally {await browser.close();}
-if (results.some(entry => entry.status !== 200 || entry.failure || (entry.target === 'candidate' && entry.errors.length))) process.exitCode = 1;
+if (results.some(entry => entry.status !== entry.expectedStatus || entry.failure || (entry.target === 'candidate' && entry.errors.length))) process.exitCode = 1;
