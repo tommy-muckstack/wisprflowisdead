@@ -9,10 +9,15 @@
   }
   addEventListener('hashchange', showGuide);
   document.querySelectorAll('a[href^="#guide-"]').forEach(link => {
-    link.addEventListener('click', () => {
+    link.addEventListener('click', event => {
       // Clicking the same hash again does not fire hashchange.
-      if (link.hash === location.hash) showGuide();
+      if (link.hash === location.hash) {
+        event.preventDefault();
+        showGuide();
+      }
     });
   });
-  showGuide();
+  // Initial fragment navigation must finish before enhancement moves focus.
+  if (document.readyState === 'complete') showGuide();
+  else addEventListener('load', showGuide, {once:true});
 })();

@@ -20,7 +20,11 @@ async function check(name, width, route, task, options = {}) {
     await task(page);
     assert.deepEqual(errors,[], 'Unexpected application JavaScript errors');
     result.passed = true;
-  } catch (error) {result.failure = error.message.slice(0,1800);}
+  } catch (error) {
+    result.failure = (error.stack || error.message).slice(0,1800);
+    result.url = page.url();
+    result.focus = await page.evaluate(() => ({tag:document.activeElement?.tagName,id:document.activeElement?.id})).catch(() => null);
+  }
   try {await page.screenshot({path:path.join(output,`${name}-${width}.png`),fullPage:true});}
   catch (error) {result.screenshotError = error.message.slice(0,200); result.passed = false;}
   results.push(result); await context.close();
@@ -62,7 +66,9 @@ try {
         const id = await card.getAttribute('href');
         await card.click();
         const guide = page.locator(id);
+        await page.waitForFunction(selector => document.querySelector(selector) === document.activeElement,id + ' summary');
         assert.equal(await guide.evaluate(element => element.open),true);
+        assert.equal(await guide.isVisible(),true);
         assert.equal(await guide.locator('summary').evaluate(element => element === document.activeElement),true);
         const box = await guide.boundingBox();
         const nav = await page.locator('.nav').boundingBox();
@@ -70,9 +76,11 @@ try {
       }
       await page.locator('#guide-privacy summary').click();
       await cards.last().click();
+      await page.waitForFunction(() => document.querySelector('#guide-privacy summary') === document.activeElement);
       assert.equal(await page.locator('#guide-privacy').evaluate(element => element.open),true,
         'Following the current hash does not reopen a closed guide');
       await page.goto(base + '/support#guide-account',{waitUntil:'load'});
+      await page.waitForFunction(() => document.querySelector('#guide-account summary') === document.activeElement);
       assert.equal(await page.locator('#guide-account').evaluate(element => element.open),true);
       assert.equal(await page.locator('#guide-account summary').evaluate(element => element === document.activeElement),true);
       await page.screenshot({path:path.join(output,`support-account-guide-${width}.png`)});

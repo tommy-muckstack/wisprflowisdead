@@ -101,10 +101,10 @@ jobs:
         run: |
           evidence="docs/parity/$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
           mkdir -p "$evidence"
-          for folder in raw styles behavior auth; do
+          for folder in raw styles behavior auth support; do
             if [ -d "$PARITY_ARTIFACT/$folder" ]; then cp -R "$PARITY_ARTIFACT/$folder" "$evidence/"; fi
           done
-          for report in SUMMARY.md verification.json capture-config.json; do
+          for report in SUMMARY.md verification.json capture-config.json support-config.json; do
             if [ -f "$PARITY_ARTIFACT/$report" ]; then cp "$PARITY_ARTIFACT/$report" "$evidence/"; fi
           done
           for target in live candidate; do
