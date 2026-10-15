@@ -36,6 +36,8 @@ Each flow checks the matching server identity and Secure/HttpOnly/SameSite cooki
 
 Run `PARITY_TOOLS_DIR=/path/to/isdead-design node qa/auth-smoke.mjs candidate --check` to verify the pinned template and generated module syntax without opening a browser or creating an account. The hosted auth steps run only for same-repository pull requests. Their reports are required by the score gate when `RUN_AUTH_SMOKE=true`.
 
-Login raw captures preserve both initial and settled forms and record readiness. Shared login scoring now waits 26 seconds on both original and clone, exceeding the clone's 25-second setup timeout. This is a measurement-protocol change; earlier login scores may represent loading and are not directly comparable. `capture-config.json` records that configuration, and login's actual scored PNGs are archived alongside raw captures.
+Login raw captures preserve both initial and settled forms. Clone captures record SDK ready/error state; the original check records only a visible, editable email field, without claiming authentication readiness or submitting a form. Visible control metadata helps distinguish markup differences from setup failures. Shared login scoring now waits 26 seconds on both original and clone, exceeding the clone's 25-second setup timeout. This is a measurement-protocol change; earlier login scores may represent loading and are not directly comparable. `capture-config.json` records that configuration, and login's actual scored PNGs are archived alongside raw captures.
+
+[Run 38794977597](https://github.com/tommy-muckstack/wisprflowisdead/actions/runs/38794977597) passed both auth smokes, including account deletion and session cleanup, and all six anonymous browser groups. Its visual gate still failed; see `docs/PARITY_REPORT.md` for scores and the original-form capture correction.
 
 Cleanup reference: [Firebase Auth REST account deletion](https://firebase.google.com/docs/reference/rest/auth#section-delete-account).

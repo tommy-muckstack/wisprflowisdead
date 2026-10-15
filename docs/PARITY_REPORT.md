@@ -3,7 +3,7 @@
 Audit date: 2026-10-15. Upstream baseline: `71e3e684ff333da4732ad92da5347d446e9feec7`.
 Scope: marketing website, shared Firebase account flow, and a browser dictation experience. The native Swift app is a separate, existing implementation.
 
-**Not complete. Hosted Chromium has measured page scores, all below 90. Initial viewport screenshots have been inspected; section/state comparison and live authentication verification remain outstanding.**
+**Not complete. Hosted Chromium has measured page scores, all below 90. Live and candidate signup/sign-out/login/sign-out now pass, including deletion of both disposable accounts. Section/state comparison, original-account behavior, email delivery, OAuth and real audio remain outstanding.**
 
 ## Evidence and environment
 
@@ -35,6 +35,8 @@ Scope: marketing website, shared Firebase account flow, and a browser dictation 
 | Login | 1440 × 900 | — | 79.0 | 78.1 | Run 38788448067: `live/`, `candidate/login-1440-side.png` |
 | Login | 390 × 844 | — | 78.5 | 67.5 | Run 38788448067: `live/`, `candidate/login-390-side.png` |
 
+Latest verified candidate at `742b8698e9e2e6ec00f2338eeb2afa58781c19ec`, [run 38794977597](https://github.com/tommy-muckstack/wisprflowisdead/actions/runs/38794977597): home **79.0 / 56.9**, pricing **67.9 / 59.5**, login **78.1 / 67.5** (desktop/mobile). Login scoring now waits 26 seconds on both sites; these scores reproduce the earlier numbers but the protocol changed, so no visual improvement is attributed to the wait. All six browser interaction groups and both auth smokes pass. The run fails the unchanged 90+ gate and an original-login raw-capture selector timeout; that timeout does not indicate an original auth failure. Actual scored login images were inspected: [desktop side-by-side](https://github.com/tommy-muckstack/wisprflowisdead/blob/qa/parity-evidence-38794977597-1/docs/parity/38794977597-1/candidate/login-1440-side.png), [mobile side-by-side](https://github.com/tommy-muckstack/wisprflowisdead/blob/qa/parity-evidence-38794977597-1/docs/parity/38794977597-1/candidate/login-390-side.png).
+
 ## Feature matrix
 
 Status is `match`, `differs`, or `missing`. `Differs` includes implementations awaiting comparison; it does not mean that a fix was visually verified. Severity: P0 blocks the requested core experience; P1 breaks an important flow; P2 is a noticeable presentation/accessibility gap. The evidence column names source files or tests. Feature-specific screenshot/score entries remain N/M; the page-level captures above do not prove every feature or state.
@@ -60,14 +62,14 @@ Status is `match`, `differs`, or `missing`. `Differs` includes implementations a
 | Pricing: FAQ | differs | P2 | Static answers, desktop keyboard tabs and mobile accordion state; every question reachable, rendered checks pending | N/M |
 | Pricing: security card and CTA | differs | P2 | Mac/browser processing distinction and explicit absence of certifications; source/support destinations preserve E3/E5 | N/M |
 | Pricing: mobile card collapse | differs | P2 | Linked controls and no-JS fallback; mobile expansion passes in hosted Chromium; remaining typography/plan details differ | N/M |
-| Login: visual layout | differs | P1 | Duplicate body removed; responsive card/focus fixes and provider styling drafted; capture pending | N/M |
+| Login: visual layout | differs | P1 | Settled forms inspected: mobile card 358 vs original 320 px; desktop card starts too high, provider geometry and extra text differ | 78.1 / 67.5; run 38794977597 |
 | Login: Google sign-in/button | differs | P1 | Existing official gradient G retained; approved white/gray/Google Sans treatment restored; popup/rendering untested | N/M |
 | Login: Apple/Microsoft/SSO | missing | P1 | Unavailable providers are disabled with visible explanation; E6, configuration decision required | N/M |
-| Email login/signup | differs | P1 | Locked email-first flow with editable email and recoverable signup continuation; default return is account page | N/M |
+| Email login/signup | differs | P1 | Live and candidate smoke pass with matching server identity/cookie flags; original email-code behavior remains E6 | `auth/{live,candidate}.json`, run 38794977597 |
 | Password reset and verification | differs | P1 | Reset view and verification-link resend added; Firebase link verification differs from original email-code flow, E6 | N/M |
-| Auth validation/error/loading | differs | P1 | Config/SDK setup timeout and retry, operation status, native validation, friendly errors; live SDK checks pending | N/M |
-| Account identity/loading | differs | P1 | Account recovery change adds loading, retry and 401-only redirect; five source-level tests pass; browser pending | N/M |
-| Account sign-out | differs | P1 | Account recovery change checks DELETE success, blocks duplicates and retains failed state; live smoke blocked | N/M |
+| Auth validation/error/loading | differs | P1 | Live/candidate SDK reaches ready state; successful flow verified; rendered invalid/reset/provider/error recovery still pending | Settled login captures, run 38794977597 |
+| Account identity/loading | differs | P1 | Matching test identity renders after signup/login at both widths; loading/retry failure injection and original account comparison remain | Masked `auth/*-account-*.png`, run 38794977597 |
+| Account sign-out | differs | P1 | Both UI sign-outs pass on live/candidate, with server 401 and cookie absence before test cleanup; failure recovery/original comparison remain | `auth/{live,candidate}.json`, run 38794977597 |
 | Home/pricing account access | differs | P2 | Navigation change moves account access to footer/mobile menu; sign-out uses account page recovery flow | N/M |
 | Browser dictation demo | differs | P0 | `/demo` uses Web Speech with typed fallback; live microphone/browser validation pending, E7/E9 | N/M |
 | Idle/listening/transcribing/polishing/result | differs | P0 | State machine includes permission, cancellation, recovery and timeout states; unit-tested, browser pending | N/M |
@@ -86,7 +88,7 @@ Status is `match`, `differs`, or `missing`. `Differs` includes implementations a
 
 ## Original navigation/footer inventory
 
-Observed public destinations, deduplicated, as of the audit date. A hash link to a generic home section is **not** a matching destination. The original's responsive/hover-only nav and links inside every article remain to be inspected in a real browser. Clone routes are relative to `/wisprflowisdead`.
+Observed public destinations, deduplicated, as of the audit date. A hash link to a generic home section is **not** a matching destination. The [hosted home/pricing link inventory](https://github.com/tommy-muckstack/wisprflowisdead/blob/qa/parity-evidence-38792121104-1/docs/parity/38792121104-1/raw/inventory.json) confirms the rendered navigation/footer links at both widths; closed-menu visibility does not establish open-menu behavior. Hover states and links inside every article remain to be inspected. Clone routes are relative to `/wisprflowisdead`.
 
 | Original destination | Clone destination / status | Reason or work required |
 |---|---|---|
@@ -100,6 +102,7 @@ Observed public destinations, deduplicated, as of the audit date. A hash link to
 | `/microphones` | missing | Needs accurate browser/native microphone help |
 | `https://store.wisprflow.ai/` | missing | E10: no merchandise store or inventory |
 | `/business` | `#teams` — missing page | No shared team admin; avoid implying availability |
+| `/lab` | `#lab` — missing page | Home section does not reproduce the dedicated destination |
 | `/leaders` | missing | Use-case page absent |
 | `/developers` | `#teams` — missing page | Generic section is not a use-case page |
 | `/content-creators` | missing | Use-case page absent |
@@ -129,6 +132,13 @@ Observed public destinations, deduplicated, as of the audit date. A hash link to
 | `/privacy-policy` | missing | Must describe actual Firebase and browser data handling |
 | `/data-controls` | missing | Needs accurate browser storage/account controls |
 | Do Not Sell/Privacy Settings controls | differs | Original action returns home in text crawl; actual modal unverified, E4 |
+| `https://wisprflow.onelink.me/1Nfg` (download redirect) | `#download` — differs | Original generated links include per-visit attribution; clone uses its own download/source-build handoff, without original tracking IDs |
+| YouTube: Wispr AI channel | missing | E10: no corresponding clone channel established; do not impersonate the original account |
+| Crunchbase: `wispr-ai` | missing | E10: no clone company profile established |
+| Instagram: `wisprflow` | missing | E10: no corresponding clone account established |
+| X: `wisprflow` | missing | E10: no corresponding clone account established |
+| LinkedIn: `wisprflow` | missing | E10: no corresponding clone company page established |
+| `https://ipinfo.io/` (pricing attribution) | absent | Original pricing credits this service; clone has fixed USD reference rates and does not use its location service |
 
 ## Justified constraints and proposed exceptions
 
@@ -337,15 +347,20 @@ Draft PR: [#15](https://github.com/tommy-muckstack/wisprflowisdead/pull/15), sta
 
 ### Hosted authentication verification
 
-Draft change, stacked on #15; actual hosted auth outcomes pending.
+Draft PR: [#16](https://github.com/tommy-muckstack/wisprflowisdead/pull/16), stacked on #15.
 
 - Before: the working hosted browser job checked anonymous pages and typed product flows only. Local smoke2 could not launch a browser, so no signup/session/sign-out pass was established. The raw candidate login capture showed initial SDK loading.
 - Adds execution of the pinned shared smoke2 flow against the live frontend and PR frontend. For the latter, Playwright replaces public HTML/assets on the deployed origin while leaving all Firebase/session requests live. No API, payment, deployment-secret or provider configuration changes are made. Each flow uses its own generated throwaway credentials, never a personal session or original-site SSO.
 - Strengthens the smoke's cookie-presence result with matching server identity and Secure/HttpOnly/SameSite cookie checks after signup/login, then a 401 and absent cookie after each UI sign-out. Account screenshots at both widths mask the throwaway identity. Passwords, tokens and cookie/storage state are kept out of artifacts.
 - Cleanup is attempted after success or failure before closing the browser, with three attempts and explicit email/UID ownership checks before deletion. The gate requires deletion and session cleanup to succeed. Active workflow runs are no longer cancelled automatically by a newer commit, allowing cleanup to finish. Runner loss/manual cancellation remains a cleanup limitation; failures require follow-up and are never treated as success.
 - The shared template fingerprint and generated module syntax are checked before browser execution. The example.com test mailbox cannot receive email; verification/reset delivery and original email-code signup remain untested. Candidate frontend/live backend checks also do not prove candidate Vercel routing or response headers.
-- Local lint/build and all **78 website tests pass**. The pinned shared template blob matches the configured upstream commit; hook guards/generated-module syntax and QA syntax/whitespace checks pass. Running the new smoke wrapper inside and outside the sandbox still fails at browser launch before navigation; cleanup records `not-started` and no account was created. Hosted execution remains pending.
-- Raw login evidence now captures initial and ready/error states. Shared scoring waits 26 seconds for login on both sites and archives the scored login PNGs and exact config. This protocol change means earlier login scores are not directly comparable; no new score or authentication pass is claimed until the hosted run is inspected.
+- Local lint/build and all **78 website tests pass**. The pinned shared template blob matches the configured upstream commit; hook guards/generated-module syntax and QA syntax/whitespace checks pass. Running the new smoke wrapper inside and outside the sandbox still fails at browser launch before navigation; those local attempts created no account.
+- [Hosted run 38794977597](https://github.com/tommy-muckstack/wisprflowisdead/actions/runs/38794977597), commit `742b8698e9e2e6ec00f2338eeb2afa58781c19ec`, verifies **signup → sign-out → login → sign-out on both frontends**, with no JS errors or smoke notes. Matching server identities and Secure/HttpOnly/SameSite=Lax cookies pass after signup/login; 401 and absent cookies pass after each UI sign-out. Both reports explicitly record `account: deleted` and `session: cleared`: [live report](https://github.com/tommy-muckstack/wisprflowisdead/blob/qa/parity-evidence-38794977597-1/docs/parity/38794977597-1/auth/live.json), [candidate report](https://github.com/tommy-muckstack/wisprflowisdead/blob/qa/parity-evidence-38794977597-1/docs/parity/38794977597-1/auth/candidate.json). Two test accounts were created and deleted; none remain from this run.
+- Masked candidate account screenshots were captured after signup and login at both widths; [mobile after login](https://github.com/tommy-muckstack/wisprflowisdead/blob/qa/parity-evidence-38794977597-1/docs/parity/38794977597-1/auth/candidate-account-login-390.png) was visually reviewed. This establishes account rendering, not parity with the original account UI.
+- All six anonymous interaction groups pass again. [Native CI 38794977510](https://github.com/tommy-muckstack/wisprflowisdead/actions/runs/38794977510) passes macOS build/test/app assembly and Linux tests.
+- Raw clone login captures confirm enabled Continue on both widths after SDK setup. Shared scoring waits 26 seconds on both sites and archives its exact config and scored PNGs. Candidate login remains **78.1 desktop / 67.5 mobile**; home remains 79.0/56.9 and pricing 67.9/59.5. The wait is a measurement-protocol change, not a product improvement, and no score gain is claimed.
+- The raw-capture stage timed out on the original because it assumed the clone's submit-button markup. Scored original screenshots still show the expected form. The follow-up changes that read-only check to the original's visible, editable email field, explicitly without claiming original authentication readiness, and records visible control metadata. Clone SDK ready/error checks remain unchanged. Verification of this capture correction is pending; the 90+ gate remains failed.
+- The browser navigation/footer inventory also adds the previously omitted Lab, download redirect, social/company destinations and pricing location-service attribution above. These are documented gaps/exceptions, not working clone routes.
 
 ## Next verification gates
 

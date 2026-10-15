@@ -25,17 +25,30 @@ try {
       await page.screenshot({path:path.join(output,entry.image)});
       if (item.name === 'login') {
         entry.initialImage = entry.image;
-        // The clone's SDK setup has a 25-second bound; capture the resulting ready/error state.
-        await page.waitForFunction(() => {
-          const controls = [...document.querySelectorAll('button,input[type=submit]')];
-          return controls.some(button => button.getBoundingClientRect().height && !button.disabled &&
-            /^(Continue|Retry sign-in setup)$/.test((button.textContent || button.value).trim()));
-        },null,{timeout:30000});
-        entry.loginReady = await page.locator('button,input[type=submit]').evaluateAll(buttons => buttons.some(button =>
-          button.getBoundingClientRect().height && !button.disabled && (button.textContent || button.value).trim() === 'Continue'));
+        if (target === 'original') {
+          // The original uses different submit markup. This only establishes its visible email form.
+          await page.locator('input[type=email]:visible').first().waitFor({state:'visible',timeout:30000});
+          entry.loginFormVisible = await page.locator('input[type=email]:visible').first().isEditable();
+          entry.readinessCheck = 'Original email field visible and editable; authentication not attempted';
+          if (!entry.loginFormVisible) entry.failure = 'Original email field is not editable';
+        } else {
+          // The clone's SDK setup has a 25-second bound; capture the resulting ready/error state.
+          await page.waitForFunction(() => {
+            const controls = [...document.querySelectorAll('button,input[type=submit]')];
+            return controls.some(button => button.getBoundingClientRect().height && !button.disabled &&
+              /^(Continue|Retry sign-in setup)$/.test((button.textContent || button.value).trim()));
+          },null,{timeout:30000});
+          entry.loginReady = await page.locator('button,input[type=submit]').evaluateAll(buttons => buttons.some(button =>
+            button.getBoundingClientRect().height && !button.disabled && (button.textContent || button.value).trim() === 'Continue'));
+          if (!entry.loginReady) entry.failure = 'Login setup settled in an error state';
+        }
+        entry.controls = await page.locator('button,input[type=submit],input[type=button],[role=button]').evaluateAll(controls =>
+          controls.filter(control => control.getBoundingClientRect().height).map(control => ({
+            tag:control.tagName,type:control.getAttribute('type'),text:(control.textContent || control.value || '').trim().slice(0,100),
+            disabled:Boolean(control.disabled),ariaDisabled:control.getAttribute('aria-disabled')
+          })));
         entry.image = `${target}-login-${width}-settled.png`;
         await page.screenshot({path:path.join(output,entry.image)});
-        if (!entry.loginReady) entry.failure = 'Login setup settled in an error state';
       }
       if (item.name === 'pricing') {
         // Keep full-page geometry available through the evidence branch for visual review.
