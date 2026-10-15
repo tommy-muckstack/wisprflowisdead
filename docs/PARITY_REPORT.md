@@ -51,12 +51,12 @@ Status is `match`, `differs`, or `missing`. `Differs` includes implementations a
 | Home: mobile layout | differs | P1 | Multiple overrides and fixed heights; overflow, order and tap targets unverified | N/M |
 | Home/pricing: footer and links | missing | P1 | Most original destinations absent; complete inventory below | N/M |
 | Cookie/privacy controls | differs | P2 | Footer says no tracking/cookie banner; verify scripts/storage before validating E4 | N/M |
-| Pricing: cards and billing toggle | differs | P1 | `$0` clone and comparison labels; toggle only changes CSS selection; E5 | N/M |
-| Pricing: compare table | differs | P1 | `pricing.html`: compare current rows, supported features, mobile scrolling | N/M |
-| Pricing: ROI calculator | differs | P2 | Number inputs permit negative/nonfinite values; clamp and explain assumptions | N/M |
-| Pricing: FAQ | differs | P2 | JS-created answers and selected-class controls lack complete accessible state | N/M |
-| Pricing: security card and CTA | differs | P2 | Independent-project claims; preserve E3/E5 | N/M |
-| Pricing: mobile card collapse | differs | P2 | Toggle exists; verify controls, expanded copy and heights | N/M |
+| Pricing: cards and billing toggle | differs | P1 | Explicit original-plan comparison with working period/add-on reference rates; clone remains free, E5; rendered comparison pending | N/M |
+| Pricing: compare table | differs | P1 | Five-column table roles, included/not-included labels, all four plans reachable in mobile scroll region; current original geometry unverified | N/M |
+| Pricing: ROI calculator | differs | P2 | Bounded finite inputs, visible errors, disclosed hypothetical assumptions and fractional calculation; browser checks pending | N/M |
+| Pricing: FAQ | differs | P2 | Static answers, desktop keyboard tabs and mobile accordion state; every question reachable, rendered checks pending | N/M |
+| Pricing: security card and CTA | differs | P2 | Mac/browser processing distinction and explicit absence of certifications; source/support destinations preserve E3/E5 | N/M |
+| Pricing: mobile card collapse | differs | P2 | Linked controls and expanded copy, breakpoint updates, no-JS content fallback; sizing/focus checks pending | N/M |
 | Login: visual layout | differs | P1 | Duplicate body removed; responsive card/focus fixes and provider styling drafted; capture pending | N/M |
 | Login: Google sign-in/button | differs | P1 | Existing official gradient G retained; approved white/gray/Google Sans treatment restored; popup/rendering untested | N/M |
 | Login: Apple/Microsoft/SSO | missing | P1 | Unavailable providers are disabled with visible explanation; E6, configuration decision required | N/M |
@@ -220,7 +220,7 @@ Draft PR: [#6](https://github.com/tommy-muckstack/wisprflowisdead/pull/6), stack
 
 ### Home content and accessibility
 
-Draft branch: `qa/home-content-accessibility`, stacked on #6.
+Draft PR: [#7](https://github.com/tommy-muckstack/wisprflowisdead/pull/7), stacked on #6.
 
 - Before: anonymous first-person statements resembled customer testimonials; speed figures and a 100+ language promise lacked evidence for this clone. Minimum OS copy disagreed with `Package.swift`/README. Privacy copy could be mistaken for the browser demo's behavior.
 - After: factual product cards replace implied testimonials, unsupported speed/language claims are removed, Mac requirements say 14.2+, and copy distinguishes local Mac processing from browser speech services. Native Apple/Qwen3 English configuration and model-dependent rewriting are described accurately. These intentional content differences implement E2/E3/E7/E9; no customers or benchmarks were invented.
@@ -229,6 +229,19 @@ Draft branch: `qa/home-content-accessibility`, stacked on #6.
 - Website lint/build, whitespace checks and all **35 existing tests** pass. Source checks confirm unique IDs and resolved ARIA references. No new implementation-mirroring tests were added for this content/CSS change; these checks do not verify rendered layout, assistive technology or focus behavior.
 - Shared live smoke2 with throwaway-account cleanup was attempted again and failed at Chromium launch before navigation. No account was created. Before/after screenshots, computed styles and scores remain **N/M → N/M**; this change remains a draft.
 - References: native `Transcription.swift`, `TransformRunner.swift` and package platform requirement; [WAI tabs pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/). The original homepage remains the comparison target, not evidence for clone performance claims.
+
+### Pricing interactions and comparison clarity
+
+Draft branch: `qa/pricing-interactions`, stacked on #7.
+
+- Before: $0 cards listed unbuilt team/compliance features, billing selection changed styling only, the Notetaker control was decorative, mobile comparison hid Enterprise, desktop FAQ questions were clipped, and calculator output accepted negative/nonfinite inputs and rounded hours before annualizing.
+- After: introductory/card/table context clearly describes Wispr Flow reference plans, not clone entitlements. Reference rates checked on 2026-10-15 update together in cards and table for annual/monthly billing and the Growth Notetaker option. Clone CTAs still lead to its existing free flow; the mislabeled sales link says project support. No checkout, trial, subscription, API, secret or payment behavior changed (E5).
+- Mobile feature disclosures have stable targets, accurate expanded labels, preserved state across breakpoint changes and a readable no-JavaScript fallback. The comparison has 34 five-column semantic rows, accessible included/not-included values and a keyboard-focusable horizontal region exposing Enterprise on mobile. These layout changes await visual comparison.
+- Calculator inputs reject blank, nonfinite, negative and out-of-range values (0–24 hours/day; $0–$100,000/hour), show errors and suppress invalid results. Valid fractional hours are preserved before annualization. Visible assumptions are 22 workdays/month and 50% less typing time; output is hypothetical time value, not a clone performance claim or guaranteed cash savings.
+- FAQ answers are present in HTML. Desktop questions form a scrollable vertical tab list with arrow/Home/End navigation; mobile questions are expandable headings with linked panels. All answers remain readable without JavaScript. Focus is recovered when breakpoint changes hide the active answer. The remaining W avatar was replaced with the owner’s tombstone mark.
+- Website lint/build and whitespace checks pass. **39 tests pass**, including four pricing calculation/reference-rate tests. A source check validates balanced markup, unique IDs, resolved ARIA references and the five-column rows. These are not browser interaction, screen-reader or visual tests.
+- The required shared smoke2 flow was attempted with cleanup and again failed at Chromium launch, before navigation or account creation. Screenshots, computed styles and parity remain **N/M → N/M**. The draft must still pass live auth and paired 1440/390 captures; reference pricing may change and must be rechecked before publication.
+- References: [original pricing](https://wisprflow.ai/pricing), [WAI tabs](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/), [WAI accordions](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/). The source contains apparent differences between card and table free-plan limits; this change labels them as reference content and does not invent clone limits.
 
 ## Next verification gates
 
