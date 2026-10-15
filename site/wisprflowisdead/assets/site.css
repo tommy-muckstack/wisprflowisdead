@@ -150,3 +150,14 @@ em{font-style:italic}
 .ft-big{height:120px;width:100%;position:relative!important;margin:20px 0}.ft-big svg{left:auto;right:0;width:60%;height:100%}.ft-big .dots{top:36px;gap:6px}.ft-big .dots i{width:20px;height:20px}
 .ft-legal{flex-wrap:wrap;gap:12px}
 }
+@media (max-width:600px){
+.auth-pg{padding-top:30px}.auth-pg .logo{font-size:24px}
+.card-a{width:320px;max-width:calc(100% - 70px);margin-top:99px;min-height:580px;border-radius:24px;padding:32px 32px 62px}
+.card-a h1{font-size:32px;line-height:40px;margin-top:-2px}
+.card-a .gwrap{margin-top:32px}
+.card-a .gwrap .ids-google-btn,.pbtn{font-size:16px}
+.or{font-size:15px;margin:32px 0 18px}
+.card-a input{font-size:16px;height:54px}.go{margin-top:4px}
+.auth-pg .char{display:block;width:158px;height:170px;right:-35px;top:-82px}
+.trusted{font-size:16px;margin-top:30px}.trusted .tl{gap:26px;font-size:16px;margin-top:16px}
+}
