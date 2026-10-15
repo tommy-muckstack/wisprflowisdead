@@ -179,6 +179,7 @@ final class HotkeyMonitor {
     }
 }
 
+@MainActor
 enum FlowVoiceBridge {
     static func pressEnter() { VoiceEngine.pressEnter() }
 }

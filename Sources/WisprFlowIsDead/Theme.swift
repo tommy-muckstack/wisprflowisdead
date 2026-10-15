@@ -35,7 +35,8 @@ enum Theme {
 
     static func registerFonts() {
         for name in ["DMSans-Variable", "DMSans-Italic-Variable"] {
-            guard let url = Bundle.module.url(forResource: name, withExtension: "ttf", subdirectory: "Fonts") else { continue }
+            guard let url = Bundle.module.url(forResource: name, withExtension: "ttf", subdirectory: "Fonts")
+                ?? Bundle.module.url(forResource: name, withExtension: "ttf") else { continue }
             CTFontManagerRegisterFontsForURL(url as CFURL, .process, nil)
         }
     }
