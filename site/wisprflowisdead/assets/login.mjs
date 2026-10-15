@@ -9,6 +9,8 @@ function render(state) {
   const password = mode === 'signup' || (mode === 'login' && step === 1);
   $('title').textContent = ({login:'Get started', signup:'Create your account', reset:'Reset your password', created:'Your account is ready'})[mode];
   $('card').setAttribute('aria-busy', String(busy));
+  $('card').dataset.mode = mode;
+  $('card').dataset.step = String(step);
   $('form').setAttribute('aria-busy', String(busy));
   $('nameRow').hidden = mode !== 'signup';
   $('emailRow').hidden = mode === 'created';
@@ -28,7 +30,7 @@ function render(state) {
   $('submit').textContent = busy ? state.pendingLabel : ({signup:'Create account', reset:'Send reset link', created:'Continue'})[mode] || (step ? 'Log in' : 'Continue');
   $('toggle').hidden = mode === 'created';
   $('toggle').disabled = busy;
-  $('toggle').textContent = mode === 'login' ? 'New here? Create an account' : 'Have an account? Log in';
+  $('toggle').textContent = mode === 'login' ? 'Create an account' : 'Have an account? Log in';
   $('reset').hidden = mode !== 'login';
   $('reset').disabled = busy;
   $('resend').hidden = mode !== 'created';
