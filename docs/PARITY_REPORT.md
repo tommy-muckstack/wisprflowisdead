@@ -433,12 +433,12 @@ Draft PR: [#20](https://github.com/tommy-muckstack/wisprflowisdead/pull/20), sta
 
 ### Home FAQ coverage and responsive interaction
 
-Draft PR: pending, stacked on #20.
+Draft PR: [#21](https://github.com/tommy-muckstack/wisprflowisdead/pull/21), stacked on #20.
 
 - Before: [full original](https://github.com/tommy-muckstack/wisprflowisdead/blob/qa/parity-evidence-38802612612-1/docs/parity/38802612612-1/raw/original-home-390-review.jpg) and [full candidate](https://github.com/tommy-muckstack/wisprflowisdead/blob/qa/parity-evidence-38802612612-1/docs/parity/38802612612-1/raw/candidate-home-390-review.jpg) show eleven green questions versus five beige disclosures. Original measured title metrics are 75/75 px desktop and 40/40 px mobile; Questions is 20/19 px. The original uses desktop question/answer panels and collapsed mobile answers.
 - Replaces the five disclosures with eleven independently written topics covering app insertion, cleanup, languages, accents/noise, microphones, privacy, cost, teams and meeting notes. Answers describe actual Mac/browser differences, source-build availability and missing team features. Existing platform requirements, account explanation and non-affiliation information remain in relevant answers and the footer; no cloud capability, certification or performance claim is invented.
 - Adds a green question list, separate desktop answer panel and mobile accordion. Desktop supports Arrow Up/Down, Home/End and a focusable answer panel; mobile starts closed and opens one answer at a time. Panels grow for content. Without JavaScript, all eleven answers remain visible. The requested tombstone appears beside the desktop response.
-- Adds browser checks for initial state, keyboard selection, mobile open/switch/close and no-JavaScript visibility/non-clipping at both widths. Raw captures add initial and expanded language-question screenshots on original/candidate. Local lint/build, QA syntax and whitespace checks pass. Required local smoke2 attempts inside/outside the sandbox failed before navigation or account creation.
+- Adds browser checks for initial state, keyboard selection, mobile open/switch/close and no-JavaScript visibility/non-clipping at both widths. The report validator now requires all eight named width/case combinations; its former fixed count of six would incorrectly reject the two new no-JavaScript cases. Raw captures add initial and expanded language-question screenshots on original/candidate. Local lint/build, QA syntax and whitespace checks pass. Required local smoke2 attempts inside/outside the sandbox failed before navigation or account creation.
 - Hosted FAQ verification and attributable scores are pending. The pre-artwork home baseline is 79.1/61.6; #20's first score excluded its missing WebP backgrounds, so its corrected run must establish the immediate baseline before attributing a change to this FAQ PR.
 
 ### Refreshed public product reference
