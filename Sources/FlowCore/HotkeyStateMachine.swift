@@ -87,9 +87,13 @@ public struct HotkeyStateMachine: Sendable {
         case .handsFree:
             state = .processing
             return [.stopAndInsert]
+        case .holding(_, let mode):
+            // Fn held, then Space: the hold becomes hands-free.
+            state = .handsFree(since: -Double.infinity, mode: mode)
+            return [.lockHandsFree]
         case .processing:
             return [.ignoredBusy]
-        default:
+        case .awaitingSecondPress:
             return []
         }
     }

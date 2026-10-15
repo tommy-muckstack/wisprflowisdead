@@ -116,6 +116,14 @@ final class HotkeyStateMachineTests: XCTestCase {
         XCTAssertEqual(m.clickBar(at: 4), [.stopAndInsert])
     }
 
+    func testHoldThenHandsFreeKeyLocks() {
+        var m = HotkeyStateMachine()
+        _ = m.pressHold(at: 0)
+        XCTAssertEqual(m.pressHandsFree(at: 0.2), [.lockHandsFree])
+        XCTAssertEqual(m.releaseHold(at: 0.4), [])
+        XCTAssertEqual(m.pressHandsFree(at: 3), [.stopAndInsert])
+    }
+
     func testCommandModeHold() {
         var m = HotkeyStateMachine()
         XCTAssertEqual(m.pressHold(at: 0, mode: .command), [.startRecording(mode: .command)])
