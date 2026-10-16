@@ -1,6 +1,7 @@
 {
-  "version": "0.1.0",
-  "build": "2",
+  "version": "0.1.1",
+  "build": "3",
+  "installerFormat": "dmg",
   "minimumSystemVersion": "14.2",
   "sparklePublicKey": "p7zSBSgVTwV/YRHA/Vf0rTErdkr3RC7++fs3vSqtKZM=",
   "feedURL": "https://raw.githubusercontent.com/tommy-muckstack/wisprflowisdead/main/updates/appcast.xml"
