@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><!-- sparkle-sign-warning:
+IMPORTANT: This file was signed by Sparkle. Any modifications to this file requires re-signing this file with generate_appcast or sign_update! The signed signature will be embedded at the end of this file.
+--><rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+  <channel>
+    <title>WisprFlowIsDead updates</title>
+    <link>https://raw.githubusercontent.com/tommy-muckstack/wisprflowisdead/main/updates/appcast.xml</link>
+    <item>
+      <title>WisprFlowIsDead 0.1.0</title>
+      <pubDate>Fri, 16 Oct 2026 13:48:49 +0000</pubDate>
+      <sparkle:version>2</sparkle:version>
+      <sparkle:shortVersionString>0.1.0</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>14.2</sparkle:minimumSystemVersion>
+      <enclosure url="https://github.com/tommy-muckstack/wisprflowisdead/releases/download/v0.1.0/WisprFlowIsDead-0.1.0.zip" length="6740909" type="application/octet-stream" sparkle:edSignature="j9BkzWHUtk+OttRC4epofGWReEj+YCJHOSLzME/dQwFO7anvT0dL2lsgyn7+X92bt6cq3W8FBVINDINzD6BKAQ=="></enclosure>
+    </item>
+  </channel>
+</rss><!-- sparkle-signatures:
+edSignature: hL+5GSYgR4aL39O1oW3lVIPO3y8ExH8M8W46IKq82k5k/MKPwciyqR6+65eE4oTmxpqvJseYVsu8j/q3EqpTBw==
+length: 1166
+-->
