@@ -5,7 +5,7 @@ cd "$(dirname "$0")/.."
 VERSION="$(python3 -c 'import json; print(json.load(open("release/config.json"))["version"])')"
 DIST="$PWD/.build/releases/$VERSION"
 APP_DIR="$PWD/.build/app/WisprFlowIsDead.app"
-INSTALLER_FORMAT="${INSTALLER_FORMAT:-pkg}"
+INSTALLER_FORMAT="${INSTALLER_FORMAT:-$(python3 -c 'import json; print(json.load(open("release/config.json")).get("installerFormat", "pkg"))')}"
 case "$INSTALLER_FORMAT" in pkg|dmg) ;; *) echo 'INSTALLER_FORMAT must be pkg or dmg.' >&2; exit 1;; esac
 if [ -n "${NOTARY_PROFILE:-}" ]; then
   [ "${SIGNING_IDENTITY:--}" != "-" ] || { echo 'Notarization requires SIGNING_IDENTITY.' >&2; exit 1; }

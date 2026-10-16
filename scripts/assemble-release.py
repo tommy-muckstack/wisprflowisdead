@@ -15,7 +15,9 @@ assert re.fullmatch(r"[a-f0-9]{40}", manifest["sourceCommit"])
 names = [file["name"] for file in manifest["files"]]
 assert len(names) == len(set(names)) == 3
 base = {f"WisprFlowIsDead-{version}.zip", "appcast.xml"}
-assert set(names) in [base | {f"WisprFlowIsDead-{version}.{kind}"} for kind in ["pkg", "dmg"]]
+kind = config.get("installerFormat", "pkg")
+assert kind in ["pkg", "dmg"]
+assert set(names) == base | {f"WisprFlowIsDead-{version}.{kind}"}
 output.mkdir(parents=True, exist_ok=True)
 checksums = []
 for file in manifest["files"]:

@@ -21,6 +21,7 @@ class ReleaseAssembly(unittest.TestCase):
         self.payload.mkdir()
 
     def fixture(self, kind="dmg"):
+        (self.root / "release/config.json").write_text(json.dumps({"version": "0.1.1", "installerFormat": kind}))
         names = ["WisprFlowIsDead-0.1.1.zip", f"WisprFlowIsDead-0.1.1.{kind}", "appcast.xml"]
         self.contents = {name: b"\x00\xffrelease-data-" + name.encode() for name in names}
         files = []
@@ -62,6 +63,11 @@ class ReleaseAssembly(unittest.TestCase):
         self.assertNotEqual(self.assemble(self.fixture("exe")).returncode, 0)
         manifest = self.fixture()
         manifest["version"] = "0.1.0"
+        self.assertNotEqual(self.assemble(manifest).returncode, 0)
+
+    def test_cannot_substitute_pkg_for_required_dmg(self):
+        manifest = self.fixture("pkg")
+        (self.root / "release/config.json").write_text('{"version":"0.1.1","installerFormat":"dmg"}')
         self.assertNotEqual(self.assemble(manifest).returncode, 0)
 
 
