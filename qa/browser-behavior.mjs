@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import {createRequire} from 'node:module';
 import fs from 'node:fs';
 import path from 'node:path';
+import {checkComparisonHeader} from './comparison-header.mjs';
 const tools = path.resolve(process.env.PARITY_TOOLS_DIR || 'parity-tools');
 const {chromium} = createRequire(path.join(tools,'scripts/package.json'))('playwright');
 const base = 'http://127.0.0.1:3300/wisprflowisdead';
@@ -255,6 +256,23 @@ try {
         assert.ok(button.x >= links.x + links.width, 'Desktop navigation overlaps the CTA');
       }
     });
+    await check('pricing-no-js',width,'/pricing',async page => {
+      assert.equal(await page.locator('.topwrap').count(),1);
+      assert.equal(await page.locator('.topwrap [role=columnheader]').count(),5);
+      assert.equal(await page.locator('#comparison-description').isVisible(),true);
+      assert.equal(await page.locator('#comparison-details').isVisible(),true);
+      const region = page.locator('.table-scroll');
+      await region.scrollIntoViewIfNeeded();
+      await page.locator('.topwrap a').last().focus();
+      await page.waitForFunction(() => {
+        const region=document.querySelector('.table-scroll').getBoundingClientRect();
+        const link=[...document.querySelectorAll('.topwrap a')].at(-1).getBoundingClientRect();
+        return link.left>=region.left && link.right<=region.right;
+      });
+      const bounds = await region.boundingBox(), link = await page.locator('.topwrap a').last().boundingBox();
+      assert.ok(link.x >= bounds.x && link.x+link.width <= bounds.x+bounds.width,'Enterprise is inaccessible without JavaScript');
+      await noOverflow(page);
+    },{javaScriptEnabled:false});
     await check('pricing',width,'/pricing',async page => {
       assert.equal(await page.locator('#comparison-description').isVisible(),true);
       assert.equal(await page.locator('#comparison-details').isVisible(),true);
@@ -311,6 +329,7 @@ try {
         assert.equal(await second.getAttribute('aria-selected'),'true');
         assert.equal(await page.locator('#faq-answer').getAttribute('aria-labelledby'),await second.getAttribute('id'));
       }
+      await checkComparisonHeader(page,width,path.join(output,`pricing-sticky-${width}.png`));
       await noOverflow(page);
     });
     await check('demo',width,'/demo',async page => {

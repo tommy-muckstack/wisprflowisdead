@@ -119,3 +119,31 @@ function calculate() {
 [hours, rate].forEach(input => {input.disabled = false; input.addEventListener('input', calculate);});
 calculate();
 document.body.classList.add('pricing-enhanced');
+
+// overflow:auto is needed for all four plans, but makes native vertical sticky
+// positioning follow the scroll region instead of the page. Move the existing
+// header within that region, bounded by the table, without cloning links/labels.
+const comparisonTable = document.querySelector('.reference-table');
+const comparisonHeader = comparisonTable.querySelector('.topwrap');
+let comparisonFrame = 0, comparisonOffset = -1;
+function positionComparisonHeader() {
+  comparisonFrame = 0;
+  const table = comparisonTable.getBoundingClientRect();
+  const height = comparisonHeader.getBoundingClientRect().height;
+  const offset = Math.min(Math.max(0,(compact.matches ? 8 : 16)-table.top),Math.max(0,table.height-height));
+  if (offset !== comparisonOffset) {
+    comparisonHeader.style.setProperty('--comparison-offset',`${offset}px`);
+    comparisonOffset = offset;
+  }
+}
+function scheduleComparisonHeader() {
+  if (!comparisonFrame) comparisonFrame = requestAnimationFrame(positionComparisonHeader);
+}
+addEventListener('scroll',scheduleComparisonHeader,{passive:true});
+addEventListener('resize',scheduleComparisonHeader);
+addEventListener('pageshow',scheduleComparisonHeader);
+const comparisonResize = new ResizeObserver(scheduleComparisonHeader);
+comparisonResize.observe(comparisonTable);
+comparisonResize.observe(comparisonHeader);
+document.fonts.ready.then(scheduleComparisonHeader);
+scheduleComparisonHeader();

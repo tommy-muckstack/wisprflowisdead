@@ -134,7 +134,7 @@ try {
             return {text:cell.textContent.trim().slice(0,160),x:box.x,y:box.y + scrollY,width:box.width,height:box.height,fontSize:style.fontSize,lineHeight:style.lineHeight,fontWeight:style.fontWeight,color:style.color,padding:style.padding};
           })));
           // Measure the reference's sticky header at several scroll positions before recreating it.
-          const comparisonBounds = await page.locator(target === 'original' ? '.pricing-table.v2' : '.reference-table').evaluate(element => {
+          const comparisonBounds = await page.locator(target === 'original' ? '.pricing-plan_table-mega-wrap' : '.reference-table').evaluate(element => {
             const box = element.getBoundingClientRect();
             return {top:box.top + scrollY,bottom:box.bottom + scrollY};
           });
@@ -160,6 +160,7 @@ try {
             await page.screenshot({path:path.join(output,image)});
             entry.comparisonStickyStates.push({name,image,...measured});
           }
+          fs.writeFileSync(path.join(output,`${target}-pricing-${width}-sticky.json`),JSON.stringify(entry.comparisonStickyStates,null,2));
         }
       }
       if (item.name === 'home' || item.name === 'pricing') {
