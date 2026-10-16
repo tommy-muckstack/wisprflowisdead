@@ -7,6 +7,7 @@ VERSION="$(python3 -c 'import json; print(json.load(open("release/config.json"))
 EXPECTED_TEAM="${APPLE_TEAM_ID:-K8NAZ76CBQ}"
 ZIP="$DIST/WisprFlowIsDead-$VERSION.zip"
 DMG="$DIST/WisprFlowIsDead-$VERSION.dmg"
+mkdir -p "$PWD/.build"
 STAGING="$(mktemp -d "$PWD/.build/signed-verification.XXXXXX")"
 trap 'rm -rf "$STAGING"' EXIT
 ditto -x -k "$ZIP" "$STAGING"
