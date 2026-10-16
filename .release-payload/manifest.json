@@ -1,0 +1,51 @@
+{
+  "version": "0.1.0",
+  "sourceCommit": "b013e65d44025cca4f970b2459ca698b4c03666b",
+  "files": [
+    {
+      "name": "WisprFlowIsDead-0.1.0.zip",
+      "sha256": "45b9fc9dc4c647497f5c712b5f32f84806f77a251d309fb4379f556002847c22",
+      "parts": [
+        "zip.part000",
+        "zip.part001",
+        "zip.part002",
+        "zip.part003",
+        "zip.part004",
+        "zip.part005",
+        "zip.part006",
+        "zip.part007",
+        "zip.part008",
+        "zip.part009",
+        "zip.part010",
+        "zip.part011",
+        "zip.part012"
+      ]
+    },
+    {
+      "name": "WisprFlowIsDead-0.1.0.pkg",
+      "sha256": "76a6b1a6a34d3d93ba2a229b5742d530a942e4532c632a1db3ca043dca2cbd8f",
+      "parts": [
+        "pkg.part000",
+        "pkg.part001",
+        "pkg.part002",
+        "pkg.part003",
+        "pkg.part004",
+        "pkg.part005",
+        "pkg.part006",
+        "pkg.part007",
+        "pkg.part008",
+        "pkg.part009",
+        "pkg.part010",
+        "pkg.part011",
+        "pkg.part012"
+      ]
+    },
+    {
+      "name": "appcast.xml",
+      "sha256": "382d9f5aab369e8a7c0da0c0c46c8e7d56efc8687b78beab3f4f46f6f8852c24",
+      "parts": [
+        "feed.part000"
+      ]
+    }
+  ]
+}
