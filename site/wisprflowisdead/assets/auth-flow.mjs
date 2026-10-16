@@ -82,25 +82,15 @@ export class AuthFlow {
       // Once creation succeeds, retries must continue this account rather than create it again.
       this.user = await this.sdk.create(email.trim(), password);
       this.mode = 'created';
-      const notes = [];
       if (name.trim()) {
-        try { await this.sdk.profile(this.user, name.trim()); }
-        catch { notes.push('Your name could not be saved.'); }
+        // A missing display name must not block the new account from signing in.
+        try { await this.sdk.profile(this.user, name.trim()); } catch { /* Name is optional. */ }
       }
-      try { await this.sdk.verify(this.user); notes.push('Check your email for a verification link.'); }
-      catch { notes.push('The verification email could not be sent. Use Resend verification email to retry.'); }
-      this.say('Your account was created. ' + notes.join(' ') + ' You can continue to your account now.', 'ok');
+      return this.done(this.user);
     });
   }
   async google() {
     if (!this.ready) return false;
     return this.run('Opening Google…', async () => this.done(await this.sdk.google()));
-  }
-  async resend() {
-    if (!this.ready || this.mode !== 'created' || !this.user) return false;
-    return this.run('Sending verification email…', async () => {
-      await this.sdk.verify(this.user);
-      this.say('Verification email sent. Check your inbox and spam folder.', 'ok');
-    });
   }
 }

@@ -33,8 +33,6 @@ function render(state) {
   $('toggle').textContent = mode === 'login' ? 'Create an account' : 'Have an account? Log in';
   $('reset').hidden = mode !== 'login';
   $('reset').disabled = busy;
-  $('resend').hidden = mode !== 'created';
-  $('resend').disabled = busy;
   $('retry').hidden = ready || busy;
   $('msg').textContent = busy ? state.pendingLabel : state.message;
   $('msg').className = 'msg ' + state.kind;
@@ -52,6 +50,5 @@ $('toggle').addEventListener('click', () => {flow.setMode(flow.mode === 'login' 
 $('reset').addEventListener('click', () => {flow.setMode('reset'); $('email').focus();});
 $('edit-email').addEventListener('click', () => {flow.editEmail(); $('password').value = ''; $('email').focus();});
 $('google').addEventListener('click', () => void flow.google());
-$('resend').addEventListener('click', () => void flow.resend());
 $('retry').addEventListener('click', () => void flow.initialize());
 void flow.initialize();

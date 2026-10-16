@@ -9,7 +9,7 @@ function setup(extra = {}) {
     login:async (...args) => {calls.push(['login', ...args]); return user;},
     create:async () => {calls.push(['create']); return user;},
     google:async () => {calls.push(['google']); return user;},
-    profile:async () => {}, verify:async () => {}, reset:async () => {},
+    profile:async () => {}, reset:async () => {},
     signOut:async () => {calls.push(['sdk-sign-out']);}
   };
   const flow = new AuthFlow({load:async () => sdk, startSession:async () => {calls.push(['session']);},
@@ -37,23 +37,24 @@ test('duplicate clicks and mode changes cannot overlap a pending login', async (
   release(user); await pending;
   assert.equal(calls.filter(c=>c[0] === 'session').length,1);
 });
+test('signup signs straight in without any email verification step', async () => {
+  const {flow,sdk,calls} = setup(); await flow.initialize(); flow.setMode('signup');
+  assert.equal('verify' in sdk,false); assert.equal(typeof flow.resend,'undefined');
+  assert.equal(await flow.submit({email:' person@example.com ',password:'secret!',name:'Test'}),true);
+  assert.deepEqual(calls,[['create'],['session'],['sdk-sign-out'],['navigate','/wisprflowisdead/app']]);
+  assert.doesNotMatch(flow.message,/verif|inbox/i);
+});
 test('session failure never redirects and leaves signup continuation retryable without a second account', async () => {
   let attempts = 0;
-  const {flow,sdk,calls} = setup({startSession:async () => {if (++attempts === 1) throw {code:'session-failed'};}});
-  sdk.profile = sdk.verify = async () => {throw Error('offline');};
+  const {flow,sdk,calls} = setup({startSession:async () => {if (++attempts <= 2) throw {code:'session-failed'};}});
+  sdk.profile = async () => {throw Error('offline');};
   await flow.initialize(); flow.setMode('signup');
-  await flow.submit({email:'person@example.com',password:'secret!',name:'Test'});
-  assert.equal(flow.mode,'created'); assert.match(flow.message,/account was created/); assert.match(flow.message,/could not be sent/);
+  assert.equal(await flow.submit({email:'person@example.com',password:'secret!',name:'Test'}),false);
+  assert.equal(flow.mode,'created'); assert.match(flow.message,/website session/); assert.doesNotMatch(flow.message,/verif/i);
   assert.equal(await flow.submit(),false); assert.equal(flow.mode,'created'); assert.match(flow.message,/website session/);
   assert.equal(calls.some(c=>c[0] === 'navigate'),false);
   await flow.submit(); assert.equal(calls.filter(c=>c[0] === 'create').length,1);
   assert.equal(calls.filter(c=>c[0] === 'navigate').length,1);
-});
-test('verification resend reports success only after the email operation succeeds', async () => {
-  const {flow,sdk} = setup(); await flow.initialize(); flow.setMode('signup'); await flow.submit();
-  sdk.verify = async () => {throw {code:'auth/too-many-requests'};};
-  assert.equal(await flow.resend(),false); assert.match(flow.message,/Too many/);
-  sdk.verify = async () => {}; await flow.resend(); assert.match(flow.message,/Verification email sent/);
 });
 test('password reset neither reveals missing accounts nor reports network failure as sent', async () => {
   const {flow,sdk} = setup(); await flow.initialize(); flow.setMode('reset');
