@@ -1,0 +1,47 @@
+name: Published Sparkle feed verification
+on:
+  push:
+    branches: ['qa/sparkle-release-0.1.1']
+permissions:
+  contents: read
+jobs:
+  sparkle:
+    runs-on: macos-15
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download and verify the published update bundle
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p .build/published .build/app
+          gh release download v0.1.1 --repo tommy-muckstack/wisprflowisdead --pattern 'WisprFlowIsDead-0.1.1.zip' --pattern appcast.xml --dir .build/published
+          swift scripts/verify-release.swift .build/published
+          ditto -x -k .build/published/WisprFlowIsDead-0.1.1.zip .build/app
+          python3 qa/verify-native-app.py .build/app/WisprFlowIsDead.app
+      - name: Create isolated version-one probe
+        run: |
+          mkdir -p .build/update-probe
+          ditto .build/app/WisprFlowIsDead.app .build/update-probe/Probe.app
+          python3 - <<'PY'
+          import plistlib
+          from pathlib import Path
+          p=Path('.build/update-probe/Probe.app/Contents/Info.plist')
+          info=plistlib.loads(p.read_bytes())
+          info['CFBundleIdentifier']='com.muckstack.wisprflowisdead.update-probe'
+          info['CFBundleVersion']='1'
+          info['SUEnableAutomaticChecks']=False
+          p.write_bytes(plistlib.dumps(info))
+          PY
+          swiftc qa/published-update-probe.swift -F .build/app/WisprFlowIsDead.app/Contents/Frameworks -framework Sparkle -Xlinker -rpath -Xlinker @executable_path/../Frameworks -o .build/update-probe/Probe.app/Contents/MacOS/WisprFlowIsDead
+          codesign --force --deep --sign - .build/update-probe/Probe.app
+      - name: Discover and verify the published signed HTTPS feed
+        run: |
+          mkdir -p .build/feed-evidence
+          .build/update-probe/Probe.app/Contents/MacOS/WisprFlowIsDead https://raw.githubusercontent.com/tommy-muckstack/wisprflowisdead/main/updates/appcast.xml | tee .build/feed-evidence/result.txt
+          grep -q 'SPARKLE_VERIFIED_UPDATE version=3' .build/feed-evidence/result.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: published-sparkle-feed
+          path: .build/feed-evidence/
