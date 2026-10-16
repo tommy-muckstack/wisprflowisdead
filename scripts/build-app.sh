@@ -50,7 +50,9 @@ done
 for framework in "$STAGED_APP/Contents/Frameworks/"*.framework; do
   codesign "${sign_options[@]}" "$framework"
 done
-codesign "${sign_options[@]}" "$STAGED_APP"
+# Hardened Runtime requires audio-input access for dictation. Keep this on
+# the host app only; Sparkle helpers do not record audio.
+codesign "${sign_options[@]}" --entitlements release/WisprFlowIsDead.entitlements "$STAGED_APP"
 codesign --verify --deep --strict "$STAGED_APP"
 mkdir -p "$(dirname "$APP_DIR")"
 # APP_DIR is generated build output, never an installed app.

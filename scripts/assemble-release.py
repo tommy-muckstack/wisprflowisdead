@@ -12,8 +12,10 @@ config = json.loads(Path("release/config.json").read_text())
 version = config["version"]
 assert manifest["version"] == version and re.fullmatch(r"\d+\.\d+\.\d+", version)
 assert re.fullmatch(r"[a-f0-9]{40}", manifest["sourceCommit"])
-expected = {f"WisprFlowIsDead-{version}.zip", f"WisprFlowIsDead-{version}.pkg", "appcast.xml"}
-assert {file["name"] for file in manifest["files"]} == expected
+names = [file["name"] for file in manifest["files"]]
+assert len(names) == len(set(names)) == 3
+base = {f"WisprFlowIsDead-{version}.zip", "appcast.xml"}
+assert set(names) in [base | {f"WisprFlowIsDead-{version}.{kind}"} for kind in ["pkg", "dmg"]]
 output.mkdir(parents=True, exist_ok=True)
 checksums = []
 for file in manifest["files"]:

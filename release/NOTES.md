@@ -1,7 +1,7 @@
-WisprFlowIsDead 0.1.0 (build 2) for Apple silicon Macs running macOS 14.2 or later.
+WisprFlowIsDead 0.1.1 (build 3) for Apple silicon Macs running macOS 14.2 or later.
 
-Download the PKG installer to install into Applications, or unzip the portable app and move it to Applications. Sparkle 2.10.0 checks for updates automatically and downloads signed updates. “Check for Updates…” is also available in the menu bar. Future updates must be published with the same signing key and a higher build number.
+This release uses the same MuckStack Developer ID Application identity as MyMan (team K8NAZ76CBQ). The app and DMG are signed, notarized and stapled. Open the DMG and drag WisprFlowIsDead into Applications, or use the ZIP containing the same stapled app.
 
-This initial build is ad-hoc signed, with no Developer ID signature or Apple notarization. macOS may require explicit approval to open an Internet-downloaded copy. The update ZIP and appcast have independently verified Ed25519 signatures. No account or subscription is required for the native app.
+Sparkle 2.10.0 checks for updates automatically. The existing update signing key is retained, so 0.1.0 installations can recognize build 3. Both the update ZIP and appcast require Ed25519 signatures. “Check for Updates…” is available from the menu bar.
 
-Website visual parity is still in progress. Real microphone dictation, native visual parity, and a complete interactive update/relaunch cycle remain separate verification work.
+Adds the microphone entitlement required by Hardened Runtime. No account or subscription is required for the native app. Real microphone dictation, native visual parity and a complete interactive update/relaunch cycle remain separate verification work; website visual parity is still incomplete.

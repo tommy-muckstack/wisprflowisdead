@@ -9,8 +9,6 @@
 .auth-pg .gwrap{margin-top:30px}
 /* Keep Google's standard white/gray treatment and fixed, undistorted 20px G. */
 .auth-pg .card-a .gwrap .ids-google-btn{height:52px;padding:0 12px;border:1px solid #747775;border-radius:4px;background:#fff;color:#1f1f1f;font:500 14px/20px "Google Sans",Roboto,Arial,sans-serif;letter-spacing:.25px}
-.auth-pg .pbtn{height:52px;font-size:16px;font-weight:600;line-height:16px;border-width:2px;border-radius:8px}
-.auth-pg .provider-note{font-size:12px;line-height:16px;text-align:center;color:#5b5b53;margin:6px 0 0}
 .auth-pg .or{font-size:16px;line-height:21px;margin:8px 0 30px}
 .auth-pg .row{position:relative;margin-bottom:30px}
 .auth-pg .row input{height:38px;font-size:16px;font-weight:500;line-height:23px;padding:0 16px 14px 0;border-bottom:2px solid #1A1A1A}
