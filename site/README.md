@@ -36,9 +36,9 @@ Commands run locally after recognition and have no model/service fee. Unsupporte
 
 ## Login recovery
 
-Sign-in uses the existing Firebase email/password and Google providers with the shared HTTP-only session cookie. Client SDK state stays in memory. Setup has a timeout and retry; requests are locked while pending. New accounts show a confirmation and verification-link resend before continuing to the account page. If session creation fails, Continue retries that account rather than creating another. Password reset uses Firebase email links; no email-code login or additional provider configuration is introduced.
+Sign-in uses the existing Firebase email/password and Google providers with the shared HTTP-only session cookie. Client SDK state stays in memory. Setup has a timeout and retry; requests are locked while pending. New accounts immediately start a session and continue to the account page without sending a verification email. If session creation fails, Continue retries that account rather than creating another. Password reset uses Firebase email links; no email-code login or additional provider configuration is introduced.
 
-Auth unit tests mock the SDK/HTTP boundary and cover errors, request overlap, safe return paths, signup continuation and reset/resend outcomes. Hosted Chromium now verifies signup/sign-out/login/sign-out with the deployed backend for both live and candidate frontend files, including cookie/server identity checks and disposable-account deletion. See [the parity report](../docs/PARITY_REPORT.md) and [QA instructions](../qa/README.md). Real OAuth, email delivery/reset links and original-account comparison remain unverified.
+Auth unit tests mock the SDK/HTTP boundary and cover errors, request overlap, safe return paths, immediate signup, session recovery and password-reset outcomes. Hosted Chromium now verifies signup/sign-out/login/sign-out with the deployed backend for both live and candidate frontend files, including cookie/server identity checks and disposable-account deletion. See [the parity report](../docs/PARITY_REPORT.md) and [QA instructions](../qa/README.md). Real OAuth, email delivery/reset links and original-account comparison remain unverified.
 
 ## Personal library
 
