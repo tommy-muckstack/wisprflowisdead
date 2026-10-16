@@ -31,6 +31,49 @@ test('opt-in storage restores entries and disabling it removes only the saved co
   assert.equal(library.entries.length,1); assert.equal(data.get('another-app'),'preserved'); assert.equal(data.has(LIBRARY_KEY),false);
   library.clear(); assert.equal(library.entries.length,0);
 });
+test('sort is shared by both lists and saved only with the opted-in library', () => {
+  const {library,storage,data} = setup();
+  const first = library.save({...word('Alpha'),starred:true});
+  library.save(word('Zeta'));
+  library.save(snippet('earlier reply','Earlier'));
+  const last = library.save(snippet('latest reply','Latest'));
+  library.setSort('starred');
+  assert.equal(library.list('dictionary')[0].id,first.id);
+  assert.equal(library.list('snippet')[0].id,last.id);
+  assert.equal(data.size,0);
+  library.setRemember(true);
+  const restored = new Library({storage}); restored.load();
+  assert.equal(restored.sort,'starred');
+  assert.equal(restored.list('dictionary')[0].id,first.id);
+  assert.equal(restored.list('snippet')[0].id,last.id);
+  restored.setSort('oldest');
+  assert.equal(JSON.parse(data.get(LIBRARY_KEY)).sort,'oldest');
+  restored.setRemember(false); restored.setSort('alphabetical');
+  assert.equal(data.has(LIBRARY_KEY),false);
+  assert.equal(restored.entries.length,4);
+  restored.clear(); assert.equal(restored.sort,'newest');
+});
+test('legacy or unknown sort values default without overwriting saved entries', () => {
+  for (const sort of [undefined,'unknown',null]) {
+    const {library,data} = setup(); const entry = library.save(word('Keep me'));
+    const saved = JSON.stringify({version:1,entries:[entry],sort}); data.set(LIBRARY_KEY,saved);
+    library.load();
+    assert.equal(library.sort,'newest'); assert.deepEqual(library.entries,[entry]);
+    assert.equal(data.get(LIBRARY_KEY),saved);
+  }
+});
+test('failed sort writes and cross-tab conflicts preserve the previous order and entries', () => {
+  const {library,storage,data} = setup(); const entry = library.save(word('Keep me'));
+  library.setSort('oldest'); library.setRemember(true); const saved = data.get(LIBRARY_KEY);
+  storage.setItem = () => {throw Error('Quota exceeded');};
+  assert.throws(() => library.setSort('alphabetical'),/could not be saved/);
+  assert.equal(library.sort,'oldest'); assert.deepEqual(library.entries,[entry]);
+  assert.equal(data.get(LIBRARY_KEY),saved);
+  data.set(LIBRARY_KEY,JSON.stringify({version:1,entries:[],sort:'newest'}));
+  assert.throws(() => library.setSort('starred'),/another tab/);
+  assert.equal(library.sort,'oldest'); assert.deepEqual(library.entries,[entry]);
+  assert.throws(() => library.setSort('invalid'),/available sort/);
+});
 test('failed writes and cross-tab changes preserve existing entries and editing data', () => {
   const {library,storage,data} = setup(); const entry = library.save(word('Name')); library.setRemember(true);
   const saved = data.get(LIBRARY_KEY); storage.setItem = () => {throw Error('Quota exceeded');};
