@@ -1,0 +1,40 @@
+name: Published Sparkle feed verification
+on:
+  push:
+    branches: ['qa/sparkle-release-0.1.0']
+permissions:
+  contents: read
+jobs:
+  sparkle:
+    runs-on: macos-15
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Assemble release-equivalent Sparkle bundle
+        run: NO_OPEN=1 scripts/run-dev.sh
+      - name: Create isolated version-one probe
+        run: |
+          mkdir -p .build/update-probe
+          ditto .build/app/WisprFlowIsDead.app .build/update-probe/Probe.app
+          python3 - <<'PY'
+          import plistlib
+          from pathlib import Path
+          p=Path('.build/update-probe/Probe.app/Contents/Info.plist')
+          info=plistlib.loads(p.read_bytes())
+          info['CFBundleIdentifier']='com.muckstack.wisprflowisdead.update-probe'
+          info['CFBundleVersion']='1'
+          info['SUEnableAutomaticChecks']=False
+          p.write_bytes(plistlib.dumps(info))
+          PY
+          swiftc qa/published-update-probe.swift -F .build/app/WisprFlowIsDead.app/Contents/Frameworks -framework Sparkle -Xlinker -rpath -Xlinker @executable_path/../Frameworks -o .build/update-probe/Probe.app/Contents/MacOS/WisprFlowIsDead
+          codesign --force --deep --sign - .build/update-probe/Probe.app
+      - name: Discover and verify the published signed HTTPS feed
+        run: |
+          mkdir -p .build/feed-evidence
+          .build/update-probe/Probe.app/Contents/MacOS/WisprFlowIsDead https://raw.githubusercontent.com/tommy-muckstack/wisprflowisdead/main/updates/appcast.xml | tee .build/feed-evidence/result.txt
+          grep -q 'SPARKLE_VERIFIED_UPDATE version=2' .build/feed-evidence/result.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: published-sparkle-feed
+          path: .build/feed-evidence/
