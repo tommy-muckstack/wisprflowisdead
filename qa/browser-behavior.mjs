@@ -10,13 +10,14 @@ const results = [];
 const browser = await chromium.launch();
 
 async function check(name, width, route, task, options = {}) {
-  const context = await browser.newContext({viewport:{width,height:width === 390 ? 844 : 900},isMobile:width === 390,hasTouch:width === 390,locale:'en-US',...options});
+  const {expectedStatus = 200, ...contextOptions} = options;
+  const context = await browser.newContext({viewport:{width,height:width === 390 ? 844 : 900},isMobile:width === 390,hasTouch:width === 390,locale:'en-US',...contextOptions});
   const page = await context.newPage(); page.setDefaultTimeout(10000);
   const errors = []; page.on('pageerror', error => errors.push(error.message));
   const result = {name,width,passed:false,errors};
   try {
     const response = await page.goto(base + route,{waitUntil:'load',timeout:30000});
-    assert.equal(response.status(),200);
+    assert.equal(response.status(),expectedStatus);
     await task(page);
     assert.deepEqual(errors,[], 'Unexpected application JavaScript errors');
     result.passed = true;
@@ -47,6 +48,25 @@ async function confirm(page, text, action) {
 }
 try {
   for (const width of [1440,390]) {
+    await check('not-found',width,'/qa-missing-page-20261015',async page => {
+      assert.equal(await page.getByRole('heading',{level:1,name:'Page Not Found'}).count(),1);
+      assert.equal(await page.locator('.not-found img').evaluate(image => image.complete && image.naturalWidth > 0),true);
+      await noOverflow(page);
+      await page.screenshot({path:path.join(output,`not-found-initial-${width}.png`)});
+      const nested = await page.request.get(base + '/qa-missing/nested');
+      assert.equal(nested.status(),404); assert.match(nested.headers()['content-type'],/text\/html/);
+      assert.match(await nested.text(),/Page Not Found/);
+      const head = await page.request.head(base + '/qa-missing/nested');
+      assert.equal(head.status(),404); assert.equal(await head.text(),'');
+      if (width === 390) {
+        await page.setViewportSize({width:320,height:320}); await noOverflow(page);
+        const button = await page.getByRole('link',{name:'Go Home',exact:true}).boundingBox();
+        assert.ok(button.y >= 0 && button.y + button.height <= 320,'Recovery link is clipped on a short screen');
+      }
+      const link = page.getByRole('link',{name:'Go Home',exact:true});
+      await link.focus(); await page.keyboard.press('Enter'); await page.waitForURL(base);
+      assert.equal(await page.getByRole('heading',{level:1}).count(),1);
+    },{expectedStatus:404,javaScriptEnabled:false});
     await check('support-no-js',width,'/support',async page => {
       const guides = page.locator('.support-guide-answers details');
       assert.equal(await guides.count(),5);

@@ -56,7 +56,7 @@ for (const target of ['original','candidate']) for (const viewport of viewports)
 let behavior;
 try {behavior = JSON.parse(fs.readFileSync(path.join(output,'behavior/report.json'),'utf8'));}
 catch {errors.push({stage:'browser interactions',message:'Missing browser behavior report'});}
-const expectedBehavior = [1440,390].flatMap(width => ['support-no-js','support','home-faq-no-js','navigation','pricing','demo'].map(name => ({name,width})));
+const expectedBehavior = [1440,390].flatMap(width => ['not-found','support-no-js','support','home-faq-no-js','navigation','pricing','demo'].map(name => ({name,width})));
 const behaviorPassed = behavior?.results?.length === expectedBehavior.length && expectedBehavior.every(expected =>
   behavior.results.some(result => result.name === expected.name && result.width === expected.width && result.passed));
 if (behavior && !behaviorPassed) errors.push({stage:'browser interactions',message:'One or more browser flows failed'});

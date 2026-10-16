@@ -5,6 +5,7 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 
 const root = await realpath(fileURLToPath(new URL('../site/wisprflowisdead/', import.meta.url)));
+const missingPage = await readFile(new URL('../site/404.html', import.meta.url));
 const prefix = '/wisprflowisdead';
 const types = {'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.mjs':'text/javascript; charset=utf-8','.js':'text/javascript; charset=utf-8','.png':'image/png','.webp':'image/webp','.svg':'image/svg+xml','.woff2':'font/woff2'};
 const server = createServer(async (req, res) => {
@@ -12,6 +13,7 @@ const server = createServer(async (req, res) => {
     res.writeHead(status, {'content-type':type, 'cache-control':'no-store'});
     res.end(req.method === 'HEAD' ? undefined : body);
   }
+  const notFound = () => send(404, missingPage, 'text/html; charset=utf-8');
   if (!['GET','HEAD'].includes(req.method)) return send(405, '{"error":"Read-only QA preview"}');
   let pathname;
   try {pathname = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);}
@@ -27,15 +29,15 @@ const server = createServer(async (req, res) => {
       return send(200, JSON.stringify({firebase:data.firebase ?? null, downloadUrl:data.downloadUrl ?? null}));
     } catch {return send(502, '{"error":"Public configuration unavailable"}');}
   }
-  if (pathname !== prefix && !pathname.startsWith(prefix + '/')) return send(404, '{"error":"Not found"}');
+  if (pathname !== prefix && !pathname.startsWith(prefix + '/')) return notFound();
   let relative = pathname.slice(prefix.length).replace(/^\/+/, '') || 'index.html';
   if (!path.extname(relative)) relative += '.html';
   try {
     const file = await realpath(path.resolve(root, relative));
-    if (!file.startsWith(root + path.sep)) return send(404, '{"error":"Not found"}');
+    if (!file.startsWith(root + path.sep)) return notFound();
     const type = types[path.extname(file)];
-    if (!type) return send(404, '{"error":"Not found"}');
+    if (!type) return notFound();
     send(200, await readFile(file), type);
-  } catch {send(404, '{"error":"Not found"}');}
+  } catch {notFound();}
 });
 server.listen(Number(process.argv[2] || 3300), '127.0.0.1', () => console.log('Anonymous QA preview listening on', server.address().port));
