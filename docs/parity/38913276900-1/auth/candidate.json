@@ -1,0 +1,61 @@
+{
+  "mode": "candidate",
+  "sessionChecks": [
+    {
+      "stage": "signup",
+      "status": 200,
+      "passed": true,
+      "identityMatches": true,
+      "cookieFlags": true
+    },
+    {
+      "stage": "logout1",
+      "status": 401,
+      "passed": true,
+      "identityMatches": false,
+      "cookieFlags": false
+    },
+    {
+      "stage": "login",
+      "status": 200,
+      "passed": true,
+      "identityMatches": true,
+      "cookieFlags": true
+    },
+    {
+      "stage": "logout2",
+      "status": 401,
+      "passed": true,
+      "identityMatches": false,
+      "cookieFlags": false
+    },
+    {
+      "stage": "cleanup",
+      "status": 401,
+      "passed": true,
+      "identityMatches": false,
+      "cookieFlags": false
+    }
+  ],
+  "screenshots": [
+    "candidate-account-signup-1440.png",
+    "candidate-account-signup-390.png",
+    "candidate-account-login-1440.png",
+    "candidate-account-login-390.png"
+  ],
+  "accountObserved": true,
+  "verificationEmailsRequested": 0,
+  "cleanup": {
+    "account": "deleted",
+    "session": "cleared"
+  },
+  "flow": {
+    "signup": true,
+    "logout1": true,
+    "login": true,
+    "logout2": true,
+    "notes": [],
+    "errors": []
+  },
+  "passed": true
+}
