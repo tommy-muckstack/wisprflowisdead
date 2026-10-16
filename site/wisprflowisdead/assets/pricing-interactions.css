@@ -1,0 +1,79 @@
+.pricing-page [hidden]{display:none!important}
+.pricing-page :focus-visible{outline:3px solid #034F46;outline-offset:4px}
+.pricing-page .fql :focus-visible,.pricing-page .pr-roi :focus-visible{outline-color:#F0D7FF}
+.visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+.pricing-page .ptabs .pt{font-family:inherit;border:0;color:inherit;background:transparent}
+.pricing-page .ptabs .pt.on{background:var(--li)}
+.pricing-page .reference-note{font-size:13px;line-height:1.5;max-width:760px;margin:18px auto 0}
+.reference-note a{text-decoration:underline}
+.pricing-page .tgl input{appearance:none;width:34px;height:20px;border-radius:10px;background:#74776d;position:relative;flex:none;cursor:pointer;margin:0}
+.pricing-page .tgl input::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#FFFFEB}
+.pricing-page .tgl input:checked{background:#034F46}
+.pricing-page .tgl input:checked::after{left:16px}
+.pricing-page .tgl input:disabled{cursor:default}
+.pricing-page .pcard2{height:auto;min-height:608px;padding-bottom:24px}
+.comparison-preface{min-height:96px;padding:16px 0;display:grid;align-items:center}
+.comparison-intro{font-size:13px;line-height:1.5;max-width:760px;margin:0 auto}
+.comparison-swipe{display:none}
+.pricing-page .cmpnote{display:flex;align-items:center;min-height:112px;margin:0 auto;padding:20px 16px}
+.table-scroll{position:relative;overflow:auto;max-width:100%}
+.reference-table{min-width:1240px}
+/* Keep a single header in the horizontal scroll region; JS bounds its vertical offset. */
+.pricing-page .topwrap{height:auto;min-height:211px;z-index:21;transform:translateY(var(--comparison-offset,0px))}
+.pricing-page .nav:focus-within{z-index:22}
+.pricing-page .roi-card{height:auto;min-height:347px}
+.pricing-page .pr-roi{height:auto;min-height:804px;padding-bottom:64px}
+.roi-note{font-size:12px;line-height:1.5;margin:16px 0 0}
+#roi-error:empty{display:none}
+.pricing-page .roi-res{height:auto;min-height:118px;gap:12px}
+.pricing-page .roi-res b{overflow-wrap:anywhere}
+.pricing-page .pr-faq{height:auto;min-height:833px;padding-bottom:72px}
+.pricing-page .fql{overflow-y:auto;scrollbar-gutter:stable}
+.pricing-page .fql::after{display:none}
+.faq-heading{margin:0;font:inherit}
+.pricing-page .fa{display:block}
+.pricing-page .fav{background:#F0D7FF;object-fit:contain;padding:2px}
+.pricing-page:not(.pricing-enhanced) .seeall{display:none}
+.pricing-page:not(.pricing-enhanced) .pitems{display:block}
+.pricing-page:not(.pricing-enhanced) .faq2{display:block;height:auto}
+.pricing-page:not(.pricing-enhanced) .fql{height:auto}
+.pricing-page:not(.pricing-enhanced) .fa{padding:0 10px 20px;font-size:14px;line-height:1.5}
+.pricing-page:not(.pricing-enhanced) .fq{opacity:1;cursor:default}
+@media(max-width:1300px) and (min-width:901px){
+  .pricing-page .pr-top{padding-left:32px;padding-right:32px}
+  .pricing-page .pgrid{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .pricing-page .pcard2{padding-left:18px;padding-right:18px}
+  .pricing-page .avail{width:100%}
+  .pricing-page .pr-cmp{padding-left:32px;padding-right:32px}
+  .pricing-page .roi-in,.pricing-page .faq-in{width:100%}
+}
+@media(max-width:900px){
+  .pricing-page .pcard2{min-height:0;padding-bottom:0;border-radius:24px}
+  /* Three plans fit the viewport; the fourth remains reachable in the same scroll region. */
+  .pricing-page .reference-table{min-width:0;width:calc(100% * 4 / 3)}
+  .pricing-page .topwrap{grid-template-columns:repeat(4,minmax(0,1fr));padding:16px 0;min-height:151px}
+  .pricing-page .tsh{display:none}
+  .pricing-page .th:nth-child(5),.pricing-page .tc:nth-child(5){display:flex}
+  .pricing-page .tr{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:auto 1fr}
+  .pricing-page .tl{position:sticky;left:0;width:75%;grid-column:1/-1}
+  .pricing-page .tgh{position:sticky;left:0;width:75%}
+  .comparison-preface{min-height:56px;padding:8px 0}
+  .comparison-swipe{display:inline}
+  .pricing-page .cmpnote{min-height:72px;padding:8px 0}
+  .pricing-page .pr-faq{min-height:962px;padding:64px 20px}
+  .pricing-page .pr-faq::before{font-size:14px;line-height:18.2px;letter-spacing:.08em;margin-bottom:24px}
+  .pricing-page .pr-faq h2{letter-spacing:-.03em}
+  .pricing-page .faq2{height:auto;overflow:visible;margin-top:48px}
+  .pricing-page .fql{height:auto;min-height:704px;overflow:visible;padding:20px 28px;border-radius:24px}
+  .pricing-page .fql h3{display:block;padding:0;margin:0 0 24px;font-size:20px;line-height:.95}
+  .pricing-page .fq{min-height:50px;padding:16px 0;line-height:18.2px}
+  .pricing-page .fa{padding:0 0 18px;font-size:14px;line-height:1.5}
+  .pricing-page .pr-roi{min-height:893px}
+  .pricing-page .roi-card{padding:32px}
+  .pricing-page .roi-res{padding:20px}
+  .pricing-page .secure{height:auto}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .pricing-page *{animation:none!important;transition:none!important}
+}

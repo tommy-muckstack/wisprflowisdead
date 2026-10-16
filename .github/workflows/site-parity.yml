@@ -1,0 +1,123 @@
+name: Website parity
+on:
+  pull_request:
+    paths:
+      - 'site/**'
+      - 'qa/**'
+      - '.github/workflows/site-parity.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: website-parity-${{ github.event.pull_request.number || github.ref }}
+  # Let an active throwaway-account smoke finish its cleanup before the next run starts.
+  cancel-in-progress: false
+
+jobs:
+  browser-evidence:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    env:
+      RUN_AUTH_SMOKE: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: tommy-muckstack/isdead-design
+          ref: 3020a26628341fa65dbf5759b9b69cffc913d2aa
+          path: parity-tools
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Website checks
+        working-directory: site
+        run: |
+          npm run lint
+          npm run build
+          npm test
+      - name: Install pinned parity dependencies and Chromium
+        run: |
+          npm ci --prefix parity-tools/scripts
+          parity-tools/scripts/node_modules/.bin/playwright install --with-deps chromium
+      - name: Start anonymous candidate preview
+        run: |
+          mkdir -p qa-artifacts
+          node qa/serve.mjs > qa-artifacts/preview.log 2>&1 &
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:3300/__qa_health; then exit 0; fi
+            sleep 1
+          done
+          exit 1
+      - name: Verify navigation, pricing and demo interactions
+        continue-on-error: true
+        run: node qa/browser-behavior.mjs
+      - name: Live signup, sign-out, login, sign-out and account cleanup
+        if: env.RUN_AUTH_SMOKE == 'true'
+        continue-on-error: true
+        run: node qa/auth-smoke.mjs live
+      - name: Candidate frontend with live auth and account cleanup
+        if: env.RUN_AUTH_SMOKE == 'true'
+        continue-on-error: true
+        run: node qa/auth-smoke.mjs candidate
+      - name: Capture live and candidate parity with computed styles
+        run: node qa/capture-parity.mjs
+      - name: Publish measurement summary
+        if: always()
+        run: |
+          if [ -f qa-artifacts/SUMMARY.md ]; then cat qa-artifacts/SUMMARY.md >> "$GITHUB_STEP_SUMMARY"; fi
+      - name: Upload screenshots, computed styles and reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wispr-parity-${{ github.run_id }}
+          path: qa-artifacts/
+          if-no-files-found: warn
+          retention-days: 14
+
+  archive-evidence:
+    needs: browser-evidence
+    if: always() && github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: wispr-parity-${{ github.run_id }}
+          path: ${{ runner.temp }}/parity-artifact
+      - name: Preserve public evidence on a separate QA branch
+        env:
+          PARITY_ARTIFACT: ${{ runner.temp }}/parity-artifact
+        run: |
+          evidence="docs/parity/$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
+          mkdir -p "$evidence"
+          for folder in raw styles behavior auth support; do
+            if [ -d "$PARITY_ARTIFACT/$folder" ]; then cp -R "$PARITY_ARTIFACT/$folder" "$evidence/"; fi
+          done
+          for report in SUMMARY.md verification.json capture-config.json support-config.json; do
+            if [ -f "$PARITY_ARTIFACT/$report" ]; then cp "$PARITY_ARTIFACT/$report" "$evidence/"; fi
+          done
+          for target in live candidate; do
+            mkdir -p "$evidence/$target"
+            for report in report.json report.md; do
+              if [ -f "$PARITY_ARTIFACT/$target/$report" ]; then cp "$PARITY_ARTIFACT/$target/$report" "$evidence/$target/"; fi
+            done
+            for image in "$PARITY_ARTIFACT/$target"/login-*.png; do
+              if [ -f "$image" ]; then cp "$image" "$evidence/$target/"; fi
+            done
+          done
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- "$evidence"
+          git commit -m "Archive public parity evidence for run $GITHUB_RUN_ID attempt $GITHUB_RUN_ATTEMPT"
+          git push origin "HEAD:refs/heads/qa/parity-evidence-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"

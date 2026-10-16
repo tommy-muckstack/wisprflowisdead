@@ -76,6 +76,7 @@ struct OnboardingView: View {
 
     private var welcome: some View {
         VStack(alignment: .leading, spacing: 14) {
+            AppMark().frame(width: 56, height: 56)
             Text("Talk. We'll type.").font(Theme.display(36))
             Text("Hold a key, say what you mean, and clean, punctuated text lands wherever your cursor is. Free, open source, and everything runs on this Mac.")
                 .font(Theme.font(16)).foregroundStyle(Theme.muted)

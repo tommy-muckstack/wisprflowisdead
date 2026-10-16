@@ -1,0 +1,102 @@
+/* Measured support geometry; project support replaces unavailable staff/status claims. */
+.support-page{background:#1A1A1A}
+.support-page .nav{margin-top:16px;height:72px;max-width:calc(100% - 40px);border-width:2px;background:#FFFFEB;padding-left:20px}
+.support-page .nav .seg{margin-left:20px}
+.support-page .nav .seg a{padding:7px 12px}
+.support-page .nav .links{gap:16px;margin-right:16px}
+.support-page .nav>.btn{height:52px}
+.support-page .skip-link{position:fixed;left:20px;top:8px;z-index:100;transform:translateY(-150%);background:#FFFFEB;color:#1A1A1A;padding:12px;border-radius:8px}
+.support-page .skip-link:focus{transform:none}
+.support-page main:focus{outline:none}
+.support-page main :focus-visible{outline:3px solid #034F46;outline-offset:4px}
+.support-page .support-hero :focus-visible,.support-page .support-cta :focus-visible{outline-color:#FFFFEB}
+.support-page [id]{scroll-margin-top:112px}
+.support-hero{padding:112px 20px 82px;color:#FFFFEB;text-align:center}
+.support-identity{display:flex;align-items:center;justify-content:center;gap:24px;min-height:52px}
+.support-identity img{flex:none;background:#F0D7FF;border-radius:50%;padding:8px}
+.support-identity p{margin:0;text-align:left;font-size:16px;line-height:1.3;font-weight:500;color:#CACABB}
+.support-hero h1{max-width:864px;margin:40px auto 0;font-size:120px;line-height:.95;letter-spacing:-.05em}
+.support-lede{max-width:864px;margin:48px auto 0;font-size:20px;line-height:1.3;font-weight:500;text-wrap:balance}
+.support-hero>.btn{margin-top:40px;height:52px;padding:16px 24px}
+.support-note{margin:12px auto 0;max-width:864px;font-size:14px;line-height:1.3;color:#CACABB}
+.support-body{background:#FFFFEB;border-radius:64px 64px 0 0}
+.support-links{width:min(768px,calc(100% - 40px));margin:0 auto;padding:112px 0 96px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:98px}
+.support-links h2{font-size:32px;line-height:1.3;letter-spacing:-.03em;margin-bottom:24px}
+.support-project{position:relative}
+.support-project::after{content:"";position:absolute;right:-50px;top:0;bottom:0;width:2px;background:#1A1A1A26}
+.support-project p{margin:0 0 24px;font-weight:500}
+.support-project>div{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+.support-project a:not(.btn),.support-other a{font-weight:500;text-decoration:underline;text-underline-offset:3px;color:#66665E}
+.support-project a:hover,.support-other a:hover{color:#034F46}
+.support-project .btn{height:auto;min-height:38px;padding:10px 12px;font-size:14px;line-height:1}
+.support-other>a{display:block;width:fit-content;margin-top:8px}
+.support-guides{width:min(992px,calc(100% - 40px));margin:0 auto;padding:96px 0 112px;border-top:2px solid #1A1A1A26;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 80px;align-items:start}
+.support-guide-intro h2{font-size:48px;line-height:1.1;letter-spacing:-.03em}
+.support-guide-intro p{margin:32px 0 24px;font-size:18px;line-height:1.3;font-weight:500;text-wrap:balance}
+.support-guide-intro .btn{height:52px;padding:16px 24px}
+.support-guide-grid{display:grid;gap:16px}
+.support-guide-grid>a{display:grid;grid-template-columns:28px minmax(0,1fr);align-items:center;gap:16px 12px;padding:24px;border:2px solid #1A1A1A26;border-radius:16px;background:#FFF}
+.support-guide-grid>a:hover{border-color:#034F46;background:#FAFAEE}
+.support-guide-grid svg{color:#66665E}
+.support-guide-grid h3{font-family:inherit;font-size:20px;line-height:1.3;font-weight:600}
+.support-guide-grid p{grid-column:1/-1;margin:0;font-size:16px;line-height:1.3;font-weight:500;color:#66665E}
+/* A fragment selects a guide even without JS; native details remain keyboard operable. */
+.support-guide-answers{grid-column:1/-1}
+.support-guide-answers details{display:none;margin-top:64px;padding:24px 32px;border:2px solid #1A1A1A26;border-radius:16px;background:#FFF;overflow-wrap:anywhere}
+.support-guide-answers details:target{display:block}
+.support-guide-answers summary{cursor:pointer;font-size:22px;font-weight:600}
+.support-guide-answers details>div{max-width:768px;margin:24px auto 0;line-height:1.5}
+.support-guide-answers h3{font-size:28px;line-height:1.1;letter-spacing:-.03em;margin:24px 0 16px}
+.support-guide-answers p{margin:0 0 16px}
+.support-guide-answers li+li{margin-top:12px}
+.support-guide-answers a{color:#034F46;text-decoration:underline;text-underline-offset:3px}
+.support-cta-wrap{background:#FFFFEB}
+.support-cta{position:relative;min-height:778px;border-radius:80px;background:linear-gradient(#1A1A1A40,#1A1A1A80),url("download-outdoors-v1.webp") center/cover;color:#FFFFEB;text-align:center;padding:268px 20px 112px}
+.support-cta h2{font-size:120px;line-height:.85;letter-spacing:-.03em}
+.support-cta p{font-size:20px;line-height:1.3;font-weight:500;margin:48px auto 24px;text-wrap:balance}
+.support-cta .btn{height:52px;padding:16px 24px;margin:0 6px 8px}
+.support-page .ft{background:#FFFFEB}
+@media(max-width:900px){
+  .support-page .nav .links{margin-right:0}
+  .support-page .nav{height:54px;margin-top:8px;width:912px;padding-left:12px}
+  .support-page .nav>.btn{height:40px}
+  .support-links{gap:64px}
+  .support-project::after{right:-33px}
+  .support-guides{gap:0 40px}
+  .support-hero h1{font-size:80px}
+  .support-cta h2{font-size:80px}
+}
+@media(max-width:600px){
+  .support-page .nav{max-width:calc(100% - 40px);height:54px;margin-top:8px}
+  .support-page .nav .logo{font-size:16px}
+  .support-page .nav>.btn.sm{font-size:13px;padding:0 8px;gap:4px}
+  .support-page .nav .burger{width:36px;padding:6px;margin-left:4px}
+  .support-page [id]{scroll-margin-top:84px}
+  .support-hero{padding:74px 20px 28px;min-height:476px}
+  .support-identity{flex-direction:column;gap:12px}
+  .support-identity img{width:36px;height:36px;padding:5px}
+  .support-identity p{text-align:center;font-size:12px}
+  .support-hero h1{font-size:56px;line-height:.95;margin-top:24px}
+  .support-lede{font-size:16px;margin-top:40px}
+  .support-note{font-size:12px;max-width:300px}
+  .support-body{border-radius:32px 32px 0 0}
+  .support-links{grid-template-columns:1fr;gap:32px;padding:88px 0 56px}
+  .support-links h2{font-size:24px}
+  .support-project::after{display:none}
+  .support-other{border-top:1.5px solid #1A1A1A26;padding-top:32px}
+  .support-project a:not(.btn),.support-other a{font-size:14px}
+  .support-guides{display:block;padding:56px 0 72px}
+  .support-guide-intro h2{font-size:32px}
+  .support-guide-intro p{font-size:16px}
+  .support-guide-grid{margin-top:32px}
+  .support-guide-grid h3{font-size:18px}
+  .support-guide-answers details{margin-top:32px;padding:24px}
+  .support-guide-answers summary{font-size:18px}
+  .support-guide-answers h3{font-size:24px}
+  .support-guide-answers ol{padding-left:20px}
+  .support-cta{min-height:513px;padding:104px 20px;border-radius:40px;background-image:linear-gradient(#1A1A1A40,#1A1A1A80),url("download-studio-v1.webp")}
+  .support-cta h2{font-size:56px}
+  .support-cta p{font-size:18px;margin-top:32px}
+  .support-cta .btn{display:flex;width:fit-content;margin:0 auto 8px}
+}
+@media(prefers-reduced-motion:reduce){.support-page{scroll-behavior:auto}}

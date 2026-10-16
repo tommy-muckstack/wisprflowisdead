@@ -1,0 +1,21 @@
+.demo-header nav button{font:inherit;border:0;border-radius:8px;background:transparent;min-height:44px;padding:8px 10px;font-size:14px}
+.demo-header nav button:hover:not(:disabled){background:#E4E4D0}
+.demo-header nav>a:not(.button){font-size:14px}
+.settings-dialog{width:min(620px,calc(100% - 24px));max-height:calc(100dvh - 32px);padding:28px;border:1px solid #cecec0;border-radius:24px;background:#FFFFEB;color:#1A1A1A;overflow:auto}
+.settings-dialog::backdrop{background:#1A1A1A80}
+.settings-dialog header{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:20px}
+.settings-dialog h2{font:400 36px/1.1 var(--ids-font-display);margin:0}
+.settings-dialog h3{font-size:17px;margin:24px 0 12px}
+.settings-dialog fieldset{border:0;margin:0;padding:0}
+.settings-dialog p{font-size:13px;line-height:1.5}
+.settings-dialog label:not(.check){display:grid;gap:6px;font-size:13px;margin:12px 0}
+.settings-dialog .check{display:flex;gap:10px;align-items:center;font-size:14px;margin:14px 0}
+.settings-dialog .check input{width:18px;height:18px}
+.settings-dialog select,.settings-dialog input[readonly]{min-height:44px;padding:10px 12px;border:1px solid #cecec0;border-radius:8px;background:white;width:100%}
+.settings-dialog button{min-height:44px;padding:8px 12px;border:1px solid #cecec0;border-radius:8px;background:#F0D7FF;font-size:13px}
+.settings-dialog button:hover:not(:disabled){background:#E8C4FF}
+.settings-dialog meter{display:block;width:100%;height:24px;margin:8px 0 14px;accent-color:#034F46}
+#settings-status,#microphone-status{min-height:20px}
+.settings-actions{display:flex;flex-wrap:wrap;gap:8px}
+#shortcut-current{display:block;margin:12px 0;font-size:15px;font-weight:600}
+@media(max-width:600px){.settings-dialog{padding:20px 16px}.demo-header{flex-wrap:wrap}.demo-header nav{flex-wrap:wrap;gap:8px}.demo-header nav button,.demo-header nav>a:not(.button){font-size:12px}}

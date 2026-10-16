@@ -1,4 +1,8 @@
 {
+  "outputDirectory": ".",
+  "git": {
+    "deploymentEnabled": { "qa/parity-evidence-*": false }
+  },
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [

@@ -60,3 +60,5 @@ This project is part of **[yourappisdead](https://yourappisdead.com)**, a market
 - Want a different app killed? [Submit it on yourappisdead](https://yourappisdead.com/#submit).
 - Please never commit secrets, keys or copied third-party assets (logos, screenshots, fonts without an open license).
 - Shared design tokens, fonts and login live in [`isdead-design`](https://github.com/tommy-muckstack/isdead-design).
+
+The website and app use the project owner’s tombstone/X identity. See [branding assets and generation notes](docs/BRANDING.md) for the palette and regeneration steps.

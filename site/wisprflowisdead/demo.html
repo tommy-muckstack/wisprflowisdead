@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Try dictation · WisprFlowIsDead</title>
+  <meta name="description" content="Try free browser dictation with punctuation, filler cleanup and writing styles. No account required.">
+  <link rel="icon" type="image/png" sizes="64x64" href="/wisprflowisdead/assets/favicon.png?v=tombstone-1">
+<link rel="apple-touch-icon" sizes="180x180" href="/wisprflowisdead/assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="/wisprflowisdead/assets/isdead-wisprflow.css">
+  <link rel="stylesheet" href="/wisprflowisdead/assets/demo.css">
+  <link rel="stylesheet" href="/wisprflowisdead/assets/library.css">
+  <link rel="stylesheet" href="/wisprflowisdead/assets/history.css">
+  <link rel="stylesheet" href="/wisprflowisdead/assets/settings.css">
+  <link rel="stylesheet" href="/wisprflowisdead/assets/onboarding.css">
+  <script type="module" src="/wisprflowisdead/assets/demo.mjs"></script>
+<link rel="stylesheet" href="/wisprflowisdead/assets/branding.css">
+</head>
+<body>
+<a class="skip" href="#workspace">Skip to dictation</a>
+<header class="demo-header">
+  <a class="brand" href="/wisprflowisdead" aria-label="WisprFlowIsDead home"><img class="brand-mark" src="/wisprflowisdead/assets/tombstone.png" width="24" height="24" alt=""> FlowIsDead</a>
+  <nav aria-label="Demo navigation"><button id="open-setup" type="button" aria-controls="setup-guide" disabled>Setup</button><button id="open-settings" type="button" aria-haspopup="dialog" aria-controls="settings-dialog" disabled>Settings</button><a href="/wisprflowisdead/app">Account</a><a class="button" href="/wisprflowisdead#download">Get the Mac app</a></nav>
+</header>
+<main>
+  <div class="intro"><p class="eyebrow">WisprFlowIsDead · Web demo</p><h1>Let your words <em>flow.</em></h1><p>Speak a thought. Get writing you can edit, copy, and use.</p></div>
+  <section class="setup-guide" id="setup-guide" aria-labelledby="setup-heading" hidden>
+    <div class="setup-top"><span id="setup-progress">Step 1 of 4</span><button id="setup-skip" type="button">Skip setup</button></div>
+    <ol aria-label="Setup steps"><li data-setup-step="privacy">1. Privacy <small></small></li><li data-setup-step="microphone">2. Microphone <small></small></li><li data-setup-step="preferences">3. Preferences <small></small></li><li data-setup-step="practice">4. Practice <small></small></li></ol>
+    <h2 id="setup-heading" tabindex="-1">Before you speak</h2>
+    <div id="setup-privacy"><p>Browser dictation may send audio to your browser provider’s speech service. Local cleanup runs here, and this demo does not keep an audio recording.</p><p>History stays in this page by default. Review the history and library controls below before choosing to save text. No account or payment is required.</p></div>
+    <div id="setup-microphone" hidden><p>Test your browser’s default input. The check shows sound levels locally and stops after 20 seconds. Choose Done in Settings to return here.</p><button id="setup-test-mic" type="button">Test microphone</button><p id="setup-mic-result" role="status"></p></div>
+    <div id="setup-preferences" hidden><p>Choose your dictation language, writing style and keyboard shortcut. Use the Mac app for system-wide shortcuts; browser shortcuts work while this page is focused.</p><button id="setup-settings" type="button">Choose preferences</button><p>You can continue with the current settings and change them later.</p></div>
+    <div id="setup-practice" hidden><p>Say a short thought, then use Stop dictating to finish. Or type your own draft in microphone-free practice and choose Clean up text.</p><div class="setup-actions"><button id="setup-dictate" type="button">Start a dictation</button><button id="setup-type" type="button">Use typed practice</button></div><p id="setup-practice-result" role="status"></p></div>
+    <div class="setup-actions"><button id="setup-back" type="button" hidden>Back</button><button id="setup-next" type="button">Continue</button><button id="setup-skip-step" type="button" hidden>Skip step</button></div>
+  </section>
+  <p id="setup-notice" role="status" hidden></p>
+  <div class="modes" role="tablist" aria-label="Writing context">
+    <button role="tab" id="tab-prompt" aria-selected="true" aria-controls="workspace" data-mode="prompt">Write a prompt</button>
+    <button role="tab" id="tab-message" aria-selected="false" aria-controls="workspace" data-mode="message" tabindex="-1">Message a friend</button>
+    <button role="tab" id="tab-list" aria-selected="false" aria-controls="workspace" data-mode="list" tabindex="-1">Make a list</button>
+    <button role="tab" id="tab-email" aria-selected="false" aria-controls="workspace" data-mode="email" tabindex="-1">Draft an email</button>
+  </div>
+  <section class="workspace" id="workspace" role="tabpanel" aria-labelledby="tab-prompt" tabindex="0">
+    <div class="workspace-heading"><div><h2 id="context-title">Give your next idea some detail.</h2><p id="context-hint">Describe what you want to create, the audience, and the details that matter.</p></div><span class="free">Free · No word cap</span></div>
+    <fieldset id="options" class="options"><legend class="sr-only">Dictation options</legend>
+      <label>Language<select id="language"><option value="en-US">English (US)</option><option value="en-GB">English (UK)</option><option value="es-ES">Español</option><option value="fr-FR">Français</option><option value="de-DE">Deutsch</option><option value="pt-BR">Português</option><option value="hi-IN">हिन्दी</option><option value="ja-JP">日本語</option></select></label>
+      <label>Writing style<select id="style"><option value="formal">Formal.</option><option value="casual">Casual</option><option value="very-casual">very casual</option><option value="excited">Excited!</option></select></label>
+      <label>Auto Cleanup<select id="cleanup" aria-describedby="cleanup-hint"><option value="none">None</option><option value="light" selected>Light</option><option value="medium">Medium</option></select></label>
+    </fieldset>
+    <p id="cleanup-hint" class="hint">Light removes common English fillers and repeated words, adds punctuation and applies your writing style. This is the default.</p>
+    <p id="preferences-notice" class="hint" role="status" hidden></p>
+    <label class="sr-only" for="editor">Your writing</label>
+    <textarea id="editor" rows="7" placeholder="Click Start dictating, or write here…" spellcheck="true"></textarea>
+    <div class="editor-actions"><span id="word-count">0 words</span><div><button id="undo" type="button" disabled>Undo edit</button><button id="copy" type="button" disabled>Copy text</button><button id="clear" type="button" disabled>Clear</button></div></div>
+    <button id="command-mode" class="command-toggle" type="button" aria-pressed="false" aria-controls="command-panel">Command mode</button>
+    <div id="command-panel" class="command-panel" hidden>
+      <p id="command-target">No selection: command will replace all text in this editor.</p>
+      <p id="command-help">Say or type: <strong>uppercase</strong>, <strong>lowercase</strong>, <strong>bullet list</strong>, <strong>numbered list</strong>, <strong>trim spacing</strong>, or <strong>clean up text</strong>. Lists use one item per existing line. Cleanup uses your current level, language and writing style.</p>
+      <p>These English commands run locally. Open-ended rewriting, translation and web search are not supported. Case commands change every letter, including links and code.</p>
+      <form id="command-form"><label for="command-input">Command without a microphone</label><div><input id="command-input" maxlength="1000" autocomplete="off" placeholder="For example: bullet list" aria-describedby="command-target command-help"><button id="command-submit" class="button" type="submit">Run command</button></div></form>
+    </div>
+    <div class="dictation-controls">
+      <button id="record" class="flow-bar" type="button" aria-pressed="false" aria-describedby="speech-privacy shortcut"><span class="activity" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span id="record-label">Start dictating</span></button>
+      <button id="cancel" type="button" hidden>Cancel</button>
+    </div>
+    <p id="state" role="status" aria-live="polite">Ready when you are.</p>
+    <p id="shortcut" class="hint">Ctrl + Alt + Space to start or stop · Esc to cancel. Shortcuts work while this page is focused.</p>
+    <div id="draft" class="draft" hidden><span class="eyebrow">Your words</span><p id="live-transcript"></p><button id="recover" type="button" hidden>Recover draft</button></div>
+    <p id="speech-privacy" class="privacy">Your browser may send audio to its speech service. Audio is not saved here. Cleanup runs in your browser. History and library entries follow your storage choices below; saving is off by default.</p>
+    <p class="hint" id="language-hint">Filler cleanup and writing styles currently support English. Other languages keep the recognized text.</p>
+  </section>
+  <details class="practice"><summary>Practice without a microphone</summary><p>Type your own spoken draft. Try “um”, “new paragraph”, “new bullet”, or “question mark”. This uses the same local cleanup as dictation.</p><label for="practice-input">Spoken draft</label><textarea id="practice-input" rows="3" placeholder="um can we review the outline tomorrow question mark"></textarea><button id="practice-submit" class="button" type="button">Clean up text</button></details>
+  <section class="library" aria-labelledby="library-heading">
+    <h2 id="library-heading">Your words, your way.</h2>
+    <p>Keep names spelled right and turn a short phrase into text you use often.</p>
+    <div class="library-tabs" role="tablist" aria-label="Personal library">
+      <button type="button" role="tab" id="library-dictionary" data-library-kind="dictionary" aria-controls="library-panel" aria-selected="true">Dictionary</button>
+      <button type="button" role="tab" id="library-snippet" data-library-kind="snippet" aria-controls="library-panel" aria-selected="false" tabindex="-1">Snippets</button>
+    </div>
+    <div id="library-panel" role="tabpanel" aria-labelledby="library-dictionary">
+      <p id="library-help" class="library-help"></p>
+      <div class="library-tools">
+        <label>Search your library<input id="library-search" type="search" autocomplete="off"></label>
+        <label>Sort by<select id="library-sort"><option value="" hidden disabled>Select order</option><option value="newest">Newest first</option><option value="oldest">Oldest first</option><option value="alphabetical">A–Z</option><option value="starred" id="starred-sort">Starred first</option></select></label>
+        <button id="add-entry" type="button">Add word</button>
+      </div>
+      <p id="library-empty">No words yet. Add your first one to try it.</p>
+      <ul id="entry-list" aria-label="Library entries"></ul>
+      <form id="entry-form" hidden>
+        <h3 id="entry-heading">Add word</h3>
+        <label><span id="primary-label">Preferred spelling</span><input id="primary" required maxlength="60" autocomplete="off"></label>
+        <label id="correction-row" class="check"><input id="correction" type="checkbox">Correct a misspelling</label>
+        <label id="wrong-row" hidden>Heard spelling<input id="wrong" maxlength="60" autocomplete="off" disabled></label>
+        <div id="expansion-row" hidden><label>Text to insert<textarea id="expansion" rows="4" maxlength="4000" disabled></textarea></label><span id="expansion-count">0 / 4,000 characters</span></div>
+        <div class="form-actions"><button id="save-entry" class="button" type="submit">Add word</button><button id="cancel-entry" type="button">Cancel</button></div>
+      </form>
+    </div>
+    <div class="library-storage">
+      <label class="check"><input id="remember-library" type="checkbox" aria-describedby="library-storage">Keep this library after closing the page</label>
+      <p id="library-storage">Entries last until you close or reload this page.</p>
+      <button id="reload-library" type="button">Reload saved library</button> <button id="clear-library" type="button">Clear library</button>
+    </div>
+    <p id="library-status" role="status" aria-live="polite"></p>
+  </section>
+  <section class="history" id="recent-activity" aria-labelledby="history-heading">
+    <h2 id="history-heading">Recent activity</h2>
+    <p>Review completed dictations, typed practice and commands. Restore the result or original text to the editor. Command entries keep the selected passage and instruction.</p>
+    <label>Keep history<select id="history-mode" aria-describedby="history-storage-hint"><option value="session">Only in this page</option><option value="day">Save for 24 hours</option><option value="forever">Save until I delete it</option><option value="off">Never keep history</option></select></label>
+    <p id="history-storage-hint">Results stay in this page until you close or reload it. Nothing is saved to browser storage.</p>
+    <p>This history belongs to the browser profile, not an account. Signing out does not delete it. Use Clear history here. No audio or cloud copy is kept by this demo.</p>
+    <div class="history-tools"><label>Search history<input id="history-search" type="search" autocomplete="off"></label><button id="history-reload" type="button">Reload saved history</button><button id="history-clear" type="button">Clear history</button></div>
+    <p id="history-count">0 results</p><p id="history-empty">No results yet. Dictate or use typed practice to begin.</p>
+    <ul id="history-list" aria-label="Dictation history"></ul>
+    <button id="history-retry" type="button" hidden>Retry saving latest result</button>
+    <p id="history-status" role="status" aria-live="polite"></p>
+  </section>
+  <noscript><p class="workspace">Enable JavaScript to use dictation and text cleanup. You can still <a href="/wisprflowisdead#download">get the Mac app</a>.</p></noscript>
+</main>
+<dialog class="settings-dialog" id="settings-dialog" aria-labelledby="settings-heading">
+  <header><h2 id="settings-heading">Settings</h2><button id="settings-close" type="button" autofocus>Done</button></header>
+  <fieldset id="settings-fields"><legend class="sr-only">Browser dictation settings</legend>
+    <h3>Language and writing</h3>
+    <label>Dictation language<select id="settings-language"></select></label>
+    <label>Writing style<select id="settings-style"></select></label>
+    <label>Auto Cleanup<select id="settings-cleanup" aria-describedby="settings-cleanup-hint"></select></label>
+    <p id="settings-cleanup-hint"></p>
+    <p>Language availability depends on your browser’s speech service. Cleanup and styles support English; other languages retain the recognized text.</p>
+    <h3>Keyboard shortcut</h3>
+    <label class="check"><input id="shortcut-enabled" type="checkbox" checked>Enable dictation shortcut</label>
+    <label>Activation<select id="shortcut-activation"><option value="toggle">Press to start or stop</option><option value="hold">Hold to talk</option></select></label>
+    <output id="shortcut-current">Ctrl + Alt + Space</output>
+    <button id="shortcut-change" type="button">Change shortcut</button>
+    <input id="shortcut-capture" readonly hidden aria-label="Press a new dictation shortcut" aria-describedby="shortcut-help">
+    <p id="shortcut-help">Use Ctrl + Alt with a letter, number or Space; Shift is optional. Browser shortcuts work only while this page is focused. Fn and system-wide shortcuts require the Mac app. If your browser or system reserves a combination, use another one.</p>
+    <h3>Microphone</h3>
+    <p>Dictation uses the browser’s default microphone. Change the input in browser or system settings. This local check does not record or upload audio and does not guarantee that the speech service will use the same device.</p>
+    <label for="microphone-level">Input level</label><meter id="microphone-level" min="0" max="1" value="0"></meter>
+    <div class="settings-actions"><button id="microphone-start" type="button">Test microphone</button><button id="microphone-stop" type="button" hidden>Stop test</button></div>
+    <p id="microphone-status" role="status">Microphone access is requested only when you start a test or dictation.</p>
+    <h3>Remember settings</h3>
+    <label class="check"><input id="remember-settings" type="checkbox">Keep these settings after closing the page</label>
+    <p id="settings-storage-hint"></p>
+    <div class="settings-actions"><button id="settings-reload" type="button">Reload saved settings</button><button id="settings-reset" type="button">Reset settings</button></div>
+    <p>History and personal library storage have separate controls on the demo page.</p>
+  </fieldset>
+  <p id="settings-status" role="status" aria-live="polite"></p>
+</dialog>
+<footer><a href="/wisprflowisdead/support">Help</a> · <a href="/wisprflowisdead">WisprFlowIsDead</a> · Free and open source. Not affiliated with Wispr AI or Wispr Flow. <a href="https://github.com/tommy-muckstack/wisprflowisdead">Source code</a></footer>
+</body>
+</html>

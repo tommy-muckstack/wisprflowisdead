@@ -28,7 +28,7 @@ targets += [
         name: "WisprFlowIsDead",
         dependencies: ["FlowCore", "FlowVoice", "IsDeadDesign"],
         path: "Sources/WisprFlowIsDead",
-        resources: [.copy("Resources/Fonts")]
+        resources: [.copy("Resources/Fonts"), .copy("Resources/Branding")]
     ),
 ]
 products.append(.executable(name: "WisprFlowIsDead", targets: ["WisprFlowIsDead"]))

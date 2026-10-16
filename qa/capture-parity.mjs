@@ -1,0 +1,90 @@
+// Run the shared, pinned parity tooling against production and this PR's files.
+import fs from 'node:fs';
+import path from 'node:path';
+import {execFileSync} from 'node:child_process';
+
+const tools = path.resolve(process.env.PARITY_TOOLS_DIR || 'parity-tools');
+const output = path.resolve('qa-artifacts');
+const errors = [];
+const config = path.join(output, 'capture-config.json');
+const pages = [{name:'home',original:'/',clone:'/wisprflowisdead'}, {name:'pricing',original:'/pricing',clone:'/wisprflowisdead/pricing'}, {name:'login',original:'/get-started',clone:'/wisprflowisdead/login'}];
+const viewports = ['1440x900','390x844'];
+const targets = {original:'https://wisprflow.ai',live:'https://yourappisdead.com',candidate:'http://127.0.0.1:3300'};
+fs.mkdirSync(output, {recursive:true});
+const captureConfig = JSON.parse(fs.readFileSync(path.join(tools,'parity/wispr.json'),'utf8'));
+// Keep the shared scoring implementation; wait past the documented login setup bound on both sites.
+for (const page of captureConfig.pages) if (page.name === 'login') page.actions = [...(page.actions || []),{wait:26000}];
+fs.writeFileSync(config,JSON.stringify(captureConfig,null,2));
+try {execFileSync(process.execPath, ['qa/raw-captures.mjs'], {stdio:'inherit',timeout:600000});}
+catch (error) {errors.push({stage:'raw viewport captures',status:error.status ?? null,message:error.code || 'Command failed'});}
+function run(script, args, stage) {
+  try {execFileSync(process.execPath, [path.join(tools, 'scripts', script), ...args], {stdio:'inherit',timeout:600000}); return true;}
+  catch (error) {errors.push({stage, status:error.status ?? null, message:error.code || 'Command failed'}); return false;}
+}
+function report(name) {
+  try {return JSON.parse(fs.readFileSync(path.join(output, name, 'report.json'), 'utf8'));}
+  catch {return null;}
+}
+const common = ['--config',config,'--viewports',viewports.join(',')];
+run('parity.mjs', [...common,'--clone',targets.live,'--out',path.join(output,'live')], 'live parity');
+const live = report('live');
+const reuse = live?.results?.length === 6 && live.results.every(row => row.origStatus === 200);
+fs.mkdirSync(path.join(output,'candidate'), {recursive:true});
+if (reuse) for (const page of pages) for (const viewport of viewports) {
+  const filename = `${page.name}-${viewport.split('x')[0]}-orig.png`;
+  fs.copyFileSync(path.join(output,'live',filename), path.join(output,'candidate',filename));
+}
+run('parity.mjs', [...common,'--clone',targets.candidate,'--out',path.join(output,'candidate'),...(reuse ? ['--reuse-orig'] : [])], 'candidate parity');
+for (const [target, origin] of Object.entries(targets)) for (const page of pages) for (const viewport of viewports) {
+  const directory = path.join(output, 'styles', target); fs.mkdirSync(directory, {recursive:true});
+  run('extract-styles.mjs', [origin + (target === 'original' ? page.original : page.clone),'--vp',viewport,'--out',path.join(directory,`${page.name}-${viewport.split('x')[0]}.json`)], `${target} ${page.name} ${viewport} styles`);
+}
+const candidate = report('candidate');
+// Support is new on this branch, so production has no comparable destination yet.
+const supportConfig = path.join(output,'support-config.json');
+fs.writeFileSync(supportConfig,JSON.stringify({...captureConfig,pages:[{name:'support',orig:'/support',clone:'/wisprflowisdead/support',full:true}]},null,2));
+run('parity.mjs',['--config',supportConfig,'--clone',targets.candidate,'--out',path.join(output,'support')],'support parity');
+const support = report('support');
+if (support?.results?.length !== 2 || support.results.some(row => row.origStatus !== 200 || row.cloneStatus !== 200 || !Number.isFinite(row.score) || row.hOverflowClone)) {
+  errors.push({stage:'support parity',message:'Support measurements are missing, invalid or overflowing'});
+}
+for (const target of ['original','candidate']) for (const viewport of viewports) {
+  const directory = path.join(output, 'styles', target);
+  const route = target === 'original' ? '/support' : '/wisprflowisdead/support';
+  run('extract-styles.mjs', [targets[target] + route,'--vp',viewport,'--out',path.join(directory,`support-${viewport.split('x')[0]}.json`)], `${target} support ${viewport} styles`);
+}
+let behavior;
+try {behavior = JSON.parse(fs.readFileSync(path.join(output,'behavior/report.json'),'utf8'));}
+catch {errors.push({stage:'browser interactions',message:'Missing browser behavior report'});}
+const expectedBehavior = [1440,390].flatMap(width => ['not-found','support-no-js','support','home-faq-no-js','navigation','pricing-no-js','pricing','demo'].map(name => ({name,width})));
+const behaviorPassed = behavior?.results?.length === expectedBehavior.length && expectedBehavior.every(expected =>
+  behavior.results.some(result => result.name === expected.name && result.width === expected.width && result.passed));
+if (behavior && !behaviorPassed) errors.push({stage:'browser interactions',message:'One or more browser flows failed'});
+const authExpected = process.env.RUN_AUTH_SMOKE === 'true';
+const auth = {};
+if (authExpected) for (const target of ['live','candidate']) {
+  try {auth[target] = JSON.parse(fs.readFileSync(path.join(output,'auth',`${target}.json`),'utf8'));}
+  catch {errors.push({stage:`${target} auth smoke`,message:'Missing auth report'});}
+  if (auth[target] && !auth[target].passed) errors.push({stage:`${target} auth smoke`,message:'Auth flow or account cleanup failed'});
+}
+const valid = data => data?.results?.length === 6 && data.results.every(row => row.origStatus === 200 && row.cloneStatus === 200 && Number.isFinite(row.score));
+const measured = valid(live) && valid(candidate);
+const passed = measured && candidate.results.every(row => row.score >= 90 && !row.hOverflowClone) && errors.length === 0;
+const summary = {
+  measuredAt:new Date().toISOString(), commit:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),
+  toolsCommit:execFileSync('git',['-C',tools,'rev-parse','HEAD'],{encoding:'utf8'}).trim(),
+  originalImagesReused:reuse, measured, passed, behaviorPassed, authExpected,
+  authPassed:authExpected && auth.live?.passed === true && auth.candidate?.passed === true, errors,
+  note:'Live production is compared with the entire PR stack, not attributed to this single PR. Candidate layout preview is anonymous; separate auth reports exercise the deployed API with live/candidate frontend files. Login scoring now waits 26 seconds on both sites, so earlier loading-state scores are not directly comparable. Shared parity hides animation/cookie overlays; raw captures preserve initial and settled login states. Scores still require visual review.'
+};
+fs.writeFileSync(path.join(output,'verification.json'), JSON.stringify(summary,null,2));
+const lines = ['# Website parity evidence', '', summary.note, '', `HTTP-valid measurements: ${measured}. Browser flows passed: ${Boolean(behaviorPassed)}. Auth smoke required/passed: ${authExpected}/${summary.authPassed}. All verification gates passed: ${passed}.`, '', '| Page | Viewport | Live | Candidate | Change |','|---|---|---:|---:|---:|'];
+for (const row of candidate?.results || []) {
+  const before = live?.results?.find(item => item.page === row.page && item.viewport === row.viewport);
+  lines.push(`| ${row.page} | ${row.viewport} | ${before?.score ?? 'N/M'} | ${row.score} | ${before ? (row.score-before.score).toFixed(1) : 'N/M'} |`);
+}
+for (const row of support?.results || []) lines.push(`| support | ${row.viewport} | N/M (missing route) | ${row.score} | N/M |`);
+if (errors.length) lines.push('', 'Capture errors: ' + errors.map(item => item.stage).join(', '));
+fs.writeFileSync(path.join(output,'SUMMARY.md'), lines.join('\n') + '\n');
+console.log(lines.join('\n'));
+if (!passed) process.exitCode = 1;

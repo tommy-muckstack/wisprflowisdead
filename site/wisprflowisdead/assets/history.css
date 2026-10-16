@@ -1,0 +1,20 @@
+.history{margin:28px 0 0;border:1px solid #E4E4D0;border-radius:24px;background:#FFFDF9;padding:30px}
+.history h2{font:400 32px/1.1 var(--ids-font-display);margin:0 0 12px}
+.history>p{font-size:14px;color:#55554e}
+.history label{display:grid;gap:6px;font-size:13px;font-weight:600}
+.history select,.history input{max-width:100%;min-height:44px;padding:10px 12px;border:1px solid #cecec0;border-radius:8px;background:white}
+.history button{min-height:44px;padding:8px 12px;border:1px solid #cecec0;border-radius:8px;background:#FFFFEB;font-size:13px}
+.history button:hover:not(:disabled){background:#E4E4D0}
+.history-tools{display:flex;gap:10px;align-items:end;flex-wrap:wrap;margin:20px 0}
+.history-tools label{flex:1;min-width:160px}
+#history-storage-hint,#history-status{font-size:13px;line-height:1.5}
+#history-list{list-style:none;padding:0;margin:16px 0}
+#history-list li{border-top:1px solid #E4E4D0;padding:18px 0}
+.history-meta{font-size:12px;color:#66665e;margin:0 0 8px}
+.history-preview{white-space:pre-wrap;overflow-wrap:anywhere;margin:8px 0;font-size:15px}
+.history details{font-size:13px;margin:14px 0}
+.history summary{cursor:pointer;min-height:28px}
+.history h3{font-size:13px;margin:12px 0 6px}
+.history pre{white-space:pre-wrap;overflow-wrap:anywhere;max-height:360px;overflow:auto;padding:12px;background:#F5F4F0;border-radius:8px;font:inherit;user-select:text}
+.history-actions{display:flex;flex-wrap:wrap;gap:6px}
+@media(max-width:600px){.history{padding:20px 16px;border-radius:18px}.history-tools>button{flex:1}.history select{width:100%}}

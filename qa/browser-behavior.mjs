@@ -1,0 +1,420 @@
+import assert from 'node:assert/strict';
+import {createRequire} from 'node:module';
+import fs from 'node:fs';
+import path from 'node:path';
+import {checkComparisonHeader} from './comparison-header.mjs';
+const tools = path.resolve(process.env.PARITY_TOOLS_DIR || 'parity-tools');
+const {chromium} = createRequire(path.join(tools,'scripts/package.json'))('playwright');
+const base = 'http://127.0.0.1:3300/wisprflowisdead';
+const output = path.resolve('qa-artifacts/behavior'); fs.mkdirSync(output,{recursive:true});
+const results = [];
+const browser = await chromium.launch();
+
+async function check(name, width, route, task, options = {}) {
+  const {expectedStatus = 200, ...contextOptions} = options;
+  const context = await browser.newContext({viewport:{width,height:width === 390 ? 844 : 900},isMobile:width === 390,hasTouch:width === 390,locale:'en-US',...contextOptions});
+  const page = await context.newPage(); page.setDefaultTimeout(10000);
+  const errors = []; page.on('pageerror', error => errors.push(error.message));
+  const result = {name,width,passed:false,errors};
+  try {
+    const response = await page.goto(base + route,{waitUntil:'load',timeout:30000});
+    assert.equal(response.status(),expectedStatus);
+    await task(page);
+    assert.deepEqual(errors,[], 'Unexpected application JavaScript errors');
+    result.passed = true;
+  } catch (error) {
+    result.failure = (error.stack || error.message).slice(0,1800);
+    result.url = page.url();
+    result.focus = await page.evaluate(() => ({tag:document.activeElement?.tagName,id:document.activeElement?.id})).catch(() => null);
+  }
+  try {await page.screenshot({path:path.join(output,`${name}-${width}.png`),fullPage:true});}
+  catch (error) {result.screenshotError = error.message.slice(0,200); result.passed = false;}
+  results.push(result); await context.close();
+  fs.writeFileSync(path.join(output,'report.json'),JSON.stringify({results},null,2));
+  console.log(`${result.passed ? 'PASS' : 'FAIL'} ${name} ${width}${result.failure ? ': ' + result.failure : ''}`);
+}
+async function value(page, selector, expected) {
+  await page.waitForFunction(({selector,expected}) => document.querySelector(selector)?.value === expected,{selector,expected},{timeout:10000});
+}
+async function noOverflow(page) {
+  const size = await page.evaluate(() => ({content:document.documentElement.scrollWidth,viewport:innerWidth}));
+  assert.ok(size.content <= size.viewport, `Horizontal overflow: ${size.content} > ${size.viewport}`);
+}
+async function confirm(page, text, action) {
+  const dialog = page.waitForEvent('dialog').then(async dialog => {
+    if (!dialog.message().includes(text)) {await dialog.dismiss(); throw Error('Unexpected confirmation: ' + dialog.message());}
+    await dialog.accept();
+  });
+  await Promise.all([dialog,action()]);
+}
+try {
+  for (const width of [1440,390]) {
+    await check('not-found',width,'/qa-missing-page-20261015',async page => {
+      assert.equal(await page.getByRole('heading',{level:1,name:'Page Not Found'}).count(),1);
+      assert.equal(await page.locator('.not-found img').evaluate(image => image.complete && image.naturalWidth > 0),true);
+      await noOverflow(page);
+      await page.screenshot({path:path.join(output,`not-found-initial-${width}.png`)});
+      const nested = await page.request.get(base + '/qa-missing/nested');
+      assert.equal(nested.status(),404); assert.match(nested.headers()['content-type'],/text\/html/);
+      assert.match(await nested.text(),/Page Not Found/);
+      const head = await page.request.head(base + '/qa-missing/nested');
+      assert.equal(head.status(),404); assert.equal(await head.text(),'');
+      if (width === 390) {
+        await page.setViewportSize({width:320,height:320}); await noOverflow(page);
+        const button = await page.getByRole('link',{name:'Go Home',exact:true}).boundingBox();
+        assert.ok(button.y >= 0 && button.y + button.height <= 320,'Recovery link is clipped on a short screen');
+      }
+      const link = page.getByRole('link',{name:'Go Home',exact:true});
+      await link.focus(); await page.keyboard.press('Enter'); await page.waitForURL(base);
+      assert.equal(await page.getByRole('heading',{level:1}).count(),1);
+    },{expectedStatus:404,javaScriptEnabled:false});
+    await check('support-no-js',width,'/support',async page => {
+      const guides = page.locator('.support-guide-answers details');
+      assert.equal(await guides.count(),5);
+      await page.locator('.support-guide-grid a').first().click();
+      const summary = guides.first().locator('summary');
+      await summary.focus(); await page.keyboard.press('Enter');
+      assert.equal(await guides.first().evaluate(element => element.open),false);
+      await summary.focus(); await page.keyboard.press('Enter');
+      assert.equal(await guides.first().evaluate(element => element.open),true);
+      assert.equal(await guides.first().getByRole('link',{name:'Open the demo',exact:true}).isVisible(),true);
+      await noOverflow(page);
+    },{javaScriptEnabled:false});
+    await check('support',width,'/support',async page => {
+      const cards = page.locator('.support-guide-grid a');
+      assert.equal(await cards.count(),5);
+      for (const card of await cards.all()) {
+        const id = await card.getAttribute('href');
+        await card.click();
+        const guide = page.locator(id);
+        await page.waitForFunction(selector => document.querySelector(selector) === document.activeElement,id + ' summary');
+        assert.equal(await guide.evaluate(element => element.open),true);
+        assert.equal(await guide.isVisible(),true);
+        assert.equal(await guide.locator('summary').evaluate(element => element === document.activeElement),true);
+        const box = await guide.boundingBox();
+        const nav = await page.locator('.nav').boundingBox();
+        assert.ok(box.y >= nav.y + nav.height,'Guide is obscured by sticky navigation');
+      }
+      await page.locator('#guide-privacy summary').click();
+      await cards.last().click();
+      await page.waitForFunction(() => document.querySelector('#guide-privacy summary') === document.activeElement);
+      assert.equal(await page.locator('#guide-privacy').evaluate(element => element.open),true,
+        'Following the current hash does not reopen a closed guide');
+      await page.goto(base + '/support#guide-account',{waitUntil:'load'});
+      await page.waitForFunction(() => document.querySelector('#guide-account summary') === document.activeElement);
+      assert.equal(await page.locator('#guide-account').evaluate(element => element.open),true);
+      assert.equal(await page.locator('#guide-account summary').evaluate(element => element === document.activeElement),true);
+      await page.screenshot({path:path.join(output,`support-account-guide-${width}.png`)});
+      await noOverflow(page);
+      if (width === 390) {
+        await page.setViewportSize({width:320,height:844});
+        await noOverflow(page);
+        const logo = await page.locator('.nav .logo').boundingBox();
+        const cta = await page.locator('.nav > .btn').boundingBox();
+        const menu = await page.locator('.nav .burger').boundingBox();
+        assert.ok(cta.x >= logo.x + logo.width && menu.x >= cta.x + cta.width && menu.x + menu.width <= 320,
+          'Support navigation overlaps at 320 px');
+        await page.locator('.nav .burger').click();
+        assert.equal(await page.locator('#main-links').isVisible(),true);
+        await page.keyboard.press('Escape');
+        assert.equal(await page.locator('.nav .burger').getAttribute('aria-expanded'),'false');
+        await page.setViewportSize({width,height:844});
+      }
+      await page.goto(base,{waitUntil:'load'});
+      await page.locator('footer').getByRole('link',{name:'Help',exact:true}).click();
+      await page.waitForURL(base + '/support');
+      assert.equal(await page.getByRole('heading',{level:1}).textContent(),'Project Support');
+      await noOverflow(page);
+    });
+    await check('home-faq-no-js',width,'',async page => {
+      assert.equal(await page.locator('.home-answer:visible').count(),11);
+      assert.equal(await page.locator('.home-questions button:disabled').count(),11);
+      const faq = await page.locator('.home-faq').boundingBox();
+      const last = await page.locator('.home-answer').last().boundingBox();
+      assert.ok(last.y + last.height <= faq.y + faq.height,'No-JavaScript answers are clipped');
+      assert.equal(await page.locator('.feature-story').count(),4);
+      assert.equal(await page.locator('.feature-art').evaluateAll(elements => elements.every(element => getComputedStyle(element).opacity === '1')),true);
+      await noOverflow(page);
+    },{javaScriptEnabled:false});
+    await check('navigation',width,'',async page => {
+      await noOverflow(page);
+      await page.evaluate(async () => {
+        const faces = await document.fonts.load('italic 400 48px "IsDead EB Garamond"', 'Speak');
+        if (!faces.some(face => face.style === 'italic' && face.status === 'loaded')) throw Error('The display italic font did not load');
+      });
+      const faq = page.locator('.home-faq');
+      await faq.scrollIntoViewIfNeeded();
+      const scrolledNav = await page.locator('.nav').boundingBox();
+      assert.ok(scrolledNav.y >= 0 && scrolledNav.y <= 20 && scrolledNav.y + scrolledNav.height < 120,
+        'Marketing navigation disappears while scrolling');
+      await page.screenshot({path:path.join(output,`navigation-scrolled-${width}.png`)});
+      const faqQuestions = faq.locator('.home-questions button');
+      assert.equal(await faqQuestions.count(),11);
+      if (width === 390) {
+        assert.equal(await faq.locator('[aria-expanded="true"]').count(),0);
+        await faqQuestions.nth(1).click();
+        assert.equal(await faqQuestions.nth(1).getAttribute('aria-expanded'),'true');
+        assert.equal(await faq.locator('#home-answer-1').isVisible(),true);
+        await faqQuestions.nth(2).click();
+        assert.equal(await faq.locator('#home-answer-1').isVisible(),false);
+        await faqQuestions.nth(2).click();
+        assert.equal(await faq.locator('.home-answer:visible').count(),0);
+      } else {
+        assert.equal(await faqQuestions.first().getAttribute('aria-selected'),'true');
+        await faqQuestions.first().focus(); await page.keyboard.press('End');
+        assert.equal(await faqQuestions.last().getAttribute('aria-selected'),'true');
+        assert.equal(await faq.locator('#home-faq-panel').getAttribute('aria-labelledby'),'home-question-10');
+        const questionCard = await faq.locator('.home-faq-list').boundingBox();
+        const questionHeading = await faq.locator('.home-faq-list h3').boundingBox();
+        assert.ok(questionHeading.y >= questionCard.y && questionHeading.y + questionHeading.height <= questionCard.y + questionCard.height,
+          'The Questions heading scrolls out of its card when the last tab receives focus');
+        await page.keyboard.press('Home');
+        assert.equal(await faqQuestions.first().getAttribute('aria-selected'),'true');
+      }
+      const formal = page.getByRole('tab',{name:'Formal',exact:true});
+      const stories = page.locator('.feature-story');
+      assert.equal(await stories.count(),4);
+      if (width === 1440) {
+        await stories.nth(1).locator('.feature-copy').evaluate(element => element.scrollIntoView({block:'center',behavior:'instant'}));
+        await page.waitForFunction(() => document.querySelectorAll('.feature-story')[1].classList.contains('active'));
+        const art = await stories.nth(1).locator('.feature-art').boundingBox();
+        assert.ok(art.y >= 0 && art.y + art.height <= 900,'Sticky feature art is outside the viewport');
+        await stories.last().locator('.feature-copy').evaluate(element => element.scrollIntoView({block:'center',behavior:'instant'}));
+        await page.waitForFunction(() => document.querySelectorAll('.feature-story')[3].classList.contains('active'));
+      } else {
+        const boxes = await stories.evaluateAll(elements => elements.map(element => {
+          const art = element.querySelector('.feature-art').getBoundingClientRect();
+          const copy = element.querySelector('.feature-copy').getBoundingClientRect();
+          return {artBottom:art.bottom,copyTop:copy.top};
+        }));
+        assert.ok(boxes.every(box => box.copyTop >= box.artBottom),'Mobile feature captions overlap their artwork');
+      }
+      await formal.click(); await page.keyboard.press('ArrowRight');
+      assert.equal(await page.getByRole('tab',{name:'Casual',exact:true}).getAttribute('aria-selected'),'true');
+      assert.equal(await page.locator('#tone-casual').isVisible(),true);
+      assert.equal(await page.locator('#tone-formal').isVisible(),false);
+      await page.keyboard.press('Home');
+      assert.equal(await formal.getAttribute('aria-selected'),'true');
+      await page.screenshot({path:path.join(output,`feature-styles-${width}.png`)});
+      await page.emulateMedia({reducedMotion:'reduce'});
+      assert.equal(await page.locator('.feature-art').evaluateAll(elements => elements.every(element => {
+        const style = getComputedStyle(element); return style.opacity === '1' && style.position !== 'sticky';
+      })),true,'Reduced motion hides or pins feature content');
+      await page.emulateMedia({reducedMotion:'no-preference'});
+      if (await page.locator('#build').isVisible()) {
+        await page.locator('#build').scrollIntoViewIfNeeded();
+        const instructions = await page.locator('#build pre').boundingBox();
+        const download = await page.locator('#download').boundingBox();
+        assert.ok(instructions.y >= download.y && instructions.y + instructions.height <= download.y + download.height,
+          'Source-build instructions are clipped by the download section');
+      }
+      if (width === 390) {
+        await page.setViewportSize({width:320,height:844});
+        await noOverflow(page);
+        const logo = await page.locator('.nav .logo').boundingBox();
+        const cta = await page.locator('.nav > .btn').boundingBox();
+        const toggle = await page.locator('.nav .burger').boundingBox();
+        assert.ok(cta.x >= logo.x + logo.width && toggle.x >= cta.x + cta.width && toggle.x + toggle.width <= 320,
+          'Narrow navigation overlaps or puts its menu outside the viewport');
+        await page.evaluate(() => window.scrollTo({top:0,behavior:'instant'}));
+        await page.screenshot({path:path.join(output,'home-320.png')});
+        await page.setViewportSize({width,height:844});
+        const panels = await page.locator('.stage-in').evaluateAll(elements => elements.map(element => {
+          const box = element.getBoundingClientRect(); return {top:box.top,bottom:box.bottom};
+        }));
+        for (let index = 1; index < panels.length; index++) {
+          assert.ok(panels[index].top >= panels[index - 1].bottom,'Mobile feature panels overlap or differ from reading order');
+        }
+        const menu = page.locator('.nav .burger');
+        await menu.click();
+        assert.equal(await menu.getAttribute('aria-expanded'),'true');
+        assert.equal(await page.locator('#main-links').isVisible(),true);
+        await page.keyboard.press('Escape');
+        assert.equal(await menu.getAttribute('aria-expanded'),'false');
+        assert.equal(await menu.evaluate(button => document.activeElement === button),true);
+        await page.setViewportSize({width,height:320});
+        await page.evaluate(() => window.scrollTo({top:0,behavior:'instant'}));
+        await menu.click();
+        const menuBox = await page.locator('#main-links').boundingBox();
+        assert.ok(menuBox.y >= 0 && menuBox.y + menuBox.height <= 320,'Short-screen menu extends below the viewport');
+        const lastLink = page.locator('#main-links a').last();
+        await lastLink.focus();
+        const lastBox = await lastLink.boundingBox();
+        assert.ok(lastBox.y >= menuBox.y && lastBox.y + lastBox.height <= menuBox.y + menuBox.height,
+          'Last menu link cannot be reached in a short viewport');
+        await page.screenshot({path:path.join(output,'navigation-menu-390x320.png')});
+        await page.keyboard.press('Escape');
+        await page.setViewportSize({width,height:844});
+        await menu.click();
+        await page.locator('#main-links').getByRole('link',{name:'Pricing',exact:true}).click();
+        await page.waitForURL(base + '/pricing');
+      } else {
+        assert.equal(await page.locator('.nav .burger').isVisible(),false);
+        assert.equal(await page.locator('.nav [data-account-link]').isVisible(),false);
+        const button = await page.locator('.nav > .btn').boundingBox();
+        const links = await page.locator('.nav .links').boundingBox();
+        assert.ok(button.x >= links.x + links.width, 'Desktop navigation overlaps the CTA');
+      }
+    });
+    await check('pricing-no-js',width,'/pricing',async page => {
+      assert.equal(await page.locator('.topwrap').count(),1);
+      assert.equal(await page.locator('.topwrap [role=columnheader]').count(),5);
+      assert.equal(await page.locator('#comparison-description').isVisible(),true);
+      assert.equal(await page.locator('#comparison-details').isVisible(),true);
+      const region = page.locator('.table-scroll');
+      await region.scrollIntoViewIfNeeded();
+      await page.locator('.topwrap a').last().focus();
+      await page.waitForFunction(() => {
+        const region=document.querySelector('.table-scroll').getBoundingClientRect();
+        const link=[...document.querySelectorAll('.topwrap a')].at(-1).getBoundingClientRect();
+        return link.left>=region.left && link.right<=region.right;
+      });
+      const bounds = await region.boundingBox(), link = await page.locator('.topwrap a').last().boundingBox();
+      assert.ok(link.x >= bounds.x && link.x+link.width <= bounds.x+bounds.width,'Enterprise is inaccessible without JavaScript');
+      await noOverflow(page);
+    },{javaScriptEnabled:false});
+    await check('pricing',width,'/pricing',async page => {
+      assert.equal(await page.locator('#comparison-description').isVisible(),true);
+      assert.equal(await page.locator('#comparison-details').isVisible(),true);
+      const comparisonFlow = await page.evaluate(() => ['#comparison-description','.table-scroll','#comparison-details','.secure'].map(selector => {
+        const box = document.querySelector(selector).getBoundingClientRect();
+        return {top:box.top,bottom:box.bottom};
+      }));
+      for (let index = 1; index < comparisonFlow.length; index++) {
+        assert.ok(comparisonFlow[index].top >= comparisonFlow[index - 1].bottom,
+          'Reference notices overlap the table or security card');
+      }
+      await page.locator('.pr-faq').scrollIntoViewIfNeeded();
+      const scrolledNav = await page.locator('.nav').boundingBox();
+      assert.ok(scrolledNav.y >= 0 && scrolledNav.y <= 20,'Pricing navigation disappears while scrolling');
+      const addon = page.locator('#notetaker-addon');
+      assert.equal(await addon.isChecked(),false);
+      assert.deepEqual(await page.locator('[data-price="pro"]').allTextContents(),['$12','$12']);
+      assert.deepEqual(await page.locator('[data-price="growth"]').allTextContents(),['$18','$18']);
+      if (width === 390) {
+        assert.equal(await page.locator('.fq[aria-expanded="true"]').count(),0);
+        assert.equal(await page.locator('.fa:visible').count(),0);
+      } else {
+        assert.equal(await page.locator('.fq').first().getAttribute('aria-selected'),'true');
+      }
+      await page.locator('[data-billing="monthly"]').click();
+      assert.deepEqual(await page.locator('[data-price="pro"]').allTextContents(),['$15','$15']);
+      assert.deepEqual(await page.locator('[data-price="growth"]').allTextContents(),['$23','$23']);
+      await addon.check();
+      assert.deepEqual(await page.locator('[data-price="growth"]').allTextContents(),['$33','$33']);
+      await page.locator('[data-billing="annual"]').click();
+      assert.deepEqual(await page.locator('[data-price="growth"]').allTextContents(),['$26','$26']);
+      await addon.uncheck();
+      assert.deepEqual(await page.locator('[data-price="growth"]').allTextContents(),['$18','$18']);
+      await page.locator('#roiH').fill('');
+      assert.equal(await page.locator('#roiH').getAttribute('aria-invalid'),'true');
+      assert.equal(await page.locator('#roiS').textContent(),'—');
+      await page.locator('#roiH').fill('3'); await page.locator('#roiR').fill('40');
+      assert.equal(await page.locator('#roiS').textContent(),'$15,840');
+      const questions = page.locator('.fq'); assert.ok(await questions.count() > 1);
+      const second = questions.nth(1); await second.click();
+      if (width === 390) {
+        assert.equal(await second.getAttribute('aria-expanded'),'true');
+        assert.equal(await page.locator('#answer-1').isVisible(),true);
+        await second.click(); assert.equal(await second.getAttribute('aria-expanded'),'false');
+        const cards = page.locator('.seeall'); assert.equal(await cards.count(),4);
+        await cards.nth(0).click(); assert.equal(await page.locator('#plan-features-0').isVisible(),true);
+        const comparison = page.locator('.table-scroll');
+        await comparison.evaluate(element => {element.scrollLeft = element.scrollWidth;});
+        const region = await comparison.boundingBox();
+        const enterprise = await page.locator('.topwrap .th').last().boundingBox();
+        assert.ok(enterprise.x >= region.x && enterprise.x + enterprise.width <= region.x + region.width,
+          'Enterprise comparison cannot be reached in the mobile scroll region');
+      } else {
+        assert.equal(await second.getAttribute('aria-selected'),'true');
+        assert.equal(await page.locator('#faq-answer').getAttribute('aria-labelledby'),await second.getAttribute('id'));
+      }
+      await checkComparisonHeader(page,width,path.join(output,`pricing-sticky-${width}.png`));
+      await noOverflow(page);
+    });
+    await check('demo',width,'/demo',async page => {
+      await page.getByRole('button',{name:'Skip setup',exact:true}).click();
+      assert.equal(await page.locator('#setup-guide').isVisible(),false);
+      await noOverflow(page);
+      await page.locator('.practice summary').click();
+      const editor = page.locator('#editor');
+      const draft = 'um send the the outline tomorrow question mark';
+      await page.locator('#practice-input').fill(draft);
+      await page.locator('#practice-submit').click();
+      await value(page,'#editor','Send the outline tomorrow?');
+      assert.equal(await page.locator('#history-list > li').count(),1);
+      await page.locator('#undo').click(); await value(page,'#editor',draft);
+      await editor.fill('Keep preFixSuffix.');
+      await editor.evaluate(element => element.setSelectionRange(8,11));
+      await page.locator('#command-mode').click();
+      await page.locator('#command-input').fill('uppercase'); await page.locator('#command-submit').click();
+      await value(page,'#editor','Keep preFIXSuffix.');
+      assert.deepEqual(await editor.evaluate(element => [element.selectionStart,element.selectionEnd]),[8,11]);
+      await page.locator('#undo').click(); await value(page,'#editor','Keep preFixSuffix.');
+      await page.locator('#command-input').fill('make it friendlier'); await page.locator('#command-submit').click();
+      await page.locator('#state').filter({hasText:'Command not supported'}).waitFor();
+      await value(page,'#editor','Keep preFixSuffix.');
+      assert.equal(await page.locator('#history-list > li').count(),2);
+      await page.locator('#recover').click(); await value(page,'#command-input','make it friendlier');
+      await page.locator('#add-entry').click(); await page.locator('#primary').fill('OpenAI');
+      await page.locator('#correction').check(); await page.locator('#wrong').fill('open aye');
+      await page.locator('#save-entry').click();
+      await page.locator('#entry-list').getByRole('button',{name:'Star',exact:true}).click();
+      await page.locator('#library-sort').selectOption('starred');
+      await page.locator('#add-entry').click(); await page.locator('#primary').fill('Zebra');
+      await page.locator('#save-entry').click();
+      assert.equal(await page.locator('#entry-list strong').first().textContent(),'open aye');
+      await page.locator('#practice-input').fill('send it to open aye'); await page.locator('#practice-submit').click();
+      await value(page,'#editor','Send it to OpenAI.');
+      await page.locator('#library-snippet').click(); await value(page,'#library-sort','');
+      await page.locator('#add-entry').click();
+      await page.locator('#primary').fill('my sign off'); await page.locator('#expansion').fill('Best,\nQA');
+      await page.locator('#save-entry').click();
+      await page.locator('#add-entry').click(); await page.locator('#primary').fill('quick reply');
+      await page.locator('#expansion').fill('Thanks for the update.'); await page.locator('#save-entry').click();
+      assert.equal(await page.locator('#entry-list strong').first().textContent(),'quick reply');
+      await page.locator('#library-dictionary').click(); await value(page,'#library-sort','starred');
+      await page.locator('#library-snippet').click(); await value(page,'#library-sort','');
+      await page.locator('#practice-input').fill('my sign off'); await page.locator('#practice-submit').click();
+      await value(page,'#editor','Best,\nQA');
+      await page.locator('#remember-library').check();
+      await confirm(page,'Save history in this browser',() => page.locator('#history-mode').selectOption('forever'));
+      await page.locator('#open-settings').click(); await page.locator('#settings-dialog').waitFor();
+      await page.locator('#settings-style').selectOption('casual'); await page.locator('#remember-settings').check();
+      await page.locator('#settings-cleanup').selectOption('medium');
+      await page.locator('#settings-close').click(); await page.locator('#settings-dialog').waitFor({state:'hidden'});
+      await value(page,'#style','casual');
+      await page.reload({waitUntil:'load'}); await value(page,'#style','casual');
+      await value(page,'#cleanup','medium');
+      assert.equal(await page.locator('#setup-guide').isVisible(),false);
+      assert.equal(await page.locator('#history-list > li').count(),4);
+      assert.equal(await page.locator('#remember-library').isChecked(),true);
+      await value(page,'#library-sort','starred');
+      assert.equal(await page.locator('#entry-list strong').first().textContent(),'open aye');
+      await page.locator('#library-snippet').click(); await value(page,'#library-sort','');
+      assert.equal(await page.locator('#entry-list strong').first().textContent(),'quick reply');
+      await page.locator('.library').scrollIntoViewIfNeeded();
+      await page.screenshot({path:path.join(output,`library-sort-${width}.png`)});
+      await confirm(page,'Delete all history',() => page.locator('#history-clear').click());
+      assert.equal(await page.locator('#history-list > li').count(),0);
+      await page.locator('#cleanup').selectOption('none');
+      assert.equal(await page.locator('#style').isDisabled(),true);
+      await page.locator('.practice summary').click();
+      await page.locator('#practice-input').fill('um open aye question mark'); await page.locator('#practice-submit').click();
+      await value(page,'#editor','um open aye question mark');
+      await page.locator('#practice-input').fill('my sign off'); await page.locator('#practice-submit').click();
+      await value(page,'#editor','my sign off');
+      await page.locator('#cleanup').selectOption('light');
+      assert.equal(await page.locator('#style').isEnabled(),true);
+      await page.locator('#practice-input').fill('um in order to finish'); await page.locator('#practice-submit').click();
+      await value(page,'#editor','In order to finish');
+      await page.locator('#cleanup').selectOption('medium'); await page.locator('#practice-submit').click();
+      await value(page,'#editor','To finish');
+      await page.locator('#undo').click(); await value(page,'#editor','um in order to finish');
+      await page.locator('#workspace').scrollIntoViewIfNeeded();
+      await page.screenshot({path:path.join(output,`cleanup-levels-${width}.png`)});
+      await noOverflow(page);
+    });
+  }
+} finally {await browser.close();}
+if (results.some(result => !result.passed)) process.exitCode = 1;

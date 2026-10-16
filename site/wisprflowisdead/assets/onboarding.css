@@ -1,0 +1,15 @@
+.setup-guide{border:1px solid #d7c4e3;border-radius:24px;background:#F0D7FF;padding:26px;margin:0 0 28px}
+.setup-guide .setup-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.setup-guide h2{font:400 32px/1.1 var(--ids-font-display);margin:16px 0}
+.setup-guide p{font-size:14px;line-height:1.5;max-width:740px}
+.setup-guide ol{list-style:none;padding:0;margin:14px 0 18px;display:flex;flex-wrap:wrap;gap:8px}
+.setup-guide li{font-size:12px;border-radius:99px;padding:6px 10px;background:#ffffff60;display:flex;gap:6px;align-items:center}
+.setup-guide li[aria-current=step]{background:#1A1A1A;color:#FFFFEB}
+.setup-guide li small:empty{display:none}
+.setup-guide button{min-height:44px;border:1px solid #1A1A1A;border-radius:8px;padding:8px 14px;background:#FFFFEB;font-size:14px}
+.setup-guide button:hover:not(:disabled){background:#E4E4D0}
+.setup-guide #setup-next{background:#1A1A1A;color:#FFFFEB}
+.setup-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px}
+#setup-notice{font-size:13px;line-height:1.5;margin:16px 0}
+#setup-progress{font-size:12px;font-weight:600}
+@media(max-width:600px){.setup-guide{padding:20px 16px;border-radius:18px}.setup-guide h2{font-size:28px}.setup-guide .setup-top{align-items:flex-start}.setup-guide ol{gap:6px}.setup-guide button{font-size:13px;padding:8px 10px}}
