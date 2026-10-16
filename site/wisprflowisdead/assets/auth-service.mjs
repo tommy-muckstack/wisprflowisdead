@@ -24,7 +24,6 @@ async function initializeAuth() {
     create: async (email, password) => (await A.createUserWithEmailAndPassword(auth, email, password)).user,
     google: async () => (await A.signInWithPopup(auth, new A.GoogleAuthProvider())).user,
     profile: (user, name) => A.updateProfile(user, {displayName:name}),
-    verify: user => A.sendEmailVerification(user),
     reset: email => A.sendPasswordResetEmail(auth, email),
     signOut: () => A.signOut(auth)
   };

@@ -650,6 +650,12 @@ Deployment follow-up: #33's `31c00e8` has a successful [Vercel preview status](h
 
 ## Next verification gates
 
+### Signup without email verification, 2026-10-16
+
+The user explicitly requested no email verification flow. Signup now creates the account, exchanges its token for the existing server session and navigates directly to the account. Verification email sending, resend controls and verification messaging are removed. The created-account state remains only as recovery when session exchange fails, so retry cannot create a duplicate account. Password reset remains available. This supersedes earlier parity notes proposing a verification flow (intentional E6 difference).
+
+Unit coverage verifies immediate navigation with an unverified email, no verification call, and recovery after session/profile failure. Hosted auth evidence counts Firebase VERIFY_EMAIL requests and requires zero for the candidate while retaining guaranteed disposable-account cleanup. Website lint/build, all 85 tests and final hosted signup/login checks are pending for this change; initial login layout is unchanged.
+
 ### Authorized integration and local installer, 2026-10-16
 
 The user explicitly authorized publishing and merging the existing work, superseding the earlier no-merge instruction. PRs #1–#34 landed through merge commit `c709c5d`, preserving all 51 remote commits; all 34 PRs are marked merged. Native CI 38908084694 and Vercel pass on that merge. This does not meet the visual completion gate: home remains 84.5/71.1, pricing 75.7/77.0 and login 93.6/91.9.
