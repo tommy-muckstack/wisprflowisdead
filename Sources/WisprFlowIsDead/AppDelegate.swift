@@ -3,6 +3,7 @@ import Combine
 import FlowCore
 import FlowVoice
 import SwiftUI
+import Sparkle
 
 @MainActor
 final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
@@ -16,12 +17,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     private var scratchpad: NSPanel?
     private var bag: Set<AnyCancellable> = []
     private var tapRetry: Timer?
+    private let updaterController = SPUStandardUpdaterController(startingUpdater: false, updaterDelegate: nil, userDriverDelegate: nil)
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         Theme.registerFonts()
         hotkeys = HotkeyMonitor(controller: controller)
         bar = FlowBarPanel(controller: controller)
         setUpStatusItem()
+        updaterController.startUpdater()
         applyDockPolicy()
 
         controller.onSettingsChange = { [weak self] in
@@ -83,6 +86,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         menu.addItem(item("Paste last transcript", #selector(pasteLast)))
         menu.addItem(item("Copy last transcript", #selector(copyLast)))
         menu.addItem(.separator())
+        let updateItem = NSMenuItem(title: "Check for Updates…", action: #selector(SPUStandardUpdaterController.checkForUpdates(_:)), keyEquivalent: "")
+        updateItem.target = updaterController
+        menu.addItem(updateItem)
         menu.addItem(item("Quit", #selector(quit), key: "q"))
         statusItem.menu = menu
     }

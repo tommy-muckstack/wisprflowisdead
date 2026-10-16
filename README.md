@@ -33,6 +33,8 @@ swift test                # FlowCore unit tests (also run on Linux)
 
 Grant Microphone and Accessibility when asked. Accessibility lets the app type into other apps; without it, text goes to your clipboard.
 
+The Mac app includes Sparkle automatic updates and a **Check for Updates…** menu item. Installer packaging, signing, verification and publication are documented in [docs/RELEASING.md](docs/RELEASING.md). Developer ID signing/notarization is separate from Sparkle's update signatures; the initial local installer is ad-hoc signed.
+
 ## Layout
 
 | Path | What |

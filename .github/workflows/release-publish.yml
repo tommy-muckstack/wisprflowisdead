@@ -1,0 +1,36 @@
+name: Publish signed local installer
+on:
+  push:
+    branches: ['release/upload-*']
+permissions:
+  contents: write
+concurrency:
+  group: release-publish
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Reassemble and verify signed local artifacts
+        run: |
+          python3 scripts/assemble-release.py .release-payload release-output
+          swift scripts/verify-release.swift release-output
+          pkgutil --expand-full release-output/WisprFlowIsDead-*.pkg "$RUNNER_TEMP/installer"
+          python3 qa/verify-native-app.py "$RUNNER_TEMP/installer/Payload/WisprFlowIsDead.app"
+      - name: Publish immutable release assets for merged source
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION=$(python3 -c 'import json; print(json.load(open("release/config.json"))["version"])')
+          SOURCE=$(python3 -c 'import json; print(json.load(open(".release-payload/manifest.json"))["sourceCommit"])')
+          git merge-base --is-ancestor "$SOURCE" origin/main
+          gh release create "v$VERSION" --target "$SOURCE" --title "WisprFlowIsDead $VERSION" --notes-file release/NOTES.md release-output/WisprFlowIsDead-*.pkg release-output/WisprFlowIsDead-*.zip release-output/appcast.xml release-output/SHA256SUMS
+      - name: Retain publishing verification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-verification
+          path: release-output/SHA256SUMS

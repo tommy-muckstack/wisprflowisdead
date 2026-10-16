@@ -15,6 +15,8 @@ jobs:
         run: swift test
       - name: Assemble app bundle
         run: NO_OPEN=1 scripts/run-dev.sh
+      - name: Verify updater, resources and bundle signatures
+        run: python3 qa/verify-native-app.py .build/app/WisprFlowIsDead.app
 
   linux-core:
     # FlowCore is pure Foundation, so its tests also run on Linux.
