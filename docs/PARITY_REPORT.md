@@ -54,6 +54,8 @@ Latest verified FAQ-spacing candidate (`e4ea0f043aaa3bc63d8259466ccd9ccea558e741
 
 ## Feature matrix
 
+Final #32/#33 evidence reviewed on 2026-10-16: [38835566857](https://github.com/tommy-muckstack/wisprflowisdead/actions/runs/38835566857) at `19e6384` and [38835705626](https://github.com/tommy-muckstack/wisprflowisdead/actions/runs/38835705626) at `31c00e8` both retain **home 84.5/71.1, pricing 75.7/77.0, login 93.6/91.9** (desktop/mobile). Each passes all fourteen browser cases and both signup → sign-out → login → sign-out flows, including matching identity/cookie checks and explicit account deletion/session clearing. All four disposable accounts are deleted; no verification errors or page overflow. Both overall gates correctly remain failed because home/pricing are below 90. These are full-page home/pricing scores and initial-viewport login scores. Neither run proves deployed 404 routing or original-account parity.
+
 Status is `match`, `differs`, or `missing`. `Differs` includes implementations awaiting comparison; it does not mean that a fix was visually verified. Severity: P0 blocks the requested core experience; P1 breaks an important flow; P2 is a noticeable presentation/accessibility gap. The evidence column names source files or tests. Feature-specific screenshot/score entries remain N/M; the page-level captures above do not prove every feature or state.
 
 | Page / feature | Status | Severity | Evidence / remaining work | Screenshots / score |
@@ -103,7 +105,7 @@ Status is `match`, `differs`, or `missing`. `Differs` includes implementations a
 | Microphone denied/unavailable/no speech | differs | P0 | Recoverable messages and timeouts tested with injected recognizer; real permissions/audio pending | N/M |
 | Keyboard/focus/reduced motion | differs | P1 | Nav/demo tab keyboard and focus behavior drafted; demo/auth reduced-motion rules exist; sitewide manual accessibility verification pending | N/M |
 | Support and help guides | differs | P2 | Dedicated page, real issue/history links and five practical guides. JS/no-JS, direct/repeated fragments, focus, mobile menu and overflow checks pass. Shared-footer geometry and E10 remain | 71.1 / 64.9; run 38819990954; paired support captures |
-| Branded 404 | differs | P2 | Static recovery page follows measured original layout with the requested tombstone. Local GET/HEAD return 404; hosted rendering, keyboard recovery and deployed routing verification pending | Original/live/candidate before captures, run 38822008635; score N/M (expected 404) |
+| Branded 404 | differs | P2 | Hosted GET/HEAD 404, Enter recovery, no-JS, no overflow and 320×320 reachability pass. Paired layout inspected; requested tombstone remains E11. Deployed routing verification pending | Final raw/behavior captures, run 38835566857; score N/M (expected 404) |
 
 ## Original navigation/footer inventory
 
@@ -608,6 +610,8 @@ Draft PR: [#32](https://github.com/tommy-muckstack/wisprflowisdead/pull/32), sta
 
 ### Shared library sorting
 
+Final #32 verification: [run 38835566857](https://github.com/tommy-muckstack/wisprflowisdead/actions/runs/38835566857) passes both new missing-page browser cases and all twelve existing cases. Reviewed original/candidate missing-page images at 1440×900 and 390×844: centered heading, description and lavender home link follow the reference geometry; the tombstone is the intentional E11 difference. Both auth flows and deletions pass. The anonymous QA server's 404 and keyboard recovery are verified; this is not a claim about Vercel routing. Scores stay 84.5/71.1 home, 75.7/77.0 pricing and 93.6/91.9 login; expected-404 score remains N/M.
+
 Draft PR: [#33](https://github.com/tommy-muckstack/wisprflowisdead/pull/33), stacked on #32.
 
 - Checked the current [desktop library guide](https://docs.wisprflow.ai/articles/9639977157-view-shared-dictionary-words-and-snippets-in-the-admin-portal) on 2026-10-15: sort choice is shared by Dictionary and Snippets; dates use modification time. When Dictionary uses Starred first, Snippets keeps the ordering with no option selected. The clone instead resets Starred first on switching tabs and loses every chosen order on reload.
@@ -615,6 +619,16 @@ Draft PR: [#33](https://github.com/tommy-muckstack/wisprflowisdead/pull/33), sta
 - Local lint/build and all **85 tests pass**, including opt-in restoration across both lists, legacy/unknown preference handling, quota failures and concurrent-change protection. Required smoke2 attempts inside/outside the sandbox fail before browser navigation/account creation. Hosted checks exercise a starred word ahead of a newer word, the newest snippet, tab switching and opt-in restoration after reload, with screenshots at both widths. Hosted results and visual changes remain pending. Main-page baseline is home **84.1/71.1**, pricing **74.7/73.7**, login **93.6/91.9**; this product change is not expected to change marketing scores. Selection, bulk actions, keyboard search and team synchronization remain separate gaps.
 
 - Verified [run 38822692067](https://github.com/tommy-muckstack/wisprflowisdead/actions/runs/38822692067), commit `7e7e4f2375c4ba3b3d5a59d4c1964b272008730e`: all twelve browser cases and both auth flows/explicit deletions pass, confirming **64 accounts deleted across 32 inspected runs**. Native CI passes. Home **84.5/71.1**, pricing **75.7/77.0** and login **93.6/91.9** match the immediate parent's scores; no verification errors or overflow. Inspected [desktop library](https://github.com/tommy-muckstack/wisprflowisdead/blob/qa/parity-evidence-38822692067-1/docs/parity/38822692067-1/behavior/library-sort-1440.png) and [mobile library](https://github.com/tommy-muckstack/wisprflowisdead/blob/qa/parity-evidence-38822692067-1/docs/parity/38822692067-1/behavior/library-sort-390.png). Snippets keeps the newest-first result with no available sort selected, and the saved checkbox is retained after reload. The original native visual comparison remains unverified. Rebased onto #32's 404 implementation; the combined fourteen-case run is pending.
+
+Final #33 verification: [run 38835705626](https://github.com/tommy-muckstack/wisprflowisdead/actions/runs/38835705626) at `31c00e8` passes the combined fourteen cases, including both missing-page cases and shared-sort restoration. Reviewed final `behavior/library-sort-1440.png` and `library-sort-390.png`: the newest snippet is first, the unavailable Starred-first choice is represented by Select order, and opt-in saving remains checked after reload. Both auth flows and explicit cleanups pass; no errors or overflow. Marketing scores are unchanged. Together with final #32, **68 disposable accounts across 34 inspected runs are confirmed deleted**. Original native library visuals, selection, bulk actions and search shortcuts remain outstanding.
+
+### Pricing comparison header during scrolling
+
+Follow-up stacked on #33; status **differs, P1**. Existing paired comparison screenshots show the original header remaining visible at both widths while the candidate header has scrolled away. Before changing product code, raw captures now record header/ancestor computed positioning, overflow, column geometry and screenshots before, within, near the end of, and after the comparison. Baseline pricing is **75.7 desktop / 77.0 mobile**. All four plans and keyboard access must remain available, with header/value columns aligned. Reference notices and the free clone's existing payment behavior remain unchanged (E5).
+
+Environment reassessment on 2026-10-16: the in-app Node execution tool is unavailable. Fresh GitHub clone attempts fail DNS inside/outside the sandbox; the GitHub connector works. Compared every local tracked blob with remote #33: all website/QA/documentation contents match; two native TTFs are absent locally and one unrelated shell mode differs. Publication therefore uses the actual remote tree/parent and only explicit changed paths, preserving every other upstream file and mode. Never push the local imported history. Local auth attempt stops before navigation/account creation because Playwright dependencies are unavailable; hosted checks remain necessary.
+
+Deployment follow-up: #33's `31c00e8` has a successful [Vercel preview status](https://vercel.com/muckstack-projects/wisprflowisdead/Eg9m8g7feWfUHJ3UtEozu1xNKVwX). #26 remains draft/open/unmerged, so older branches still lack its fix. Searches of the connected inbox for the exact missing-output error and recent project emails returned no matches. Vercel connector listing returned team-access 403; current failure emails cannot yet be attributed. No dashboard, notification, secret or payment settings changed.
 
 ## Next verification gates
 

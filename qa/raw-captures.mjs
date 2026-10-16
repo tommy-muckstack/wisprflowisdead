@@ -133,6 +133,33 @@ try {
             const box = cell.getBoundingClientRect(), style = getComputedStyle(cell);
             return {text:cell.textContent.trim().slice(0,160),x:box.x,y:box.y + scrollY,width:box.width,height:box.height,fontSize:style.fontSize,lineHeight:style.lineHeight,fontWeight:style.fontWeight,color:style.color,padding:style.padding};
           })));
+          // Measure the reference's sticky header at several scroll positions before recreating it.
+          const comparisonBounds = await page.locator(target === 'original' ? '.pricing-table.v2' : '.reference-table').evaluate(element => {
+            const box = element.getBoundingClientRect();
+            return {top:box.top + scrollY,bottom:box.bottom + scrollY};
+          });
+          entry.comparisonStickyStates = [];
+          for (const [name, top] of [['before',comparisonBounds.top - 500],['middle',comparisonBounds.top + 700],['end',comparisonBounds.bottom - 100],['after',comparisonBounds.bottom + 300]]) {
+            await page.evaluate(top => window.scrollTo({top,behavior:'instant'}),top);
+            await page.waitForTimeout(350);
+            const measured = await page.evaluate(target => {
+              const metrics = element => {
+                const box = element.getBoundingClientRect(), style = getComputedStyle(element);
+                return {tag:element.tagName,cls:element.className,text:element.textContent.trim().slice(0,150),x:box.x,y:box.y,width:box.width,height:box.height,position:style.position,top:style.top,bottom:style.bottom,zIndex:style.zIndex,overflowX:style.overflowX,overflowY:style.overflowY,padding:style.padding,gap:style.gap,gridTemplateColumns:style.gridTemplateColumns,fontSize:style.fontSize,lineHeight:style.lineHeight,background:style.backgroundColor};
+              };
+              const headers = target === 'original' ? [...document.querySelectorAll('*')].filter(element => {
+                const style = getComputedStyle(element), box = element.getBoundingClientRect();
+                return ['sticky','fixed'].includes(style.position) && box.height > 0 && box.height < 500 && /Free/.test(element.textContent) && /Growth/.test(element.textContent) && /Pro/.test(element.textContent);
+              }) : [...document.querySelectorAll('.topwrap')];
+              return {scrollY,headers:headers.map(element => {
+                const ancestors = []; for (let parent = element.parentElement, depth = 0; parent && depth < 5; parent = parent.parentElement, depth++) ancestors.push(metrics(parent));
+                return {element:metrics(element),ancestors,children:[...element.querySelectorAll('*')].slice(0,80).map(metrics)};
+              })};
+            },target);
+            const image = `${target}-pricing-${width}-sticky-${name}.png`;
+            await page.screenshot({path:path.join(output,image)});
+            entry.comparisonStickyStates.push({name,image,...measured});
+          }
         }
       }
       if (item.name === 'home' || item.name === 'pricing') {
