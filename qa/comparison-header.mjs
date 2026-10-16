@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import {writeFile} from 'node:fs/promises';
 
 // Browser contract: one header follows the rows vertically and shares their horizontal scroll.
 export async function checkComparisonHeader(page, width, screenshot) {
@@ -62,14 +63,26 @@ export async function checkComparisonHeader(page, width, screenshot) {
   await aligned();
   await page.setViewportSize({width,height:width === 390 ? 844 : 900});
   await page.emulateMedia({reducedMotion:'no-preference'});
+  // Breakpoint handlers change card heights above the table. Wait for layout and
+  // its scheduled header update, then measure the restored page rather than
+  // reusing coordinates from before the two viewport changes.
+  await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+  const restoredBounds = await page.locator('.reference-table').evaluate(element => {
+    const box=element.getBoundingClientRect();
+    return {top:box.top+scrollY,bottom:box.bottom+scrollY};
+  });
+  await writeFile(screenshot.replace('.png','.json'),JSON.stringify({beforeResize:bounds,afterResize:restoredBounds},null,2));
   // The header must leave with its table, so later sections remain readable/clickable.
-  await page.evaluate(top => window.scrollTo({top,behavior:'instant'}),bounds.bottom - 100);
+  await page.evaluate(top => window.scrollTo({top,behavior:'instant'}),restoredBounds.bottom - 100);
   await page.waitForFunction(() => {
     const header = document.querySelector('.topwrap').getBoundingClientRect();
     const table = document.querySelector('.reference-table').getBoundingClientRect();
     return header.bottom <= table.bottom+1 && header.top < 0;
+  }).catch(async error => {
+    const geometry=await page.evaluate(() => ({scrollY,header:document.querySelector('.topwrap').getBoundingClientRect().toJSON(),table:document.querySelector('.reference-table').getBoundingClientRect().toJSON()}));
+    throw new Error(`Comparison header did not leave at the current table end: ${JSON.stringify(geometry)}`,{cause:error});
   });
-  await page.evaluate(top => window.scrollTo({top,behavior:'instant'}),bounds.bottom+300);
+  await page.evaluate(top => window.scrollTo({top,behavior:'instant'}),restoredBounds.bottom+300);
   await page.waitForFunction(() => document.querySelector('.topwrap').getBoundingClientRect().bottom <= 0);
   await page.evaluate(() => window.scrollTo({top:0,behavior:'instant'}));
   await page.waitForFunction(() => {
