@@ -16,7 +16,7 @@ let source = await readFile(path.join(tools,'templates/smoke2.mjs'),'utf8');
 assert.equal(createHash('sha256').update(source).digest('hex'),
   'c0da6a7b7e8cc15cd1970bee703171646d51131fd5fcbfb00c5b31960db7c61c',
   'Shared smoke2 changed; inspect its flow before running');
-const state = {mode,sessionChecks:[],screenshots:[],accountObserved:false};
+const state = {mode,sessionChecks:[],screenshots:[],accountObserved:false,verificationEmailsRequested:0};
 let browser, context, page, email, password, apiKey, token, uid, result;
 const responses = [];
 const safe = value => String(value).replaceAll(password || '\0','[password]').replaceAll(token || '\0','[token]')
@@ -28,6 +28,12 @@ const types = {'.html':'text/html','.css':'text/css','.js':'text/javascript','.m
 globalThis.smokeSetup = async values => {
   ({b:browser,ctx:context,p:page,email,pw:password} = values);
   page.setDefaultTimeout(10000); page.setDefaultNavigationTimeout(30000);
+  page.on('request',request => {
+    const url = new URL(request.url());
+    if (url.hostname !== 'identitytoolkit.googleapis.com' || !url.pathname.endsWith('/accounts:sendOobCode')) return;
+    let body; try {body = request.postDataJSON();} catch {return;}
+    if (body?.requestType === 'VERIFY_EMAIL') state.verificationEmailsRequested++;
+  });
   if (mode === 'candidate') await context.route(url => url.origin === 'https://yourappisdead.com' &&
     (url.pathname === '/wisprflowisdead' || url.pathname.startsWith('/wisprflowisdead/')),async route => {
     const request = route.request(); const url = new URL(request.url());
@@ -153,7 +159,8 @@ finally {
   catch (error) {state.cleanup = {account:'failed',failure:safe(error.message),email,uid};}
   state.flow = result ? {signup:result.signup,logout1:result.logout1,login:result.login,logout2:result.logout2,notes:result.notes.map(safe),errors:result.errs.map(safe)} : null;
   state.passed = Boolean(state.flow && ['signup','logout1','login','logout2'].every(key => state.flow[key]) &&
-    state.flow.errors.length === 0 && state.cleanup.account === 'deleted' && state.cleanup.session === 'cleared' && !state.failure);
+    state.flow.errors.length === 0 && state.cleanup.account === 'deleted' && state.cleanup.session === 'cleared' && !state.failure &&
+    (mode !== 'candidate' || state.verificationEmailsRequested === 0));
   await writeFile(path.join(output,`${mode}.json`),JSON.stringify(state,null,2));
   console.log(JSON.stringify(state));
   await browser?.close();
