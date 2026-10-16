@@ -1,0 +1,100 @@
+{
+  "results": [
+    {
+      "name": "not-found",
+      "width": 1440,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "name": "support-no-js",
+      "width": 1440,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "name": "support",
+      "width": 1440,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "name": "home-faq-no-js",
+      "width": 1440,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "name": "navigation",
+      "width": 1440,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "name": "pricing-no-js",
+      "width": 1440,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "name": "pricing",
+      "width": 1440,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "name": "demo",
+      "width": 1440,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "name": "not-found",
+      "width": 390,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "name": "support-no-js",
+      "width": 390,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "name": "support",
+      "width": 390,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "name": "home-faq-no-js",
+      "width": 390,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "name": "navigation",
+      "width": 390,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "name": "pricing-no-js",
+      "width": 390,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "name": "pricing",
+      "width": 390,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "name": "demo",
+      "width": 390,
+      "passed": true,
+      "errors": []
+    }
+  ]
+}
