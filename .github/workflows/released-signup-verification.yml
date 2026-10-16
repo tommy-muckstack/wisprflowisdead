@@ -1,0 +1,64 @@
+name: Released signup verification
+on:
+  push:
+    branches: ['qa/auth-release-0.1.0']
+permissions:
+  contents: read
+concurrency:
+  group: released-signup-verification
+  cancel-in-progress: false
+jobs:
+  auth:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: tommy-muckstack/isdead-design
+          ref: 3020a26628341fa65dbf5759b9b69cffc913d2aa
+          path: parity-tools
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pinned browser
+        run: |
+          npm ci --prefix parity-tools/scripts
+          parity-tools/scripts/node_modules/.bin/playwright install --with-deps chromium
+      - name: Live signup, logout, login, logout and cleanup
+        continue-on-error: true
+        run: node qa/auth-smoke.mjs live
+      - name: Candidate signup, logout, login, logout and cleanup
+        continue-on-error: true
+        run: node qa/auth-smoke.mjs candidate
+      - name: Require zero verification emails and successful cleanup
+        if: always()
+        run: |
+          node --input-type=module -e 'import fs from "node:fs"; import assert from "node:assert/strict"; for (const mode of ["live","candidate"]) { const report=JSON.parse(fs.readFileSync("qa-artifacts/auth/"+mode+".json")); assert.equal(report.passed,true); assert.equal(report.verificationEmailsRequested,0); assert.equal(report.cleanup.account,"deleted"); assert.equal(report.cleanup.session,"cleared"); }'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: released-auth
+          path: qa-artifacts/auth/
+  archive:
+    needs: auth
+    if: always()
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: released-auth
+          path: auth-evidence
+      - name: Archive reports after cleanup
+        run: |
+          evidence="docs/parity/$GITHUB_RUN_ID-1/auth"
+          mkdir -p "$evidence"
+          cp auth-evidence/*.json "$evidence/"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- "$evidence"
+          git commit -m "Archive released signup verification"
+          git push origin "HEAD:refs/heads/qa/parity-evidence-$GITHUB_RUN_ID-1"
