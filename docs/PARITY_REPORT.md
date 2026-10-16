@@ -650,6 +650,12 @@ Deployment follow-up: #33's `31c00e8` has a successful [Vercel preview status](h
 
 ## Next verification gates
 
+### Authorized integration and local installer, 2026-10-16
+
+The user explicitly authorized publishing and merging the existing work, superseding the earlier no-merge instruction. PRs #1–#34 landed through merge commit `c709c5d`, preserving all 51 remote commits; all 34 PRs are marked merged. Native CI 38908084694 and Vercel pass on that merge. This does not meet the visual completion gate: home remains 84.5/71.1, pricing 75.7/77.0 and login 93.6/91.9.
+
+The native installer follow-up adds Sparkle 2.10.0, automatic checking/downloading, a manual update menu, pinned public-key verification of both feed and archive, shared app assembly, and PKG/ZIP packaging. Local release compilation and all 43 native unit tests pass. Extracted PKG payload signatures, nested updater executables, framework linkage, fonts, tombstone icon and version/feed settings pass verification. The private key is outside Git with restrictive permissions; no Developer ID identity or working Keychain access was available. This is an ad-hoc-signed local installer, not a notarized distribution. Runtime update/relaunch, release publication, hosted native checks and the unchanged website/auth checks are pending. Status: **differs, P1** until the live update feed is published; native visuals and microphone behavior remain unverified. See `docs/RELEASING.md`.
+
 Deployment-repair follow-up: [run 38814645336](https://github.com/tommy-muckstack/wisprflowisdead/actions/runs/38814645336), commit `9b584d0`, passes all eight browser cases and both auth flows/cleanups, with no capture errors or overflow. Native CI passes. Scores are home **84.1/71.1**, pricing **68.5/59.9**, login **93.6/91.9**; the 0.1 mobile-home shift is capture variation because #26 changes no rendered UI. **42 disposable accounts across 21 inspected runs are confirmed deleted.** The evidence branch commit `77b22d98d38bbd206f7c4952a98d99a1f48c9634` had no Vercel status at inspection, consistent with the new archive-branch exclusion; normal feature previews remain successful.
 
 1. Run and inspect the hosted browser workflow; download artifacts and validate that captures show the intended pages. Restore interactive/local browser access for the flows the read-only capture cannot verify. Supply environment through the existing deployment workflow, never a committed .env file.
