@@ -1,0 +1,48 @@
+{
+  "app": "wisprflowisdead",
+  "stamp": "2026-10-16T14:07:02.068Z",
+  "orig": "https://wisprflow.ai",
+  "clone": "http://127.0.0.1:3300",
+  "results": [
+    {
+      "page": "support",
+      "viewport": "1440x900",
+      "full": true,
+      "origStatus": 200,
+      "cloneStatus": 200,
+      "origSize": [
+        1440,
+        3917
+      ],
+      "cloneSize": [
+        1440,
+        3910
+      ],
+      "diffPct": 21.35,
+      "coarseSimilarity": 96.8,
+      "score": 71.1,
+      "contentDiffPct": 42.7,
+      "hOverflowClone": false
+    },
+    {
+      "page": "support",
+      "viewport": "390x844",
+      "full": true,
+      "origStatus": 200,
+      "cloneStatus": 200,
+      "origSize": [
+        390,
+        4013
+      ],
+      "cloneSize": [
+        390,
+        4281
+      ],
+      "diffPct": 28.82,
+      "coarseSimilarity": 90.7,
+      "score": 64.9,
+      "contentDiffPct": 45.7,
+      "hOverflowClone": false
+    }
+  ]
+}
