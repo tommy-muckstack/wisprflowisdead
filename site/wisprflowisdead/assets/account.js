@@ -24,6 +24,7 @@
       const me = await response.json();
       if (!me || typeof me !== "object" || Array.isArray(me)) throw new Error("Invalid session");
       $("who").textContent = typeof me.email === "string" ? "Signed in as " + me.email + "." : "";
+      if (typeof me.uid === "string") globalThis.isdeadAnalytics?.identify(me.uid);
       $("loading").hidden = true;
       $("box").hidden = false;
     } catch {
@@ -46,6 +47,8 @@
         method: "DELETE", credentials: "same-origin", signal: AbortSignal.timeout(15000)
       });
       if (!response.ok) throw new Error("Sign-out failed");
+      const analytics = globalThis.isdeadAnalytics;
+      if (analytics) { await analytics.trackNow("app_signed_out"); analytics.reset(); }
       $("box").hidden = true;
       location.replace("/wisprflowisdead");
     } catch {

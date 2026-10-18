@@ -19,10 +19,16 @@ async function initializeAuth() {
   const app = appModule.getApps().find(item => item.name === 'isdead') || appModule.initializeApp(config.firebase, 'isdead');
   const auth = A.getAuth(app);
   await A.setPersistence(auth, A.inMemoryPersistence);
+  let googleWasNew = false; // analytics only: app_signed_up vs app_signed_in for Google
   return {
     login: async (email, password) => (await A.signInWithEmailAndPassword(auth, email, password)).user,
     create: async (email, password) => (await A.createUserWithEmailAndPassword(auth, email, password)).user,
-    google: async () => (await A.signInWithPopup(auth, new A.GoogleAuthProvider())).user,
+    google: async () => {
+      const result = await A.signInWithPopup(auth, new A.GoogleAuthProvider());
+      googleWasNew = Boolean(A.getAdditionalUserInfo(result)?.isNewUser);
+      return result.user;
+    },
+    googleWasNew: () => googleWasNew,
     profile: (user, name) => A.updateProfile(user, {displayName:name}),
     reset: email => A.sendPasswordResetEmail(auth, email),
     signOut: () => A.signOut(auth)

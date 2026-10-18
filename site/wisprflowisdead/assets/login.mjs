@@ -2,7 +2,14 @@ import {AuthFlow, safeNext} from './auth-flow.mjs';
 import {loadAuth, startSession} from './auth-service.mjs';
 const $ = id => document.getElementById(id);
 const flow = new AuthFlow({load:loadAuth, startSession, navigate:url => location.assign(url),
-  next:safeNext(new URLSearchParams(location.search).get('next'), location.origin), onChange:render});
+  next:safeNext(new URLSearchParams(location.search).get('next'), location.origin), onChange:render,
+  // Identify by Firebase uid and send the event before the redirect (analytics.js; a no-op when analytics is off).
+  onSignedIn:async ({uid, method, created}) => {
+    const analytics = globalThis.isdeadAnalytics;
+    if (!analytics) return;
+    analytics.identify(uid);
+    await analytics.trackNow(created ? 'app_signed_up' : 'app_signed_in', {method});
+  }});
 
 function render(state) {
   const {mode, step, busy, ready} = state;

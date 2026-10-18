@@ -6,6 +6,8 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
+    { "source": "/wisprflowisdead/ingest/static/:path*", "destination": "https://us-assets.i.posthog.com/static/:path*" },
+    { "source": "/wisprflowisdead/ingest/:path*", "destination": "https://us.i.posthog.com/:path*" },
     { "source": "/wisprflowisdead/api/:fn", "destination": "/api/:fn" },
     { "source": "/", "destination": "/wisprflowisdead" }
   ],

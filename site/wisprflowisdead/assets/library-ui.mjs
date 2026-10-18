@@ -99,7 +99,8 @@ export function mountLibrary() {
     const entry = {id:editing?.id, kind, starred:editing?.starred,
       trigger:kind === 'dictionary' && $('correction').checked ? $('wrong').value : $('primary').value,
       value:kind === 'dictionary' ? $('primary').value : $('expansion').value};
-    act(() => {library.save(entry, editing?.updatedAt); resetForm(); say(library.remember ? 'Entry saved in this browser.' : 'Entry added for this page.');});
+    const edited = Boolean(editing);
+    act(() => {library.save(entry, editing?.updatedAt); globalThis.isdeadAnalytics?.track('app_library_entry_saved', {kind, edited}); resetForm(); say(library.remember ? 'Entry saved in this browser.' : 'Entry added for this page.');});
   });
   $('entry-form').addEventListener('keydown', event => {
     if (event.key === 'Enter' && (event.metaKey || event.ctrlKey)) {event.preventDefault(); $('entry-form').requestSubmit();}

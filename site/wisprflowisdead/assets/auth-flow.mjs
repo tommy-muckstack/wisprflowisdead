@@ -30,8 +30,8 @@ export function friendly(error) {
 
 // The Firebase SDK remains in memory; the server cookie is the session authority.
 export class AuthFlow {
-  constructor({load, startSession, navigate, next, onChange}) {
-    Object.assign(this, {load, startSession, navigate, next, onChange});
+  constructor({load, startSession, navigate, next, onChange, onSignedIn}) {
+    Object.assign(this, {load, startSession, navigate, next, onChange, onSignedIn});
     this.ready = false; this.busy = false; this.mode = 'login'; this.step = 0;
     this.message = ''; this.kind = ''; this.pendingLabel = '';
   }
@@ -60,10 +60,12 @@ export class AuthFlow {
     this.user = null; this.say('');
   }
   editEmail() { if (!this.busy && this.mode === 'login') {this.step = 0; this.say('');} }
-  async done(user) {
+  async done(user, method = 'password', created = false) {
     await this.startSession(user);
     // Failure to clear the in-memory SDK must not turn a successful cookie login into an error.
     try { await this.sdk.signOut(); } catch { /* Navigating destroys this in-memory auth instance. */ }
+    // Analytics (identify + sign-in event) must never block or fail a successful sign-in.
+    try { await this.onSignedIn?.({uid:user?.uid, method, created}); } catch { /* analytics only */ }
     this.say('You’re signed in.', 'ok');
     this.navigate(this.next);
   }
@@ -71,7 +73,7 @@ export class AuthFlow {
     if (!this.ready || this.busy) return false;
     if (this.mode === 'login' && !this.step) {this.step = 1; this.say('Enter your password to continue.'); return true;}
     return this.run(this.mode === 'signup' ? 'Creating account…' : this.mode === 'reset' ? 'Sending reset link…' : 'Signing in…', async () => {
-      if (this.mode === 'created') return this.done(this.user);
+      if (this.mode === 'created') return this.done(this.user, 'password', true);
       if (this.mode === 'reset') {
         try { await this.sdk.reset(email.trim()); }
         catch (error) { if (error?.code !== 'auth/user-not-found') throw error; }
@@ -86,11 +88,14 @@ export class AuthFlow {
         try { await this.sdk.profile(this.user, name.trim()); }
         catch { /* A profile-name failure must not block the new account's session. */ }
       }
-      return this.done(this.user);
+      return this.done(this.user, 'password', true);
     });
   }
   async google() {
     if (!this.ready) return false;
-    return this.run('Opening Google…', async () => this.done(await this.sdk.google()));
+    return this.run('Opening Google…', async () => {
+      const user = await this.sdk.google();
+      return this.done(user, 'google', Boolean(this.sdk.googleWasNew?.()));
+    });
   }
 }

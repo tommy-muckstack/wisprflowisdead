@@ -1,0 +1,75 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {runInNewContext} from 'node:vm';
+import {AuthFlow} from '../wisprflowisdead/assets/auth-flow.mjs';
+
+const user = {uid:'uid-1', getIdToken:async () => 'token'};
+function flowWith(onSignedIn, sdkExtra = {}) {
+  const calls = [];
+  const sdk = {login:async () => user, create:async () => user, google:async () => user, profile:async () => {}, reset:async () => {}, signOut:async () => {}, ...sdkExtra};
+  const flow = new AuthFlow({load:async () => sdk, startSession:async () => {}, navigate:url => calls.push(['navigate', url]),
+    next:'/wisprflowisdead/app', onChange:() => {}, onSignedIn:async info => {calls.push(['signed-in', info]); await onSignedIn?.(info);}});
+  return {flow, calls};
+}
+
+test('sign-in, sign-up and Google report method and whether the account is new, before navigating', async () => {
+  let {flow, calls} = flowWith(); await flow.initialize();
+  await flow.submit({email:'a@example.com'}); await flow.submit({email:'a@example.com', password:'pw'});
+  assert.deepEqual(calls, [['signed-in', {uid:'uid-1', method:'password', created:false}], ['navigate', '/wisprflowisdead/app']]);
+
+  ({flow, calls} = flowWith()); await flow.initialize(); flow.setMode('signup');
+  await flow.submit({email:'a@example.com', password:'secret1'});
+  assert.deepEqual(calls[0], ['signed-in', {uid:'uid-1', method:'password', created:true}]);
+
+  ({flow, calls} = flowWith(null, {googleWasNew:() => true})); await flow.initialize(); await flow.google();
+  assert.deepEqual(calls[0], ['signed-in', {uid:'uid-1', method:'google', created:true}]);
+});
+
+test('an analytics failure never blocks a successful sign-in', async () => {
+  const {flow, calls} = flowWith(async () => {throw Error('blocked');}); await flow.initialize();
+  await flow.google();
+  assert.deepEqual(calls.at(-1), ['navigate', '/wisprflowisdead/app']);
+  assert.equal(flow.kind, 'ok');
+});
+
+test('analytics.js is a silent no-op on localhost unless debug is opted in', () => {
+  const script = readFileSync(new URL('../wisprflowisdead/assets/analytics.js', import.meta.url), 'utf8');
+  const window = {};
+  runInNewContext(script, {window, location:{hostname:'localhost', pathname:'/wisprflowisdead', origin:'http://localhost:3141'},
+    localStorage:{getItem:() => null}, navigator:{}, document:{}});
+  assert.equal(window.isdeadAnalytics.enabled, false);
+  assert.doesNotThrow(() => window.isdeadAnalytics.track('app_text_copied', {words:1}));
+  assert.equal(window.posthog, undefined);
+});
+
+test('before_send scrub keeps only origin + path on URL properties and drops the page title', () => {
+  const script = readFileSync(new URL('../wisprflowisdead/assets/analytics.js', import.meta.url), 'utf8');
+  const window = {};
+  runInNewContext(script, {window, location:{hostname:'localhost', pathname:'/wisprflowisdead', origin:'http://localhost'},
+    localStorage:{getItem:() => null}, navigator:{}, document:{}});
+  const e = window.__isdeadScrub({event:'$pageview', properties:{$current_url:'https://yourappisdead.com/wisprflowisdead/login?next=/x#y', $referrer:'$direct', title:'Log in', words:3},
+    $set:{$current_url:'https://a.test/p?q=1'}, $set_once:{$initial_referrer:'https://r.test/p#h', $session_entry_url:'https://r.test/e?x=1', $initial_pathname:'/p?q', $session_entry_pathname:'/s#h'}});
+  assert.equal(e.properties.$current_url, 'https://yourappisdead.com/wisprflowisdead/login');
+  assert.equal(e.properties.$referrer, '$direct');
+  assert.equal('title' in e.properties, false);
+  assert.equal(e.properties.words, 3);
+  assert.equal(e.$set.$current_url, 'https://a.test/p');
+  assert.equal(e.$set_once.$initial_referrer, 'https://r.test/p');
+  assert.equal(e.$set_once.$session_entry_url, 'https://r.test/e');
+  assert.equal(e.$set_once.$initial_pathname, '/p');
+  assert.equal(e.$set_once.$session_entry_pathname, '/s');
+});
+
+test('scrub also cleans person properties nested in properties.$set / $set_once, by key suffix', () => {
+  const script = readFileSync(new URL('../wisprflowisdead/assets/analytics.js', import.meta.url), 'utf8');
+  const window = {};
+  runInNewContext(script, {window, location:{hostname:'localhost', pathname:'/wisprflowisdead', origin:'http://localhost'},
+    localStorage:{getItem:() => null}, navigator:{}, document:{}});
+  const e = window.__isdeadScrub({event:'$pageview', properties:{$some_new_url:'https://a.test/x?y=1', words:2,
+    $set:{$current_url:'https://a.test/p?q=1', $pathname:'/p#h'}, $set_once:{$initial_current_url:'https://a.test/i?utm=1', $initial_referrer:'https://r.test/?s=2', $initial_os:'Mac OS X'}}});
+  assert.equal(e.properties.$some_new_url, 'https://a.test/x');
+  assert.equal(e.properties.words, 2);
+  assert.deepEqual(e.properties.$set, {$current_url:'https://a.test/p', $pathname:'/p'});
+  assert.deepEqual(e.properties.$set_once, {$initial_current_url:'https://a.test/i', $initial_referrer:'https://r.test/', $initial_os:'Mac OS X'});
+});
