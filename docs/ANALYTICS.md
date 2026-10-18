@@ -17,9 +17,10 @@ The native Mac app (`Sources/`) has no analytics and sends nothing.
 - Every other script calls `globalThis.isdeadAnalytics.{track, trackNow, identify, reset}`. They are no-ops when analytics is off.
 
 ## Privacy scrub
-A `before_send` hook (`scrub` in `analytics.js`) runs on every event: `$current_url`, `$referrer`, `$initial_current_url`,
-`$initial_referrer`, `$prev_pageview_pathname`, `$pathname`, `$initial_pathname`, `$session_entry_url` and `$session_entry_pathname` (also inside `$set` / `$set_once`) keep only origin + path,
-with no query string or hash, and the page `title` property is deleted.
+A `before_send` hook (`scrub` in `analytics.js`) runs on every event: every key ending in `url`, `referrer` or `pathname`
+(`$current_url`, `$referrer`, `$initial_current_url`, `$session_entry_url`, ...) keeps only origin + path, with no query
+string or hash. This covers `properties`, `$set`, `$set_once` and the person properties nested in `properties.$set` /
+`properties.$set_once`. The page `title` property is deleted.
 
 ## Super properties (registered on every event)
 | property | value | meaning |

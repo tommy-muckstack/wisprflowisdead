@@ -17,11 +17,13 @@
 
   // Privacy: URL properties keep only origin + path (query strings and hashes can carry user content) and the page title is
   // dropped. Runs as before_send on every event, including the $set / $set_once person properties.
-  const URL_PROPS = ['$current_url', '$referrer', '$initial_current_url', '$initial_referrer', '$prev_pageview_pathname', '$pathname', '$initial_pathname', '$session_entry_url', '$session_entry_pathname'];
+  // Any key ending in url / referrer / pathname ($current_url, $initial_referrer, $session_entry_url, ...).
+  const URL_KEY = /(url|referrer|pathname)$/i;
   const cleanUrl = v => (typeof v !== 'string' || !v || v === '$direct' ? v : v.split(/[?#]/)[0]);
   const scrub = e => {
     if (!e || !e.properties) return e;
-    for (const bag of [e.properties, e.$set, e.$set_once]) if (bag) for (const k of URL_PROPS) if (k in bag) bag[k] = cleanUrl(bag[k]);
+    // Person properties appear both at the top level and nested in properties ($set / $set_once).
+    for (const bag of [e.properties, e.$set, e.$set_once, e.properties.$set, e.properties.$set_once]) if (bag && typeof bag === 'object') for (const k of Object.keys(bag)) if (URL_KEY.test(k)) bag[k] = cleanUrl(bag[k]);
     delete e.properties.title;
     return e;
   };

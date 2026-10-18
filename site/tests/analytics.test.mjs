@@ -60,3 +60,16 @@ test('before_send scrub keeps only origin + path on URL properties and drops the
   assert.equal(e.$set_once.$initial_pathname, '/p');
   assert.equal(e.$set_once.$session_entry_pathname, '/s');
 });
+
+test('scrub also cleans person properties nested in properties.$set / $set_once, by key suffix', () => {
+  const script = readFileSync(new URL('../wisprflowisdead/assets/analytics.js', import.meta.url), 'utf8');
+  const window = {};
+  runInNewContext(script, {window, location:{hostname:'localhost', pathname:'/wisprflowisdead', origin:'http://localhost'},
+    localStorage:{getItem:() => null}, navigator:{}, document:{}});
+  const e = window.__isdeadScrub({event:'$pageview', properties:{$some_new_url:'https://a.test/x?y=1', words:2,
+    $set:{$current_url:'https://a.test/p?q=1', $pathname:'/p#h'}, $set_once:{$initial_current_url:'https://a.test/i?utm=1', $initial_referrer:'https://r.test/?s=2', $initial_os:'Mac OS X'}}});
+  assert.equal(e.properties.$some_new_url, 'https://a.test/x');
+  assert.equal(e.properties.words, 2);
+  assert.deepEqual(e.properties.$set, {$current_url:'https://a.test/p', $pathname:'/p'});
+  assert.deepEqual(e.properties.$set_once, {$initial_current_url:'https://a.test/i', $initial_referrer:'https://r.test/', $initial_os:'Mac OS X'});
+});
