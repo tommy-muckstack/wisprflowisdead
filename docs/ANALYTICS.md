@@ -10,7 +10,7 @@ The native Mac app (`Sources/`) has no analytics and sends nothing.
   It inlines the project's publishable token, so no environment variables are involved.
 - Requests go through this site's own origin: `site/vercel.json` rewrites `/wisprflowisdead/ingest/static/*` to
   `us-assets.i.posthog.com` (which serves posthog-js `array.js`) and `/wisprflowisdead/ingest/*` to `us.i.posthog.com`.
-- `$pageview` is captured once per page load. Autocapture and session replay are off.
+- `$pageview` is captured once per page load. Autocapture, session replay, heatmaps and performance capture are off.
 - Analytics is off when the browser sends Do Not Track, and on `localhost` / `127.0.0.1` unless
   `localStorage.isdead_ph_debug = "1"` (verbose logs, and automated browsers are accepted, for local verification only).
   posthog-js drops headless/automated browsers in production, so QA runs produce no captures.

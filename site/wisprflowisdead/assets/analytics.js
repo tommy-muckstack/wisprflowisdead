@@ -39,6 +39,8 @@
     capture_pageleave: true,
     autocapture: false,
     disable_session_recording: true,
+    capture_heatmaps: false,
+    capture_performance: false,
     persistence: 'localStorage+cookie',
     person_profiles: 'always',
     debug,
