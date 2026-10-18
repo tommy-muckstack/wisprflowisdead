@@ -1,0 +1,13 @@
+{
+  "measuredAt": "2026-10-18T14:05:14.767Z",
+  "commit": "b39e4685e9dab2a6c2a53565cc135389f0852040",
+  "toolsCommit": "3020a26628341fa65dbf5759b9b69cffc913d2aa",
+  "originalImagesReused": true,
+  "measured": true,
+  "passed": false,
+  "behaviorPassed": true,
+  "authExpected": true,
+  "authPassed": true,
+  "errors": [],
+  "note": "Live production is compared with the entire PR stack, not attributed to this single PR. Candidate layout preview is anonymous; separate auth reports exercise the deployed API with live/candidate frontend files. Login scoring now waits 26 seconds on both sites, so earlier loading-state scores are not directly comparable. Shared parity hides animation/cookie overlays; raw captures preserve initial and settled login states. Scores still require visual review."
+}
