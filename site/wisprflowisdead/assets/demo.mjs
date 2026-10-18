@@ -8,6 +8,8 @@ import {mountOnboarding} from './onboarding-ui.mjs';
 import {captureCommand, transformText, applyCommand} from './commands.mjs';
 
 const $ = id => document.getElementById(id);
+// analytics.js (PostHog). Kinds, counts and enums only, never dictated text.
+const track = (event, props) => globalThis.isdeadAnalytics?.track(event, props);
 const editor = $('editor');
 const tabs = [...document.querySelectorAll('[data-mode]')];
 const contexts = {
@@ -19,7 +21,7 @@ const contexts = {
 const drafts = new Map();
 const library = mountLibrary();
 const history = mountHistory({restore:restoreHistory});
-let mode = 'prompt', action = 'dictation', insertion = null, undoValue = null, applied = false, source = 'dictation';
+let mode = 'prompt', action = 'dictation', insertion = null, undoValue = null, applied = false, source = 'dictation', input = 'voice';
 const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const states = {idle:'Ready when you are.', requesting:'Allow microphone access in your browser to begin.', listening:'Listening…', transcribing:'Transcribing…', polishing:'Polishing…', result:'Ready to use. Review your text, then copy it.'};
 const machine = new Dictation({
@@ -98,13 +100,19 @@ function render(snapshot) {
       context:mode, source, language:machine.options.language, style:machine.options.style});
     editor.focus();
     editor.setSelectionRange(edited?.start ?? editor.value.length, edited?.end ?? editor.value.length);
+    const words = snapshot.result.trim().split(/\s+/).filter(Boolean).length;
+    if (command) track('app_command_applied', {input, context:mode});
+    else track('app_dictation_completed', {input, context:mode, words, language:machine.options.language, style:machine.options.style, cleanup:machine.options.cleanup});
   }
   counts();
 }
 function startRecording() {
   if (machine.busy || settings.microphone.busy) return false;
   if (!captureInsertion()) return false;
-  return machine.start(options());
+  input = 'voice';
+  const started = machine.start(options());
+  if (started) track('app_dictation_started', {context:mode, command:action === 'command'});
+  return started;
 }
 function record() {
   if (machine.state === 'listening') return machine.stop();
@@ -114,7 +122,7 @@ $('record').addEventListener('click', record);
 $('cancel').addEventListener('click', () => machine.cancel());
 $('practice-submit').addEventListener('click', () => {
   if (machine.busy || settings.microphone.busy) return;
-  setAction('dictation'); captureInsertion(true); void machine.practice($('practice-input').value, options());
+  setAction('dictation'); captureInsertion(true); input = 'typed'; void machine.practice($('practice-input').value, options());
 });
 function setAction(next) {
   if (machine.busy) return;
@@ -128,6 +136,7 @@ $('command-mode').addEventListener('click', () => setAction(action === 'command'
 $('command-form').addEventListener('submit', event => {
   event.preventDefault();
   if (action !== 'command' || machine.busy || settings.microphone.busy || !captureInsertion()) return;
+  input = 'typed';
   void machine.practice($('command-input').value, options());
 });
 editor.addEventListener('select', counts);
@@ -141,7 +150,10 @@ $('recover').addEventListener('click', () => {
   $('practice-input').focus();
 });
 $('copy').addEventListener('click', async () => {
-  try { await navigator.clipboard.writeText(editor.value); $('state').textContent = 'Copied to clipboard.'; }
+  try {
+    await navigator.clipboard.writeText(editor.value); $('state').textContent = 'Copied to clipboard.';
+    track('app_text_copied', {context:mode, words:editor.value.trim().split(/\s+/).filter(Boolean).length});
+  }
   catch { editor.focus(); editor.select(); $('state').textContent = 'Clipboard access is unavailable. Your text is selected; press Copy on your keyboard or device.'; }
 });
 $('undo').addEventListener('click', () => {
@@ -169,6 +181,7 @@ function restoreHistory(entry, text) {
   editor.value = text; undoValue = null; drafts.set(mode, text); counts();
   editor.focus(); editor.setSelectionRange(text.length, text.length);
   $('state').textContent = 'History restored to the editor. Review it before copying.';
+  track('app_history_restored', {context:mode});
 }
 tabs.forEach((tab,index) => {
   tab.addEventListener('click', () => selectMode(tab));

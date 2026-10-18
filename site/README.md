@@ -47,3 +47,7 @@ The demo supports personal spellings/corrections and plain-text snippets. Words 
 Entries stay in memory unless the user enables **Keep this library after closing the page**. Only the `wisprflowisdead.library.v1` localStorage key is used. It is browser-profile data, accessible to anyone using that profile, not account-scoped or synced. Turning saving off removes the saved copy and keeps the current page entries; Clear library removes both. Failed writes/deletes and stale cross-tab data show recoverable errors.
 
 Rich-text snippets, team/cloud sync, automatic word learning, bulk import and selection remain unimplemented.
+
+## Analytics
+
+PostHog (shared IsDead project 666931) via `wisprflowisdead/assets/analytics.js`, proxied through `/wisprflowisdead/ingest` (rewrites in `vercel.json`). Off on localhost and with Do Not Track. Super properties, events and privacy rules: [docs/ANALYTICS.md](../docs/ANALYTICS.md).
