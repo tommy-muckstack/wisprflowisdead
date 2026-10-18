@@ -15,6 +15,18 @@
   // Keys older IsDead taxonomies (and other apps on this shared origin) persisted in the yourappisdead.com cookie.
   const LEGACY_PROPS = ['app', 'app_family', 'base_path', 'suite_id', 'app_id', 'schema_version', 'source', 'site_id', 'environment', 'account_type'];
 
+  // Privacy: URL properties keep only origin + path (query strings and hashes can carry user content) and the page title is
+  // dropped. Runs as before_send on every event, including the $set / $set_once person properties.
+  const URL_PROPS = ['$current_url', '$referrer', '$initial_current_url', '$initial_referrer', '$prev_pageview_pathname', '$pathname'];
+  const cleanUrl = v => (typeof v !== 'string' || !v || v === '$direct' ? v : v.split(/[?#]/)[0]);
+  const scrub = e => {
+    if (!e || !e.properties) return e;
+    for (const bag of [e.properties, e.$set, e.$set_once]) if (bag) for (const k of URL_PROPS) if (k in bag) bag[k] = cleanUrl(bag[k]);
+    delete e.properties.title;
+    return e;
+  };
+  window.__isdeadScrub = scrub; // exposed for unit tests
+
   const local = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
   // Local runs stay silent unless explicitly opted in (scripts/ph-check style checks set isdead_ph_debug=1).
   let debug = false;
@@ -41,6 +53,7 @@
     disable_session_recording: true,
     capture_heatmaps: false,
     capture_performance: false,
+    before_send: scrub,
     persistence: 'localStorage+cookie',
     person_profiles: 'always',
     debug,

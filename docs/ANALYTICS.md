@@ -16,6 +16,11 @@ The native Mac app (`Sources/`) has no analytics and sends nothing.
   posthog-js drops headless/automated browsers in production, so QA runs produce no captures.
 - Every other script calls `globalThis.isdeadAnalytics.{track, trackNow, identify, reset}`. They are no-ops when analytics is off.
 
+## Privacy scrub
+A `before_send` hook (`scrub` in `analytics.js`) runs on every event: `$current_url`, `$referrer`, `$initial_current_url`,
+`$initial_referrer`, `$prev_pageview_pathname` and `$pathname` (also inside `$set` / `$set_once`) keep only origin + path,
+with no query string or hash, and the page `title` property is deleted.
+
 ## Super properties (registered on every event)
 | property | value | meaning |
 | --- | --- | --- |
