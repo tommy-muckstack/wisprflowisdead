@@ -17,7 +17,7 @@
 
   // Privacy: URL properties keep only origin + path (query strings and hashes can carry user content) and the page title is
   // dropped. Runs as before_send on every event, including the $set / $set_once person properties.
-  const URL_PROPS = ['$current_url', '$referrer', '$initial_current_url', '$initial_referrer', '$prev_pageview_pathname', '$pathname'];
+  const URL_PROPS = ['$current_url', '$referrer', '$initial_current_url', '$initial_referrer', '$prev_pageview_pathname', '$pathname', '$initial_pathname', '$session_entry_url', '$session_entry_pathname'];
   const cleanUrl = v => (typeof v !== 'string' || !v || v === '$direct' ? v : v.split(/[?#]/)[0]);
   const scrub = e => {
     if (!e || !e.properties) return e;

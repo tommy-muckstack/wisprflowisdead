@@ -49,11 +49,14 @@ test('before_send scrub keeps only origin + path on URL properties and drops the
   runInNewContext(script, {window, location:{hostname:'localhost', pathname:'/wisprflowisdead', origin:'http://localhost'},
     localStorage:{getItem:() => null}, navigator:{}, document:{}});
   const e = window.__isdeadScrub({event:'$pageview', properties:{$current_url:'https://yourappisdead.com/wisprflowisdead/login?next=/x#y', $referrer:'$direct', title:'Log in', words:3},
-    $set:{$current_url:'https://a.test/p?q=1'}, $set_once:{$initial_referrer:'https://r.test/p#h'}});
+    $set:{$current_url:'https://a.test/p?q=1'}, $set_once:{$initial_referrer:'https://r.test/p#h', $session_entry_url:'https://r.test/e?x=1', $initial_pathname:'/p?q', $session_entry_pathname:'/s#h'}});
   assert.equal(e.properties.$current_url, 'https://yourappisdead.com/wisprflowisdead/login');
   assert.equal(e.properties.$referrer, '$direct');
   assert.equal('title' in e.properties, false);
   assert.equal(e.properties.words, 3);
   assert.equal(e.$set.$current_url, 'https://a.test/p');
   assert.equal(e.$set_once.$initial_referrer, 'https://r.test/p');
+  assert.equal(e.$set_once.$session_entry_url, 'https://r.test/e');
+  assert.equal(e.$set_once.$initial_pathname, '/p');
+  assert.equal(e.$set_once.$session_entry_pathname, '/s');
 });
