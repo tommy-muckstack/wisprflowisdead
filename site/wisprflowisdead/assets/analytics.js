@@ -13,7 +13,7 @@
   const surface = () => (/^\/wisprflowisdead\/(demo|app)(\.html)?\/?$/.test(location.pathname) ? 'app' : 'landing');
   const superProps = () => ({product: APP, surface: surface(), platform: 'web'});
   // Keys older IsDead taxonomies (and other apps on this shared origin) persisted in the yourappisdead.com cookie.
-  const LEGACY_PROPS = ['app', 'app_family', 'base_path', 'suite_id', 'app_id', 'schema_version', 'source', 'site_id', 'environment', 'account_type'];
+  const LEGACY_PROPS = ['app', 'app_family', 'base_path', 'suite_id', 'app_id', 'schema_version', 'source', 'site_id', 'environment', 'ads_blocked', 'account_type'];
 
   // Privacy: URL properties keep only origin + path (query strings and hashes can carry user content) and the page title is
   // dropped. Runs as before_send on every event, including the $set / $set_once person properties.
@@ -54,7 +54,7 @@
     autocapture: false,
     disable_session_recording: true,
     capture_heatmaps: false,
-    capture_performance: false,
+    capture_performance: false, capture_dead_clicks: false, capture_exceptions: false, disable_surveys: true,
     before_send: scrub,
     persistence: 'localStorage+cookie',
     person_profiles: 'always',
@@ -77,7 +77,7 @@
     new Promise(resolve => setTimeout(resolve, 1500)),
   ]);
   // Signed-in users are identified by Firebase uid, shared across the IsDead family.
-  api.identify = uid => { if (typeof uid === 'string' && uid) ph().identify(uid, {account_type: 'firebase'}); };
+  api.identify = uid => { if (typeof uid === 'string' && uid) { ph().register({account_type: 'firebase'}); ph().identify(uid, {account_type: 'firebase'}); } };
   // reset() wipes super properties too, so put this app's back straight away.
   api.reset = () => { ph().reset(); ph().register(superProps()); };
 
